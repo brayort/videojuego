@@ -1,0 +1,176 @@
+DIRECTOR UAN: ECONOMIA - LISTA DE SPRITES Y ANIMACIONES
+Resolucion del juego: 720 x 1280 (vertical). Origen (0,0) arriba a la izquierda.
+Nombres de animacion = exactamente los de abajo (minusculas, sin acentos, guion bajo).
+El codigo ignora en silencio cualquier animacion que no exista (hasAnimationNamed), asi que
+puedes ir agregando arte poco a poco. Cada animacion puede ser de 1 solo frame.
+
+Estilo general sugerido: ilustracion plana tipo "carta" de Reigns, paleta sobria (verdes
+UAN, ocre, crema, azul petroleo), contornos limpios, rostros expresivos, tono maduro.
+
+==============================================================
+1. OBJETOS DE TEXTO (se crean en build.js; solo elegir fuente/color en GDevelop)
+==============================================================
+TxtPersonaje, TxtTexto, TxtOpcion, TxtStats, TxtTiempo   (ya existian)
+TxtInventario  (nuevo) - linea de "Expedientes: ..." abajo, tamano 16.
+TxtLogro       (nuevo) - aviso de logro 3 s, abajo de la barra de stats, tamano 22.
+TxtBoton       (nuevo) - etiqueta de botones y filas de minijuegos, tamano 22.
+TxtFragmento   (nuevo) - texto de cada fragmento de tesis (minijuego plagio), tamano 20.
+Fuente recomendada legible (ej. "Merriweather" o "Lora") con contorno oscuro (ya activado).
+
+==============================================================
+2. FONDO  (objeto "Fondo", 720x1280)
+==============================================================
+Un solo sprite con animaciones por estado. Se cambia con el estado del juego:
+  carta         - Oficina del director, tono calido, deja libre la zona central. 720x1280.
+  informe       - Escritorio con carpetas y grafica de barras desenfocada (informe semestral).
+  fin           - Oficina vacia, luz fria, caja de carton con pertenencias.
+  epilogo       - Pasillo de la facultad al atardecer, vista desde lejos.
+  mini_presupuesto - Mesa con calculadora, billetes de papel y hojas de calculo. Tono neutro.
+  mini_prensa   - Fondo de conferencia: microfonos, flashes, manta institucional borrosa.
+  mini_plagio   - Escritorio con lupa, torre de tesis y luz de lampara.
+  mini_consejo  - Sala de consejo con mesa larga y sillas vacias, vista cenital leve.
+(Todas 720x1280; evita elementos importantes en los 160 px superiores, ahi va la barra de stats,
+y en los 220 px inferiores, ahi va el texto del personaje.)
+Opcional futuro: variantes por semestre ("sem1".."sem6") NO se usan hoy; el codigo no las pide.
+
+==============================================================
+3. CARTA Y RETRATOS (por personaje)
+==============================================================
+Objeto "Carta": marco de la carta que se arrastra. Tamano recomendado 560 x 640.
+Objeto "Retrato": retrato del personaje sobre la carta. Tamano recomendado 480 x 480.
+AMBOS usan como nombre de animacion el id del personaje (el mismo id en las dos listas).
+Carta: el marco puede variar de color por tipo de personaje (o ser identico en todas).
+Retrato: busto frontal del personaje, expresion acorde al papel.
+
+Ids de animacion (37) y descripcion:
+  rector          Rector Aurelio Banuelos: hombre de ~60 anos, saco gris, lentes, sonrisa diplomatica.
+  lider_sindical  Leonel Ibarra: hombre robusto, chaleco sindical, brazos cruzados, ceno firme.
+  estudiante      Dafne Robles: joven con mochila y pañuelo verde en el cuello, mirada decidida.
+  consejera       Marisol Quintero: mujer de ~50, cabello recogido, carpeta bajo el brazo, seria.
+  tesorero        Evaristo Landeros: hombre delgado, camisa remangada, calculadora, nervioso.
+  profesora_sni   Dra. Itzel Carrillo: investigadora, bata/blazer, pila de libros, gafas.
+  reportero       Chuy Armenta: reportero con microfono y camara colgada, gorra, entusiasta.
+  empresario      Gonzalo Villasenor: traje caro, reloj grande, sonrisa de vendedor.
+  diputado        Ramiro Sandoval: politico con traje y corbata, mano estrechando, sonrisa ancha.
+  desconocido     Voz desconocida: silueta en sombras con capucha o telefono, sin rostro.
+  madre_familia   Dona Rosario Cervantes: senora con rebozo/bolsa, cansada pero firme.
+  coordinador     Tadeo Mejia: academico con camisa arrugada, tazon de cafe, ojeras.
+  secretaria      Lupita Navarro: mujer con gafas en cadena, telefono, post-its.
+  porro           El Chato: joven corpulento con sudadera, actitud intimidante.
+  abogada         Lic. Brenda Ochoa: mujer de traje sastre, portafolio, expresion calculadora.
+  emisario        Lic. Sebastian Ferreira, enlace del Gobernador: traje impecable, pin institucional, sonrisa fria.
+  candidato       Dr. Arnulfo Quezada: aspirante a rector, saco azul, gesto mesurado, ambicioso.
+  auditora        C.P. Nelida Avendano: contadora publica con tablet y carpetas selladas, severa.
+  periodista      Karla Montes: periodista de investigacion, libreta y grabadora, mirada incisiva.
+  proveedor       Cuauhtemoc Reyes: empresario discreto, portafolio negro, sonrisa amable pero sospechosa.
+  predecesor      Ex director (sucesor): figura madura con caja de cartón con objetos, perfil triste, tono sepia.
+  idealista       Mtro. Dario Esquivel (candidato, NUEVO): profesor joven, camisa arremangada, cuaderno y mochila, mirada entusiasta.
+  hijo_rector     Mtro. Emilio Banuelos (candidato, NUEVO): profesor de ~40, saco caro, sonrisa de heredero, aire de quien ya conoce la oficina.
+  decano          Consejero decano Fausto Melendez: anciano con barba corta, toga ligera, pluma.
+  investigador    Dr. Mauricio Tello (NUEVO): investigador SNI de ~45 anos, laptop y graficas impresas, ojeras de datos.
+  reclutado       Ivan Zuniga (NUEVO): estudiante de 7o semestre, sudadera, mirada baja y celular en la mano; tono contenido, sin dramatizar.
+  buscadora       Dona Chayo Medina (NUEVO): madre buscadora con gorra, pala pequena y foto en un cartel; dignidad firme.
+  wixarika        Nieves de la Cruz (NUEVO): estudiante wixarika con blusa bordada y mochila, mirada atenta y orgullosa.
+  nayeri          Tomas Valdez (NUEVO): estudiante nayeri con camisa de manta y libreta, expresion timida y determinada.
+  proteccion      Ing. Hilario Cortes (NUEVO): casco, chaleco de Proteccion Civil y tablet con mapa de huracan.
+  diversidad      Andres Mora (NUEVO): joven del colectivo Diversidad UAN con pin arcoiris y carpeta.
+  hotelera        Marcela Beltran (NUEVO): duena de un hotel boutique en Sayulita, lino claro, lentes de sol en la cabeza.
+  egresado        Jorge Ramos (NUEVO): egresado en videollamada desde Tijuana, camisa de maquila, cansado pero cercano.
+  psicologa       Psic. Citlali Vera (NUEVO): psicologa de orientacion, cardigan, libreta, voz calmada.
+  planeacion      Lic. Gerardo Pineda (NUEVO): funcionario de Planeacion estatal, traje gris, carpeta de cifras impecable.
+  fiscal          Fiscal Ana Lilia Rosales (NUEVO): fiscal con credencial y expediente, expresion cansada y profesional.
+  alumna          Regina Palomino (NUEVO): estudiante de 3er semestre, celular en la mano y mirada firme.
+(Si falta una animacion, el retrato simplemente no cambia; no hay error.)
+
+==============================================================
+4. ICONOS DE STATS  (objeto "IconoStat", 48 x 48; se mueve a (W*(0.125+i*0.25)-24, 40))
+==============================================================
+Animaciones base (una por stat):
+  academico      Birrete o libro abierto.
+  estudiantes    Grupo de tres siluetas / mochila.
+  finanzas       Moneda o bolsa de dinero.
+  politica       Escudo / balanza o mazo.
+Animaciones opcionales (nuevas, se activan 0.5 s cuando el stat cambia y luego vuelve a la base):
+  subir          Flecha verde hacia arriba (puede combinar icono + flecha).
+  bajar          Flecha roja hacia abajo.
+Nota: como "subir"/"bajar" son genericas, durante 0.5 s cualquier icono que cambie mostrara
+esa flecha. Si quieres que se vea el stat, haz la flecha acompanada de un icono neutral.
+La opacidad del icono (80..255) refleja el valor del stat.
+
+==============================================================
+5. EFECTOS
+==============================================================
+Flash  (nuevo, 720 x 1280)  Sprite a pantalla completa para destello cuando un stat cambia >= 15.
+  Animaciones (opcionales): bueno (blanco calido/verdoso, un solo color plano),
+  malo (rojo oscuro plano). Basta una imagen blanca/transparente; el codigo controla la
+  opacidad (0 a ~150) y la hace decaer en ~0.4 s. Se crea en capa superior (Z 1000).
+  La sacudida de camara se hace via capa base, no requiere arte.
+
+==============================================================
+6. MINIJUEGOS
+==============================================================
+BotonMini  (nuevo, el codigo lo escala con setWidth/setHeight; arte base 300 x 90, 9-slice si puedes)
+  Boton generico usado en TODOS los minijuegos (+, -, Confirmar, respuestas de prensa y consejo).
+  Animaciones (ninguna es obligatoria; el codigo hoy no cambia la animacion del boton):
+    normal   - tablilla/papel crema con borde verde UAN.
+    activo   - version resaltada (mas clara) para boton pulsado o seleccionado.
+  Tamanos reales usados: 90x80 (+/-), 300x90 (Confirmar), 640x130 (respuestas).
+
+Fragmento  (nuevo, minijuego plagio; arte base 620 x 96)
+  Tira de papel / hoja con texto, sobre la que se dibuja TxtFragmento.
+  Animaciones (ninguna obligatoria): al marcar el fragmento el codigo llama:
+    bien   - se marco un plagiado acertadamente (borde verde, sello "COPIA").
+    mal    - falsa acusacion de un original (borde rojo, tachon).
+  Animacion por defecto (sin nombre / la primera) = hoja neutra con margenes y renglones.
+
+Fondos de minijuego: ver seccion 2 (mini_presupuesto, mini_prensa, mini_plagio, mini_consejo).
+Para cada minijuego, el resto es texto (TxtPersonaje, TxtTexto, TxtBoton, TxtTiempo, TxtOpcion).
+
+==============================================================
+7. RESUMEN RAPIDO DE OBJETOS SPRITE
+==============================================================
+Fondo      720x1280   anim: carta, informe, fin, epilogo, destino, mini_presupuesto, mini_prensa, mini_plagio, mini_consejo
+Carta      560x640    anim: (37 ids de personaje, ver seccion 3)
+Retrato    480x480    anim: (37 ids de personaje, ver seccion 3)
+IconoStat  48x48      anim: academico, estudiantes, finanzas, politica, subir, bajar
+Flash      720x1280   anim: bueno, malo (opcionales)
+BotonMini  300x90     anim: normal, activo (opcionales)
+Fragmento  620x96     anim: (default), bien, mal
+
+Logros (sin sprites): se muestran con el texto de TxtLogro (15 logros). No requieren arte.
+Expedientes/inventario (sin sprites): son texto en TxtInventario.
+
+==============================================================
+8. ACTUALIZACION FASE A (escenas, sucesion, elecciones)
+==============================================================
+NUEVAS ANIMACIONES DEL OBJETO "Fondo" (todas opcionales; si falta, no pasa nada):
+  menu         Fondo de la escena Menu (fachada de la facultad, titulo se pone con texto).
+  logros       Fondo de la escena Logros (vitrina de trofeos / pared de reconocimientos).
+  sucesion     Pantalla de sucesion: sala del Consejo con sillon del director visto de espaldas.
+  eleccion     Dia de la eleccion: urnas, mamparas, fila de votantes.
+  pausa        (reservada; la pausa hoy conserva el fondo del estado previo y oculta los textos)
+  Las existentes (carta, informe, fin, epilogo, mini_*) se mantienen.
+
+NUEVOS OBJETOS DE TEXTO (se crean en build.js; solo elegir fuente/color):
+  TxtTitulo    (Menu y Logros) titulo grande, tamano 44-48.
+  TxtEstados   (Juego) lista de estados temporales activos, tamano 18, bajo la carta.
+  TxtAfinidad  (Juego) afinidad con el personaje de la carta (corazones/cruces), tamano 18.
+  TxtEleccion  (Juego) "Eleccion en N semanas / CAMPANA", tamano 16, abajo del todo.
+
+PERSONAJES NUEVOS (Carta y Retrato): idealista, hijo_rector (arriba, seccion 3).
+Los 6 candidatos a director usan los ids: candidato, lider_sindical, consejera, decano, idealista, hijo_rector
+(el mismo id que su retrato; cuando uno se vuelve director su carta deja de salir).
+
+ESCENAS: Menu (Fondo, BotonMini, TxtTitulo, TxtTexto, TxtLogro, TxtBoton), Juego (todo lo anterior),
+Logros (Fondo, BotonMini, TxtTitulo, TxtTexto, TxtBoton). BotonMini y Fondo se reutilizan con el mismo arte.
+Resumen de nuevos sprites a dibujar: 2 retratos/cartas (idealista, hijo_rector) + 4 animaciones de Fondo.
+
+==============================================================
+9. ACTUALIZACION FASE B (meta-estado UAN/Nayarit, caidas y destinos)
+==============================================================
+Nuevos personajes (13, ver seccion 3): investigador, reclutado, buscadora, wixarika, nayeri, proteccion, diversidad,
+hotelera, egresado, psicologa, planeacion, fiscal, alumna.
+Nueva animacion de Fondo (opcional): destino   Pantalla final de la historia de la UAN y de Nayarit (panoramica de Tepic al atardecer
+con el campus al centro; puede variar con el destino, pero una sola imagen basta).
+La caida de cada director ("fin de la gestion") sigue usando fondo "fin", sucesion y epilogo; solo el DESTINO es un final del juego.
+Resumen: 13 retratos/cartas nuevos + 1 animacion de Fondo ("destino").

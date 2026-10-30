@@ -1,0 +1,6 @@
+﻿game.backup-*.json
+*.backup*.json
+assets/preview/
+node_modules/
+__pycache__/
+*.pyc

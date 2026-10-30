@@ -1,0 +1,75 @@
+REPORTE DE BALANCE — 5000 partidas por bot (motor real, semilla fija). Cap por partida: 400 semanas.
+Cartas en el mazo: 362. Candidatos: 6.
+
+=== Bot aleatorio ===
+Duracion (semanas): media 30.2, mediana 27, max 124, llegan al cap: 0
+Causas de fin: est0 19.7%, pol0 15.2%, fin0 14.6%, acad100 13.3%, est100 8.2%, pol100 7.5%, derrota 6.4%, acad0 6.3%, fin100 5.3%, retiro 1.6%, desaparecido 0.7%, diputado 0.4%, burnout 0.4%, exilio 0.2%, homenaje 0.0%
+Stat que mas mata: est (27.9% de las partidas). Por stat: acad 983, est 1394, fin 994, pol 1136
+Tipos de fin: stat 4507, raro 93, derrota 322, retiro 78
+Elecciones: 972, ganadas 650 (66.9%). Partidas por reelecciones logradas [0,1,2,3+]: 4362,626,12,0
+Sucesores: idealista 1157, lider_sindical 606, decano 1005, candidato 1024, hijo_rector 313, consejera 895. Brutus: 263
+
+=== Bot codicioso ===
+Duracion (semanas): media 23.0, mediana 22, max 77, llegan al cap: 0
+Causas de fin: acad100 30.0%, est100 28.9%, fin100 21.4%, pol0 7.9%, pol100 6.1%, burnout 2.1%, fin0 1.6%, est0 0.7%, exilio 0.5%, derrota 0.4%, diputado 0.2%, acad0 0.1%
+Stat que mas mata: acad (30.0% de las partidas). Por stat: acad 1501, est 1484, fin 1153, pol 701
+Tipos de fin: stat 4839, raro 142, derrota 19
+Elecciones: 228, ganadas 209 (91.7%). Partidas por reelecciones logradas [0,1,2,3+]: 4791,209,0,0
+Sucesores: consejera 477, lider_sindical 1695, hijo_rector 378, idealista 627, decano 1355, candidato 468. Brutus: 463
+
+=== Bot equilibrado ===
+Duracion (semanas): media 83.5, mediana 86, max 189, llegan al cap: 0
+Causas de fin: derrota 56.0%, limite 19.6%, fin0 5.8%, desaparecido 3.5%, burnout 3.0%, est0 2.9%, exilio 2.6%, acad100 2.1%, pol0 2.0%, acad0 1.2%, homenaje 0.4%, diputado 0.3%, pol100 0.2%, est100 0.1%, rector 0.1%, fin100 0.1%
+Stat que mas mata: fin (5.9% de las partidas). Por stat: acad 164, est 153, fin 293, pol 113
+Tipos de fin: limite 980, derrota 2800, stat 723, raro 497
+Elecciones: 7592, ganadas 4792 (63.1%). Partidas por reelecciones logradas [0,1,2,3+]: 1788,1657,1530,25
+Sucesores: decano 1235, candidato 674, idealista 725, lider_sindical 690, consejera 915, hijo_rector 761. Brutus: 760
+
+=== Bot aleatorio (dinastia continua: el estado heredado se conserva entre partidas) ===
+Duracion (semanas): media 33.9, mediana 31, max 110, llegan al cap: 0
+Causas de fin: acad100 26.9%, pol100 17.1%, est100 10.9%, est0 10.5%, fin0 10.4%, pol0 7.8%, fin100 6.9%, derrota 4.3%, acad0 1.3%, retiro 1.3%, burnout 0.8%, diputado 0.7%, rector 0.6%, desaparecido 0.5%
+Stat que mas mata: acad (28.2% de las partidas). Por stat: acad 282, est 214, fin 173, pol 249
+Tipos de fin: stat 918, derrota 43, raro 26, retiro 13
+Elecciones: 253, ganadas 210 (83.0%). Partidas por reelecciones logradas [0,1,2,3+]: 800,190,10,0
+Sucesores: idealista 139, candidato 191, decano 277, hijo_rector 94, lider_sindical 150, consejera 149. Brutus: 35
+
+=== Bot codicioso (dinastia continua: el estado heredado se conserva entre partidas) ===
+Duracion (semanas): media 21.7, mediana 20, max 54, llegan al cap: 0
+Causas de fin: acad100 64.7%, est100 16.4%, fin100 8.1%, pol100 7.1%, fin0 1.8%, pol0 0.8%, burnout 0.7%, diputado 0.3%, est0 0.1%
+Stat que mas mata: acad (64.7% de las partidas). Por stat: acad 647, est 165, fin 99, pol 79
+Tipos de fin: stat 990, raro 10
+Elecciones: 22, ganadas 22 (100.0%). Partidas por reelecciones logradas [0,1,2,3+]: 978,22,0,0
+Sucesores: decano 378, lider_sindical 196, idealista 64, candidato 268, hijo_rector 48, consejera 46. Brutus: 65
+
+=== Bot equilibrado (dinastia continua: el estado heredado se conserva entre partidas) ===
+Duracion (semanas): media 98.4, mediana 97, max 339, llegan al cap: 0
+Causas de fin: limite 33.6%, derrota 19.2%, homenaje 14.7%, acad100 8.9%, rector 4.7%, desaparecido 3.4%, est0 2.9%, fin0 2.8%, pol100 1.6%, pol0 1.5%, burnout 1.3%, acad0 1.2%, exilio 1.2%, fin100 1.0%, est100 0.8%, pre100 0.8%, diputado 0.2%, des100 0.2%
+Stat que mas mata: acad (10.1% de las partidas). Por stat: acad 101, est 37, fin 38, pol 31
+Tipos de fin: derrota 192, raro 255, stat 207, limite 336, uan 10
+Elecciones: 1648, ganadas 1456 (88.3%). Partidas por reelecciones logradas [0,1,2,3+]: 126,323,531,20
+Sucesores: consejera 105, hijo_rector 173, candidato 133, idealista 146, decano 306, lider_sindical 137. Brutus: 73
+
+=== OBJETIVOS (bots de la partida simple) ===
+Aleatorio: media 30.2 sem (objetivo 30-45).
+Equilibrado: llega a la 1.a eleccion 95.1% (objetivo >60%); muertes por stat 14.5% (objetivo >25%); elecciones ganadas 63.1% (objetivo 45-65%).
+Muerte extrema mas frecuente, como % de las muertes por stat: aleatorio 21.8% (est0), codicioso 31.0% (acad100), equilibrado 40.1% (fin0).
+Reparto agrupado de los 3 bots por extremo: acad0 3.8%, acad100 22.5%, est0 11.6%, est100 18.5%, fin0 10.9%, fin100 13.3%, pol0 12.5%, pol100 6.9%.
+Brutus (% de sucesiones): aleatorio 5.3%, codicioso 9.3%, equilibrado 15.2%.
+mx_est_obra: 2178 apariciones en 15000 partidas (0.15 por partida).
+
+=== DESTINOS DE LA UAN Y NAYARIT (dinastia continua: historias terminadas) ===
+aleatorio: 125 historias, directores por historia: media 8.0, min 8, max 8 | medidores finales medios [solv,paz,aut,pre,des,seg]: 46/37/35/55/54/41 | destinos: gris 47.2%, intervencion 24.0%, quiebra 9.6%, violencia 7.2%, motor 5.6%, huelga 5.6%, torre 0.8%
+codicioso: 125 historias, directores por historia: media 8.0, min 8, max 8 | medidores finales medios [solv,paz,aut,pre,des,seg]: 50/31/39/57/56/37 | destinos: gris 32.0%, motor 22.4%, violencia 20.8%, huelga 16.8%, intervencion 6.4%, quiebra 1.6%
+equilibrado: 125 historias, directores por historia: media 8.0, min 8, max 8 | medidores finales medios [solv,paz,aut,pre,des,seg]: 55/64/61/81/82/65 | destinos: renacimiento 60.8%, motor 33.6%, gris 4.8%, violencia 0.8%
+
+=== Cartas NUNCA vistas (0) ===
+(ninguna)
+
+Cartas mas frecuentes: cal_arranque 60559, cal_vacaciones 49719, cal_federal 21821, cal_aniversario 7564, n_camp_diputado 6192, n_int_candidato 5416, n_int_hijo2 5308, n_int_idealista2 5300, n_int_decano2 5275, mx_int_consejera_traicion 5269
+Cartas menos frecuentes (vistas): mx_af_lider_enemigo 72, mx_af_rector_enemigo 69, u_cambio_rector 55, ds6 50, u_rescate_federal 31, ds10 28, u_exodo_maestros 18, ds9 14, u_violencia 14, u_nay_expulsor 1
+
+=== Cartas con opcion dominante (0) ===
+(ninguna)
+
+Cartas donde AMBAS opciones suben mucho (>6 neto): (ninguna)
+Cartas donde AMBAS opciones bajan mucho (<-6 neto): (ninguna)
