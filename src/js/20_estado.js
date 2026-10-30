@@ -162,15 +162,16 @@ if (!S.mod_estado) {
   S.aplicarE = function (e) {
     e = e || [0, 0, 0, 0];
     if (S.modOn) e = S.modE(e);
-    let grande = false, signo = 0;
+    let grande = false, signo = 0, subio = false, bajo = false;
     for (let i = 0; i < 4; i++) {
       const viejo = S.v[i];
       S.v[i] = clamp(viejo + (e[i] || 0), 0, 100);
       const d = S.v[i] - viejo;
-      if (d !== 0 && S.iconos) { anim(S.iconos[i], d > 0 ? "subir" : "bajar"); S.iconT[i] = 0.5; }
+      if (d !== 0 && S.iconos) { anim(S.iconos[i], d > 0 ? "subir" : "bajar"); S.iconT[i] = 0.5; if (d > 0) subio = true; else bajo = true; }
       if (Math.abs(d) >= 15) { grande = true; signo += d; }
     }
     if (grande && S.o) { S.flash = 1; S.shake = 0.4; anim(S.o.flash, signo >= 0 ? "bueno" : "malo"); }
+    if (S.iconos) { if (subio) U.ev("sube"); if (bajo) U.ev("baja"); if (grande) U.ev("grande"); }
   };
   // Efectos "extra" de una opcion o de un resultado de minijuego/azar.
   // pre = "" (opcion normal) | "bien_" | "mal_" (minijuego).
@@ -340,6 +341,7 @@ if (!S.mod_estado) {
     }
     S.elec = { tipo: "voto", res: S.calcularVotos(), t: 0, fase: 0 };
     S.elec.ok = S.elec.res.ganador.id === "yo";
+    U.ev("eleccion");
   };
   // Conteo animado: cada sector se "abre" en 1.2 s.
   S.updateEleccion = function (dt) {
@@ -348,10 +350,12 @@ if (!S.mod_estado) {
     E.t += dt;
     const r = E.res, n = r.sectores.length;
     const idx = Math.min(n, Math.floor(E.t / 1.2));
+    if (idx !== E.fase && idx > 0 && idx < n) U.ev("voto");
     E.fase = idx;
     // Progreso de cada sector (0..1) para las barras animadas de 60_render.
     E.pp = r.sectores.map((s, i) => (i > idx ? 0 : i < idx ? 1 : Math.min(1, (E.t - i * 1.2) / 1.2)));
     E.listo = idx >= n;
+    if (E.listo && !E.finFx) { E.finFx = true; U.ev(E.ok ? "eleccion_gana" : "eleccion_pierde"); }
   };
   S.cerrarEleccion = function () {
     const E = S.elec;
@@ -382,6 +386,7 @@ if (!S.mod_estado) {
   S.terminar = function (tipo, dato) {
     S.setEstado("fin");
     S.senal.fin++;
+    U.ev("caida");
     let texto, causaKey, titulo, forzado = null;
     if (tipo === "raro") {
       const R = S.data.finales_raros[dato] || {};
@@ -464,6 +469,7 @@ if (!S.mod_estado) {
   S.sucesionPantalla = function () {
     const s = S.suc;
     S.setEstado("sucesion");
+    U.ev("sucesion");
     const causa = S.causaTxt(s ? s.causaKey : S.finKey);
     setTxt(S.o.pj, "SUCESIÓN\nTu gestión termina por " + causa + ". " + (s && s.brutus ? "¡Conspiró contra ti: Brutus! " : "") + (S.destinoPend ? "Es la última gestión de esta historia." : ""));
     setTxt(S.o.opcion, "");
@@ -484,12 +490,26 @@ if (!S.mod_estado) {
     if (!d) return S.nuevaPartida();
     S.setEstado("destino");
     S.senal.fin++;
+    U.ev("destino");
     const dr = S.dyn.hist.map((h, i) => (i + 1) + ". " + h.nombre + ": " + h.causa + " (" + h.sem + " sem)").join("\n");
     setTxt(S.o.pj, d.titulo + "\nDestino de la UAN y de Nayarit · 2040");
     setTxt(S.o.texto, S.fmt(d.texto) + "\n\n" + S.fmt(d.detalle || "") + "\n\nCrónica de la dinastía:\n" + dr);
     setTxt(S.o.opcion, "");
   };
+  // Ranking (Leaderboards de GDevelop): envia una sola vez por historia las dos puntuaciones (nunca interrumpe el juego).
+  S.rankEnviar = function () {
+    try {
+      const d = S.destinoPend;
+      if (!d) return;
+      const clave = "h" + U.cronica().length;
+      if (S.rankClave === clave || U.aj.enviada === clave) return;
+      S.rankClave = clave;
+      const sem = S.dyn.hist.reduce((a, h) => a + (h.sem || 0), 0), calidad = Math.round(S.metroVal("prom") * 10);
+      if (U.rank.enviarHistoria(sem, calidad, d.titulo)) { U.aj.enviada = clave; U.guardarAj(); }
+    } catch (e) { }
+  };
   S.destinoCerrar = function () {
+    S.rankEnviar();
     S.cerrarHistoria();
     U.cambiarEscena("Menu");
   };

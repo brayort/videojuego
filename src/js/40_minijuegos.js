@@ -71,6 +71,7 @@ if (!S.mod_mini) {
     const m = S.m, p = k >= 0 ? m.ans[k][1] : 0;
     m.pts += p; m.fb = 1.1;
     m.res = p === 2 ? "ok" : p === 1 ? "med" : "mal";
+    U.ev(p === 2 ? "acierto" : p === 1 ? "boton" : "error");
     if (k >= 0) {
       m.btn[k].fijo = RES_BTN[m.res];
       if (p < 2) { const b = m.ans.findIndex(a => a[1] === 2); if (b >= 0) m.btn[b].fijo = "ok"; }
@@ -90,6 +91,7 @@ if (!S.mod_mini) {
   };
   S.consejoResponder = function (j) {
     const m = S.m, c = m.cs[m.i], k = m.opts[j];
+    U.ev(k === c.ok ? "acierto" : k === c.mal ? "error" : "boton");
     if (k === c.ok) { m.favor++; m.res = "ok"; setTxt(S.o.opcion, c.n + " votará a favor."); }
     else if (k === c.mal) { m.res = "mal"; setTxt(S.o.opcion, c.n + " se ofendió: votará en contra."); }
     else { m.res = "med"; setTxt(S.o.opcion, c.n + " se abstiene."); }
@@ -100,6 +102,7 @@ if (!S.mod_mini) {
   S.finMini = function (ok, resumen) {
     const m = S.m;
     m.fase = "res"; m.ok = ok;
+    U.ev(ok ? "acierto" : "error");
     S.limpiarUI();
     m.btn = []; m.filas = [];
     S.espera = 0.5; S.esperaSoltar = true;
@@ -185,6 +188,7 @@ if (!S.mod_mini) {
       const marcar = f => {
         if (f.res) return;
         if (f.plag) { f.res = "bien"; m.hits++; } else { f.res = "mal"; m.falsos++; }
+        U.ev(f.plag ? "acierto" : "error");
         anim(f.s, f.res);
       };
       if (click) {

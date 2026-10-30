@@ -118,6 +118,8 @@ function forzarCarta(S, c) { S.c = c; S.mostrarCarta(); }
   S.dx = -140; S.elegir(S.c.izq); frames(5); foto("juego_vuelo");
   frames(6); foto("juego_voltear");
   frames(40);
+  // carta con lluvia (fx "lluvia": cartas del huracan) y particulas
+  forzarCarta(S, S.porId.hu1); frames(90); foto("juego_lluvia");
   // destello por cambio grande + aviso de logro
   S.aplicarE([20, -20, 0, 0]); U_cola(S); frames(4); foto("juego_destello");
   frames(60);
@@ -125,6 +127,9 @@ function forzarCarta(S, c) { S.c = c; S.mostrarCarta(); }
   S.pausar(); frames(6); foto("pausa");
   tocar(360, 570, true); frames(2); foto("pausa_boton_presionado");
   tocar(360, 570, false); frames(2); if (S.estado === "pausa") S.reanudar(); frames(3);
+  // pausa > Opciones
+  S.pausar(); frames(4); tocar(360, 700, true); frames(2); tocar(360, 700, false); frames(4); foto("pausa_opciones");
+  ctx.keys = { 27: true }; frames(2); ctx.keys = {}; frames(3); if (S.estado === "pausa") S.reanudar(); frames(3);
 
   // informe semestral
   S.semana = 16; S.bitacora = ["Sem 3: Recortar becas a cambio de liquidez", "Sem 7: Pactar con el sindicato", "Sem 11: Auditoría sorpresa a Finanzas", "Sem 12: Entregar el edificio B", "Sem 15: Votar a favor de la reforma"];
@@ -136,10 +141,14 @@ function forzarCarta(S, c) { S.c = c; S.mostrarCarta(); }
   // destino 2040 (paginado)
   S.destinoPend = S.data.destinos[0]; S.dyn.hist = []; for (let i = 0; i < 8; i++) S.dyn.hist.push({ n: i + 1, nombre: ["Dr. Rubén Alcántar", "Mtra. Georgina Peñuelas", "Dr. Ignacio Cárdenas", "Dra. Teresa Zepeda"][i % 4], causa: ["la quiebra financiera", "el colapso académico", "perder la elección de director"][i % 3], sem: 30 + i * 7, k: "x" });
   S.destinoPantalla(); frames(60); foto("destino_p1"); const P = S.pag; if (P && P.n > 1) { P.i = 1; frames(4); foto("destino_p2"); P.i = P.n - 1; frames(4); foto("destino_pfin"); }
+  // destino > boton Ranking (sin ids configurados: mensaje explicativo)
+  tocar(100, 1215, true); frames(2); tocar(100, 1215, false); frames(4); foto("destino_ranking");
+  ctx.keys = { 27: true }; frames(2); ctx.keys = {}; frames(3);
   // eleccion (a medias y terminada)
   S.reiniciarEstado(); S.siguiente(); S.semana = S.eleccionEn; S.eleccionPantalla(); frames(2);
   for (let i = 0; i < 40; i++) { S.updateEleccion(0.033); frames(1); } foto("eleccion_parcial");
-  S.elec.t = 99; frames(4); S.updateEleccion(0.033); frames(4); foto("eleccion_fin");
+  S.elec.ok = true; S.elec.t = 99; frames(4); S.updateEleccion(0.033); frames(4); foto("eleccion_fin");
+  frames(14); foto("eleccion_confeti");
   // minijuegos
   S.reiniciarEstado(); S.siguiente();
   S.iniciarMini("presupuesto"); frames(40); S.m.asig = [30, 20, 25, 10]; S.m.sel = 1; frames(4); foto("mini_presupuesto");
@@ -160,7 +169,10 @@ function forzarCarta(S, c) { S.c = c; S.mostrarCarta(); }
   const lista = []; for (let i = 0; i < 6; i++) lista.push({ id: "x", titulo: ["Sobrevivió", "Renacimiento", "Quiebra y rescate"][i % 3], directores: 8, anio: 2038 + i, lista: ["Dr. Rubén Alcántar (la quiebra financiera)", "Mtra. Georgina Peñuelas (el colapso académico)", "Dr. Ignacio Cárdenas (perder la elección de director)", "Dra. Teresa Zepeda (un retiro digno)"] });
   store.directorUAN_cronica = JSON.stringify(lista);
   S.abrirCronica(); frames(3); foto("menu_cronica"); S.cierraSub();
-  S.abrirCreditos(); frames(3); foto("menu_creditos");
+  S.abrirCreditos(); frames(3); foto("menu_creditos"); S.cierraSub();
+  S.saliendo = false; ctx.cambio = null;   // los clics de las pruebas anteriores pudieron activar un boton
+  S.activar(6); frames(4); foto("menu_opciones"); ctx.keys = { 27: true }; frames(2); ctx.keys = {}; frames(3);
+  S.activar(3); frames(4); foto("menu_ranking"); ctx.keys = { 27: true }; frames(2); ctx.keys = {}; frames(3);
   // ---- Logros ----
   store.directorUAN_logros = JSON.stringify({ semestre1: true, tres_semestres: true, integro: true, coleccionista: true, final_secreto: true, brutus: true });
   S = iniciar("Logros"); frames(40); foto("logros_p1"); S.pag = 4; S.pagina(); frames(3); foto("logros_p5");

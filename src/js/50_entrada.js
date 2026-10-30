@@ -21,9 +21,10 @@ if (!S.mod_entrada) {
       "Director #" + S.dyn.n + " · " + S.fecha().txt + " · Semana " + S.semana + "\nLa partida se autoguarda en cada carta.");
     S.pbtn = [
       U.mkBtn(A, P.btn.x, P.btn.y, P.btn.w, P.btn.h, "Continuar", 910),
-      U.mkBtn(A, P.btn.x, P.btn.y + P.btn.pitch, P.btn.w, P.btn.h, "Guardar y salir al menú", 910),
+      U.mkBtn(A, P.btn.x, P.btn.y + P.btn.pitch, P.btn.w, P.btn.h, "Opciones", 910),
+      U.mkBtn(A, P.btn.x, P.btn.y + 2 * P.btn.pitch, P.btn.w, P.btn.h, "Guardar y salir al menú", 910),
     ];
-    setTxt(U.mkTxt(A, "TxtTexto", 40, P.btn.y + 2 * P.btn.pitch + 10, 22, W - 80, { al: "center", col: "crema_osc", z: 910 }), "Esc, Enter o 1 para continuar · 2 para salir");
+    setTxt(U.mkTxt(A, "TxtTexto", 40, P.btn.y + 3 * P.btn.pitch + 10, 22, W - 80, { al: "center", col: "crema_osc", z: 910 }), "Esc, Enter o 1 para continuar · 2 opciones · 3 para salir");
   };
   S.reanudar = function () {
     U.limpiar(S.pui); S.pbtn = [];
@@ -32,13 +33,16 @@ if (!S.mod_entrada) {
   };
   S.updatePausa = function (I) {
     let k = -1;
-    if (I.kp[38]) { S.psel = 0; S.pkb = true; }
-    if (I.kp[40]) { S.psel = 1; S.pkb = true; }
+    if (I.kp[38]) { S.psel = Math.max(0, S.psel - 1); S.pkb = true; }
+    if (I.kp[40]) { S.psel = Math.min(2, S.psel + 1); S.pkb = true; }
     if (S.espera <= 0 && (I.kp[13] || I.kp[32])) k = S.psel;
-    if (I.kp[49]) k = 0; else if (I.kp[50]) k = 1;
+    if (I.kp[49]) k = 0; else if (I.kp[50]) k = 1; else if (I.kp[51]) k = 2;
     S.pbtn.forEach((b, j) => { if (U.btnTick(b, I, S.pkb && j === S.psel) && S.espera <= 0) k = j; });
     if (k === 0) S.reanudar();
-    else if (k === 1) { U.limpiar(S.pui); U.cambiarEscena("Menu"); }
+    else if (k === 1) {
+      // Opciones (volumen, silencio, vibracion, nombre): ventana modal sobre la pausa.
+      try { U.ocultar(S.pui, true); S.modal = U.modalOpciones(920); S.modal.pausa = true; } catch (e) { S.modal = null; U.ocultar(S.pui, false); }
+    } else if (k === 2) { U.limpiar(S.pui); U.cambiarEscena("Menu"); }
   };
 
   // ---- carta: arrastre (mouse/tactil) y teclas ----
@@ -48,7 +52,9 @@ if (!S.mod_entrada) {
     if (pulsado) {
       if (!S.drag) { S.drag = true; S.x0 = mx; S.y0 = my; }
       S.dx = mx - S.x0; S.dy = my - S.y0;
+      if (!S.sndArr && (Math.abs(S.dx) > 40 || Math.abs(S.dy) > 40)) { S.sndArr = true; U.ev("arrastre"); }
     } else if (S.drag) {
+      S.sndArr = false;
       S.drag = false;
       const dx = S.dx, dy = S.dy; S.dx = 0; S.dy = 0;
       if (S.arribaDisp() && -dy > UMBRAL && -dy > Math.abs(dx)) S.elegir(S.c.arriba);
@@ -69,8 +75,18 @@ if (!S.mod_entrada) {
 
   S.entrada = function () {
     const I = S.in;
+    // Ventana modal abierta (Opciones desde la pausa, Ranking desde el destino): ella recibe toda la entrada.
+    if (S.modal) {
+      if (S.modal.tick(I)) {
+        const m = S.modal; S.modal = null; m.destroy();
+        if (m.pausa) U.ocultar(S.pui, false);
+        S.espera = 0.3; S.esperaSoltar = true;
+      }
+      return;
+    }
     S.espera = Math.max(0, (S.espera || 0) - I.dt);
-    const quiere = S.espera <= 0 && (I.click || I.kp[32] || I.kp[13]);
+    const enRk = S.estado === "destino" && S.rkBtn && !S.rkBtn.t.__borrado && U.hit(S.rkBtn, I.mx, I.my);
+    const quiere = !enRk && S.espera <= 0 && (I.click || I.kp[32] || I.kp[13]);
     // En pantallas paginadas el toque pasa de pagina (o retrocede con el boton de la izquierda) antes de continuar.
     const avanza = quiere && !(S.pagManejar && S.estado !== "pausa" && S.estado !== "carta" && S.pagManejar(I));
     if (I.kp[27]) { if (S.estado === "pausa") S.reanudar(); else S.pausar(); return; }

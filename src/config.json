@@ -1,0 +1,12 @@
+{
+  "_comentario": "Configuracion editable. Pega aqui los ID de tus leaderboards de GDevelop (Game Dashboard > Leaderboards) y corre node src/build.js. Mientras valgan PEGA_AQUI_EL_ID o esten vacios, el juego no llama a la API y el boton Ranking muestra un mensaje.",
+  "leaderboards": {
+    "semanas": "PEGA_AQUI_EL_ID",
+    "destino": "PEGA_AQUI_EL_ID"
+  },
+  "audio": {
+    "volumen_musica": 0.5,
+    "volumen_efectos": 0.8,
+    "musica_ganancia": 0.45
+  }
+}

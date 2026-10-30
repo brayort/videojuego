@@ -34,6 +34,7 @@ if (!S.mod_render) {
       [g.c, g.r].forEach((o, k) => { o.setWidth(k ? CD.ret : CD.w); o.setHeight(k ? CD.ret : CD.h); });
       S.fant.push(g);
       S.flipRetraso = L.ease.volar * 0.45;
+      U.ev("soltar");
     }
     return elegirOrig.apply(this, arguments);
   };
@@ -137,7 +138,7 @@ if (!S.mod_render) {
     const c = S.c; if (!c) return;
     const I = S.in;
     // --- volteo de la carta nueva ---
-    if (S.cVista !== c) { S.cVista = c; S.flipT = -(S.flipRetraso || 0); S.flipRetraso = 0; }
+    if (S.cVista !== c) { S.cVista = c; S.flipT = -(S.flipRetraso || 0); S.flipRetraso = 0; U.ev("voltear"); }
     if (S.flipT < L.ease.voltear) S.flipT += dt;
     const fp = clamp(S.flipT / L.ease.voltear, 0, 1), sx = Math.max(0.02, E.back(fp));
     const dyv = S.arribaDisp() ? Math.min(0, S.dy || 0) * 0.4 : 0;
@@ -281,11 +282,19 @@ if (!S.mod_render) {
     P.upd = function () {
       const s = U.getTxt(holder);
       if (s !== P.key) { P.key = s; P.pages = U.paginar(s, R.size, wT, hT, "cuerpo"); P.n = P.pages.length; P.i = Math.min(P.i, P.n - 1); P.shown = -1; }
-      if (P.shown !== P.i) { P.shown = P.i; setTxt(t, P.pages[P.i]); nav.set(P.i, P.n); }
+      if (P.shown !== P.i) { if (P.shown >= 0) U.ev("pagina"); P.shown = P.i; setTxt(t, P.pages[P.i]); nav.set(P.i, P.n); }
     };
     return P;
   };
-  const pie = (A, etiqueta) => { const B = L.pant.btn; return U.mkBtn(A, B.x, B.y, B.w, B.h, etiqueta, 50); };
+  const pie = (A, etiqueta, estado) => {
+    const B = L.pant.btn;
+    if (estado === "destino") {
+      // En el destino hay dos botones: Ranking (izquierda) y Cerrar esta historia.
+      S.rkBtn = U.mkBtn(A, 24, B.y, 250, B.h, "Ranking", 50);
+      return U.mkBtn(A, 290, B.y, 406, B.h, etiqueta, 50);
+    }
+    return U.mkBtn(A, B.x, B.y, B.w, B.h, etiqueta, 50);
+  };
   const tickPagina = function (P, bt, I, ultima) {
     if (I.kp[37] && P.i > 0) P.i--;
     U.btnTick(bt, I);
@@ -300,10 +309,13 @@ if (!S.mod_render) {
     return function (A) {
       const hd = cabecera(A, S.o.pj, banner && banner());
       const R = Object.assign({}, L.pant.cuerpo); if (!conMetros) R.h += L.pant.metros.h + 8;
-      const P = cuerpo(A, R, S.o.texto), mp = conMetros ? U.metrosPanel(A, L.pant.metros, 10) : null, bt = pie(A, etiqueta(estado));
+      const P = cuerpo(A, R, S.o.texto), mp = conMetros ? U.metrosPanel(A, L.pant.metros, 10) : null, bt = pie(A, etiqueta(estado), estado);
       return function (dt, I) {
         hd(); P.upd(); if (mp) mp.set(S.dyn, dt);
         tickPagina(P, bt, I, etiqueta(estado));
+        if (estado === "destino" && S.rkBtn && U.btnTick(S.rkBtn, I)) {
+          try { S.rankEnviar(); S.modal = U.modalRanking(920); } catch (e) { S.modal = null; }
+        }
       };
     };
   };
@@ -439,6 +451,8 @@ if (!S.mod_render) {
         setTxt(ins, s); U.tam(ins, f.size); ins.setPosition(M.instr.x + M.instr.pad, M.instr.y + Math.max(6, (M.instr.h - f.alto) / 2));
       }
       const c2 = U.getTxt(S.o.tiempo); if (c2 !== cap.__s) setTxt(cap, c2);
+      // tic del temporizador (prensa / plagio): en los ultimos 5 segundos
+      if ((mm.tipo === "prensa" || mm.tipo === "plagio") && mm.t > 0 && mm.t <= 5) { const sc = Math.ceil(mm.t); if (sc !== mm.ticS) { mm.ticS = sc; U.ev("tic"); } }
       // barra: tiempo restante (prensa/plagio), asignado (presupuesto) o votos (consejo)
       let fr = 0, cl = "dorado";
       if (mm.tipo === "presupuesto") { fr = mm.asig.reduce((a, b) => a + b, 0) / 100; cl = fr >= 1 ? "verde" : "dorado"; }
@@ -471,7 +485,7 @@ if (!S.mod_render) {
   S.renderPantalla = function (dt) {
     const clave = claveVista();
     if (!S.pantalla || S.pantalla.clave !== clave) {
-      U.limpiar(S.scr); S.pag = null; S.pantalla = null;
+      U.limpiar(S.scr); S.pag = null; S.pantalla = null; S.rkBtn = null;
       const e = S.estado === "pausa" ? (S.estadoPrev || "carta") : S.estado;
       const b = e === "mini" ? (S.m && S.m.fase === "res" ? SCR.mini_res : SCR.mini) : SCR[e];
       if (b) { const upd = b(S.scr); if (upd) S.pantalla = { clave, upd }; else { U.limpiar(S.scr); } }

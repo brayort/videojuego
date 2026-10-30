@@ -1,5 +1,5 @@
 # Genera sprites provisionales en assets/placeholder/ (Pillow). Idempotente.
-import os, colorsys
+import os, sys, colorsys
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "assets", "placeholder"))
 F = lambda s, b=True: ImageFont.truetype("C:/Windows/Fonts/arialbd.ttf" if b else "C:/Windows/Fonts/arial.ttf", s)
@@ -186,31 +186,55 @@ def iconoui(n):
         elif n == "punto_dorado": d.ellipse((2*k,2*k,46*k,46*k), fill=PAL["dorado"], outline=PAL["guinda_osc"], width=3*k)
     out("ui", "icono_" + n, ss(s, s, f))
 
-for i, pid in enumerate(ids): retrato(i, pid); carta(i, pid)
-carta(0, "carta")
-for n in FON: fondo(n)
-for n in ("academico","estudiantes","finanzas","politica","subir","bajar"): icono(n)
-for n, c in PAL.items(): panel(n, c)
-for n in ("flecha_izq","flecha_der","flecha_arriba","estrella","estrella_vacia","corazon","cruz","candado","punto_crema","punto_dorado"): iconoui(n)
-out("efectos", "flash_blanco", Image.new("RGBA",(720,1280),(255,255,255,255)))
-out("efectos", "flash_bueno", Image.new("RGBA",(720,1280),(230,255,200,255)))
-out("efectos", "flash_malo", Image.new("RGBA",(720,1280),(150,20,20,255)))
-def boton(n, fill, brd):
-    def f(d, k): d.rounded_rectangle((3*k,3*k,557*k,93*k), 26*k, fill=fill, outline=brd, width=6*k)
-    out("ui", n, ss(560, 96, f))
-boton("boton_normal",PAL["guinda"],PAL["dorado"]); boton("boton_activo",PAL["vino"],PAL["dorado_claro"]); boton("boton_presionado",PAL["guinda_osc"],PAL["crema"])
-def frag(n, brd, sello=None):
-    w, h = 620, 112
-    im = Image.new("RGBA",(w,h),(0,0,0,0)); d = ImageDraw.Draw(im)
-    d.rounded_rectangle((2,2,w-2,h-2), 12, fill=PAL["crema"], outline=brd, width=5)
-    for y in (34,60,86): d.line((14,y+8,w-14,y+8), fill=(215,205,180), width=2)
-    if sello=="bien": d.rounded_rectangle((w-150,h-48,w-14,h-12), 6, outline=PAL["verde"], width=4); ctext(d,(w-82,h-30),"COPIA",F(24),PAL["verde"])
-    if sello=="mal": d.line((20,20,w-20,h-20), fill=PAL["rojo"], width=7); d.line((20,h-20,w-20,20), fill=PAL["rojo"], width=7)
-    out("ui", n, im)
-frag("fragmento", PAL["gris"]); frag("fragmento_bien",PAL["verde"],"bien"); frag("fragmento_mal",PAL["rojo"],"mal")
-print("ok")
+SOLO = sys.argv[1:]   # "particulas": regenera solo las particulas
+if not SOLO:
+    for i, pid in enumerate(ids): retrato(i, pid); carta(i, pid)
+    carta(0, "carta")
+    for n in FON: fondo(n)
+    for n in ("academico","estudiantes","finanzas","politica","subir","bajar"): icono(n)
+    for n, c in PAL.items(): panel(n, c)
+    for n in ("flecha_izq","flecha_der","flecha_arriba","estrella","estrella_vacia","corazon","cruz","candado","punto_crema","punto_dorado"): iconoui(n)
+    out("efectos", "flash_blanco", Image.new("RGBA",(720,1280),(255,255,255,255)))
+    out("efectos", "flash_bueno", Image.new("RGBA",(720,1280),(230,255,200,255)))
+    out("efectos", "flash_malo", Image.new("RGBA",(720,1280),(150,20,20,255)))
+    def boton(n, fill, brd):
+        def f(d, k): d.rounded_rectangle((3*k,3*k,557*k,93*k), 26*k, fill=fill, outline=brd, width=6*k)
+        out("ui", n, ss(560, 96, f))
+    boton("boton_normal",PAL["guinda"],PAL["dorado"]); boton("boton_activo",PAL["vino"],PAL["dorado_claro"]); boton("boton_presionado",PAL["guinda_osc"],PAL["crema"])
+    def frag(n, brd, sello=None):
+        w, h = 620, 112
+        im = Image.new("RGBA",(w,h),(0,0,0,0)); d = ImageDraw.Draw(im)
+        d.rounded_rectangle((2,2,w-2,h-2), 12, fill=PAL["crema"], outline=brd, width=5)
+        for y in (34,60,86): d.line((14,y+8,w-14,y+8), fill=(215,205,180), width=2)
+        if sello=="bien": d.rounded_rectangle((w-150,h-48,w-14,h-12), 6, outline=PAL["verde"], width=4); ctext(d,(w-82,h-30),"COPIA",F(24),PAL["verde"])
+        if sello=="mal": d.line((20,20,w-20,h-20), fill=PAL["rojo"], width=7); d.line((20,h-20,w-20,20), fill=PAL["rojo"], width=7)
+        out("ui", n, im)
+    frag("fragmento", PAL["gris"]); frag("fragmento_bien",PAL["verde"],"bien"); frag("fragmento_mal",PAL["rojo"],"mal")
 # sombra de la carta: mismo tamano (560x560) y mismo contorno que la carta; el motor la mueve con ella (+8,+12)
 def sombra():
     def f(d, k): d.rounded_rectangle((6*k, 6*k, 554*k, 554*k), 40*k, fill=(0, 0, 0, 110))
     out("ui", "sombra_carta", ss(560, 560, f))
 sombra()
+
+# ---- particulas del pool propio (objeto "Particula"; una animacion por forma) ----
+def particula(n, w, h, fn):
+    out("particulas", n, ss(w, h, fn))
+def _confeti(c):
+    def f(d, k): d.rounded_rectangle((1*k, 1*k, 15*k, 9*k), 2*k, fill=c)
+    return f
+for j, c in enumerate(("dorado", "rojo", "azul_cl", "verde", "crema")):
+    particula("confeti_%d" % (j + 1), 16, 10, _confeti(PAL[c]))
+def _papel(d, k):
+    d.polygon([(2*k,2*k),(24*k,0),(28*k,34*k),(4*k,36*k)], fill=PAL["crema"], outline=PAL["gris"])
+    for y in (10, 17, 24): d.line((6*k, y*k, 23*k, (y-1)*k), fill=PAL["gris"], width=2*k)
+particula("papel", 30, 38, _papel)
+def _chispa(d, k):
+    c = PAL["dorado_claro"]; d.polygon([(12*k,0),(15*k,9*k),(24*k,12*k),(15*k,15*k),(12*k,24*k),(9*k,15*k),(0,12*k),(9*k,9*k)], fill=c)
+    d.ellipse((9*k,9*k,15*k,15*k), fill=(255,255,255))
+particula("chispa", 24, 24, _chispa)
+def _gota(d, k): d.rounded_rectangle((1*k, 0, 5*k, 22*k), 2*k, fill=(150, 190, 235, 200))
+particula("gota", 6, 22, _gota)
+def _polvo(d, k):
+    for r, a in ((10, 40), (7, 60), (4, 80)): d.ellipse(((10-r)*k, (10-r)*k, (10+r)*k, (10+r)*k), fill=(226, 210, 172, a))
+particula("polvo", 20, 20, _polvo)
+print("ok")

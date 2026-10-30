@@ -226,6 +226,7 @@ if (!S.u) {
     if (!I.pulsado) { fire = b.down && dentro; b.down = false; }
     const abajo = b.down && I.pulsado && dentro;
     U.btnVer(b, b.off ? "off" : b.fijo ? b.fijo : abajo ? "down" : (dentro || sel) ? "hover" : "normal");
+    if (fire && !b.off && U.ev) U.ev("boton");
     return fire && !b.off;
   };
   // Chip de texto (fondo de color + etiqueta). Devuelve el ancho.
@@ -400,6 +401,7 @@ if (!S.u) {
     U.nlogros = (U.nlogros || 0) + 1;
     U.pub("SenalLogro", U.nlogros);
     U.pub("UltimoLogro", l ? l[1] : id);
+    if (U.ev) U.ev("logro");
   };
 
   // ---- dinastia y record ----

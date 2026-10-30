@@ -136,6 +136,10 @@ IconoStat  48x48      anim: academico, estudiantes, finanzas, politica, subir, b
 Flash      720x1280   anim: bueno, malo (opcionales)
 BotonMini  300x90     anim: normal, activo (opcionales)
 Fragmento  620x96     anim: (default), bien, mal
+Panel      8x8        anim: un color plano por cada color de la paleta (seccion 10)
+IconoUI    48x48      anim: flecha_izq/der/arriba, estrella(_vacia), candado, corazon, cruz, punto_crema/dorado (seccion 10)
+SombraCarta 560x560   anim: sombra (seccion 10)
+Particula  16x10..30x38  anim: confeti_1..5, papel, chispa, gota, polvo (seccion 10)
 
 Logros (sin sprites): se muestran con el texto de TxtLogro (15 logros). No requieren arte.
 Expedientes/inventario (sin sprites): son texto en TxtInventario.
@@ -174,3 +178,31 @@ Nueva animacion de Fondo (opcional): destino   Pantalla final de la historia de 
 con el campus al centro; puede variar con el destino, pero una sola imagen basta).
 La caida de cada director ("fin de la gestion") sigue usando fondo "fin", sucesion y epilogo; solo el DESTINO es un final del juego.
 Resumen: 13 retratos/cartas nuevos + 1 animacion de Fondo ("destino").
+
+==============================================================
+10. SPRITES DE INTERFAZ Y EFECTOS (Panel, IconoUI, SombraCarta, Particula)
+==============================================================
+Estos objetos ya tienen arte provisional generado por tools/gen_placeholders.py (carpetas assets/placeholder/ui y /particulas)
+y se registran con node src/assets_demo.js. Puedes reemplazar cada PNG por arte propio conservando el nombre de la animacion.
+
+Panel  (8 x 8, plano)   anim: una por color de la paleta (ver LAYOUT.col): guinda, guinda_osc, vino, dorado, dorado_claro, crema,
+  crema_osc, tinta, azul, azul_cl, verde, rojo, ambar, gris, negro, blanco.
+  Rectangulo de color plano que el motor ESTIRA con setWidth/setHeight (fondos de paneles, botones, bordes, barras de medidores,
+  chips y la capa oscura de pausa/opciones). Si lo sustituyes por un 9-slice, que el centro sea del color plano de la paleta.
+
+IconoUI  (48 x 48)   anim: flecha_izq, flecha_der (paginador y sucesion), flecha_arriba (pista de expediente), estrella y
+  estrella_vacia (logros), candado (logro secreto), corazon y cruz (afinidad), punto_crema (indicador de vista previa),
+  punto_dorado. Siluetas simples, el motor las escala con setWidth/setHeight (28-64 px).
+
+SombraCarta  (560 x 560)   anim: sombra
+  Sombra suave con la misma forma que la carta (esquinas redondeadas). El motor la dibuja detras de la carta, desplazada
+  unos 8 x 12 px y con la misma rotacion; la usan tambien las cartas que salen volando. Negro con ~40 % de opacidad.
+
+Particula  (pool propio, 150 particulas como maximo; ver src/js/55_efectos.js)
+  Una sola figura por animacion; el motor las mueve, rota, escala y desvanece por codigo. Fondo transparente.
+  confeti_1 .. confeti_5   16 x 10   rectangulitos redondeados de colores (dorado, rojo, azul, verde, crema): al ganar una eleccion.
+  papel                    30 x 38   hoja de papel con renglones: papeles volando cuando cae el director.
+  chispa                   24 x 24   estrella de cuatro puntas dorada con centro blanco: al conseguir un logro.
+  gota                      6 x 22   gota de lluvia alargada, azul claro semitransparente: cartas con "fx":"lluvia" (huracan).
+  polvo                    20 x 20   puff suave beige semitransparente: polvo leve cuando sale la carta.
+  Se pueden agregar mas animaciones (otros confetis, etc.) pero el codigo solo pide las de esta lista.

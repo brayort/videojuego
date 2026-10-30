@@ -44,8 +44,30 @@ const std = (conditions, actions) => ({
 
 // ---------- modulos ----------
 const cartas = JSON.parse(fs.readFileSync(path.join(__dirname, "cartas.json"), "utf8"));
-const modulo = (archivo, titulo, desc) => grupo(titulo, [comentario(desc), js("// [AUTO:" + archivo + "]\n" + leer(archivo).replace("__CARTAS__", () => JSON.stringify(cartas)))]);
+// Configuracion editable (ids de leaderboards, volumenes) y manifiesto de audio generado por tools/gen_audio.py.
+const CONFIG = JSON.parse(fs.readFileSync(path.join(__dirname, "config.json"), "utf8"));
+const AUDIO = fs.existsSync(path.join(RAIZ, "assets", "audio", "audio.json")) ? JSON.parse(fs.readFileSync(path.join(RAIZ, "assets", "audio", "audio.json"), "utf8")) : { sfx: {}, musica: {} };
+const modulo = (archivo, titulo, desc) => grupo(titulo, [comentario(desc), js("// [AUTO:" + archivo + "]\n" + leer(archivo)
+  .replace("__CARTAS__", () => JSON.stringify(cartas)).replace("__AUDIO__", () => JSON.stringify({ sfx: AUDIO.sfx || {}, musica: AUDIO.musica || {} }))
+  .replace("__CONFIG__", () => JSON.stringify(CONFIG)))]);
 const COMUN = () => modulo("00_comun.js", "Comun: utilidades, logros, guardado, entrada", "Utilidades compartidas, logros, guardado y lectura de la entrada (mouse/teclas). Generado: no lo edites, edita src/js/00_comun.js.");
+const AUDIOM = () => modulo("05_audio.js", "Audio, vibracion, ajustes y ranking", "Sonido y musica (gdjs.evtTools.sound), vibracion, opciones guardadas, Leaderboards de GDevelop y ventanas de Opciones y Ranking. Generado: edita src/js/05_audio.js y src/config.json.");
+
+// Variables de ESCENA de senal / datos de audio, vibracion y ranking (todas las escenas).
+const VARS_AUDIO = [["SenalSonido", 0], ["SonidoUltimo", ""], ["MusicaPista", ""], ["SenalVibracion", 0], ["SonidosPropios", 0], ["SenalRanking", 0], ["PuntajeSemanas", 0], ["PuntajeDestino", 0], ["NombreJugador", ""], ["RuntimeKeepAlive", 0]];
+const idLB = k => { const v = CONFIG.leaderboards && CONFIG.leaderboards[k]; return typeof v === "string" && v.trim() ? v.trim() : "PEGA_AQUI_EL_ID"; };
+// Eventos ESTANDAR que nunca se ejecutan (RuntimeKeepAlive = 123456789 no ocurre jamas). Su unico fin es que GDevelop incluya en la
+// exportacion el runtime de Sonido (gdjs.evtTools.sound) y de la extension Leaderboards (gdjs.evtTools.leaderboards), que solo
+// se agregan cuando algun evento estandar usa sus instrucciones. El primer parametro "" es el parametro interno "escena actual".
+const RUNTIME = () => grupo("Runtime (audio y ranking; no se ejecuta)", [
+  comentario("NO BORRAR: estos eventos nunca se ejecutan (RuntimeKeepAlive nunca vale 123456789). Hacen que GDevelop incluya en el juego exportado el runtime de sonido y de la extension Leaderboards, que el codigo JavaScript usa. Las tablas reales se configuran en src/config.json (ver README)."),
+  std([inst("VarScene", ["RuntimeKeepAlive", "=", "123456789"])], [
+    inst("PlaySound", ["", JSON.stringify(Object.values(AUDIO.sfx || {})[0] || "audio.ogg"), "no", "100", "1"]),
+    inst("PlayMusic", ["", JSON.stringify(Object.values(AUDIO.musica || {})[0] || "audio.ogg"), "yes", "100", "1"]),
+    inst("Leaderboards::SavePlayerScore", ["", JSON.stringify(idLB("semanas")), "0", JSON.stringify("Jugador")]),
+    inst("Leaderboards::DisplayLeaderboard", ["", JSON.stringify(idLB("destino")), "no"]),
+  ]),
+]);
 
 // Variables de ESCENA que el motor publica cada frame (para eventos normales de GDevelop).
 const VARS_JUEGO = [
@@ -57,6 +79,7 @@ const VARS_JUEGO = [
   ["UAN_Solvencia", 50], ["UAN_Paz", 50], ["UAN_Autonomia", 50], ["UAN_Prestigio", 50], ["Nay_Desarrollo", 50], ["Nay_Seguridad", 50], ["Historia", 1], ["Destino", ""],
   ["UltimoLogro", ""], ["Record", 0], ["AlertaFinanzas", 0],
 ];
+VARS_JUEGO.push(["SenalSonido", 0], ["SonidoUltimo", ""], ["MusicaPista", ""], ["SenalVibracion", 0], ["SonidosPropios", 0], ["SenalRanking", 0], ["PuntajeSemanas", 0], ["PuntajeDestino", 0], ["NombreJugador", ""], ["RuntimeKeepAlive", 0]);
 const variable = ([name, v]) => ({ name, type: typeof v === "number" ? "number" : "string", value: v });
 
 const EJEMPLOS = () => grupo("Ejemplos de eventos estandar (editalos o borralos)", [
@@ -77,33 +100,36 @@ function escenas() {
     {
       name: "Menu",
       objects: [sprite("Fondo"), sprite("BotonMini"), sprite("Panel"), sprite("IconoUI"), ...texts(["TxtTitulo", 96], ["TxtTexto", 22], ["TxtLogro", 26], ["TxtBoton", 36])],
-      variables: [["Estado", "menu"], ["MenuSeleccion", 0], ["UAN_Solvencia", 50], ["UAN_Paz", 50], ["UAN_Autonomia", 50], ["UAN_Prestigio", 50], ["Nay_Desarrollo", 50], ["Nay_Seguridad", 50], ["Historia", 1]],
-      eventos: [grupo("Comun", COMUN().events), modulo("menu.js", "Menu principal", "Escena Menu: Nueva partida, Continuar, Logros, Creditos.")],
+      variables: [["Estado", "menu"], ["MenuSeleccion", 0], ["UAN_Solvencia", 50], ["UAN_Paz", 50], ["UAN_Autonomia", 50], ["UAN_Prestigio", 50], ["Nay_Desarrollo", 50], ["Nay_Seguridad", 50], ["Historia", 1], ...VARS_AUDIO],
+      eventos: [grupo("Comun", COMUN().events), AUDIOM(), modulo("menu.js", "Menu principal", "Escena Menu: Nueva partida, Continuar, Logros, Ranking, Nueva historia, Cronica, Opciones, Creditos."), RUNTIME()],
     },
     {
       name: "Juego",
       objects: [
-        sprite("Fondo"), sprite("Carta"), sprite("Retrato"), sprite("IconoStat"), sprite("Flash"), sprite("BotonMini"), sprite("Fragmento"), sprite("Panel"), sprite("IconoUI"), sprite("SombraCarta"),
+        sprite("Fondo"), sprite("Carta"), sprite("Retrato"), sprite("IconoStat"), sprite("Flash"), sprite("BotonMini"), sprite("Fragmento"), sprite("Panel"), sprite("IconoUI"), sprite("SombraCarta"), sprite("Particula"),
         ...texts(["TxtTitulo", 56], ["TxtPersonaje", 40], ["TxtTexto", 26], ["TxtOpcion", 26], ["TxtStats", 22], ["TxtTiempo", 22], ["TxtInventario", 22],
           ["TxtLogro", 24], ["TxtBoton", 36], ["TxtFragmento", 22], ["TxtEstados", 22], ["TxtAfinidad", 22], ["TxtEleccion", 22]),
       ],
       variables: VARS_JUEGO,
       eventos: [
         grupo("Comun", COMUN().events),
+        AUDIOM(),
         modulo("10_datos.js", "Datos (cartas.json)", "Contenido: cartas, personajes, candidatos, finales y minijuegos. Se regenera desde src/cartas.json."),
         modulo("20_estado.js", "Estado y reglas", "Stats, afinidad, estados, azar, elecciones, sucesion, finales, guardado."),
         modulo("30_cartas.js", "Seleccion de cartas", "Condiciones, eras, efectos retardados, campana, ponderacion."),
         modulo("40_minijuegos.js", "Minijuegos", "Presupuesto, prensa, plagio y consejo."),
         modulo("50_entrada.js", "Entrada y pausa", "Enrutado de entrada por estado; pausa con Escape."),
+        modulo("55_efectos.js", "Efectos de particulas", "Pool propio de particulas (confeti, papeles, chispas, lluvia, polvo) con el sprite Particula."),
         modulo("60_render.js", "Render y variables de escena", "Dibuja la carta/HUD y publica las variables de escena."),
         EJEMPLOS(),
+        RUNTIME(),
       ],
     },
     {
       name: "Logros",
       objects: [sprite("Fondo"), sprite("BotonMini"), sprite("Panel"), sprite("IconoUI"), ...texts(["TxtTitulo", 60], ["TxtTexto", 26], ["TxtBoton", 36])],
-      variables: [["Estado", "logros"]],
-      eventos: [grupo("Comun", COMUN().events), modulo("logros.js", "Lista de logros", "Escena Logros.")],
+      variables: [["Estado", "logros"], ...VARS_AUDIO],
+      eventos: [grupo("Comun", COMUN().events), AUDIOM(), modulo("logros.js", "Lista de logros", "Escena Logros.")],
     },
   ];
 }
@@ -118,7 +144,7 @@ const capa = () => ({
 });
 const layoutNuevo = e => ({
   b: 30, v: 25, r: 40, mangledName: e.name, name: e.name, title: "",
-  standardSortMethod: true, stopSoundsOnStartup: true, oglFOV: 90, oglZFar: 500, oglZNear: 1,
+  standardSortMethod: true, stopSoundsOnStartup: false, oglFOV: 90, oglZFar: 500, oglZNear: 1,
   uiSettings: { grid: false, gridType: "rectangular", gridWidth: 32, gridHeight: 32, gridOffsetX: 0, gridOffsetY: 0, gridColor: 10401023, gridAlpha: 0.8, snap: false, zoomFactor: 0.5, windowMask: false },
   objectsGroups: [], variables: e.variables.map(variable), instances: [],
   objects: e.objects, events: e.eventos, layers: [capa()], behaviorsSharedData: [],
@@ -179,6 +205,7 @@ function fusionar(viejo, nuevo) {
     if (!puesto) ln.events.slice().reverse().forEach(x => res.unshift(x));
     lv.events = res;
     lv.layers = lv.layers && lv.layers.length ? lv.layers : ln.layers;
+    lv.stopSoundsOnStartup = false;     // la musica sigue al cambiar de escena (05_audio.js la reinicia si hace falta)
   });
   // variables globales que falten
   salida.variables = salida.variables || [];

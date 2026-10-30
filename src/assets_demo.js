@@ -8,6 +8,7 @@ const BASE = "assets/placeholder";
 const ls = d => fs.existsSync(path.join(RAIZ, BASE, d)) ? fs.readdirSync(path.join(RAIZ, BASE, d)).filter(f => f.endsWith(".png")).map(f => f.slice(0, -4)).sort() : [];
 const r = (d, n) => `${BASE}/${d}/${n}.png`;
 
+const particulas = ls("particulas");
 const retratos = ls("retratos"), cartas = ls("cartas"), fondos = ls("fondos"), iconos = ls("iconos"), ui = ls("ui");
 const deUi = pre => ui.filter(n => n.indexOf(pre) === 0).map(n => [n.slice(pre.length), r("ui", n)]);
 // objeto -> lista ordenada [animacion, recurso]; la primera es la por defecto.
@@ -22,6 +23,7 @@ const MAPA = {
   Panel: deUi("panel_"),          // rectangulos de color plano (una animacion por color de la paleta)
   SombraCarta: [["sombra", r("ui", "sombra_carta")]],
   IconoUI: deUi("icono_"),        // flechas, estrella, corazon, cruz, candado, puntos
+  Particula: particulas.map(n => [n, r("particulas", n)]),   // pool propio de particulas (src/js/55_efectos.js)
   Fragmento: [["default", r("ui", "fragmento")], ["bien", r("ui", "fragmento_bien")], ["mal", r("ui", "fragmento_mal")]],
 };
 const anim = (name, img) => ({
@@ -44,6 +46,15 @@ for (const lista of Object.values(MAPA)) for (const [, img] of lista) {
   if (!fs.existsSync(path.join(RAIZ, img))) throw new Error("falta archivo " + img);
   if (!have.has(img)) { res.push({ kind: "image", name: img, file: img, metadata: "", smoothed: true, userAdded: true, alwaysLoaded: false }); have.add(img); nuevosRes++; }
 }
+// audio: efectos (precargados como sonido) y musica (como musica), segun assets/audio/audio.json (tools/gen_audio.py)
+let nuevosAudio = 0;
+const man = fs.existsSync(path.join(RAIZ, "assets/audio/audio.json")) ? JSON.parse(fs.readFileSync(path.join(RAIZ, "assets/audio/audio.json"), "utf8")) : { sfx: {}, musica: {} };
+[["sfx", true], ["musica", false]].forEach(([grupo, esSonido]) => Object.values(man[grupo] || {}).forEach(f => {
+  if (!fs.existsSync(path.join(RAIZ, f))) throw new Error("falta archivo " + f);
+  let x = res.find(q => q.name === f);
+  if (!x) { x = { name: f }; res.push(x); nuevosAudio++; }
+  Object.assign(x, { kind: "audio", file: f, metadata: "", preloadAsSound: esSonido, preloadAsMusic: !esSonido, preloadInCache: false, userAdded: true });
+}));
 // objetos (globales y de cada escena)
 let nuevasAn = 0, objs = 0;
 const tocar = lista => (lista || []).forEach(o => {
@@ -61,4 +72,4 @@ const estilar = lista => (lista || []).forEach(o => { if (o.type === "TextObject
 estilar(g.objects); (g.layouts || []).forEach(l => estilar(l.objects));
 JSON.parse(JSON.stringify(g));
 fs.writeFileSync(GJ, JSON.stringify(g, null, 2));
-console.log(`recursos nuevos: ${nuevosRes}, fuentes nuevas: ${nuevasFuentes}, animaciones nuevas: ${nuevasAn}, objetos sprite tocados: ${objs}, textos con fuente: ${textos}`);
+console.log(`recursos de audio nuevos: ${nuevosAudio}, recursos nuevos: ${nuevosRes}, fuentes nuevas: ${nuevasFuentes}, animaciones nuevas: ${nuevasAn}, objetos sprite tocados: ${objs}, textos con fuente: ${textos}`);

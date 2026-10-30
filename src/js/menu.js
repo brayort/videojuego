@@ -25,8 +25,11 @@ if (!S.menuListo) {
   U.pub("UAN_Solvencia", dyn.uan.solv); U.pub("UAN_Paz", dyn.uan.paz); U.pub("UAN_Autonomia", dyn.uan.aut); U.pub("UAN_Prestigio", dyn.uan.pre);
   U.pub("Nay_Desarrollo", dyn.nay.des); U.pub("Nay_Seguridad", dyn.nay.seg); U.pub("Historia", cron.length + 1);
   S.sel = 0; S.confirmaNH = false;
-  S.items = ["Nueva partida", S.hayGuardada ? "Continuar" : "Continuar (sin partida)", "Logros", "Nueva historia", "Crónica", "Créditos"];
-  S.btns = S.items.map((t, i) => U.mkBtn(S.ui, M.btn.x, M.btn.y + i * M.btn.pitch, M.btn.w, M.btn.h, t));
+  S.items = ["Nueva partida", S.hayGuardada ? "Continuar" : "Continuar (sin partida)", "Logros", "Ranking", "Nueva historia", "Crónica", "Opciones", "Créditos"];
+  // Dos botones grandes arriba y una cuadricula de dos columnas con el resto.
+  const gw = (M.btn.w - 16) / 2, gh = M.btn.h - 4;
+  S.btns = S.items.map((t, i) => i < 2 ? U.mkBtn(S.ui, M.btn.x, M.btn.y + i * M.btn.pitch, M.btn.w, M.btn.h, t)
+    : U.mkBtn(S.ui, M.btn.x + ((i - 2) % 2) * (gw + 16), M.btn.y + 2 * M.btn.pitch + Math.floor((i - 2) / 2) * M.btn.pitch, gw, gh, t, 50, { size: 32 }));
   if (!S.hayGuardada) S.btns[1].off = true;
 
   // ---- subvistas: cronica (paginada) y creditos ----
@@ -69,24 +72,33 @@ if (!S.menuListo) {
     const t = U.mkTxt(S.sub, "TxtTexto", 40, 200, 28, W - 80, { al: "center", col: "crema", z: 310 });
     setTxt(t, "Director UAN: Economía\n\nJuego de decisiones tipo cartas hecho con GDevelop 5.\n\nDiseño, texto y programación: equipo del proyecto.\n\nTipografías: Lora y Bebas Neue (SIL Open Font License).");
   };
+  // Ventanas Opciones y Ranking (U.modalOpciones / U.modalRanking de 05_audio.js).
+  const abreModal = function (fab) {
+    try { U.ocultar(S.ui, true); S.modal = fab(300); S.vista = "modal"; }
+    catch (e) { S.modal = null; U.ocultar(S.ui, false); S.vista = "menu"; }
+  };
   S.activar = function (i) {
-    if (i !== 3) S.confirmaNH = false;
+    if (i !== 4) S.confirmaNH = false;
     if (i === 0) { U.gset("Modo", "nueva"); U.cambiarEscena("Juego"); }
     else if (i === 1) { if (S.hayGuardada) { U.gset("Modo", "continuar"); U.cambiarEscena("Juego"); } }
     else if (i === 2) U.cambiarEscena("Logros");
-    else if (i === 3) {
+    else if (i === 3) abreModal(U.modalRanking);
+    else if (i === 6) abreModal(U.modalOpciones);
+    else if (i === 4) {
       // Nueva historia: reinicia toda la dinastia y los medidores (los logros y la cronica se conservan). Pide confirmar.
       if (!S.confirmaNH) { S.confirmaNH = true; return; }
       U.guardarDyn(U.dynNueva()); U.borrarPartida();
       U.gset("Modo", "nueva"); U.cambiarEscena("Juego");
-    } else if (i === 4) S.abrirCronica();
-    else if (i === 5) S.abrirCreditos();
+    } else if (i === 5) S.abrirCronica();
+    else if (i === 7) S.abrirCreditos();
   };
 }
 if (!S.saliendo) {
   const U = S.u, I = S.in, n = S.items.length;
   S.mp.set(S.dyn, I.dt);
-  if (S.vista === "sub") {
+  if (S.vista === "modal") {
+    if (S.modal && S.modal.tick(I)) { S.modal.destroy(); S.modal = null; U.ocultar(S.ui, false); S.vista = "menu"; }
+  } else if (S.vista === "sub") {
     let paso = 0;
     if (S.cron) {
       const C = S.cron;
@@ -95,7 +107,7 @@ if (!S.saliendo) {
         if (U.btnTick(C.nav.prev, I)) paso = -1;
         if (U.btnTick(C.nav.next, I)) paso = 1;
       }
-      if (paso && C.i + paso >= 0 && C.i + paso < C.n) { C.i += paso; S.cronPagina(); }
+      if (paso && C.i + paso >= 0 && C.i + paso < C.n) { C.i += paso; S.cronPagina(); U.ev("pagina"); }
     }
     const f = U.btnTick(S.volver, I);
     if (I.kp[27] || I.kp[13] || f) S.cierraSub();
@@ -106,8 +118,8 @@ if (!S.saliendo) {
     if (I.kp[13] || I.kp[32]) k = S.sel;
     if (I.kp[49]) k = 0; else if (I.kp[50]) k = 1; else if (I.kp[51]) k = 2;
     S.btns.forEach((b, j) => {
-      b.fijo = j === 3 && S.confirmaNH ? "peligro" : "";
-      U.btnTxt(b, j === 3 && S.confirmaNH ? "¿Seguro? Toca otra vez" : S.items[j]);
+      b.fijo = j === 4 && S.confirmaNH ? "peligro" : "";
+      U.btnTxt(b, j === 4 && S.confirmaNH ? "¿Seguro? Toca otra vez" : S.items[j]);
       if (U.btnTick(b, I, S.kb && j === S.sel)) { k = j; S.sel = j; }
     });
     if (k >= 0) S.activar(k);

@@ -44,7 +44,7 @@ if (!S.saliendo) {
     if (U.btnTick(S.nav.prev, I)) paso = -1;
     if (U.btnTick(S.nav.next, I)) paso = 1;
   }
-  if (paso && S.pag + paso >= 0 && S.pag + paso < S.n) { S.pag += paso; S.pagina(); }
+  if (paso && S.pag + paso >= 0 && S.pag + paso < S.n) { S.pag += paso; S.pagina(); U.ev("pagina"); }
   const f = U.btnTick(S.volver, I);
   if (I.kp[27] || I.kp[13] || f) U.cambiarEscena("Menu");
 }

@@ -29,6 +29,7 @@ Stats: `e` es `[Académico, Estudiantes, Finanzas, Política]`, rango 0..100. Ll
 
 `unica` (por defecto cada carta sale una vez; `false` = repetible con enfriamiento de 6 semanas; `true` = nunca se recicla aunque se agote el mazo). `peso` pondera la elección (x0.3 si el personaje repite).
 `solo_luego: true` = nunca sale al azar, solo como consecuencia (`luego`).
+`fx` (opcional): efecto visual mientras la carta está en pantalla. Hoy solo `"fx":"lluvia"` (gotas de lluvia; lo llevan las 4 cartas del huracán: `n_hurr_simulacro`, `hu1`, `hu1b`, `hu_impacto`). Valores desconocidos se ignoran. Lo dibuja `src/js/55_efectos.js` con el pool de partículas (máx. 150).
 
 ### Condiciones (cartas **y** finales raros)
 
@@ -146,12 +147,14 @@ Fuerza de un candidato = `fuerza` + decisiones (`cand` y `conspira`, +2 y +3 si 
 
 `Academico Estudiantes Finanzas Politica Integridad Semana Estado Personaje Director DirectorNombre Rasgo Fecha Mes Anio Afinidad Estados FinTipo Reelecciones SemanasEleccion Campana FuerzaElectoral Sucesor Record UltimoLogro UAN_Solvencia UAN_Paz UAN_Autonomia UAN_Prestigio Nay_Desarrollo Nay_Seguridad Historia Destino`
 
-Señales (contadores que **aumentan** al ocurrir el evento; compara con el valor anterior o usa "Una sola vez" para disparar sonidos): `SenalCarta` (nueva carta), `SenalEleccion` (decisión tomada), `SenalFin`, `SenalAzar`, `SenalVoto`, `SenalLogro`. Variable global del juego `Modo` (`nueva|continuar`) la usa el Menú para comunicarse con la escena Juego.
+Señales (contadores que **aumentan** al ocurrir el evento; compara con el valor anterior o usa "Una sola vez" para disparar sonidos): `SenalCarta` (nueva carta), `SenalEleccion` (decisión tomada), `SenalFin`, `SenalAzar`, `SenalVoto`, `SenalLogro`.
+
+Audio y ranking (todas las escenas): `SenalSonido` (cuenta sonidos; `SonidoUltimo` = id del último), `MusicaPista`, `SenalVibracion`, `SonidosPropios` (= 1 desactiva el sonido interno para que lo reproduzcas tú con eventos), `SenalRanking`, `PuntajeSemanas`, `PuntajeDestino`, `NombreJugador`, `RuntimeKeepAlive` (no tocar). Ver README, secciones Audio y Ranking. Variable global del juego `Modo` (`nueva|continuar`) la usa el Menú para comunicarse con la escena Juego.
 
 El proyecto incluye eventos estándar de ejemplo (grupo `[AUTO] Ejemplos...`) que usan `VarSceneTxt`, `VarScene`, `ModVarScene`, `Cache` y `Montre`. Para sonido: evento con condición "Variable de escena `SenalCarta` ≠ valor previo" (guarda el previo en otra variable) y acción "Reproducir sonido".
 
 ## Guardado
-`localStorage`: `directorUAN_partida` (autoguardado en cada carta, borrado al terminar la gestión), `directorUAN_dinastia` (director actual, legado, candidatos, ex director), `directorUAN_cronica` (historias terminadas), `directorUAN_logros`, `directorUAN_record`. Pausa con **Escape**.
+`localStorage`: `directorUAN_partida` (autoguardado en cada carta, borrado al terminar la gestión), `directorUAN_dinastia` (director actual, legado, candidatos, ex director), `directorUAN_cronica` (historias terminadas), `directorUAN_logros`, `directorUAN_record`, `directorUAN_ajustes` (volúmenes, silencio, vibración, nombre del jugador). Pausa con **Escape**.
 
 ## Contenido de la Fase B (resumen)
 

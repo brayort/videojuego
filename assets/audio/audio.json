@@ -1,0 +1,26 @@
+{
+ "sfx": {
+  "arrastre": "assets/audio/sfx/arrastre.ogg",
+  "soltar": "assets/audio/sfx/soltar.ogg",
+  "voltear": "assets/audio/sfx/voltear.ogg",
+  "pagina": "assets/audio/sfx/pagina.ogg",
+  "sube": "assets/audio/sfx/sube.ogg",
+  "baja": "assets/audio/sfx/baja.ogg",
+  "golpe": "assets/audio/sfx/golpe.ogg",
+  "logro": "assets/audio/sfx/logro.ogg",
+  "boton": "assets/audio/sfx/boton.ogg",
+  "tic": "assets/audio/sfx/tic.ogg",
+  "acierto": "assets/audio/sfx/acierto.ogg",
+  "error": "assets/audio/sfx/error.ogg",
+  "campana": "assets/audio/sfx/campana.ogg",
+  "voto": "assets/audio/sfx/voto.ogg",
+  "gong": "assets/audio/sfx/gong.ogg",
+  "final": "assets/audio/sfx/final.ogg"
+ },
+ "musica": {
+  "oficina": "assets/audio/musica/oficina.ogg",
+  "campana": "assets/audio/musica/campana.ogg",
+  "destino": "assets/audio/musica/destino.ogg"
+ },
+ "formato": "ogg"
+}

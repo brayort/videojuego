@@ -7182,6 +7182,7 @@
     },
     {
       "id": "n_hurr_simulacro",
+      "fx": "lluvia",
       "pj": "proteccion",
       "texto": "Arranca la temporada de huracanes. Protección Civil pide un simulacro de evacuación que cierra la facultad medio día.",
       "izq": {
@@ -9865,6 +9866,7 @@
     },
     {
       "id": "hu1",
+      "fx": "lluvia",
       "pj": "proteccion",
       "texto": "Protección Civil emite alerta roja: un huracán categoría 3 tocará tierra en Nayarit en 48 horas y pide evacuar el campus.",
       "izq": {
@@ -9915,6 +9917,7 @@
     },
     {
       "id": "hu1b",
+      "fx": "lluvia",
       "pj": "proteccion",
       "texto": "Protección Civil emite alerta roja: un huracán categoría 3 tocará tierra en Nayarit en 48 horas y pide evacuar el campus.",
       "izq": {
@@ -9965,6 +9968,7 @@
     },
     {
       "id": "hu_impacto",
+      "fx": "lluvia",
       "pj": "coordinador",
       "texto": "Pasó el huracán. El edificio B perdió el techo, hay aulas inundadas y se cayó la barda del estacionamiento. Hay vecinos sin casa.",
       "izq": {
