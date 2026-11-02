@@ -67,57 +67,27 @@ Los objetos se crean por código; en la escena Juego puedes añadir animaciones 
 Arrastrar la carta o flechas ←/→ (↑ usa expediente); Espacio/Enter/clic avanzan; minijuegos con ratón o teclas 1-3; **Escape** pausa (Continuar / Opciones / Guardar y salir al menú). Se autoguarda en cada carta.
 
 
-## Paleta (LAYOUT.col, en `src/js/00_comun.js`)
+## Paleta y fuentes (LAYOUT.col y LAYOUT.fuente, en `src/js/00_comun.js`)
+
+Paleta azul, blanco y amarillo. Los **nombres** de los colores se conservan de la versión anterior (guinda, dorado…) para no romper `cartas.json`, `cinematicas.json` ni el código; la columna *uso* dice qué es cada uno. Fuentes: **Nunito SemiBold** (texto) y **Fredoka SemiBold** (títulos y botones), ambas SIL OFL, en `assets/fonts/`. Si cambias una fuente corre `python tools/gen_metricas.py` (mide el ancho real de cada carácter para que el texto se ajuste bien) y luego `npm run build`.
 
 Los sprites `Panel` (una animación por color), los textos y los botones usan solo estos colores; si cambias uno en `LAYOUT.col`, corre `node tools/build/build.js` y `python tools/gen_placeholders.py`.
 
 | nombre | hex | uso |
 |---|---|---|
-| guinda | #6B1D2A | relleno de botones y tarjetas |
-| guinda_osc | #3A0F18 | fondos de paneles y de ventanas modales |
-| vino | #8E2B3B | borde de indicadores, botón en hover |
-| dorado | #D4A63A | bordes, barras, acentos |
-| dorado_claro | #F0D58A | títulos y nombres |
-| crema | #F5ECD6 | texto principal, carta |
-| crema_osc | #E2D2AC | texto secundario |
-| tinta | #2B1B1F | texto sobre fondos claros |
-| azul | #1F3A5F | avisos, chips de elección |
-| azul_cl | #3E6296 | barras de Nayarit y rivales |
-| verde | #3E8E5A | acierto, reelección |
-| rojo | #B3372F | error, peligro, derrota |
-| ambar | #C98A1B | resultado intermedio |
-| gris | #8A7F78 | desactivado |
-| negro | #140A0D | pistas de barras, capa de pausa |
+| guinda | #1E4FA3 | azul medio: relleno de botones y tarjetas |
+| guinda_osc | #0E2550 | azul marino: fondos de paneles y ventanas |
+| vino | #2F6FD0 | azul vivo: botón en hover, bordes de indicadores |
+| dorado | #F2C230 | amarillo: bordes, barras, acentos |
+| dorado_claro | #FFE58A | amarillo claro: títulos y nombres |
+| crema | #FFFFFF | blanco: texto principal, carta |
+| crema_osc | #D6E2F5 | blanco azulado: texto secundario |
+| tinta | #0B1A33 | texto sobre fondos claros |
+| azul | #12407F | avisos, chips de elección |
+| azul_cl | #5B9BEA | barras de Nayarit y rivales |
+| verde | #3E9E5F | acierto, reelección |
+| rojo | #D2453A | error, peligro, derrota |
+| ambar | #E58A1F | resultado intermedio |
+| gris | #8A93A6 | desactivado |
+| negro | #060F22 | pistas de barras, capa de pausa |
 | blanco | #FFFFFF | destellos |
-
-## Audio, vibración y partículas
-
-**Audio** (`src/js/05_audio.js`, archivos en `assets/audio/`). Los 16 efectos y las 3 pistas de música (oficina: menor y lenta; campaña: más pulso; destino 2040: ambiental) se generan por síntesis con `tools/gen_audio.py` (OGG si hay ffmpeg con libvorbis, si no WAV) y son **CC0** (ver `assets/audio/README.md`). `tools/build/assets.js` los registra como recursos `{"kind":"audio"}` (efectos con `preloadAsSound`, música con `preloadAsMusic`).
-* El motor usa `gdjs.evtTools.sound.playSound(escena, archivo, false, volumen, pitch)` (volumen 0-100) y `playMusicOnChannel(escena, archivo, canal 1, true, volumen, pitch)`; si esa API no existe, cae a `getSoundManager()`. Pitch aleatorio leve en los sonidos repetitivos (generador propio: no altera el azar del juego).
-* **Opciones** (Menú y Pausa): volumen de música y de efectos, silenciar, vibración y nombre del jugador; se guardan en `localStorage` (`directorUAN_ajustes`). La música empieza tras el primer toque/clic/tecla (regla de autoplay del navegador) y sigue entre escenas (las escenas ya no cortan el sonido al empezar).
-* **Reemplazar sonidos con tus eventos**: cada sonido incrementa la variable de escena `SenalSonido` y deja su id en `SonidoUltimo` (`arrastre soltar voltear pagina sube baja golpe logro boton tic acierto error campana voto gong final`); también `MusicaPista` (pista actual) y `SenalVibracion`. Si pones `SonidosPropios = 1`, el motor deja de reproducir sonido y música y tú los manejas con eventos estándar. Para cambiar un archivo conserva el nombre (o edita `assets/audio/audio.json`) y vuelve a correr `build.js` y `tools/build/assets.js`.
-* GDevelop solo incluye `gdjs.evtTools.sound` y el runtime de Leaderboards cuando algún evento estándar usa sus instrucciones. Por eso las escenas Menu y Juego traen el grupo `[AUTO] Runtime (audio y ranking; no se ejecuta)` con eventos que nunca se ejecutan (`RuntimeKeepAlive = 123456789`). **No lo borres.**
-
-**Vibración**: `navigator.vibrate` (si existe; funciona en web Android y en la build Android): pulso corto al soltar la carta, doble pulso en cambios ≥ 15, patrón al caer el director, al terminar la historia y en los logros. Se activa/desactiva en Opciones.
-
-**Partículas** (`src/js/55_efectos.js`): pool propio con el sprite `Particula` (no usa el ParticleEmitter de GDevelop), máximo 150 vivas; las que salen o mueren se reciclan. Confeti al ganar la elección, papeles al caer el director, chispas doradas en logros, polvo al salir la carta y lluvia en las cartas con `"fx":"lluvia"` (las del huracán).
-
-## Ranking (Leaderboards de GDevelop)
-
-El juego usa `gdjs.evtTools.leaderboards.savePlayerScore(escena, idTabla, puntos, nombre)` y `displayLeaderboard(escena, idTabla, true)`. Dos tablas:
-* **Semanas de la dinastía**: puntos = semanas totales de la historia (suma de todos los directores).
-* **Destino**: puntos = promedio de los 6 medidores de la UAN y Nayarit × 10 (0-1000); el nombre lleva el destino (`Nombre-Renacimiento`). GDevelop quita acentos, cambia espacios por `_` y recorta el nombre a 30 caracteres.
-
-Mientras los ID valgan `PEGA_AQUI_EL_ID` o estén vacíos **no se llama a la API** y el botón **Ranking** (Menú y pantalla del Destino) muestra un mensaje explicativo. Las puntuaciones se envían una vez por historia al pulsar "Cerrar esta historia" o "Ranking" en el Destino.
-
-**Nombre del jugador**: se pide una sola vez con `prompt()` del navegador al terminar la primera historia (solo si el ranking está configurado y disponible); si no hay `prompt()` o se cancela, se usa `DirectorNNNN`. Se cambia en Opciones > "Cambiar nombre".
-
-### Pasos en el editor de GDevelop
-1. Abre `game.json` en GDevelop 5 y guarda el proyecto en tu cuenta (nube) o regístralo: **Menú del proyecto > Game dashboard** (o Publicar > "Registrar el juego"). Los leaderboards solo existen para juegos registrados en tu cuenta, y el juego debe estar **publicado** (Publicar > Web, itch.io, Android...) para que las puntuaciones se envíen y se vean.
-2. En **Game dashboard > Leaderboards** pulsa **Crear un nuevo leaderboard** y crea dos: `Semanas de la dinastía` y `Destino`. En ambos elige orden **descendente** (la mayor puntuación gana) y, si quieres, "una sola entrada por jugador" (mejor puntuación).
-3. Abre cada leaderboard y usa **Copiar ID** (es un UUID tipo `a1b2c3d4-...`).
-4. Pega los ID en `src/config.json`: `"semanas": "<id de Semanas de la dinastía>"`, `"destino": "<id de Destino>"`.
-5. Cierra GDevelop, corre `node tools/build/build.js` y `node tools/build/assets.js`, y vuelve a abrir el proyecto.
-6. Prueba: juega una historia hasta el Destino (o fuerza uno) y pulsa **Ranking**.
-
-**Si el ranking dice "no disponible en esta versión"**: la exportación no incluyó la extensión Leaderboards. El grupo `[AUTO] Runtime` la usa con las instrucciones `Leaderboards::SavePlayerScore` y `Leaderboards::DisplayLeaderboard` (parámetros `["", id, puntos, nombre]` y `["", id, "no"]`, donde `""` es la escena actual). Los identificadores se tomaron del código fuente de la extensión (`Extensions/Leaderboards/JsExtension.js`) pero no pude comprobarlos abriendo el editor: si GDevelop marca esos eventos como inválidos, bórralos y crea a mano, en un evento que nunca se ejecute, las acciones "Guardar la puntuación del jugador" y "Mostrar un leaderboard" (categoría Leaderboards). También puedes activar la extensión en Proyecto > Gestionar extensiones.

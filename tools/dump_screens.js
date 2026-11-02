@@ -13,7 +13,9 @@ global.localStorage = { getItem: k => (k in store ? store[k] : null), setItem: (
 let seed = 7;
 Math.random = () => { seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; };
 
-function recoger(evs, out) { evs.forEach(e => { if (e.type.endsWith("JsCode")) out.push(e.inlineCode); if (e.events) recoger(e.events, out); }); return out; }
+// Las cinematicas automaticas (src/cinematicas.json > disparos) taparian las pantallas: se desactivan salvo con DUMP_CINE=1.
+const sinCine = c => (process.env.DUMP_CINE ? c : c.replace("DISPAROS = DATOS.disparos || {}", "DISPAROS = {}"));
+function recoger(evs, out) { evs.forEach(e => { if (e.type.endsWith("JsCode")) out.push(sinCine(e.inlineCode)); if (e.events) recoger(e.events, out); }); return out; }
 const layouts = {};
 g.layouts.forEach(l => {
   const defs = {}; l.objects.forEach(o => { defs[o.name] = o; });

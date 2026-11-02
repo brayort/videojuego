@@ -71,7 +71,7 @@ if (!S.menuListo) {
   S.abrirCreditos = function () {
     abreSub("CRÉDITOS");
     const t = U.mkTxt(S.sub, "TxtTexto", 40, 200, 28, W - 80, { al: "center", col: "crema", z: 310 });
-    setTxt(t, "Director UAN: Economía\n\nJuego de decisiones tipo cartas hecho con GDevelop 5.\n\nDiseño, texto y programación: equipo del proyecto.\n\nTipografías: Lora y Bebas Neue (SIL Open Font License).");
+    setTxt(t, "Director UAN: Economía\n\nJuego de decisiones tipo cartas hecho con GDevelop 5.\n\nDiseño, texto y programación: equipo del proyecto.\n\nTipografías: Nunito y Fredoka (SIL Open Font License).");
   };
   // Ventanas Opciones y Ranking (U.modalOpciones / U.modalRanking de 05_audio.js).
   const abreModal = function (fab) {
@@ -79,6 +79,7 @@ if (!S.menuListo) {
     catch (e) { S.modal = null; U.ocultar(S.ui, false); S.vista = "menu"; }
   };
   S.activar = function (i) {
+    if (U.cine && U.cine.activo) return;   // la cinematica tiene la pantalla
     if (i !== 4) S.confirmaNH = false;
     if (i === 0) { U.gset("Modo", "nueva"); U.cambiarEscena("Juego"); }
     else if (i === 1) { if (S.hayGuardada) { U.gset("Modo", "continuar"); U.cambiarEscena("Juego"); } }

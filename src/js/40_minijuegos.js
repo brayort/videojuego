@@ -47,7 +47,7 @@ if (!S.mod_mini) {
       S.prensaPregunta();
     } else if (cfg.tipo === "plagio" && ((D.originales || []).length && (D.plagiados || []).length)) {
       m.frag = []; m.next = 0.3; m.hits = 0; m.falsos = 0; m.perdidos = 0; m.t = 20;
-      setTxt(S.o.pj, "COMITÉ DE INTEGRIDAD ACADÉMICA");
+      setTxt(S.o.pj, "COMITÉ DE INTEGRIDAD");
       setTxt(S.o.texto, "Toca los fragmentos PLAGIADOS (texto sospechoso). Deja pasar los originales. La tecla Espacio marca el fragmento más bajo.");
     } else if (cfg.tipo === "consejo" && (D.consejeros || []).length && Object.keys(D.args || {}).length >= 3) {
       m.cs = shuffle(D.consejeros).slice(0, 5); m.i = 0; m.favor = 0; m.args = D.args;

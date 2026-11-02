@@ -12,7 +12,7 @@ if (!S.mod_entrada) {
 
   // ---- pausa: capa oscura con botones grandes por encima de todo lo demas ----
   S.pausar = function () {
-    if (S.estado === "pausa") return;
+    if (S.estado === "pausa" || (U.cine && U.cine.activo)) return;   // nunca encima de una cinematica
     S.estadoPrev = S.estado; S.estado = "pausa"; S.espera = 0.3; S.psel = 0; S.pkb = false;
     const P = L.pausa, A = S.pui;
     U.pnl(A, "negro", 0, 0, W, H, 900, 238);

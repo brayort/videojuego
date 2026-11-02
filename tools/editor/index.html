@@ -5,17 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Editor Director UAN</title>
 <style>
-@font-face { font-family: "Lora"; src: url("/assets/fonts/Lora.ttf"); }
-@font-face { font-family: "Bebas"; src: url("/assets/fonts/BebasNeue-Regular.ttf"); }
+@font-face { font-family: "Lora"; src: url("/assets/fonts/Nunito-SemiBold.ttf"); }
+@font-face { font-family: "Bebas"; src: url("/assets/fonts/Fredoka-SemiBold.ttf"); }
 :root {
-  --guinda: #6B1D2A; --guinda-osc: #3A0F18; --vino: #8E2B3B; --dorado: #D4A63A; --dorado-cl: #F0D58A;
-  --crema: #F5ECD6; --crema-osc: #E2D2AC; --tinta: #2B1B1F; --azul: #1F3A5F; --azul-cl: #3E6296;
-  --verde: #3E8E5A; --rojo: #B3372F; --ambar: #C98A1B; --gris: #8A7F78; --negro: #140A0D;
-  --bg: #1c0c11; --panel: #2a1218; --panel2: #34161e; --linea: #4a2430; --txt: var(--crema); --txt2: #c9b99a; --txt3: #8f7f6c;
+  --guinda: #1E4FA3; --guinda-osc: #0E2550; --vino: #2F6FD0; --dorado: #F2C230; --dorado-cl: #FFE58A;
+  --crema: #FFFFFF; --crema-osc: #D6E2F5; --tinta: #0B1A33; --azul: #12407F; --azul-cl: #5B9BEA;
+  --verde: #3E9E5F; --rojo: #D2453A; --ambar: #E58A1F; --gris: #8A93A6; --negro: #060F22;
+  --bg: #08142c; --panel: #0f1f40; --panel2: #16295a; --linea: #24407a; --txt: var(--crema); --txt2: #b9cbe8; --txt3: #7d92b8;
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; height: 100%; }
-body { background: var(--bg); color: var(--txt); font: 14px/1.45 "Lora", Georgia, serif; overflow: hidden; }
+body { background: var(--bg); color: var(--txt); font: 14px/1.45 "Lora", system-ui, sans-serif; overflow: hidden; }
 button, input, select, textarea { font: inherit; color: inherit; }
 button { background: var(--guinda); border: 1px solid var(--dorado); color: var(--crema); padding: 5px 12px; border-radius: 6px; cursor: pointer; }
 button:hover { background: var(--vino); }
@@ -28,7 +28,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--d
 textarea { resize: vertical; min-height: 60px; }
 textarea.json { font: 12px/1.4 Consolas, monospace; min-height: 46px; }
 label { display: block; font-size: 12px; color: var(--txt2); margin: 8px 0 3px; }
-h1, h2, h3 { font-family: "Bebas", Impact, sans-serif; font-weight: normal; letter-spacing: .5px; margin: 0; color: var(--dorado-cl); }
+h1, h2, h3 { font-family: "Bebas", system-ui, sans-serif; font-weight: normal; letter-spacing: .5px; margin: 0; color: var(--dorado-cl); }
 h2 { font-size: 22px; } h3 { font-size: 18px; margin: 14px 0 6px; }
 header { height: 52px; display: flex; align-items: center; gap: 14px; padding: 0 16px; background: var(--guinda-osc); border-bottom: 2px solid var(--dorado); }
 header h1 { font-size: 26px; color: var(--crema); }
@@ -210,7 +210,7 @@ let selC = 0, selN = null, selLin = 0, vistaOp = "";
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
 const h = (tag, attrs, ...hijos) => { const e = document.createElement(tag); if (attrs) for (const k in attrs) { if (k === "on") for (const ev in attrs.on) e.addEventListener(ev, attrs.on[ev]); else if (k === "html") e.innerHTML = attrs[k]; else if (attrs[k] !== undefined && attrs[k] !== null && attrs[k] !== false) e.setAttribute(k, attrs[k]); } hijos.flat().forEach(x => { if (x !== null && x !== undefined && x !== false) e.append(x.nodeType ? x : String(x)); }); return e; };
 const api = async (ruta, cuerpo) => { const r = await fetch(ruta, cuerpo ? { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(cuerpo) } : undefined); const j = await r.json(); if (j && j.error) throw new Error(j.error); return j; };
-const COL = { guinda: "#6B1D2A", guinda_osc: "#3A0F18", vino: "#8E2B3B", dorado: "#D4A63A", dorado_claro: "#F0D58A", crema: "#F5ECD6", crema_osc: "#E2D2AC", tinta: "#2B1B1F", azul: "#1F3A5F", azul_cl: "#3E6296", verde: "#3E8E5A", rojo: "#B3372F", ambar: "#C98A1B", gris: "#8A7F78", negro: "#140A0D", blanco: "#FFFFFF" };
+let COL = {};   // paleta del juego: se lee de LAYOUT.col (src/layout.json) al arrancar
 const STATN = ["Académico", "Estudiantes", "Finanzas", "Política"], STATI = ["academico", "estudiantes", "finanzas", "politica"];
 const EJ = { n: 3, ant: "Mtra. Quintero", causa: "perdió la elección", antsem: 61, dir: "Dr. Fausto Meléndez", ex: "Mtra. Quintero", jugador: "Héctor", evento: "" };
 const fmt = s => String(s || "").replace(/\{(\w+)\}/g, (m, k) => (EJ[k] !== undefined ? EJ[k] : m));
@@ -440,7 +440,7 @@ function pintarTelC() {
     grp.append(h("div", { class: "abs lora", style: `left:${x - cx}px;top:${ET.margen}px;max-width:${ET.w}px;padding:10px 12px;background:${COL.crema};color:${COL.tinta};border:3px solid ${COL.dorado};font-size:${ET.size}px;line-height:1.32` }, fmt(lbl)));
   }
   // nombre
-  const N = HL.nombre, nm = h("div", { class: "abs ttl", style: `left:${N.x}px;top:${N.y}px;width:${N.w}px;text-align:center;color:${COL.dorado_claro};line-height:1.15` }, fmt(D.personajes[c.pj] || c.pj));
+  const N = HL.nombre, nm = h("div", { class: "abs ttl", style: `left:${N.x}px;top:${N.y}px;width:${N.w}px;text-align:center;color:${COL.dorado_claro};line-height:${LAY.txt.lhB}` }, fmt(D.personajes[c.pj] || c.pj));
   t.append(nm); ajustar(nm, N.sizes, N.w, N.h);
   pintarRefsC();
 }
@@ -553,7 +553,7 @@ function montar() {
   o.sub = h("div", { class: "abs lora", style: `left:60px;width:600px;text-align:center;font-size:${C.titulo.sub}px;color:${COL.crema_osc}` });
   o.flash = h("div", { class: "abs", style: "left:0;top:0;width:720px;height:1280px;background:#fff;opacity:0" });
   o.velo = h("div", { class: "abs", style: `left:0;top:0;width:720px;height:1280px;background:${COL.negro};opacity:1` });
-  o.saltar = h("div", { class: "abs ttl", style: `left:${C.saltar.x}px;top:${C.saltar.y}px;width:${C.saltar.w}px;height:${C.saltar.h}px;border:4px solid ${COL.dorado};background:${COL.guinda};color:${COL.crema};font-size:28px;line-height:56px;text-align:center;cursor:pointer` }, "Saltar ▸");
+  o.saltar = h("div", { class: "abs ttl", style: `left:${C.saltar.x}px;top:${C.saltar.y}px;width:${C.saltar.w}px;height:${C.saltar.h}px;border:4px solid ${COL.dorado};background:${COL.guinda};color:${COL.crema};font-size:28px;line-height:56px;text-align:center;cursor:pointer` }, "Saltar »");
   t.append(o.fondo, o.tinte, ...Object.values(o.ret).map(r => r.el), o.caja, o.nom, o.txt, o.medir, o.sigue, o.tit, o.sub, o.flash, o.velo, o.saltar);
   return o;
 }
@@ -608,8 +608,8 @@ function pasoRet(dt) {
     const p = R.o.ret[k]; if (!p.pj) return;
     p.a = Math.max(0, Math.min(1, p.a + (p.obj > p.a ? dt / C.fundido : -dt / C.fundido)));
     if (p.a <= 0 && p.sale) { p.el.style.display = "none"; p.pj = ""; p.sale = false; return; }
-    const e = 1 - Math.pow(1 - p.a, 3), dx = (1 - e) * C.retrato.entrada * (k === "der" ? 1 : k === "izq" ? -1 : 0);
-    p.el.style.left = (C.retrato[k] + dx) + "px"; p.el.style.opacity = p.a * (p.activo ? 1 : C.retrato.inactivo / 255);
+    const e = 1 - Math.pow(1 - p.a, 3);
+    p.el.style.left = C.retrato[k] + "px"; p.el.style.top = (C.retrato.y + (1 - e) * C.retrato.entrada) + "px"; p.el.style.opacity = p.a * (p.activo ? 1 : C.retrato.inactivo / 255);
   });
 }
 function pintarCuadro() { pararCine(); const g = CI.cinematicas[selN]; if (!g) { $("#nTel").innerHTML = ""; return; } nuevoR(Math.min(selLin, g.lineas.length - 1), true); }
@@ -701,7 +701,7 @@ $("#bSim").onclick = async () => { const b = $("#bSim"); b.disabled = true; try 
 // ======================= arranque =======================
 (async () => {
   const d = await api("/api/datos");
-  D = d.cartas; CI = d.cinematicas; LAY = d.layout; AUD = d.audio; AS = d.assets; BAL = d.balance;
+  D = d.cartas; CI = d.cinematicas; LAY = d.layout; COL = LAY.col; AUD = d.audio; AS = d.assets; BAL = d.balance;
   Object.keys(D.personajes).forEach(p => $("#cPj").append(h("option", { value: p }, p)));
   selN = Object.keys(CI.cinematicas)[0] || null;
   await document.fonts.ready;

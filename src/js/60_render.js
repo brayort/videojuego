@@ -95,7 +95,7 @@ if (!S.mod_render) {
     // sugerencia de deslizar hacia arriba (solo con opcion "arriba")
     S.hintIco = U.ico(S.cond, "flecha_arriba", 0, HL.hint.y, 30, 20); S.hintTxt = T(S.cond, "TxtTexto", 0, HL.hint.y + 2, 22, 0, "dorado_claro", "left", 20);
     setTxt(S.hintTxt, "Desliza hacia arriba para usar un expediente");
-    const hw = 30 + 8 + Math.ceil(S.hintTxt.__s.length * 22 * L.txt.cwLora), hx = (W - hw) / 2;
+    const hw = 30 + 8 + U.ancho(S.hintTxt.__s, 22, "cuerpo"), hx = (W - hw) / 2;
     S.hintIco.setPosition(hx, HL.hint.y); S.hintTxt.setPosition(hx + 38, HL.hint.y + 2);
     [S.hintIco, S.hintTxt].forEach(o => { o.hide(true); o.__v = false; });
     // aviso (logros, resultado de azar)
@@ -176,8 +176,8 @@ if (!S.mod_render) {
       const s = op.t + (op.azar ? "  ¿?" : "");
       if (S.etKey !== s || U.getTxt(S.o.opcion) !== s) {
         S.etKey = s; setTxt(S.o.opcion, s);
-        const ls = U.envolver(s, et.size, et.w, "cuerpo"), wmax = ls.reduce((m, x) => Math.max(m, x.length), 0);
-        S.etW = Math.min(et.w + 28, Math.ceil(wmax * et.size * L.txt.cwLora) + 32); S.etH = ls.length * et.size * L.txt.lh + 20;
+        const ls = U.envolver(s, et.size, et.w, "cuerpo"), wmax = ls.reduce((m, x) => Math.max(m, U.ancho(x, et.size, "cuerpo")), 0);
+        S.etW = Math.min(et.w + 28, wmax + 32); S.etH = ls.length * et.size * L.txt.lh + 20;
         S.o.opcion.setWrappingWidth(S.etW - 24);
       }
       const ex = clamp(tipo === "izq" ? cx - cw / 2 + et.margen : tipo === "der" ? cx + cw / 2 - et.margen - S.etW : cx - S.etW / 2, 10, W - 10 - S.etW), ey = cy + et.margen;
@@ -219,7 +219,7 @@ if (!S.mod_render) {
     // --- afinidad ---
     const af = S.af[c.pj] || 0;
     pool("afin", S.afL, c.pj + ":" + af, l => {
-      const lab = af === 0 ? "Afinidad: neutral" : "Afinidad", lw = Math.ceil(lab.length * 22 * L.txt.cwLora), n = Math.abs(af), ic = HL.afin.icono;
+      const lab = af === 0 ? "Afinidad: neutral" : "Afinidad", lw = U.ancho(lab, 22, "cuerpo"), n = Math.abs(af), ic = HL.afin.icono;
       const tw = lw + (n ? 10 + n * (ic + 4) : 0); let x = (W - tw) / 2;
       const t = T(l, "TxtAfinidad", x, HL.afin.y + 2, 22, 0, "crema_osc", "left", 20); setTxt(t, lab);
       x += lw + 10;
@@ -234,6 +234,9 @@ if (!S.mod_render) {
       const items = ks.length ? [["Expedientes", "dorado", "tinta"]].concat(ks.map(k => [S.data.items[k] || k, "crema_osc", "tinta"])) : [["Sin expedientes", "guinda_osc", "crema_osc"]];
       U.chipsFlujo(l, items, { x: IV.x, y: IV.y, w: IV.w, filas: 2 }, 12);
     });
+    // el aviso ocupa el sitio de los expedientes: mientras se ve, los chips se ocultan
+    const conAviso = S.logroT > 0 || U.cola.length > 0;
+    S.invL.forEach(o => vis(o, !conAviso));
     // --- aviso (logros / azar) ---
     if (S.logroT > 0) {
       S.logroT -= dt;
@@ -256,7 +259,7 @@ if (!S.mod_render) {
     if (P.i < P.n - 1) { P.i++; return true; }
     return false;
   };
-  // titulo (Bebas) + subtitulo a partir de la ranura S.o.pj ("TITULO\nsubtitulo")
+  // titulo (Fredoka) + subtitulo a partir de la ranura S.o.pj ("TITULO\nsubtitulo")
   const cabecera = function (A, holder, banner) {
     const P = L.pant, tt = T(A, "TxtTitulo", P.titulo.x, P.titulo.y, P.titulo.size, P.titulo.w, banner ? "crema" : "dorado_claro", "center", 20);
     const sb = T(A, "TxtTexto", P.sub.x, P.sub.y, P.sub.size, P.sub.w, "crema_osc", "center", 20);
@@ -444,7 +447,7 @@ if (!S.mod_render) {
     return function (dt, I) {
       const mm = S.m; if (!mm || mm.fase !== "juego") return;
       const t = U.getTxt(S.o.pj);
-      if (t !== kT) { kT = t; const f = U.ajustar(t, [52, 46, 40], M.titulo.w, 2 * 52 * L.txt.lhB, "titulo"); setTxt(hdT, t); U.tam(hdT, f.size); hdT.setPosition(M.titulo.x, M.titulo.y + Math.max(0, (66 - f.alto) / 2)); }
+      if (t !== kT) { kT = t; const f = U.ajustar(t, [52, 46, 40, 36, 32], M.titulo.w, 52 * L.txt.lhB, "titulo"); setTxt(hdT, t); U.tam(hdT, f.size); hdT.setPosition(M.titulo.x, M.titulo.y + Math.max(0, (66 - f.alto) / 2)); }
       const s = U.getTxt(S.o.texto);
       if (s !== kI) {
         kI = s; const f = U.ajustar(s, [26, 24, 22], M.instr.w - 2 * M.instr.pad, M.instr.h - 2 * M.instr.pad, "cuerpo");

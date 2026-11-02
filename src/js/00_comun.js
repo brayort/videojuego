@@ -50,9 +50,11 @@ if (!S.u) {
   U.L = /*LAYOUT:BEGIN*/{
   "W": 720,
   "H": 1280,
-  "col": {"guinda": "#6B1D2A", "guinda_osc": "#3A0F18", "vino": "#8E2B3B", "dorado": "#D4A63A", "dorado_claro": "#F0D58A", "crema": "#F5ECD6", "crema_osc": "#E2D2AC", "tinta": "#2B1B1F", "azul": "#1F3A5F", "azul_cl": "#3E6296", "verde": "#3E8E5A", "rojo": "#B3372F", "ambar": "#C98A1B", "gris": "#8A7F78", "negro": "#140A0D", "blanco": "#FFFFFF"},
-  "fuente": {"cuerpo": "assets/fonts/Lora.ttf", "titulo": "assets/fonts/BebasNeue-Regular.ttf"},
-  "txt": {"cwLora": 0.53, "cwBebas": 0.43, "lh": 1.32, "min": 22, "minTitulo": 40, "lhB": 1.15},
+  "col": {"guinda": "#1E4FA3", "guinda_osc": "#0E2550", "vino": "#2F6FD0", "dorado": "#F2C230", "dorado_claro": "#FFE58A", "crema": "#FFFFFF", "crema_osc": "#D6E2F5", "tinta": "#0B1A33", "azul": "#12407F", "azul_cl": "#5B9BEA", "verde": "#3E9E5F", "rojo": "#D2453A", "ambar": "#E58A1F", "gris": "#8A93A6", "negro": "#060F22", "blanco": "#FFFFFF"},
+  "fuente": {"cuerpo": "assets/fonts/Nunito-SemiBold.ttf", "titulo": "assets/fonts/Fredoka-SemiBold.ttf"},
+  "txt": {"metricas": {"cuerpo":{"chars":" !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~áéíóúÁÉÍÓÚñÑüÜ¿¡«»·—–“”‘’…ºª°€×÷±","w":[0.264,0.237,0.417,0.6,0.6,0.937,0.708,0.231,0.336,0.336,0.452,0.6,0.237,0.429,0.237,0.297,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.237,0.237,0.6,0.6,0.6,0.45,0.948,0.736,0.682,0.676,0.751,0.589,0.554,0.731,0.767,0.268,0.338,0.643,0.552,0.861,0.743,0.775,0.642,0.775,0.677,0.622,0.611,0.733,0.7,1.107,0.66,0.606,0.596,0.333,0.297,0.333,0.6,0.5,0.366,0.537,0.591,0.467,0.591,0.537,0.347,0.594,0.576,0.243,0.246,0.516,0.306,0.866,0.576,0.565,0.591,0.591,0.373,0.484,0.365,0.569,0.52,0.846,0.534,0.52,0.468,0.37,0.275,0.37,0.6,0.537,0.537,0.243,0.565,0.569,0.736,0.589,0.268,0.775,0.733,0.576,0.743,0.569,0.733,0.45,0.237,0.465,0.465,0.237,1.0,0.5,0.416,0.416,0.237,0.237,0.713,0.345,0.332,0.375,0.6,0.6,0.6,0.6]},"titulo":{"chars":" !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~áéíóúÁÉÍÓÚñÑüÜ¿¡«»·—–“”‘’…ºª°€×÷±","w":[0.241,0.242,0.378,0.73,0.45,0.794,0.702,0.189,0.364,0.364,0.477,0.506,0.224,0.411,0.217,0.498,0.572,0.383,0.577,0.572,0.549,0.501,0.526,0.533,0.547,0.526,0.225,0.218,0.56,0.452,0.56,0.481,0.839,0.709,0.619,0.643,0.667,0.61,0.619,0.715,0.662,0.232,0.536,0.595,0.565,0.814,0.683,0.725,0.597,0.792,0.611,0.546,0.648,0.688,0.727,0.953,0.691,0.638,0.59,0.33,0.5,0.33,0.496,0.783,0.41,0.563,0.563,0.505,0.565,0.537,0.405,0.552,0.554,0.242,0.236,0.504,0.301,0.803,0.563,0.559,0.552,0.551,0.423,0.458,0.411,0.56,0.564,0.746,0.523,0.559,0.54,0.361,0.206,0.361,0.555,0.563,0.537,0.225,0.559,0.56,0.709,0.61,0.232,0.725,0.688,0.563,0.683,0.56,0.688,0.475,0.243,0.616,0.61,0.207,0.672,0.547,0.397,0.396,0.202,0.199,0.739,0.416,0.422,0.363,0.575,0.474,0.467,0.478]}},
+    "lh": 1.38, "min": 22, "minTitulo": 40, "lhB": 1.25,
+    "ancho": {"cuerpo": {"may": 0.68, "min": 0.52, "esp": 0.27, "dig": 0.62, "otro": 0.42}, "titulo": {"may": 0.66, "min": 0.52, "esp": 0.25, "dig": 0.56, "otro": 0.45}}},
   "ease": {"volar": 0.38, "voltear": 0.34, "suave": 9},
   "hud": {
     "margen": 24,
@@ -92,7 +94,7 @@ if (!S.u) {
     "plagio": {"x": 50, "w": 620, "h": 112, "vel": 170, "fin": 1090}
   },
   "menu": {
-    "titulo": {"y": 40, "size": 92},
+    "titulo": {"y": 40, "size": 80},
     "sub": {"y": 148, "size": 52},
     "metros": {"x": 24, "y": 240, "w": 672, "h": 196},
     "btn": {"x": 80, "y": 468, "w": 560, "h": 96, "pitch": 108},
@@ -130,16 +132,33 @@ if (!S.u) {
   };
   U.tam = (o, s) => o.setCharacterSize(Math.max(L.txt.min, s));
   // Estimacion de lineas (para centrar, ajustar y paginar). Mismo criterio en el motor y en la vista previa.
-  U.cw = f => (f === "titulo" ? L.txt.cwBebas : L.txt.cwLora);
+  // Ancho estimado por tipo de caracter (LAYOUT.txt.ancho, en em): las mayusculas de Fredoka/Nunito son mucho mas anchas.
+  const ANCHO = { titulo: L.txt.ancho.titulo, cuerpo: L.txt.ancho.cuerpo };
+  const MAY = /[A-ZÁÉÍÓÚÜÑ]/, MIN = /[a-záéíóúüñ]/, DIG = /[0-9]/;
+  // Tabla de avances reales por caracter (tools/gen_metricas.py); los que no esten usan la estimacion por tipo.
+  const MET = {};
+  ["cuerpo", "titulo"].forEach(k => { const t = L.txt.metricas && L.txt.metricas[k], m = MET[k] = {}; if (t) for (let i = 0; i < t.chars.length; i++) m[t.chars[i]] = t.w[i]; });
+  const MARGEN = 1.02;   // 2 % de holgura (kerning, redondeo del render)
+  U.anchoEm = function (s, f) {
+    const k = f === "titulo" ? "titulo" : "cuerpo", A = ANCHO[k], M = MET[k]; let w = 0;
+    for (const ch of String(s)) { const x = M[ch]; w += x !== undefined ? x : ch === " " ? A.esp : MAY.test(ch) ? A.may : MIN.test(ch) ? A.min : DIG.test(ch) ? A.dig : A.otro; }
+    return w * MARGEN;
+  };
+  U.ancho = (s, size, f) => Math.ceil(U.anchoEm(s, f) * size);       // px
+  U.cw = f => ANCHO[f === "titulo" ? "titulo" : "cuerpo"].min;        // ancho medio de una letra (em)
   U.lh = f => (f === "titulo" ? L.txt.lhB : L.txt.lh);
   U.envolver = function (s, size, w, f) {
-    const cap = Math.max(4, Math.floor(w / (size * U.cw(f)))), out = [];
+    const out = [], max = w / size, cabe = t => U.anchoEm(t, f) <= max;
     String(s).split("\n").forEach(par => {
       if (!par.length) { out.push(""); return; }
       let cur = "";
       par.split(" ").forEach(pal => {
-        while (pal.length > cap) { if (cur) { out.push(cur); cur = ""; } out.push(pal.slice(0, cap)); pal = pal.slice(cap); }
-        if (!cur) cur = pal; else if ((cur + " " + pal).length <= cap) cur += " " + pal; else { out.push(cur); cur = pal; }
+        while (!cabe(pal) && pal.length > 1) {      // palabra mas larga que la linea: se corta
+          if (cur) { out.push(cur); cur = ""; }
+          let k = pal.length; while (k > 1 && !cabe(pal.slice(0, k))) k--;
+          out.push(pal.slice(0, k)); pal = pal.slice(k);
+        }
+        if (!cur) cur = pal; else if (cabe(cur + " " + pal)) cur += " " + pal; else { out.push(cur); cur = pal; }
       });
       out.push(cur);
     });
@@ -157,10 +176,19 @@ if (!S.u) {
   };
   U.paginar = function (s, size, w, h, f) {
     const lines = U.envolver(s, size, w, f), per = Math.max(1, Math.floor(h / (size * U.lh(f)))), pages = [];
-    for (let i = 0; i < lines.length; i += per) pages.push(lines.slice(i, i + per));
-    // un encabezado que termina en ":" no se queda huerfano al final de la pagina
-    for (let i = 0; i < pages.length - 1; i++) { const p = pages[i]; if (p.length > 1 && /:$/.test(p[p.length - 1])) pages[i + 1].unshift(p.pop()); }
-    return pages.length ? pages.map(p => p.join("\n")) : [""];
+    // Llena cada pagina hasta 'per' lineas; un encabezado que termina en ":" no se queda huerfano al final
+    // (pasa a la pagina siguiente) y ninguna pagina supera nunca 'per' lineas.
+    let p = [];
+    lines.forEach(ln => {
+      if (p.length >= per) {
+        const ult = p[p.length - 1];
+        if (p.length > 1 && /:$/.test(ult)) { p.pop(); pages.push(p); p = [ult]; }
+        else { pages.push(p); p = []; }
+      }
+      p.push(ln);
+    });
+    if (p.length) pages.push(p);
+    return pages.length ? pages.map(q => q.join("\n")) : [""];
   };
   U.ease = {
     out: t => 1 - Math.pow(1 - U.clamp(t, 0, 1), 3),
@@ -234,7 +262,7 @@ if (!S.u) {
     return fire && !b.off;
   };
   // Chip de texto (fondo de color + etiqueta). Devuelve el ancho.
-  U.chipW = (txt, size) => Math.ceil(String(txt).length * (size || L.hud.chips.size) * L.txt.cwLora) + 2 * L.hud.chips.padX;
+  U.chipW = (txt, size) => U.ancho(txt, size || L.hud.chips.size, "cuerpo") + 2 * L.hud.chips.padX;
   U.chip = function (lista, x, y, txt, col, colTxt, z) {
     const C = L.hud.chips, size = C.size, w = U.chipW(txt, size);
     U.pnl(lista, col, x, y, w, C.h, z);

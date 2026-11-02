@@ -12,7 +12,7 @@ function extraerLayout() {
 }
 const LAYOUT = extraerLayout();
 const rgb = hex => { const n = parseInt(hex.slice(1), 16); return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; };
-// nombre -> [fuente ("titulo" = Bebas Neue, "cuerpo" = Lora), color de la paleta, alineacion]
+// nombre -> [fuente ("titulo" = Fredoka, "cuerpo" = Nunito), color de la paleta, alineacion]
 const ESTILO = {
   TxtTitulo: ["titulo", "crema", "center"], TxtBoton: ["titulo", "crema", "center"], TxtPersonaje: ["titulo", "dorado_claro", "center"],
   TxtFragmento: ["cuerpo", "tinta", "left"], TxtOpcion: ["cuerpo", "crema", "center"],

@@ -69,7 +69,7 @@ if (!S.u.cine) {
     const sub = U.mkTxt(A, "TxtTexto", 60, C.titulo.y + C.titulo.size + 16, C.titulo.sub, W - 120, { al: "center", col: "crema_osc", z: z + 24 });
     const flash = U.pnl(A, "blanco", 0, 0, W, H, z + 60, 0);
     const velo = U.pnl(A, "negro", 0, 0, W, H, z + 70, 255);
-    const SB = C.saltar, saltar = U.mkBtn(A, SB.x, SB.y, SB.w, SB.h, "Saltar ▸", z + 50, { size: 28 });
+    const SB = C.saltar, saltar = U.mkBtn(A, SB.x, SB.y, SB.w, SB.h, "Saltar »", z + 50, { size: 28 });
     anim(fondo, g.fondo || "carta");
     R = { id, g, ctx, alTerminar, i: -1, t: 0, n: 0, total: 0, full: "", espera: 0, velo: 1, veloObj: 0, cerrando: false, flash: 0, shake: 0, tinte: g.tinte || 0,
       o: { fondo, tinte, ret, cajaBd, caja, nomBd, nomF, nom, txt, sigue, tit, sub, flash, velo, saltar } };
@@ -134,7 +134,7 @@ if (!S.u.cine) {
       o.txt.setPosition(K.x + K.pad, K.y + (esNarra ? Math.max(K.pad, (K.h - f.alto) / 2) : K.pad));
       R.full = t; R.total = t.length; setTxt(o.txt, "");
       if (conNom) {
-        const nm = fmt(ln.nombre || nombrePj(ln.pj), R.ctx), w = Math.ceil(nm.length * N.size * L.txt.cwBebas) + 2 * N.pad;
+        const nm = fmt(ln.nombre || nombrePj(ln.pj), R.ctx), w = U.ancho(nm, N.size, "titulo") + 2 * N.pad;
         setTxt(o.nom, nm); U.c(o.nom, "setColor", U.CC[ln.colNombre || "dorado_claro"]);
         U.pset(o.nomBd, N.x - K.borde, N.y - K.borde, w + 2 * K.borde, N.h + 2 * K.borde); U.pset(o.nomF, N.x, N.y, w, N.h);
       }
@@ -168,8 +168,8 @@ if (!S.u.cine) {
       const p = o.ret[k]; if (!p.pj) return;
       p.a = clamp(p.a + (p.obj > p.a ? dt / C.fundido : -dt / C.fundido), 0, 1);
       if (p.a <= 0 && p.sale) { p.o.hide(true); p.pj = ""; p.sale = false; return; }
-      const base = C.retrato[k], dx = (1 - U.ease.out(p.a)) * C.retrato.entrada * (k === "der" ? 1 : k === "izq" ? -1 : 0);
-      p.o.setPosition(base + dx, C.retrato.y); p.o.setOpacity(p.a * (p.activo ? 255 : C.retrato.inactivo));
+      const dy = (1 - U.ease.out(p.a)) * C.retrato.entrada;   // entra subiendo: nunca se sale de la pantalla
+      p.o.setPosition(C.retrato[k], C.retrato.y + dy); p.o.setOpacity(p.a * (p.activo ? 255 : C.retrato.inactivo));
     });
     // flash y sacudida
     if (R.flash > 0) { R.flash = Math.max(0, R.flash - dt * 2.5); o.flash.setOpacity(R.flash * 200); }
