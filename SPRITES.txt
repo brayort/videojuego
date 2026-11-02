@@ -15,7 +15,7 @@ TxtInventario  (nuevo) - linea de "Expedientes: ..." abajo, tamano 16.
 TxtLogro       (nuevo) - aviso de logro 3 s, abajo de la barra de stats, tamano 22.
 TxtBoton       (nuevo) - etiqueta de botones y filas de minijuegos, tamano 22.
 TxtFragmento   (nuevo) - texto de cada fragmento de tesis (minijuego plagio), tamano 20.
-Fuente recomendada legible (ej. "Merriweather" o "Lora") con contorno oscuro (ya activado).
+Fuentes del juego: Nunito (texto) y Fredoka (títulos), redondeadas y fáciles de leer.
 
 ==============================================================
 2. FONDO  (objeto "Fondo", 720x1280)

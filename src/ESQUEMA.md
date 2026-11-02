@@ -167,7 +167,7 @@ El proyecto incluye eventos estándar de ejemplo (grupo `[AUTO] Ejemplos...`) qu
 
 ## Cinematicas (`src/cinematicas.json`, motor `src/js/07_cine.js`)
 
-Escenas tipo novela visual a 720x1280, con la paleta y las fuentes del juego: fondo (`Fondo`), hasta 3 retratos (`Retrato`: izq, der, centro; el que no habla se atenúa), caja de diálogo `guinda_osc` con borde `dorado`, placa de nombre (`TxtPersonaje`, Bebas, `dorado_claro`) y texto Lora `crema` con máquina de escribir. Toque / Espacio / Enter / → completan el texto o avanzan; **Saltar** o Escape la terminan.
+Escenas tipo novela visual a 720x1280, con la paleta y las fuentes del juego: fondo (`Fondo`), hasta 3 retratos (`Retrato`: izq, der, centro; el que no habla se atenúa), caja de diálogo `guinda_osc` con borde `dorado`, placa de nombre (`TxtPersonaje`, Fredoka, `dorado_claro`) y texto Nunito `crema` con máquina de escribir. Toque / Espacio / Enter / → completan el texto o avanzan; **Saltar** o Escape la terminan.
 
 Uso pensado: **introducción**, **final** y **especiales**.
 
@@ -177,7 +177,7 @@ Uso pensado: **introducción**, **final** y **especiales**.
 * Línea, una de estas tres:
   * diálogo: `{ "pj": id, "nombre": "texto de la placa (por defecto el de personajes)", "lado": "izq|der|centro", "texto": "...", "expr": "animación alternativa del retrato" }`
   * narración: `{ "narra": "..." }` (caja sin nombre, texto centrado `crema_osc`)
-  * título: `{ "titulo": "...", "sub": "..." }` (Bebas grande, sin caja)
+  * título: `{ "titulo": "...", "sub": "..." }` (Fredoka grande, sin caja)
 * Comandos opcionales en cualquier línea: `fondo`, `tinte`, `musica`, `sfx`, `flash` (`blanco|bueno|malo`), `sacudir` (s), `vibrar` (patrón), `fundido` (entra desde negro), `espera` (avanza sola tras N s), `salir` (`izq|der|centro|todos`), `col` / `colNombre` (colores de la paleta).
 * Texto: `{jugador}`, `{dir}`, `{n}`, `{ant}`, `{causa}`, `{ex}`.
 * Variables de escena: `CineActivo`, `CineId`, `SenalCine`. Las vistas con `una_vez` se guardan en `localStorage` (`directorUAN_cine_vistas`).
