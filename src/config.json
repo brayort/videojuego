@@ -1,5 +1,5 @@
 {
-  "_comentario": "Configuracion editable. Pega aqui los ID de tus leaderboards de GDevelop (Game Dashboard > Leaderboards) y corre node tools/build/build.js. Mientras valgan PEGA_AQUI_EL_ID o esten vacios, el juego no llama a la API y el boton Ranking muestra un mensaje.",
+  "_comentario": "Configuracion editable. Pega aqui los ID de tus leaderboards de GDevelop (Game Dashboard > Leaderboards) y corre node tools/build/build.js. Mientras valgan PEGA_AQUI_EL_ID o esten vacios, el juego no llama a la API y el boton Ranking muestra un mensaje. \"debug\": true activa el panel de depuracion (F2) en la escena Juego; dejalo en false al publicar.",
   "leaderboards": {
     "semanas": "PEGA_AQUI_EL_ID",
     "destino": "PEGA_AQUI_EL_ID"
@@ -8,5 +8,6 @@
     "volumen_musica": 0.5,
     "volumen_efectos": 0.8,
     "musica_ganancia": 0.45
-  }
+  },
+  "debug": false
 }

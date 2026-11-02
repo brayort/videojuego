@@ -24,6 +24,16 @@ assets/              audio, fuentes y sprites provisionales
 
 `npm run check` construye en un archivo temporal y corre el simulador: úsalo tras tocar `src/js`. `SPRITES.txt` lista el arte a dibujar.
 
+## Herramientas del juego
+
+| comando | qué hace |
+|---|---|
+| `npm run editor` | **Editor web** en http://localhost:5178 (solo local). **Cartas**: buscar y filtrar (personaje, con problemas, solo_luego, campaña, era, con cine, nunca vistas), formulario por carta y opción, vista previa con el LAYOUT real (marca en rojo el texto que no cabe), referencias cruzadas (quién pone o lee cada bandera, quién encola la carta). **Cinemáticas**: editar guiones línea a línea, disparos y un reproductor igual al del juego. **Balance**: corre la simulación y la muestra en gráficas (duración, causas de caída, destinos, sucesores, cartas más vistas, nunca vistas y con opción dominante). **Revisión**: el lint en vivo. Guarda `src/cartas.json` y `src/cinematicas.json` con respaldo en `tools/editor/respaldos/`; el botón *Build* genera `game.json` (cierra GDevelop antes). |
+| `npm run lint` | Revisa el contenido: ids duplicados, personajes, expedientes, `luego` hacia cartas que no existen, cartas `solo_luego` que nunca se encolan, banderas que se leen pero nada pone, umbrales y eras mal escritos, cinemáticas y assets que faltan, textos demasiado largos. `--todo` muestra también la info. |
+| `npm run check` | lint + build a un archivo temporal + simulador de escenas. Úsalo antes de cada commit. |
+| `npm run balance` | 5000 partidas por bot → `tools/balance/reporte.txt` y `reporte.json` (este último lo lee el editor). |
+| Panel de depuración | Pon `"debug": true` en `src/config.json` y corre `npm run build`. En la escena Juego, **F2** abre un panel con el estado completo y botones para mover stats y medidores, saltar a una carta por id, poner banderas, dar expedientes, avanzar semanas y forzar elección, caída, destino o cinemática. **Vuelve a ponerlo en false antes de publicar.** |
+
 ## Flujo de trabajo (editas arte en GDevelop y cartas en JSON)
 
 Orden completo (desde la raíz): `npm run audio` (solo si cambias el audio) → `npm run build` (= `build.js` + `assets.js`) → pruebas: `node tools/sim/sim.js <semilla> [frames]` (con `SIM_RANK=1` simula el ranking configurado) y `python tools/preview_layout.py` (capturas en `assets/preview`).

@@ -1,0 +1,712 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Editor Director UAN</title>
+<style>
+@font-face { font-family: "Lora"; src: url("/assets/fonts/Lora.ttf"); }
+@font-face { font-family: "Bebas"; src: url("/assets/fonts/BebasNeue-Regular.ttf"); }
+:root {
+  --guinda: #6B1D2A; --guinda-osc: #3A0F18; --vino: #8E2B3B; --dorado: #D4A63A; --dorado-cl: #F0D58A;
+  --crema: #F5ECD6; --crema-osc: #E2D2AC; --tinta: #2B1B1F; --azul: #1F3A5F; --azul-cl: #3E6296;
+  --verde: #3E8E5A; --rojo: #B3372F; --ambar: #C98A1B; --gris: #8A7F78; --negro: #140A0D;
+  --bg: #1c0c11; --panel: #2a1218; --panel2: #34161e; --linea: #4a2430; --txt: var(--crema); --txt2: #c9b99a; --txt3: #8f7f6c;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body { background: var(--bg); color: var(--txt); font: 14px/1.45 "Lora", Georgia, serif; overflow: hidden; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { background: var(--guinda); border: 1px solid var(--dorado); color: var(--crema); padding: 5px 12px; border-radius: 6px; cursor: pointer; }
+button:hover { background: var(--vino); }
+button.sec { background: transparent; border-color: var(--linea); color: var(--txt2); }
+button.sec:hover { border-color: var(--dorado); color: var(--crema); }
+button.peligro { border-color: var(--rojo); background: transparent; color: #f0a49d; }
+button:disabled { opacity: .45; cursor: default; }
+input, select, textarea { background: var(--negro); border: 1px solid var(--linea); border-radius: 5px; padding: 5px 7px; width: 100%; }
+input:focus, select:focus, textarea:focus { outline: none; border-color: var(--dorado); }
+textarea { resize: vertical; min-height: 60px; }
+textarea.json { font: 12px/1.4 Consolas, monospace; min-height: 46px; }
+label { display: block; font-size: 12px; color: var(--txt2); margin: 8px 0 3px; }
+h1, h2, h3 { font-family: "Bebas", Impact, sans-serif; font-weight: normal; letter-spacing: .5px; margin: 0; color: var(--dorado-cl); }
+h2 { font-size: 22px; } h3 { font-size: 18px; margin: 14px 0 6px; }
+header { height: 52px; display: flex; align-items: center; gap: 14px; padding: 0 16px; background: var(--guinda-osc); border-bottom: 2px solid var(--dorado); }
+header h1 { font-size: 26px; color: var(--crema); }
+nav { display: flex; gap: 4px; }
+nav button { background: transparent; border: 0; border-bottom: 3px solid transparent; border-radius: 0; padding: 14px 10px 11px; color: var(--txt2); }
+nav button.on { color: var(--dorado-cl); border-bottom-color: var(--dorado); }
+nav button:hover { background: transparent; color: var(--crema); }
+.esp { flex: 1; }
+#estado { font-size: 12px; color: var(--txt3); }
+#estado.sucio { color: var(--ambar); }
+main { height: calc(100% - 52px); }
+.tab { display: none; height: 100%; }
+.tab.on { display: grid; }
+.col { overflow: auto; padding: 14px; border-right: 1px solid var(--linea); min-width: 0; }
+.col:last-child { border-right: 0; }
+#tCartas, #tCine { grid-template-columns: 300px minmax(380px, 1fr) 400px; }
+#tBalance, #tLint { display: none; }
+#tBalance.on, #tLint.on { display: block; overflow: auto; padding: 18px 22px; }
+.lista { list-style: none; margin: 8px 0 0; padding: 0; }
+.lista li { padding: 7px 9px; border-radius: 6px; cursor: pointer; border: 1px solid transparent; margin-bottom: 2px; }
+.lista li:hover { background: var(--panel); }
+.lista li.on { background: var(--panel2); border-color: var(--dorado); }
+.lista .id { font: 12px Consolas, monospace; color: var(--dorado-cl); }
+.lista .pj { font-size: 11px; color: var(--txt3); float: right; }
+.lista .ex { font-size: 12px; color: var(--txt2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.badge { display: inline-block; min-width: 18px; padding: 0 5px; border-radius: 9px; font: 11px/18px Consolas, monospace; text-align: center; margin-left: 4px; }
+.b-error { background: var(--rojo); color: #fff; } .b-aviso { background: var(--ambar); color: var(--tinta); } .b-info { background: var(--azul); color: var(--crema); }
+.filtros { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.chip { font-size: 12px; padding: 2px 9px; border-radius: 12px; border: 1px solid var(--linea); cursor: pointer; color: var(--txt2); user-select: none; }
+.chip.on { border-color: var(--dorado); color: var(--dorado-cl); background: var(--panel2); }
+.fila { display: flex; gap: 8px; align-items: end; }
+.fila > * { flex: 1; min-width: 0; }
+.fila > .angosto { flex: 0 0 90px; }
+.op { border: 1px solid var(--linea); border-radius: 8px; padding: 4px 12px 12px; margin-top: 12px; background: var(--panel); }
+.op h3 { display: flex; align-items: center; gap: 8px; }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.stats input { text-align: center; }
+.stats input.pos { border-color: var(--verde); } .stats input.neg { border-color: var(--rojo); }
+.msgs { margin-top: 10px; }
+.msg { font-size: 12px; padding: 5px 8px; border-left: 3px solid; margin-bottom: 4px; background: var(--panel); border-radius: 0 4px 4px 0; cursor: pointer; }
+.msg.error { border-color: var(--rojo); } .msg.aviso { border-color: var(--ambar); } .msg.info { border-color: var(--azul-cl); color: var(--txt2); }
+.refs a { color: var(--dorado-cl); cursor: pointer; text-decoration: underline dotted; font: 12px Consolas, monospace; margin-right: 8px; }
+.refs { font-size: 12px; color: var(--txt2); margin-top: 4px; }
+.cnt { font-size: 11px; color: var(--txt3); float: right; }
+.cnt.mal { color: var(--ambar); }
+.barra-herr { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0; }
+/* ---- telefono de vista previa (720x1280 a escala) ---- */
+.tel { position: relative; width: 360px; height: 640px; margin: 0 auto; overflow: hidden; border-radius: 18px; box-shadow: 0 0 0 6px #000, 0 0 0 8px var(--linea); background: #000; }
+.tel .lienzo { position: absolute; left: 0; top: 0; width: 720px; height: 1280px; transform: scale(.5); transform-origin: 0 0; }
+.lienzo .abs { position: absolute; }
+.lienzo img { position: absolute; }
+.tel-ctrl { display: flex; justify-content: center; gap: 6px; margin: 12px 0; flex-wrap: wrap; }
+.tel-ctrl button.on { background: var(--vino); border-color: var(--dorado-cl); }
+.ind { position: absolute; width: 96px; height: 96px; border: 4px solid var(--vino); background: var(--negro); }
+.ind .f { position: absolute; left: 0; right: 0; bottom: 0; background: var(--dorado); }
+.ind img { position: relative; left: 20px; top: 20px; width: 48px; height: 48px; }
+.ind.toca { border-color: var(--dorado-cl); }
+.ind .d { position: absolute; left: 50%; top: -34px; transform: translateX(-50%); font: 28px "Bebas"; }
+.ttl { font-family: "Bebas"; } .lora { font-family: "Lora"; }
+/* ---- balance ---- */
+.kpis { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; margin: 12px 0 18px; }
+.kpi { background: var(--panel); border: 1px solid var(--linea); border-radius: 8px; padding: 10px 14px; }
+.kpi .v { font: 34px/1 "Bebas"; color: var(--crema); margin-top: 4px; }
+.kpi .l { font-size: 12px; color: var(--txt2); }
+.kpi .o { font-size: 11px; color: var(--txt3); }
+.kpi .o.ok { color: #8fd0a4; } .kpi .o.mal { color: #f0a49d; }
+.graf { display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 16px; }
+.caja { background: var(--panel); border: 1px solid var(--linea); border-radius: 8px; padding: 12px 16px 14px; min-width: 0; }
+.caja h3 { margin-top: 0; }
+.caja .nota { font-size: 12px; color: var(--txt3); margin: -2px 0 8px; }
+.hb { display: grid; grid-template-columns: 130px 1fr 52px; gap: 6px; align-items: center; font-size: 12px; margin-bottom: 3px; }
+.hb .n { color: var(--txt2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hb .t { height: 14px; position: relative; }
+.hb .t i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--dorado); border-radius: 0 4px 4px 0; }
+.hb:hover .t i { background: var(--dorado-cl); }
+.hb .p { text-align: right; color: var(--txt); font-variant-numeric: tabular-nums; }
+.histo { display: flex; align-items: flex-end; gap: 2px; height: 160px; border-bottom: 1px solid var(--linea); }
+.histo div { flex: 1; background: var(--dorado); border-radius: 4px 4px 0 0; min-height: 1px; }
+.histo div:hover { background: var(--dorado-cl); }
+.ejex { display: flex; justify-content: space-between; font-size: 11px; color: var(--txt3); margin-top: 3px; }
+.ids { font: 12px/1.9 Consolas, monospace; }
+.ids a { color: var(--dorado-cl); cursor: pointer; margin-right: 10px; white-space: nowrap; }
+#tip { position: fixed; pointer-events: none; background: var(--negro); border: 1px solid var(--dorado); padding: 5px 9px; border-radius: 5px; font-size: 12px; display: none; z-index: 99; max-width: 320px; }
+.vacio { color: var(--txt3); font-style: italic; padding: 20px 0; }
+.lin { border: 1px solid var(--linea); border-radius: 8px; padding: 2px 10px 10px; margin-bottom: 8px; background: var(--panel); }
+.lin.on { border-color: var(--dorado); }
+.lin .cab { display: flex; gap: 6px; align-items: center; margin-top: 8px; }
+.lin .cab .num { font: 18px "Bebas"; color: var(--txt3); width: 26px; }
+.lin .cab select { width: auto; }
+.mini { padding: 3px 8px; font-size: 12px; }
+table.disp { width: 100%; border-collapse: collapse; font-size: 12px; }
+table.disp td { padding: 3px 2px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>DIRECTOR UAN · EDITOR</h1>
+  <nav id="nav">
+    <button data-t="tCartas" class="on">Cartas</button>
+    <button data-t="tCine">Cinemáticas</button>
+    <button data-t="tBalance">Balance</button>
+    <button data-t="tLint">Revisión <span id="lintBadge"></span></button>
+  </nav>
+  <div class="esp"></div>
+  <span id="estado">cargando…</span>
+  <button id="bGuardar" disabled>Guardar</button>
+  <button id="bBuild" class="sec" title="node tools/build/build.js + assets.js (cierra GDevelop antes)">Build game.json</button>
+</header>
+<main>
+  <!-- ================= CARTAS ================= -->
+  <section class="tab on" id="tCartas">
+    <div class="col">
+      <input id="cBuscar" placeholder="Buscar id, texto, opción, bandera…">
+      <div class="fila" style="margin-top:6px">
+        <select id="cPj"><option value="">Todos los personajes</option></select>
+      </div>
+      <div class="filtros" id="cFiltros">
+        <span class="chip" data-f="problemas">con problemas</span>
+        <span class="chip" data-f="solo_luego">solo_luego</span>
+        <span class="chip" data-f="campana">campaña</span>
+        <span class="chip" data-f="era">con era</span>
+        <span class="chip" data-f="cine">con cine</span>
+        <span class="chip" data-f="nunca">nunca vista</span>
+      </div>
+      <div class="barra-herr"><button id="cNueva" class="mini">+ Nueva</button><button id="cDup" class="mini sec">Duplicar</button><button id="cBorrar" class="mini peligro">Borrar</button><span class="esp"></span><span id="cCuenta" class="cnt"></span></div>
+      <ul class="lista" id="cLista"></ul>
+    </div>
+    <div class="col" id="cForm"></div>
+    <div class="col">
+      <div class="tel"><div class="lienzo" id="cTel"></div></div>
+      <div class="tel-ctrl" id="cTelCtrl">
+        <button data-v="">Carta</button><button data-v="izq">◀ Izquierda</button><button data-v="der">Derecha ▶</button><button data-v="arriba">▲ Expediente</button>
+      </div>
+      <div id="cInfo" class="refs"></div>
+    </div>
+  </section>
+  <!-- ================= CINEMATICAS ================= -->
+  <section class="tab" id="tCine">
+    <div class="col">
+      <div class="barra-herr"><button id="nNueva" class="mini">+ Nueva</button><button id="nDup" class="mini sec">Duplicar</button><button id="nBorrar" class="mini peligro">Borrar</button></div>
+      <ul class="lista" id="nLista"></ul>
+      <h3>Disparos</h3>
+      <div class="nota" style="font-size:12px;color:var(--txt3)">Evento del motor → cinemática. Las cartas y opciones usan <code>"cine"</code>.</div>
+      <table class="disp" id="nDisp"></table>
+      <button id="nDispAdd" class="mini sec" style="margin-top:6px">+ Disparo</button>
+    </div>
+    <div class="col" id="nForm"></div>
+    <div class="col">
+      <div class="tel" id="nTelMarco"><div class="lienzo" id="nTel"></div></div>
+      <div class="tel-ctrl">
+        <button id="nPlay">▶ Reproducir</button><button id="nDesde" class="sec">▶ Desde la línea</button><button id="nSonido" class="sec">♪ Música: no</button>
+      </div>
+      <div class="refs">Clic sobre el teléfono = avanzar (como en el juego). Esc = saltar.</div>
+    </div>
+  </section>
+  <!-- ================= BALANCE ================= -->
+  <section class="tab" id="tBalance">
+    <div class="fila" style="max-width:900px">
+      <div><label>Bot</label><select id="bBot"></select></div>
+      <div class="angosto" style="flex:0 0 170px"><label>Partidas por bot</label><select id="bN"><option value="300">300 (≈15 s)</option><option value="1000">1000 (≈45 s)</option><option value="5000">5000 · oficial (≈3 min)</option></select></div>
+      <div style="flex:0 0 auto"><button id="bCorrer">Correr simulación</button></div>
+      <div style="flex:0 0 auto"><button id="bSim" class="sec" title="tools/sim/sim.js: prueba de regresión de escenas">Prueba de escenas</button></div>
+    </div>
+    <div id="bOut"></div>
+  </section>
+  <!-- ================= LINT ================= -->
+  <section class="tab" id="tLint">
+    <div class="filtros" id="lFiltros"><span class="chip on" data-n="error">errores</span><span class="chip on" data-n="aviso">avisos</span><span class="chip" data-n="info">info</span></div>
+    <div id="lOut" class="msgs"></div>
+  </section>
+</main>
+<div id="tip"></div>
+<script>
+"use strict";
+// ======================= estado =======================
+let D, CI, LAY, AUD, AS, BAL, LINT = [];
+const sucio = { cartas: false, cinematicas: false };
+let selC = 0, selN = null, selLin = 0, vistaOp = "";
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const h = (tag, attrs, ...hijos) => { const e = document.createElement(tag); if (attrs) for (const k in attrs) { if (k === "on") for (const ev in attrs.on) e.addEventListener(ev, attrs.on[ev]); else if (k === "html") e.innerHTML = attrs[k]; else if (attrs[k] !== undefined && attrs[k] !== null && attrs[k] !== false) e.setAttribute(k, attrs[k]); } hijos.flat().forEach(x => { if (x !== null && x !== undefined && x !== false) e.append(x.nodeType ? x : String(x)); }); return e; };
+const api = async (ruta, cuerpo) => { const r = await fetch(ruta, cuerpo ? { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(cuerpo) } : undefined); const j = await r.json(); if (j && j.error) throw new Error(j.error); return j; };
+const COL = { guinda: "#6B1D2A", guinda_osc: "#3A0F18", vino: "#8E2B3B", dorado: "#D4A63A", dorado_claro: "#F0D58A", crema: "#F5ECD6", crema_osc: "#E2D2AC", tinta: "#2B1B1F", azul: "#1F3A5F", azul_cl: "#3E6296", verde: "#3E8E5A", rojo: "#B3372F", ambar: "#C98A1B", gris: "#8A7F78", negro: "#140A0D", blanco: "#FFFFFF" };
+const STATN = ["Académico", "Estudiantes", "Finanzas", "Política"], STATI = ["academico", "estudiantes", "finanzas", "politica"];
+const EJ = { n: 3, ant: "Mtra. Quintero", causa: "perdió la elección", antsem: 61, dir: "Dr. Fausto Meléndez", ex: "Mtra. Quintero", jugador: "Héctor", evento: "" };
+const fmt = s => String(s || "").replace(/\{(\w+)\}/g, (m, k) => (EJ[k] !== undefined ? EJ[k] : m));
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const tip = $("#tip");
+document.addEventListener("mousemove", e => { const t = e.target.closest("[data-tip]"); if (!t) { tip.style.display = "none"; return; } tip.innerHTML = t.dataset.tip; tip.style.display = "block"; tip.style.left = Math.min(innerWidth - 330, e.clientX + 14) + "px"; tip.style.top = (e.clientY + 14) + "px"; });
+
+function marcar(arch) { sucio[arch] = true; estado(); lintPronto(); }
+function estado() {
+  const s = Object.keys(sucio).filter(k => sucio[k]);
+  $("#estado").textContent = s.length ? "sin guardar: " + s.join(", ") : "todo guardado";
+  $("#estado").className = s.length ? "sucio" : ""; $("#bGuardar").disabled = !s.length;
+}
+window.addEventListener("beforeunload", e => { if (sucio.cartas || sucio.cinematicas) { e.preventDefault(); e.returnValue = ""; } });
+document.addEventListener("keydown", e => { if ((e.ctrlKey || e.metaKey) && e.key === "s") { e.preventDefault(); guardar(); } });
+
+// ======================= lint =======================
+let lintT = 0;
+function lintPronto() { clearTimeout(lintT); lintT = setTimeout(correrLint, 400); }
+async function correrLint() {
+  try { LINT = await api("/api/lint", { cartas: D, cinematicas: CI }); } catch (e) { LINT = [{ nivel: "error", donde: "editor", msg: "JSON invalido: " + e.message }]; }
+  const n = LINT.filter(x => x.nivel === "error").length, a = LINT.filter(x => x.nivel === "aviso").length;
+  $("#lintBadge").innerHTML = n ? `<span class="badge b-error">${n}</span>` : a ? `<span class="badge b-aviso">${a}</span>` : "";
+  pintarListaC(); pintarMsgsC(); pintarListaN(); pintarLint();
+}
+const deCarta = id => LINT.filter(x => x.donde === "carta " + id || x.donde.indexOf("carta " + id + ".") === 0);
+const deCine = id => LINT.filter(x => x.donde === "cine " + id || x.donde.indexOf("cine " + id + " ") === 0);
+function irA(donde) {
+  let m = /^carta ([^.\s]+)/.exec(donde);
+  if (m) { const i = D.cartas.findIndex(c => c.id === m[1]); if (i >= 0) { tab("tCartas"); selC = i; pintarTodoC(true); } return; }
+  m = /^cine (\S+)(?: linea (\d+))?/.exec(donde);
+  if (m) { tab("tCine"); selN = m[1]; selLin = m[2] ? +m[2] - 1 : 0; pintarTodoN(); }
+}
+function pintarLint() {
+  const nv = $$("#lFiltros .chip.on").map(c => c.dataset.n);
+  const l = LINT.filter(x => nv.includes(x.nivel)), out = $("#lOut"); out.innerHTML = "";
+  out.append(h("h2", null, "Revisión de contenido"), h("div", { class: "refs" }, `${LINT.filter(x => x.nivel === "error").length} errores · ${LINT.filter(x => x.nivel === "aviso").length} avisos · ${LINT.filter(x => x.nivel === "info").length} info — misma regla que npm run lint`));
+  if (!l.length) out.append(h("div", { class: "vacio" }, "Nada que reportar."));
+  l.forEach(x => out.append(h("div", { class: "msg " + x.nivel, on: { click: () => irA(x.donde) } }, h("b", null, x.donde), " — ", x.msg)));
+}
+$("#lFiltros").addEventListener("click", e => { const c = e.target.closest(".chip"); if (c) { c.classList.toggle("on"); pintarLint(); } });
+
+// ======================= tabs, guardar, build =======================
+function tab(id) { $$("#nav button").forEach(b => b.classList.toggle("on", b.dataset.t === id)); $$(".tab").forEach(t => t.classList.toggle("on", t.id === id)); if (id === "tBalance") pintarBalance(); if (id !== "tCine") pararCine(); }
+$("#nav").addEventListener("click", e => { const b = e.target.closest("button"); if (b) tab(b.dataset.t); });
+async function guardar() {
+  const errs = LINT.filter(x => x.nivel === "error");
+  if (errs.length && !confirm(errs.length + " errores de contenido. ¿Guardar de todos modos?")) return;
+  for (const k of ["cartas", "cinematicas"]) if (sucio[k]) { await api("/api/guardar", { archivo: k, datos: k === "cartas" ? D : CI }); sucio[k] = false; }
+  estado();
+}
+$("#bGuardar").onclick = guardar;
+$("#bBuild").onclick = async () => {
+  if (sucio.cartas || sucio.cinematicas) { if (!confirm("Hay cambios sin guardar. ¿Guardar y luego hacer el build?")) return; await guardar(); }
+  if (!confirm("Cierra el proyecto en GDevelop (o recárgalo después). ¿Generar game.json ahora?")) return;
+  $("#bBuild").disabled = true; $("#estado").textContent = "build…";
+  try { const r = await api("/api/build", {}); alert((r.ok ? "Build correcto.\n\n" : "El build falló.\n\n") + r.out.trim().split("\n").slice(-6).join("\n")); }
+  finally { $("#bBuild").disabled = false; estado(); }
+};
+
+// ======================= CARTAS =======================
+const C_BASE = ["id", "pj", "texto", "izq", "der", "arriba", "peso", "unica", "solo_luego", "cine"];
+const O_BASE = ["t", "e"];
+const filtrosC = new Set();
+let indice = null;   // banderas -> cartas que las ponen / leen; luego -> quien encola
+function indexar() {
+  const pone = {}, lee = {}, encola = {};
+  const add = (m, k, id) => { (m[k] = m[k] || []).includes(id) || m[k].push(id); };
+  const ver = (o, id) => {
+    if (!o || typeof o !== "object") return;
+    if (Array.isArray(o)) return o.forEach(x => ver(x, id));
+    for (const k in o) {
+      if (/(^|_)set$/.test(k)) [].concat(o[k]).forEach(f => add(pone, f, id));
+      else if (k === "req" || k === "noreq") [].concat(o[k]).forEach(f => add(lee, f, id));
+      else if (k === "luego") [].concat(o[k]).forEach(l => l && l.carta && add(encola, l.carta, id));
+      else ver(o[k], id);
+    }
+  };
+  D.cartas.forEach(c => ver(c, c.id));
+  Object.keys(D.finales_raros || {}).forEach(k => ver(D.finales_raros[k], "final_raro:" + k));
+  indice = { pone, lee, encola };
+}
+function pintarListaC() {
+  const q = $("#cBuscar").value.trim().toLowerCase(), pj = $("#cPj").value, ul = $("#cLista"); ul.innerHTML = "";
+  let n = 0;
+  D.cartas.forEach((c, i) => {
+    if (pj && c.pj !== pj) return;
+    if (q && JSON.stringify(c).toLowerCase().indexOf(q) < 0) return;
+    const msgs = deCarta(c.id).filter(x => x.nivel !== "info");
+    if (filtrosC.has("problemas") && !msgs.length) return;
+    if (filtrosC.has("solo_luego") && !c.solo_luego) return;
+    if (filtrosC.has("campana") && !c.campana) return;
+    if (filtrosC.has("era") && !c.desde && !c.hasta) return;
+    if (filtrosC.has("cine") && !c.cine && !["izq", "der", "arriba"].some(k => c[k] && c[k].cine)) return;
+    if (filtrosC.has("nunca") && !(BAL && BAL.nunca && BAL.nunca.some(x => x.split("(")[0] === c.id))) return;
+    n++;
+    const er = msgs.filter(x => x.nivel === "error").length, av = msgs.length - er;
+    const li = h("li", { class: i === selC ? "on" : "", on: { click: () => { selC = i; pintarTodoC(); } } },
+      h("span", { class: "pj" }, c.pj), h("span", { class: "id" }, c.id || "(sin id)"),
+      er ? h("span", { class: "badge b-error" }, er) : null, av ? h("span", { class: "badge b-aviso" }, av) : null,
+      h("div", { class: "ex" }, c.texto || ""));
+    ul.append(li);
+  });
+  $("#cCuenta").textContent = n + " / " + D.cartas.length;
+}
+$("#cBuscar").addEventListener("input", pintarListaC);
+$("#cPj").addEventListener("change", pintarListaC);
+$("#cFiltros").addEventListener("click", e => { const c = e.target.closest(".chip"); if (!c) return; c.classList.toggle("on"); c.classList.contains("on") ? filtrosC.add(c.dataset.f) : filtrosC.delete(c.dataset.f); pintarListaC(); });
+
+const jsonResto = (o, base) => { const r = {}; Object.keys(o || {}).forEach(k => { if (!base.includes(k)) r[k] = o[k]; }); return Object.keys(r).length ? JSON.stringify(r, null, 1) : ""; };
+function campoJson(valor, alCambiar, ph) {
+  const t = h("textarea", { class: "json", placeholder: ph || "{ }", spellcheck: "false" }); t.value = valor;
+  t.addEventListener("input", () => {
+    const s = t.value.trim();
+    try { const o = s ? JSON.parse(s) : {}; if (typeof o !== "object" || Array.isArray(o)) throw 0; t.style.borderColor = ""; alCambiar(o); } catch (e) { t.style.borderColor = "var(--rojo)"; }
+  });
+  return t;
+}
+function pintarTodoC(scroll) { pintarListaC(); pintarFormC(); pintarTelC(); if (scroll) { const li = $("#cLista li.on"); if (li) li.scrollIntoView({ block: "center" }); } }
+function pintarFormC() {
+  const f = $("#cForm"); f.innerHTML = "";
+  const c = D.cartas[selC];
+  if (!c) { f.append(h("div", { class: "vacio" }, "Sin cartas.")); return; }
+  const cambio = () => { marcar("cartas"); pintarTelC(); pintarListaC(); };
+  const inp = (val, fn, attrs) => { const e = h("input", attrs || {}); e.value = val === undefined ? "" : val; e.addEventListener("input", () => { fn(e.value); cambio(); }); return e; };
+  // cabecera
+  const pjSel = h("select", { on: { change: e => { c.pj = e.target.value; cambio(); } } }, Object.keys(D.personajes).map(p => h("option", { value: p, selected: p === c.pj ? "" : null }, p + " — " + fmt(D.personajes[p]))));
+  const texto = h("textarea", { rows: 5 }); texto.value = c.texto || "";
+  const cnt = h("span", { class: "cnt" });
+  const upCnt = () => { cnt.textContent = (c.texto || "").length + " letras"; cnt.className = "cnt" + ((c.texto || "").length > 330 ? " mal" : ""); };
+  texto.addEventListener("input", () => { c.texto = texto.value; upCnt(); cambio(); }); upCnt();
+  const unica = h("select", { on: { change: e => { const v = e.target.value; if (v === "") delete c.unica; else c.unica = v === "true"; cambio(); } } },
+    h("option", { value: "" }, "por defecto (1 vez, recicla)"), h("option", { value: "true", selected: c.unica === true ? "" : null }, "true (nunca recicla)"), h("option", { value: "false", selected: c.unica === false ? "" : null }, "false (repetible)"));
+  const cineSel = h("select", { on: { change: e => { if (e.target.value) c.cine = e.target.value; else delete c.cine; cambio(); } } }, h("option", { value: "" }, "— ninguna —"), Object.keys(CI.cinematicas).map(k => h("option", { value: k, selected: c.cine === k ? "" : null }, k)));
+  const sl = h("input", { type: "checkbox", style: "width:auto" }); sl.checked = !!c.solo_luego; sl.addEventListener("change", () => { if (sl.checked) c.solo_luego = true; else delete c.solo_luego; cambio(); });
+  f.append(
+    h("div", { class: "fila" }, h("div", null, h("label", null, "id"), inp(c.id, v => { c.id = v.trim(); })), h("div", null, h("label", null, "Personaje"), pjSel)),
+    h("label", null, "Texto ", cnt), texto,
+    h("div", { class: "fila" },
+      h("div", { class: "angosto" }, h("label", null, "peso"), inp(c.peso, v => { if (v === "") delete c.peso; else c.peso = +v; }, { type: "number", step: "0.1", placeholder: "1" })),
+      h("div", null, h("label", null, "única"), unica),
+      h("div", null, h("label", null, "Cinemática previa"), cineSel)),
+    h("label", { style: "display:flex;gap:6px;align-items:center" }, sl, "solo_luego (solo sale encolada con luego)"),
+    h("label", null, "Condiciones y extras de la carta (JSON: req, noreq, si, uansi, desde, hasta, semana, campana, afmin, fx…)"),
+    campoJson(jsonResto(c, C_BASE), o => { Object.keys(c).forEach(k => { if (!C_BASE.includes(k)) delete c[k]; }); Object.assign(c, o); cambio(); }, '{ "req": ["bandera"], "si": {"fin": "<30"} }'));
+  // opciones
+  ["izq", "der", "arriba"].forEach(lado => {
+    const op = c[lado], caja = h("div", { class: "op" });
+    const titulo = { izq: "◀ Izquierda", der: "Derecha ▶", arriba: "▲ Expediente (arriba)" }[lado];
+    if (!op) {
+      if (lado === "arriba") caja.append(h("h3", null, titulo, h("button", { class: "mini sec", on: { click: () => { c.arriba = { t: "Usar expediente", e: [0, 0, 0, 0], usa: Object.keys(D.items)[0] }; cambio(); pintarFormC(); } } }, "+ añadir")));
+      f.append(caja); return;
+    }
+    const e = op.e || [0, 0, 0, 0];
+    const st = h("div", { class: "stats" }, STATN.map((n, i) => {
+      const x = h("input", { type: "number", value: e[i] || 0, title: n, class: e[i] > 0 ? "pos" : e[i] < 0 ? "neg" : "" });
+      x.addEventListener("input", () => { op.e = (op.e || [0, 0, 0, 0]).slice(); op.e[i] = +x.value || 0; x.className = op.e[i] > 0 ? "pos" : op.e[i] < 0 ? "neg" : ""; if (op.e.every(v => !v)) delete op.e; cambio(); });
+      return h("div", null, h("label", null, n), x);
+    }));
+    const tt = h("input", { value: op.t || "" }); const tc = h("span", { class: "cnt" });
+    const upT = () => { tc.textContent = (op.t || "").length; tc.className = "cnt" + ((op.t || "").length > 70 ? " mal" : ""); }; upT();
+    tt.addEventListener("input", () => { op.t = tt.value; upT(); cambio(); });
+    caja.append(h("h3", null, titulo, h("span", { class: "esp" }), lado === "arriba" ? h("button", { class: "mini peligro", on: { click: () => { delete c.arriba; cambio(); pintarFormC(); } } }, "quitar") : null,
+      h("button", { class: "mini sec", on: { click: () => { vistaOp = lado; pintarTelC(); } } }, "ver")),
+      h("label", null, "Texto de la opción ", tc), tt, st,
+      h("label", null, "Extras (JSON: int, set, unset, af, uan, nay, item, usa, luego, estado, azar, mini, final, cine, ruido…)"),
+      campoJson(jsonResto(op, O_BASE), o => { Object.keys(op).forEach(k => { if (!O_BASE.includes(k)) delete op[k]; }); Object.assign(op, o); cambio(); }, '{ "int": -2, "set": ["bandera"], "uan": [0,1,0,0] }'));
+    f.append(caja);
+  });
+  f.append(h("div", { class: "msgs", id: "cMsgs" }));
+  pintarMsgsC(); pintarRefsC();
+}
+function pintarMsgsC() {
+  const box = $("#cMsgs"), c = D.cartas[selC]; if (!box || !c) return;
+  box.innerHTML = ""; deCarta(c.id).forEach(x => box.append(h("div", { class: "msg " + x.nivel }, x.donde.replace("carta " + c.id, "") || "carta", ": ", x.msg)));
+}
+function pintarRefsC() {
+  const c = D.cartas[selC], box = $("#cInfo"); if (!c) return; indexar(); box.innerHTML = "";
+  const link = id => id.indexOf("final_raro:") === 0 ? h("span", null, id + " ") : h("a", { on: { click: () => irA("carta " + id) } }, id);
+  const flags = (o, fn) => { const s = new Set(); JSON.stringify(o, (k, v) => { if (fn(k)) [].concat(v).forEach(x => typeof x === "string" && s.add(x)); return v; }); return [...s]; };
+  const lee = flags(c, k => k === "req" || k === "noreq"), pone = flags(c, k => /(^|_)set$/.test(k));
+  const vistas = BAL && BAL.vistas ? BAL.vistas[c.id] || 0 : null;
+  if (vistas !== null) box.append(h("div", null, "Balance: ", h("b", null, vistas), " apariciones en la simulación."));
+  if (indice.encola[c.id]) box.append(h("div", null, "La encolan con luego: ", indice.encola[c.id].map(link)));
+  lee.forEach(f => box.append(h("div", null, "Lee ", h("code", null, f), " ← la ponen: ", (indice.pone[f] || []).length ? (indice.pone[f] || []).map(link) : h("i", null, f.indexOf("legado_") === 0 || f.indexOf("ex_") === 0 ? "el motor" : "nadie"))));
+  pone.forEach(f => box.append(h("div", null, "Pone ", h("code", null, f), " → la leen: ", (indice.lee[f] || []).length ? indice.lee[f].map(link) : h("i", null, "nadie (memoria narrativa)"))));
+}
+$("#cTelCtrl").addEventListener("click", e => { const b = e.target.closest("button"); if (b) { vistaOp = b.dataset.v; pintarTelC(); } });
+// ---- vista previa de la carta con el LAYOUT real ----
+function ajustar(el, sizes, w, hmax) {
+  for (const s of sizes) { el.style.fontSize = s + "px"; if (el.scrollHeight <= hmax && el.scrollWidth <= w + 1) return s; }
+  return sizes[sizes.length - 1];
+}
+function pintarTelC() {
+  const t = $("#cTel"), c = D.cartas[selC]; t.innerHTML = ""; if (!c) return;
+  $$("#cTelCtrl button").forEach(b => b.classList.toggle("on", b.dataset.v === vistaOp));
+  const HL = LAY.hud, CD = HL.carta, op = vistaOp && c[vistaOp];
+  const pjImg = (dir, pj) => "/assets/placeholder/" + dir + "/" + (AS[dir].includes(pj) ? pj : (dir === "cartas" ? "carta" : "default")) + ".png";
+  t.append(h("img", { src: "/assets/placeholder/fondos/juego.png", style: "left:0;top:0;width:720px;height:1280px" }));
+  // indicadores
+  const vals = [62, 48, 35, 55];
+  STATI.forEach((s, i) => {
+    const d = op && op.e ? op.e[i] || 0 : 0, toca = !!d || !!(op && op.azar);
+    const x = HL.ind.x0 + i * HL.ind.celda + (HL.ind.celda - HL.ind.s) / 2;
+    const box = h("div", { class: "ind" + (toca ? " toca" : ""), style: `left:${x}px;top:${HL.ind.y}px`, "data-tip": STATN[i] + (d ? ": " + (d > 0 ? "+" : "") + d : "") },
+      h("div", { class: "f", style: `height:${vals[i] * .88}px;background:${vals[i] <= 15 || vals[i] >= 85 ? COL.rojo : COL.dorado}` }), h("img", { src: "/assets/placeholder/iconos/" + s + ".png" }));
+    if (d) box.append(h("div", { class: "d", style: `color:${d > 0 ? "#8fd0a4" : "#f0a49d"}` }, (d > 0 ? "+" : "") + d));
+    t.append(box);
+  });
+  // texto de la carta
+  const TX = HL.texto;
+  const tx = h("div", { class: "abs lora", style: `left:${TX.x + TX.pad}px;top:${TX.y + TX.pad}px;width:${TX.w - 2 * TX.pad}px;color:${COL.crema};line-height:1.32;white-space:pre-wrap` }, fmt(c.texto));
+  t.append(tx); const s = ajustar(tx, TX.sizes, TX.w - 2 * TX.pad, TX.h - 2 * TX.pad);
+  tx.style.top = (TX.y + Math.max(TX.pad / 2, (TX.h - tx.scrollHeight) / 2)) + "px";
+  if (tx.scrollHeight > TX.h - 2 * TX.pad) tx.style.outline = "2px dashed " + COL.rojo, tx.dataset.tip = "El texto no cabe ni a " + s + " px";
+  // carta (inclinada si se previsualiza una opcion)
+  const dx = vistaOp === "izq" ? -150 : vistaOp === "der" ? 150 : 0, dy = vistaOp === "arriba" ? -50 : 0, ang = dx * 0.06;
+  const cx = CD.x + dx, cy = CD.y + Math.abs(dx) * 0.1 + dy;
+  const grp = h("div", { class: "abs", style: `left:${cx}px;top:${cy}px;width:${CD.w}px;height:${CD.h}px;transform:rotate(${ang}deg);transform-origin:50% 50%` },
+    h("img", { src: "/assets/placeholder/ui/sombra_carta.png", style: `left:${CD.sombra * .8}px;top:${CD.sombra * 1.2}px;width:${CD.w}px;height:${CD.h}px` }),
+    h("img", { src: pjImg("cartas", c.pj), style: `left:0;top:0;width:${CD.w}px;height:${CD.h}px` }),
+    h("img", { src: pjImg("retratos", c.pj), style: `left:${(CD.w - CD.ret) / 2}px;top:${CD.retDy}px;width:${CD.ret}px;height:${CD.ret}px` }));
+  t.append(grp);
+  if (op) {
+    const ET = HL.etiqueta, lbl = (op.t || "") + (op.azar ? "  ¿?" : "");
+    const x = vistaOp === "izq" ? cx + ET.margen : vistaOp === "der" ? cx + CD.w - ET.margen - ET.w : cx + (CD.w - ET.w) / 2;
+    grp.append(h("div", { class: "abs lora", style: `left:${x - cx}px;top:${ET.margen}px;max-width:${ET.w}px;padding:10px 12px;background:${COL.crema};color:${COL.tinta};border:3px solid ${COL.dorado};font-size:${ET.size}px;line-height:1.32` }, fmt(lbl)));
+  }
+  // nombre
+  const N = HL.nombre, nm = h("div", { class: "abs ttl", style: `left:${N.x}px;top:${N.y}px;width:${N.w}px;text-align:center;color:${COL.dorado_claro};line-height:1.15` }, fmt(D.personajes[c.pj] || c.pj));
+  t.append(nm); ajustar(nm, N.sizes, N.w, N.h);
+  pintarRefsC();
+}
+// ---- crear / duplicar / borrar ----
+$("#cNueva").onclick = () => { const id = "nueva_" + Date.now().toString(36); D.cartas.splice(selC + 1, 0, { id, pj: D.cartas[selC] ? D.cartas[selC].pj : Object.keys(D.personajes)[0], texto: "", izq: { t: "", e: [0, 0, 0, 0] }, der: { t: "", e: [0, 0, 0, 0] } }); selC++; marcar("cartas"); pintarTodoC(true); };
+$("#cDup").onclick = () => { const c = D.cartas[selC]; if (!c) return; const n = JSON.parse(JSON.stringify(c)); n.id = c.id + "_copia"; D.cartas.splice(selC + 1, 0, n); selC++; marcar("cartas"); pintarTodoC(true); };
+$("#cBorrar").onclick = () => { const c = D.cartas[selC]; if (!c || !confirm("¿Borrar la carta " + c.id + "?")) return; D.cartas.splice(selC, 1); selC = Math.max(0, selC - 1); marcar("cartas"); pintarTodoC(); };
+
+// ======================= CINEMATICAS =======================
+const L_BASE = ["pj", "nombre", "lado", "texto", "narra", "titulo", "sub"];
+function pintarListaN() {
+  const ul = $("#nLista"); ul.innerHTML = "";
+  const usadas = new Set(Object.values(CI.disparos || {}));
+  D.cartas.forEach(c => { if (c.cine) usadas.add(c.cine); ["izq", "der", "arriba"].forEach(k => c[k] && c[k].cine && usadas.add(c[k].cine)); });
+  Object.keys(CI.cinematicas).forEach(id => {
+    const g = CI.cinematicas[id], m = deCine(id).filter(x => x.nivel !== "info"), er = m.filter(x => x.nivel === "error").length;
+    ul.append(h("li", { class: id === selN ? "on" : "", on: { click: () => { selN = id; selLin = 0; pintarTodoN(); } } },
+      h("span", { class: "pj" }, (g.lineas || []).length + " líneas"), h("span", { class: "id" }, id),
+      er ? h("span", { class: "badge b-error" }, er) : m.length ? h("span", { class: "badge b-aviso" }, m.length) : null,
+      h("div", { class: "ex" }, usadas.has(id) ? (g.una_vez ? "una vez · " : "") + "en uso" : "sin usar")));
+  });
+  // disparos
+  const tb = $("#nDisp"); tb.innerHTML = "";
+  Object.keys(CI.disparos || {}).forEach(ev => {
+    const evI = h("input", { value: ev, style: "font:12px Consolas,monospace" });
+    evI.addEventListener("change", () => { const v = evI.value.trim(); if (!v || v === ev) return; const val = CI.disparos[ev]; delete CI.disparos[ev]; CI.disparos[v] = val; marcar("cinematicas"); pintarListaN(); });
+    const sel = h("select", { on: { change: e => { CI.disparos[ev] = e.target.value; marcar("cinematicas"); } } }, Object.keys(CI.cinematicas).map(k => h("option", { value: k, selected: CI.disparos[ev] === k ? "" : null }, k)));
+    tb.append(h("tr", null, h("td", null, evI), h("td", null, sel), h("td", null, h("button", { class: "mini peligro", on: { click: () => { delete CI.disparos[ev]; marcar("cinematicas"); pintarListaN(); } } }, "×"))));
+  });
+}
+$("#nDispAdd").onclick = () => { CI.disparos = CI.disparos || {}; let k = "director_inicio", i = 2; while (CI.disparos[k]) k = "evento_" + i++; CI.disparos[k] = selN || Object.keys(CI.cinematicas)[0]; marcar("cinematicas"); pintarListaN(); };
+function pintarTodoN() { pintarListaN(); pintarFormN(); pararCine(); pintarCuadro(); }
+function pintarFormN() {
+  const f = $("#nForm"); f.innerHTML = ""; const g = CI.cinematicas[selN];
+  if (!g) { f.append(h("div", { class: "vacio" }, "Elige o crea una cinemática.")); return; }
+  const cambio = () => { marcar("cinematicas"); pintarCuadro(); };
+  const opts = (lista, val, vacio) => [vacio !== undefined ? h("option", { value: "" }, vacio) : null, ...lista.map(x => h("option", { value: x, selected: x === val ? "" : null }, x))];
+  const idI = h("input", { value: selN });
+  idI.addEventListener("change", () => {
+    const nuevo = idI.value.trim(); if (!nuevo || nuevo === selN || CI.cinematicas[nuevo]) { idI.value = selN; return; }
+    CI.cinematicas[nuevo] = g; delete CI.cinematicas[selN];
+    Object.keys(CI.disparos).forEach(k => { if (CI.disparos[k] === selN) CI.disparos[k] = nuevo; });
+    D.cartas.forEach(c => { if (c.cine === selN) c.cine = nuevo; ["izq", "der", "arriba"].forEach(k => { if (c[k] && c[k].cine === selN) c[k].cine = nuevo; }); });
+    selN = nuevo; marcar("cinematicas"); marcar("cartas"); pintarListaN();
+  });
+  const sel = (lista, k, vacio) => h("select", { on: { change: e => { if (e.target.value) g[k] = e.target.value; else delete g[k]; cambio(); } } }, opts(lista, g[k], vacio));
+  const tinte = h("input", { type: "range", min: 0, max: 255, value: g.tinte || 0 }); tinte.addEventListener("input", () => { g.tinte = +tinte.value; if (!g.tinte) delete g.tinte; cambio(); });
+  const uv = h("input", { type: "checkbox", style: "width:auto" }); uv.checked = !!g.una_vez; uv.addEventListener("change", () => { if (uv.checked) g.una_vez = true; else delete g.una_vez; cambio(); });
+  const cps = h("input", { type: "number", value: g.cps || "", placeholder: String(LAY.cine.cps) }); cps.addEventListener("input", () => { if (+cps.value) g.cps = +cps.value; else delete g.cps; });
+  f.append(h("div", { class: "fila" }, h("div", null, h("label", null, "id"), idI), h("div", null, h("label", null, "Fondo"), sel(AS.fondos, "fondo", "carta")), h("div", null, h("label", null, "Música"), sel(Object.keys(AUD.musica), "musica", "— la del juego —"))),
+    h("div", { class: "fila" }, h("div", null, h("label", null, "Oscurecer fondo (tinte)"), tinte), h("div", { class: "angosto" }, h("label", null, "letras/s"), cps), h("div", null, h("label", { style: "display:flex;gap:6px;align-items:center;margin-top:28px" }, uv, "solo una vez"))),
+    h("h3", null, "Líneas"));
+  (g.lineas || (g.lineas = [])).forEach((ln, i) => f.append(lineaForm(g, ln, i, cambio)));
+  f.append(h("div", { class: "barra-herr" }, h("button", { class: "mini", on: { click: () => { g.lineas.push({ pj: (g.lineas[g.lineas.length - 1] || {}).pj || "secretaria", lado: "izq", texto: "" }); selLin = g.lineas.length - 1; cambio(); pintarFormN(); } } }, "+ Diálogo"),
+    h("button", { class: "mini sec", on: { click: () => { g.lineas.push({ narra: "" }); selLin = g.lineas.length - 1; cambio(); pintarFormN(); } } }, "+ Narración"),
+    h("button", { class: "mini sec", on: { click: () => { g.lineas.push({ titulo: "", sub: "" }); selLin = g.lineas.length - 1; cambio(); pintarFormN(); } } }, "+ Título")));
+  f.append(h("div", { class: "msgs" }, deCine(selN).map(x => h("div", { class: "msg " + x.nivel }, x.donde.replace("cine " + selN, "") || "cinemática", ": ", x.msg))));
+}
+function lineaForm(g, ln, i, cambio) {
+  const tipo = ln.titulo !== undefined ? "titulo" : ln.narra !== undefined ? "narra" : "texto";
+  const caja = h("div", { class: "lin" + (i === selLin ? " on" : ""), on: { click: () => { if (selLin !== i) { selLin = i; $$(".lin").forEach((x, k) => x.classList.toggle("on", k === i)); pintarCuadro(); } } } });
+  const mover = d => { const j = i + d; if (j < 0 || j >= g.lineas.length) return; [g.lineas[i], g.lineas[j]] = [g.lineas[j], g.lineas[i]]; selLin = j; cambio(); pintarFormN(); };
+  const tSel = h("select", { on: { change: e => {
+    const v = e.target.value, txt = ln.texto || ln.narra || ln.titulo || "";
+    delete ln.texto; delete ln.narra; delete ln.titulo; ln[v] = txt; if (v !== "texto") { delete ln.pj; delete ln.lado; delete ln.nombre; } else { ln.pj = ln.pj || "secretaria"; }
+    cambio(); pintarFormN(); } } }, [["texto", "Diálogo"], ["narra", "Narración"], ["titulo", "Título"]].map(([v, n]) => h("option", { value: v, selected: v === tipo ? "" : null }, n)));
+  caja.append(h("div", { class: "cab" }, h("span", { class: "num" }, i + 1), tSel, h("span", { class: "esp" }),
+    h("button", { class: "mini sec", on: { click: () => mover(-1) } }, "↑"), h("button", { class: "mini sec", on: { click: () => mover(1) } }, "↓"),
+    h("button", { class: "mini sec", on: { click: () => { g.lineas.splice(i + 1, 0, JSON.parse(JSON.stringify(ln))); selLin = i + 1; cambio(); pintarFormN(); } } }, "⧉"),
+    h("button", { class: "mini peligro", on: { click: () => { g.lineas.splice(i, 1); selLin = Math.max(0, i - 1); cambio(); pintarFormN(); } } }, "×")));
+  const txt = (k, rows, ph) => { const t = h(rows ? "textarea" : "input", rows ? { rows, placeholder: ph || "" } : { placeholder: ph || "" }); t.value = ln[k] || ""; t.addEventListener("input", () => { if (t.value || k === tipo) ln[k] = t.value; else delete ln[k]; cambio(); }); return t; };
+  if (tipo === "texto") {
+    const pj = h("select", { on: { change: e => { ln.pj = e.target.value; cambio(); } } }, Object.keys(D.personajes).map(p => h("option", { value: p, selected: p === ln.pj ? "" : null }, p)));
+    const lado = h("select", { on: { change: e => { ln.lado = e.target.value; cambio(); } } }, ["izq", "der", "centro"].map(v => h("option", { value: v, selected: (ln.lado || "izq") === v ? "" : null }, v)));
+    caja.append(h("div", { class: "fila" }, h("div", null, h("label", null, "Personaje"), pj), h("div", { class: "angosto" }, h("label", null, "Lado"), lado), h("div", null, h("label", null, "Nombre en la placa"), txt("nombre", 0, fmt(D.personajes[ln.pj] || "")))));
+    caja.append(h("label", null, "Texto"), txt("texto", 3));
+  } else if (tipo === "narra") caja.append(h("label", null, "Narración"), txt("narra", 3));
+  else caja.append(h("div", { class: "fila" }, h("div", null, h("label", null, "Título"), txt("titulo")), h("div", null, h("label", null, "Subtítulo"), txt("sub"))));
+  caja.append(h("label", null, "Comandos (JSON: fondo, musica, sfx, flash, sacudir, vibrar, fundido, espera, salir, expr, col, colNombre, tinte)"),
+    campoJson(jsonResto(ln, L_BASE), o => { Object.keys(ln).forEach(k => { if (!L_BASE.includes(k)) delete ln[k]; }); Object.assign(ln, o); cambio(); }, '{ "sfx": "golpe", "sacudir": 0.4 }'));
+  return caja;
+}
+$("#nNueva").onclick = () => { let id = "nueva", i = 2; while (CI.cinematicas[id]) id = "nueva_" + i++; CI.cinematicas[id] = { fondo: "carta", lineas: [{ titulo: "TÍTULO", sub: "", fundido: true }] }; selN = id; marcar("cinematicas"); pintarTodoN(); };
+$("#nDup").onclick = () => { if (!selN) return; let id = selN + "_copia"; while (CI.cinematicas[id]) id += "_"; CI.cinematicas[id] = JSON.parse(JSON.stringify(CI.cinematicas[selN])); selN = id; marcar("cinematicas"); pintarTodoN(); };
+$("#nBorrar").onclick = () => { if (!selN || !confirm("¿Borrar la cinemática " + selN + "?")) return; delete CI.cinematicas[selN]; selN = Object.keys(CI.cinematicas)[0] || null; marcar("cinematicas"); pintarTodoN(); };
+
+// ---- reproductor: misma composicion que src/js/07_cine.js (LAYOUT.cine) ----
+let R = null, raf = 0, conMusica = false, audio = null;
+$("#nSonido").onclick = () => { conMusica = !conMusica; $("#nSonido").textContent = "♪ Música: " + (conMusica ? "sí" : "no"); if (!conMusica && audio) { audio.pause(); audio = null; } };
+function musica(id) {
+  if (!conMusica) return; const f = AUD.musica[id];
+  if (audio && audio._id === id) return;
+  if (audio) audio.pause(); if (!f) { audio = null; return; }
+  audio = new Audio("/" + f); audio._id = id; audio.loop = true; audio.volume = .5; audio.play().catch(() => { });
+}
+function pararCine() { cancelAnimationFrame(raf); R = null; if (audio) { audio.pause(); audio = null; } }
+function montar() {
+  const t = $("#nTel"); t.innerHTML = ""; const C = LAY.cine, K = C.caja, N = C.nombre;
+  const o = {};
+  o.fondo = h("img", { style: "left:0;top:0;width:720px;height:1280px" });
+  o.tinte = h("div", { class: "abs", style: `left:0;top:0;width:720px;height:1280px;background:${COL.negro};opacity:0` });
+  o.ret = {}; ["izq", "der", "centro"].forEach(k => { o.ret[k] = { el: h("img", { style: `top:${C.retrato.y}px;left:${C.retrato[k]}px;width:${C.retrato.s}px;height:${C.retrato.s}px;opacity:0;display:none` }), pj: "", a: 0, obj: 0, activo: false }; });
+  o.caja = h("div", { class: "abs", style: `left:${K.x - K.borde}px;top:${K.y - K.borde}px;width:${K.w + 2 * K.borde}px;height:${K.h + 2 * K.borde}px;background:${COL.dorado}` },
+    h("div", { class: "abs", style: `left:${K.borde}px;top:${K.borde}px;width:${K.w}px;height:${K.h}px;background:${COL.guinda_osc};opacity:${K.op / 255}` }));
+  o.nom = h("div", { class: "abs ttl", style: `left:${N.x - K.borde}px;top:${N.y - K.borde}px;height:${N.h + 2 * K.borde}px;border:${K.borde}px solid ${COL.dorado};background:${COL.guinda};padding:6px ${N.pad}px 0;font-size:${N.size}px;line-height:1.15;color:${COL.dorado_claro};white-space:nowrap` });
+  o.txt = h("div", { class: "abs lora", style: `left:${K.x + K.pad}px;top:${K.y + K.pad}px;width:${K.w - 2 * K.pad}px;line-height:1.32;white-space:pre-wrap` });
+  o.medir = h("div", { class: "abs lora", style: `left:${K.x + K.pad}px;top:0;width:${K.w - 2 * K.pad}px;line-height:1.32;white-space:pre-wrap;visibility:hidden` });
+  o.sigue = h("img", { src: "/assets/placeholder/ui/icono_flecha_der.png", style: `left:${C.sigue.x}px;top:${C.sigue.y}px;width:${C.sigue.s}px;height:${C.sigue.s}px` });
+  o.tit = h("div", { class: "abs ttl", style: `left:40px;top:${C.titulo.y}px;width:640px;text-align:center;line-height:1.15` });
+  o.sub = h("div", { class: "abs lora", style: `left:60px;width:600px;text-align:center;font-size:${C.titulo.sub}px;color:${COL.crema_osc}` });
+  o.flash = h("div", { class: "abs", style: "left:0;top:0;width:720px;height:1280px;background:#fff;opacity:0" });
+  o.velo = h("div", { class: "abs", style: `left:0;top:0;width:720px;height:1280px;background:${COL.negro};opacity:1` });
+  o.saltar = h("div", { class: "abs ttl", style: `left:${C.saltar.x}px;top:${C.saltar.y}px;width:${C.saltar.w}px;height:${C.saltar.h}px;border:4px solid ${COL.dorado};background:${COL.guinda};color:${COL.crema};font-size:28px;line-height:56px;text-align:center;cursor:pointer` }, "Saltar ▸");
+  t.append(o.fondo, o.tinte, ...Object.values(o.ret).map(r => r.el), o.caja, o.nom, o.txt, o.medir, o.sigue, o.tit, o.sub, o.flash, o.velo, o.saltar);
+  return o;
+}
+const pjSrc = pj => "/assets/placeholder/retratos/" + (AS.retratos.includes(pj) ? pj : "default") + ".png";
+function aplicarLinea(i, sinAnim) {
+  const g = R.g, ln = g.lineas[i], o = R.o, C = LAY.cine, K = C.caja;
+  if (!ln) { R.cerrando = true; R.veloObj = 1; return; }
+  R.i = i; R.t = 0; R.n = 0;
+  if (ln.fondo) o.fondo.src = "/assets/placeholder/fondos/" + ln.fondo + ".png";
+  if (typeof ln.tinte === "number") o.tinte.style.opacity = ln.tinte / 255;
+  if (ln.musica !== undefined) musica(ln.musica);
+  if (ln.flash) { o.flash.style.background = ln.flash === "bueno" ? COL.verde : ln.flash === "malo" ? COL.rojo : "#fff"; R.flash = 1; }
+  if (ln.sacudir) R.shake = +ln.sacudir || .4;
+  if (ln.fundido && !sinAnim) { R.velo = 1; R.veloObj = 0; }
+  if (ln.salir) [].concat(ln.salir === "todos" ? ["izq", "der", "centro"] : ln.salir).forEach(l => { const p = o.ret[l]; if (p) { p.obj = 0; p.sale = true; } });
+  const lado = ln.lado || (ln.pj ? "izq" : "");
+  if (ln.pj) { const p = o.ret[lado] || o.ret.izq; if (p.pj !== ln.pj || p.sale) { p.pj = ln.pj; p.a = sinAnim ? 1 : 0; p.sale = false; p.el.src = pjSrc(ln.expr || ln.pj); p.el.style.display = ""; } p.obj = 1; }
+  Object.keys(o.ret).forEach(k => { o.ret[k].activo = !!ln.pj && o.ret[k] === (o.ret[lado] || o.ret.izq); });
+  const esTit = ln.titulo !== undefined, esNarra = ln.narra !== undefined, conNom = !!ln.pj && !esNarra;
+  o.caja.style.display = esTit ? "none" : ""; o.tit.style.display = o.sub.style.display = esTit ? "" : "none"; o.nom.style.display = conNom ? "" : "none";
+  if (esTit) {
+    o.tit.textContent = fmt(ln.titulo); o.tit.style.color = COL[ln.col || "dorado_claro"];
+    ajustar(o.tit, [C.titulo.size, 72, 60, 52, 44], 640, 3 * C.titulo.size * 1.15);
+    o.sub.style.top = (C.titulo.y + o.tit.scrollHeight + 18) + "px"; o.sub.textContent = fmt(ln.sub || "");
+    o.txt.style.display = "none"; R.full = ""; R.total = 0;
+  } else {
+    const t = fmt(esNarra ? ln.narra : ln.texto);
+    o.medir.textContent = t; const s = ajustar(o.medir, K.sizes, K.w - 2 * K.pad, K.h - 2 * K.pad - 24), alto = o.medir.scrollHeight;
+    o.txt.style.display = ""; o.txt.style.fontSize = s + "px"; o.txt.style.textAlign = esNarra ? "center" : "left";
+    o.txt.style.color = COL[ln.col || (esNarra ? "crema_osc" : "crema")];
+    o.txt.style.top = (K.y + (esNarra ? Math.max(K.pad, (K.h - alto) / 2) : K.pad)) + "px";
+    o.txt.style.outline = alto > K.h - 2 * K.pad - 24 ? "2px dashed " + COL.rojo : "";
+    R.full = t; R.total = t.length; o.txt.textContent = sinAnim ? t : ""; if (sinAnim) R.n = R.total;
+    if (conNom) { o.nom.textContent = fmt(ln.nombre || D.personajes[ln.pj] || ln.pj); o.nom.style.color = COL[ln.colNombre || "dorado_claro"]; }
+  }
+  R.espera = typeof ln.espera === "number" ? ln.espera : 0;
+}
+function nuevoR(i0, quieto) {
+  const g = CI.cinematicas[selN]; if (!g || !g.lineas.length) return null;
+  cancelAnimationFrame(raf);
+  R = { g, o: montar(), i: -1, t: 0, n: 0, total: 0, full: "", velo: quieto ? 0 : 1, veloObj: 0, flash: 0, shake: 0, espera: 0, cerrando: false };
+  R.o.fondo.src = "/assets/placeholder/fondos/" + (g.fondo || "carta") + ".png"; R.o.tinte.style.opacity = (g.tinte || 0) / 255;
+  // las lineas previas se aplican sin animacion para reconstruir el estado (retratos, fondo, tinte)
+  for (let i = 0; i < i0; i++) aplicarLinea(i, true);
+  aplicarLinea(i0, quieto);
+  if (quieto) { pasoRet(1); R.o.velo.style.opacity = 0; }
+  return R;
+}
+function pasoRet(dt) {
+  const C = LAY.cine;
+  Object.keys(R.o.ret).forEach(k => {
+    const p = R.o.ret[k]; if (!p.pj) return;
+    p.a = Math.max(0, Math.min(1, p.a + (p.obj > p.a ? dt / C.fundido : -dt / C.fundido)));
+    if (p.a <= 0 && p.sale) { p.el.style.display = "none"; p.pj = ""; p.sale = false; return; }
+    const e = 1 - Math.pow(1 - p.a, 3), dx = (1 - e) * C.retrato.entrada * (k === "der" ? 1 : k === "izq" ? -1 : 0);
+    p.el.style.left = (C.retrato[k] + dx) + "px"; p.el.style.opacity = p.a * (p.activo ? 1 : C.retrato.inactivo / 255);
+  });
+}
+function pintarCuadro() { pararCine(); const g = CI.cinematicas[selN]; if (!g) { $("#nTel").innerHTML = ""; return; } nuevoR(Math.min(selLin, g.lineas.length - 1), true); }
+function reproducir(i0) {
+  const g = CI.cinematicas[selN]; if (!g) return;
+  nuevoR(i0, false); musica(g.musica || "oficina");
+  let prev = performance.now();
+  const tick = now => {
+    if (!R) return;
+    const dt = Math.min(.1, (now - prev) / 1000); prev = now;
+    const C = LAY.cine, ln = R.g.lineas[R.i] || {};
+    R.velo += Math.max(-dt / C.fundido, Math.min(dt / C.fundido, R.veloObj - R.velo)); R.o.velo.style.opacity = R.velo;
+    if (R.cerrando) { if (R.velo >= .999) { pararCine(); pintarCuadro(); } else raf = requestAnimationFrame(tick); return; }
+    if (R.n < R.total) { R.t += dt; const n = Math.min(R.total, Math.floor(R.t * (ln.cps || R.g.cps || C.cps))); if (n !== R.n) { R.n = n; R.o.txt.textContent = R.full.slice(0, n); } } else R.t += dt;
+    R.o.sigue.style.display = R.n >= R.total && R.o.caja.style.display !== "none" && Math.floor(R.t * 2.5) % 2 === 0 ? "" : "none";
+    pasoRet(dt);
+    if (R.flash > 0) { R.flash = Math.max(0, R.flash - dt * 2.5); R.o.flash.style.opacity = R.flash * 200 / 255; }
+    const tel = $("#nTel");
+    if (R.shake > 0) { R.shake = Math.max(0, R.shake - dt); const a = 14 * Math.min(1, R.shake / .4); tel.style.transform = `scale(.5) translate(${(Math.random() * 2 - 1) * a}px,${(Math.random() * 2 - 1) * a}px)`; } else tel.style.transform = "";
+    if (R.n >= R.total && R.espera > 0) { R.espera -= dt; if (R.espera <= 0) aplicarLinea(R.i + 1); }
+    raf = requestAnimationFrame(tick);
+  };
+  raf = requestAnimationFrame(tick);
+}
+$("#nPlay").onclick = () => reproducir(0);
+$("#nDesde").onclick = () => reproducir(Math.min(selLin, (CI.cinematicas[selN] || { lineas: [0] }).lineas.length - 1));
+$("#nTelMarco").addEventListener("click", e => {
+  if (!R || !raf) return reproducir(selLin);
+  if (e.target === R.o.saltar) { R.cerrando = true; R.veloObj = 1; return; }
+  if (R.velo >= .5) return;
+  if (R.n < R.total) { R.n = R.total; R.o.txt.textContent = R.full; } else aplicarLinea(R.i + 1);
+});
+document.addEventListener("keydown", e => { if (e.key === "Escape" && R && raf) { R.cerrando = true; R.veloObj = 1; } });
+
+// ======================= BALANCE =======================
+const NOMBRE_CAUSA = { acad0: "Académico 0", acad100: "Académico 100", est0: "Estudiantes 0", est100: "Estudiantes 100", fin0: "Finanzas 0", fin100: "Finanzas 100", pol0: "Política 0", pol100: "Política 100", derrota: "Perdió elección", limite: "Límite de mandatos", retiro: "Retiro" };
+function barras(obj, total, nombres, max) {
+  const ks = Object.keys(obj).sort((a, b) => obj[b] - obj[a]).slice(0, max || 99), mx = Math.max(1, ...ks.map(k => obj[k]));
+  if (!ks.length) return h("div", { class: "vacio" }, "Sin datos.");
+  return h("div", null, ks.map(k => { const p = 100 * obj[k] / Math.max(1, total); return h("div", { class: "hb", "data-tip": `<b>${esc((nombres && nombres[k]) || k)}</b><br>${obj[k]} · ${p.toFixed(1)} %` },
+    h("span", { class: "n" }, (nombres && nombres[k]) || k), h("span", { class: "t" }, h("i", { style: `width:${100 * obj[k] / mx}%` })), h("span", { class: "p" }, p.toFixed(1) + "%")); }));
+}
+function histograma(dur, partidas) {
+  const ks = Object.keys(dur).map(Number).sort((a, b) => a - b); if (!ks.length) return h("div", { class: "vacio" }, "Sin datos.");
+  const max = ks[ks.length - 1], mx = Math.max(...ks.map(k => dur[k])), cols = [];
+  for (let k = 0; k <= max; k += 5) cols.push(h("div", { style: `height:${100 * (dur[k] || 0) / mx}%`, "data-tip": `<b>Semanas ${k}–${k + 4}</b><br>${dur[k] || 0} partidas · ${(100 * (dur[k] || 0) / partidas).toFixed(1)} %` }));
+  return h("div", null, h("div", { class: "histo" }, cols), h("div", { class: "ejex" }, h("span", null, "0"), h("span", null, "semanas"), h("span", null, max + 4)));
+}
+function kpi(l, v, o, ok) { return h("div", { class: "kpi" }, h("div", { class: "l" }, l), h("div", { class: "v" }, v), o ? h("div", { class: "o" + (ok === true ? " ok" : ok === false ? " mal" : "") }, o) : null); }
+function pintarBalance() {
+  const out = $("#bOut"); out.innerHTML = "";
+  if (!BAL) { out.append(h("div", { class: "vacio" }, "Aún no hay reporte. Corre una simulación.")); return; }
+  const bs = Object.keys(BAL.bots), selB = $("#bBot");
+  if (!selB.options.length || selB.options.length !== bs.length) { selB.innerHTML = ""; bs.forEach(b => selB.append(h("option", { value: b }, b.replace(" (dinastia continua: el estado heredado se conserva entre partidas)", " · dinastía continua")))); }
+  const R = BAL.bots[selB.value] || BAL.bots[bs[0]], cont = /continua/.test(selB.value), tot = R.partidas;
+  out.append(h("div", { class: "refs", style: "margin-top:10px" }, `${BAL.N} partidas por bot · ${BAL.cartas} cartas · ${new Date(BAL.fecha).toLocaleString()}${BAL.temporal ? " · corrida rápida (no se guardó)" : ""}`));
+  const pg = 100 * R.ganadas / Math.max(1, R.elecciones), alea = BAL.bots.aleatorio;
+  out.append(h("div", { class: "kpis" },
+    kpi("Semanas por director (media)", R.media, selB.value === "aleatorio" ? "objetivo 30–45" : "mediana " + R.mediana, selB.value === "aleatorio" ? R.media >= 30 && R.media <= 45 : undefined),
+    kpi("Elecciones ganadas", pg.toFixed(0) + "%", selB.value === "equilibrado" ? "objetivo 45–65 %" : R.elecciones + " elecciones", selB.value === "equilibrado" ? pg >= 45 && pg <= 65 : undefined),
+    kpi("Partida más larga", R.max + " sem", alea ? "aleatorio: " + alea.media + " de media" : ""),
+    kpi("Sucesiones con traición", (100 * R.brutus / tot).toFixed(1) + "%", "“Brutus”"),
+    cont ? kpi("Directores por historia", R.directores, "medidores finales " + R.metros.map(Math.round).join("/")) : null));
+  const g = h("div", { class: "graf" });
+  g.append(h("div", { class: "caja" }, h("h3", null, "Duración de la gestión"), h("div", { class: "nota" }, "Partidas por bloque de 5 semanas"), histograma(R.dur, tot)));
+  g.append(h("div", { class: "caja" }, h("h3", null, "Causas de caída"), h("div", { class: "nota" }, "% de las partidas"), barras(R.causas, tot, NOMBRE_CAUSA, 14)));
+  if (cont) { const td = Object.values(R.destinos).reduce((a, b) => a + b, 0); g.append(h("div", { class: "caja" }, h("h3", null, "Destinos 2040"), h("div", { class: "nota" }, td + " historias terminadas"), barras(R.destinos, td, Object.fromEntries((D.destinos || []).map(d => [d.id, d.titulo]))))); }
+  g.append(h("div", { class: "caja" }, h("h3", null, "Sucesores"), h("div", { class: "nota" }, "% de las partidas"), barras(R.sucesores, tot, Object.fromEntries((D.candidatos || []).map(c => [c.id, c.nombre])))));
+  out.append(g);
+  // cartas
+  const v = BAL.vistas || {}, orden = D.cartas.map(c => [c.id, v[c.id] || 0]).sort((a, b) => b[1] - a[1]);
+  const lk = id => h("a", { on: { click: () => irA("carta " + id) }, "data-tip": esc(((D.cartas.find(c => c.id === id) || {}).texto || "").slice(0, 160)) }, id);
+  const g2 = h("div", { class: "graf", style: "margin-top:16px" });
+  g2.append(h("div", { class: "caja" }, h("h3", null, "Cartas más vistas"), h("div", { class: "nota" }, "apariciones en todas las partidas"), barras(Object.fromEntries(orden.slice(0, 12)), orden.reduce((a, x) => a + x[1], 0), null, 12)));
+  g2.append(h("div", { class: "caja" }, h("h3", null, "Nunca vistas (" + (BAL.nunca || []).length + ")"), h("div", { class: "nota" }, "Clic para abrirla en el editor"), h("div", { class: "ids" }, (BAL.nunca || []).map(x => lk(x.split("(")[0])))));
+  g2.append(h("div", { class: "caja" }, h("h3", null, "Opción dominante (" + (BAL.dominantes || []).length + ")"), h("div", { class: "nota" }, "Una opción es igual o mejor en todo: no hay decisión real"), h("div", { class: "ids" }, (BAL.dominantes || []).map(x => lk(x.split(" ")[0])))));
+  g2.append(h("div", { class: "caja" }, h("h3", null, "Menos vistas"), h("div", { class: "ids" }, orden.filter(x => x[1] > 0).slice(-24).reverse().map(x => h("span", null, lk(x[0]), h("span", { style: "color:var(--txt3);margin-right:10px" }, x[1]))))));
+  out.append(g2);
+}
+$("#bBot").addEventListener("change", pintarBalance);
+$("#bCorrer").onclick = async () => {
+  if (sucio.cartas && !confirm("La simulación usa las cartas GUARDADAS en disco. Hay cambios sin guardar. ¿Correr de todos modos?")) return;
+  const b = $("#bCorrer"); b.disabled = true; const n = +$("#bN").value; b.textContent = "Simulando " + n + " × 6 bots…";
+  try { const r = await api("/api/balance", { n }); if (!r.ok) alert("Falló:\n" + r.out); else { BAL = r.reporte; BAL.temporal = !r.oficial; pintarBalance(); } }
+  finally { b.disabled = false; b.textContent = "Correr simulación"; }
+};
+$("#bSim").onclick = async () => { const b = $("#bSim"); b.disabled = true; try { const r = await api("/api/sim", { semilla: 7, frames: 20000 }); alert((r.code ? "FALLÓ\n\n" : "OK\n\n") + r.out.trim().split("\n").slice(-4).join("\n")); } finally { b.disabled = false; } };
+
+// ======================= arranque =======================
+(async () => {
+  const d = await api("/api/datos");
+  D = d.cartas; CI = d.cinematicas; LAY = d.layout; AUD = d.audio; AS = d.assets; BAL = d.balance;
+  Object.keys(D.personajes).forEach(p => $("#cPj").append(h("option", { value: p }, p)));
+  selN = Object.keys(CI.cinematicas)[0] || null;
+  await document.fonts.ready;
+  estado(); pintarTodoC(); pintarTodoN(); await correrLint();
+})().catch(e => { document.body.innerHTML = "<pre style='padding:20px'>No se pudo cargar: " + esc(e.message) + "\n\n¿Está corriendo npm run editor?</pre>"; });
+</script>
+</body>
+</html>

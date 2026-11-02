@@ -122,6 +122,7 @@ function escenas() {
         modulo("20_estado.js", "Estado y reglas", "Stats, afinidad, estados, azar, elecciones, sucesion, finales, guardado."),
         modulo("30_cartas.js", "Seleccion de cartas", "Condiciones, eras, efectos retardados, campana, ponderacion."),
         modulo("40_minijuegos.js", "Minijuegos", "Presupuesto, prensa, plagio y consejo."),
+        modulo("45_debug.js", "Depuracion (F2)", "Panel de depuracion; solo activo con \"debug\": true en src/config.json."),
         modulo("50_entrada.js", "Entrada y pausa", "Enrutado de entrada por estado; pausa con Escape."),
         modulo("55_efectos.js", "Efectos de particulas", "Pool propio de particulas (confeti, papeles, chispas, lluvia, polvo) con el sprite Particula."),
         modulo("60_render.js", "Render y variables de escena", "Dibuja la carta/HUD y publica las variables de escena."),

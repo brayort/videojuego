@@ -10,6 +10,8 @@
     "audio": "python tools/gen_audio.py",
     "placeholders": "python tools/gen_placeholders.py",
     "preview": "python tools/preview_layout.py",
-    "check": "node tools/build/build.js --destino=game.check.json && node tools/sim/sim.js 7 20000 game.check.json && node -e \"require('fs').unlinkSync('game.check.json')\""
+    "check": "node tools/lint.js && node tools/build/build.js --destino=game.check.json && node tools/sim/sim.js 7 20000 game.check.json && node -e \"require('fs').unlinkSync('game.check.json')\"",
+    "lint": "node tools/lint.js",
+    "editor": "node tools/editor/server.js"
   }
 }

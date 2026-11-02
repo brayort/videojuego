@@ -11,8 +11,8 @@ if (!S.u) {
   const U = S.u = {};
   U.W = 720; U.H = 1280;   // resolucion logica fija (igual que LAYOUT.W/H); GDevelop escala con letterbox
   U.PRE = "directorUAN_";
-  // 13 Enter, 27 Esc, 32 Espacio, 37-40 flechas, 49-51 teclas 1-3
-  U.KEYS = [13, 27, 32, 37, 38, 39, 40, 49, 50, 51];
+  // 13 Enter, 27 Esc, 32 Espacio, 37-40 flechas, 49-51 teclas 1-3, 113 F2
+  U.KEYS = [13, 27, 32, 37, 38, 39, 40, 49, 50, 51, 113];   // 113 = F2 (panel de depuracion)
 
   // ---- texto, objetos, animaciones ----
   U.setTxt = function (o, s) { if (!o) return; s = String(s); o.__s = s; if (o.setText) o.setText(s); else o.setString(s); };

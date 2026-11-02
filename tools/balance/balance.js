@@ -5,6 +5,7 @@
 const fs = require("fs"), path = require("path");
 const { construir } = require("../build/build.js");
 const N = +process.argv[2] || 5000;
+const OUT = process.env.BALANCE_OUT || __dirname;   // carpeta de salida (el editor usa una temporal para corridas rapidas)
 const CAP = 400;                       // semanas maximas por partida
 let seed = 12345;
 Math.random = () => { seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; };
@@ -168,5 +169,15 @@ const mejoran = sesgo.filter(x => x[1] > 6 && x[2] > 6).map(x => x[0]);
 const empeoran = sesgo.filter(x => x[1] < -6 && x[2] < -6).map(x => x[0]);
 L.push("Cartas donde AMBAS opciones suben mucho (>6 neto): " + (mejoran.join(", ") || "(ninguna)"));
 L.push("Cartas donde AMBAS opciones bajan mucho (<-6 neto): " + (empeoran.join(", ") || "(ninguna)"));
-fs.writeFileSync(path.join(__dirname, "reporte.txt"), L.join("\n") + "\n");
+fs.writeFileSync(path.join(OUT, "reporte.txt"), L.join("\n") + "\n");
+// Datos en bruto para el panel de balance del editor (tools/editor).
+const histo = a => { const h = {}; a.forEach(x => { const k = Math.floor(x / 5) * 5; h[k] = (h[k] || 0) + 1; }); return h; };
+fs.writeFileSync(path.join(OUT, "reporte.json"), JSON.stringify({
+  fecha: new Date().toISOString(), N, CAP, cartas: cartas.length,
+  bots: Object.fromEntries(Object.keys(rep).map(k => { const R = rep[k]; return [k, {
+    partidas: R.dur.length, media: +media(R.dur).toFixed(1), mediana: mediana(R.dur), max: Math.max(...R.dur), dur: histo(R.dur),
+    causas: R.causas, tipos: R.tipos, elecciones: R.elecciones, ganadas: R.ganadas, reel: R.reelMax, sucesores: R.sucesores, brutus: R.brutus,
+    destinos: R.destinos, directores: +media(R.hist).toFixed(2), metros: [0, 1, 2, 3, 4, 5].map(i => +media(R.met.map(m => m[i])).toFixed(1)) }]; })),
+  vistas, dominantes: dom, nunca, sesgo: { mejoran, empeoran },
+}));
 console.log(L.join("\n"));
