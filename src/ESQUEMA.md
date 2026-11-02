@@ -164,3 +164,20 @@ El proyecto incluye eventos estándar de ejemplo (grupo `[AUTO] Ejemplos...`) qu
 * **25 cartas de campaña** (`campana:true`), **10 cartas de sucesor/ex director** (`n_suc_*`, `n_ex_*`, con `{ant} {causa} {antsem} {ex}`) y minijuegos con 6 cartas de presupuesto, 6 de prensa, 5 de plagio y 6 de consejo.
 * Bancos de minijuegos ampliados: prensa 32 preguntas, plagio 24 originales + 24 plagiados, consejo 18 consejeros y 6 argumentos (`ley`, `comunidad` nuevos).
 * **Balance**: se corrigieron las 20 cartas con opción dominante; Brutus depende de 6 intrigas con `azar` (en las que la conspiración solo ocurre en el resultado favorable de la tirada); `mx_est_obra` es única y su "posponer" lleva a `n_obra_techo`; la varianza no controlable es ahora el campo `ruido` (global `S.RUIDO`=9; se eliminaron 298 `azar` genéricos, quedan 18 escritos a mano) para que los jugadores prudentes también puedan caer. Métricas finales: `tools/balance/reporte.txt`.
+
+## Cinematicas (`src/cinematicas.json`, motor `src/js/07_cine.js`)
+
+Escenas tipo novela visual a 720x1280, con la paleta y las fuentes del juego: fondo (`Fondo`), hasta 3 retratos (`Retrato`: izq, der, centro; el que no habla se atenúa), caja de diálogo `guinda_osc` con borde `dorado`, placa de nombre (`TxtPersonaje`, Bebas, `dorado_claro`) y texto Lora `crema` con máquina de escribir. Toque / Espacio / Enter / → completan el texto o avanzan; **Saltar** o Escape la terminan.
+
+Uso pensado: **introducción**, **final** y **especiales**.
+
+* `disparos`: evento → id de cinemática. Eventos que emite el motor: `menu` (al abrir el menú), `historia_inicio` (primer director de una historia), `destino:<id>` y `destino` (final; se usa la clave más específica que exista). También existen `director_inicio`, `director_<n>`, `caida`, `caida:<tipo>` y `caida:stat:<i>`, pero no se usan mientras no los pongas aquí.
+* Especiales: `"cine": "id"` en una **carta** (se ve antes de la carta) o en una **opción** (se ve al elegirla).
+* Cinemática: `{ "fondo": anim, "musica": "oficina|campana|destino", "tinte": 0-255, "una_vez": bool, "cps": letras/s, "lineas": [...] }`.
+* Línea, una de estas tres:
+  * diálogo: `{ "pj": id, "nombre": "texto de la placa (por defecto el de personajes)", "lado": "izq|der|centro", "texto": "...", "expr": "animación alternativa del retrato" }`
+  * narración: `{ "narra": "..." }` (caja sin nombre, texto centrado `crema_osc`)
+  * título: `{ "titulo": "...", "sub": "..." }` (Bebas grande, sin caja)
+* Comandos opcionales en cualquier línea: `fondo`, `tinte`, `musica`, `sfx`, `flash` (`blanco|bueno|malo`), `sacudir` (s), `vibrar` (patrón), `fundido` (entra desde negro), `espera` (avanza sola tras N s), `salir` (`izq|der|centro|todos`), `col` / `colNombre` (colores de la paleta).
+* Texto: `{jugador}`, `{dir}`, `{n}`, `{ant}`, `{causa}`, `{ex}`.
+* Variables de escena: `CineActivo`, `CineId`, `SenalCine`. Las vistas con `una_vez` se guardan en `localStorage` (`directorUAN_cine_vistas`).

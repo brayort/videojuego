@@ -31,6 +31,7 @@ if (!S.menuListo) {
   S.btns = S.items.map((t, i) => i < 2 ? U.mkBtn(S.ui, M.btn.x, M.btn.y + i * M.btn.pitch, M.btn.w, M.btn.h, t)
     : U.mkBtn(S.ui, M.btn.x + ((i - 2) % 2) * (gw + 16), M.btn.y + 2 * M.btn.pitch + Math.floor((i - 2) / 2) * M.btn.pitch, gw, gh, t, 50, { size: 32 }));
   if (!S.hayGuardada) S.btns[1].off = true;
+  U.cine.disparar("menu");   // cinematica de bienvenida (src/cinematicas.json, normalmente "una_vez")
 
   // ---- subvistas: cronica (paginada) y creditos ----
   S.cierraSub = function () {
@@ -93,7 +94,7 @@ if (!S.menuListo) {
     else if (i === 7) S.abrirCreditos();
   };
 }
-if (!S.saliendo) {
+if (!S.saliendo && !S.u.cine.activo) {
   const U = S.u, I = S.in, n = S.items.length;
   S.mp.set(S.dyn, I.dt);
   if (S.vista === "modal") {

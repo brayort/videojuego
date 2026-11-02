@@ -256,6 +256,7 @@ if (!S.mod_estado) {
     S.resolverAzar(op);
     S.modOn = false;
     if (op.usa) { delete S.items[op.usa]; S.dar("expediente_util"); }
+    if (op.cine) U.cine.reproducir(op.cine);          // opcion con cinematica (cartas.json: "cine": "id")
     S.semana++;
     S.tickEstados();
     S.senal.eleccion++;
@@ -387,6 +388,7 @@ if (!S.mod_estado) {
     S.setEstado("fin");
     S.senal.fin++;
     U.ev("caida");
+    U.cine.disparar("caida:" + tipo + (dato !== undefined && typeof dato !== "object" ? ":" + dato : ""), "caida:" + tipo, "caida");
     let texto, causaKey, titulo, forzado = null;
     if (tipo === "raro") {
       const R = S.data.finales_raros[dato] || {};
@@ -491,6 +493,7 @@ if (!S.mod_estado) {
     S.setEstado("destino");
     S.senal.fin++;
     U.ev("destino");
+    U.cine.disparar("destino:" + d.id, "destino");
     const dr = S.dyn.hist.map((h, i) => (i + 1) + ". " + h.nombre + ": " + h.causa + " (" + h.sem + " sem)").join("\n");
     setTxt(S.o.pj, d.titulo + "\nDestino de la UAN y de Nayarit · 2040");
     setTxt(S.o.texto, S.fmt(d.texto) + "\n\n" + S.fmt(d.detalle || "") + "\n\nCrónica de la dinastía:\n" + dr);
@@ -539,6 +542,9 @@ if (!S.mod_estado) {
     if (S.dyn.n >= 3) S.dar("dinastia");
     U.limpiar(S.ui);
     S.siguiente();
+    // Cinematicas: inicio de historia (primer director) y relevo (cada director nuevo).
+    if (S.dyn.n === 1 && !S.dyn.cineIntro) { S.dyn.cineIntro = true; S.guardarDyn(); U.cine.disparar("historia_inicio"); }   // una vez por historia
+    U.cine.disparar("director_" + S.dyn.n, "director_inicio");
   };
 
   // ---- autoguardado (en cada carta) y reanudacion ----

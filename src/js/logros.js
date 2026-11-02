@@ -36,7 +36,7 @@ if (!S.logrosListo) {
   S.pagina();
   U.pub("Estado", "logros");
 }
-if (!S.saliendo) {
+if (!S.saliendo && !S.u.cine.activo) {
   const U = S.u, I = S.in;
   let paso = 0;
   if (I.kp[37]) paso = -1; if (I.kp[39]) paso = 1;

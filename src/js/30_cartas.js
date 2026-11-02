@@ -117,5 +117,6 @@ if (!S.mod_cartas) {
     setTxt(S.o.texto, S.fmt(c.texto));
     setTxt(S.o.pj, S.fmt(S.data.personajes[c.pj] || c.pj));
     anim(S.o.retrato, c.pj); anim(S.o.carta, c.pj);
+    if (c.cine && S.cineCarta !== c) { S.cineCarta = c; U.cine.reproducir(c.cine); }   // carta con cinematica previa
   };
 }

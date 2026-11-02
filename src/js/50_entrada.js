@@ -75,6 +75,7 @@ if (!S.mod_entrada) {
 
   S.entrada = function () {
     const I = S.in;
+    if (U.cine && U.cine.activo) return;   // la cinematica (07_cine.js) tiene la entrada
     // Ventana modal abierta (Opciones desde la pausa, Ranking desde el destino): ella recibe toda la entrada.
     if (S.modal) {
       if (S.modal.tick(I)) {

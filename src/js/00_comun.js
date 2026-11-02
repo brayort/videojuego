@@ -106,7 +106,11 @@ if (!S.u) {
     "pag": {"y": 1018},
     "volver": {"x": 80, "y": 1118, "w": 560, "h": 96}
   },
-  "pausa": {"titulo": {"y": 180, "size": 96}, "btn": {"x": 80, "y": 520, "w": 560, "h": 112, "pitch": 136}, "info": {"y": 330}}
+  "pausa": {"titulo": {"y": 180, "size": 96}, "btn": {"x": 80, "y": 520, "w": 560, "h": 112, "pitch": 136}, "info": {"y": 330}},
+  "cine": {"z": 800, "cps": 45, "fundido": 0.35, "retrato": {"s": 440, "y": 360, "izq": 24, "der": 256, "centro": 140, "inactivo": 120, "entrada": 60},
+    "caja": {"x": 24, "y": 880, "w": 672, "h": 300, "pad": 28, "borde": 3, "op": 236, "sizes": [30, 28, 26, 24, 22]},
+    "nombre": {"x": 48, "y": 846, "h": 60, "size": 40, "pad": 22}, "sigue": {"x": 656, "y": 1144, "s": 22},
+    "titulo": {"y": 520, "size": 84, "sub": 30}, "saltar": {"x": 516, "y": 24, "w": 180, "h": 64}}
 }/*LAYOUT:END*/;
   const L = U.L;
   U.rgb = hex => { const n = parseInt(hex.slice(1), 16); return ((n >> 16) & 255) + ";" + ((n >> 8) & 255) + ";" + (n & 255); };

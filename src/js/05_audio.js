@@ -62,6 +62,7 @@ if (!S.u.audioListo) {
     } catch (e) { }
   };
   U.pistaAuto = function () {
+    if (U.cine && U.cine.activo && U.cine.musica) return U.cine.musica;   // la cinematica elige su pista
     const e = S.estado === "pausa" ? (S.estadoPrev || "carta") : S.estado;
     if (e === "destino" || e === "epilogo") return "destino";
     let camp = false; try { camp = typeof S.enCampana === "function" && S.listo && S.enCampana(); } catch (er) { }

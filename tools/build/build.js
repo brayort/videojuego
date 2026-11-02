@@ -46,17 +46,20 @@ const std = (conditions, actions) => ({
 // ---------- modulos ----------
 const cartas = JSON.parse(fs.readFileSync(path.join(SRC, "cartas.json"), "utf8"));
 // Configuracion editable (ids de leaderboards, volumenes) y manifiesto de audio generado por tools/gen_audio.py.
+// Guiones de cinematicas (07_cine.js).
+const CINE = fs.existsSync(path.join(SRC, "cinematicas.json")) ? JSON.parse(fs.readFileSync(path.join(SRC, "cinematicas.json"), "utf8")) : { cinematicas: {}, disparos: {} };
 const CONFIG = JSON.parse(fs.readFileSync(path.join(SRC, "config.json"), "utf8"));
 const AUDIO = fs.existsSync(path.join(RAIZ, "assets", "audio", "audio.json")) ? JSON.parse(fs.readFileSync(path.join(RAIZ, "assets", "audio", "audio.json"), "utf8")) : { sfx: {}, musica: {} };
 const modulo = (archivo, titulo, desc) => grupo(titulo, [comentario(desc), js("// [AUTO:" + archivo + "]\n" + leer(archivo)
   .replace("__CARTAS__", () => JSON.stringify(cartas)).replace("__AUDIO__", () => JSON.stringify({ sfx: AUDIO.sfx || {}, musica: AUDIO.musica || {} }))
-  .replace("__CONFIG__", () => JSON.stringify(CONFIG)))]);
+  .replace("__CONFIG__", () => JSON.stringify(CONFIG)).replace("__CINE__", () => JSON.stringify(CINE)))]);
 const COMUN = () => modulo("00_comun.js", "Comun: utilidades, logros, guardado, entrada", "Utilidades compartidas, logros, guardado y lectura de la entrada (mouse/teclas). Generado: no lo edites, edita src/js/00_comun.js.");
-const BASE = () => [grupo("Comun", COMUN().events), AUDIOM()];   // modulos compartidos por todas las escenas
+const CINEM = () => modulo("07_cine.js", "Cinematicas (novela visual)", "Reproductor de cinematicas: fondo, retratos, caja de dialogo con maquina de escribir, titulos. Guiones en src/cinematicas.json. Generado: edita src/js/07_cine.js.");
+const BASE = () => [grupo("Comun", COMUN().events), AUDIOM(), CINEM()];   // modulos compartidos por todas las escenas
 const AUDIOM = () => modulo("05_audio.js", "Audio, vibracion, ajustes y ranking", "Sonido y musica (gdjs.evtTools.sound), vibracion, opciones guardadas, Leaderboards de GDevelop y ventanas de Opciones y Ranking. Generado: edita src/js/05_audio.js y src/config.json.");
 
 // Variables de ESCENA de senal / datos de audio, vibracion y ranking (todas las escenas).
-const VARS_AUDIO = [["SenalSonido", 0], ["SonidoUltimo", ""], ["MusicaPista", ""], ["SenalVibracion", 0], ["SonidosPropios", 0], ["SenalRanking", 0], ["PuntajeSemanas", 0], ["PuntajeDestino", 0], ["NombreJugador", ""], ["RuntimeKeepAlive", 0]];
+const VARS_AUDIO = [["SenalSonido", 0], ["SonidoUltimo", ""], ["MusicaPista", ""], ["SenalVibracion", 0], ["SonidosPropios", 0], ["SenalRanking", 0], ["PuntajeSemanas", 0], ["PuntajeDestino", 0], ["NombreJugador", ""], ["RuntimeKeepAlive", 0], ["CineActivo", 0], ["CineId", ""], ["SenalCine", 0]];
 const idLB = k => { const v = CONFIG.leaderboards && CONFIG.leaderboards[k]; return typeof v === "string" && v.trim() ? v.trim() : "PEGA_AQUI_EL_ID"; };
 // Eventos ESTANDAR que nunca se ejecutan (RuntimeKeepAlive = 123456789 no ocurre jamas). Su unico fin es que GDevelop incluya en la
 // exportacion el runtime de Sonido (gdjs.evtTools.sound) y de la extension Leaderboards (gdjs.evtTools.leaderboards), que solo
@@ -101,7 +104,7 @@ function escenas() {
   return [
     {
       name: "Menu",
-      objects: [sprite("Fondo"), sprite("BotonMini"), sprite("Panel"), sprite("IconoUI"), ...texts(["TxtTitulo", 96], ["TxtTexto", 22], ["TxtLogro", 26], ["TxtBoton", 36])],
+      objects: [sprite("Fondo"), sprite("BotonMini"), sprite("Panel"), sprite("IconoUI"), sprite("Retrato"), ...texts(["TxtTitulo", 96], ["TxtTexto", 22], ["TxtLogro", 26], ["TxtBoton", 36], ["TxtPersonaje", 40])],
       variables: [["Estado", "menu"], ["MenuSeleccion", 0], ["UAN_Solvencia", 50], ["UAN_Paz", 50], ["UAN_Autonomia", 50], ["UAN_Prestigio", 50], ["Nay_Desarrollo", 50], ["Nay_Seguridad", 50], ["Historia", 1], ...VARS_AUDIO],
       eventos: [...BASE(), modulo("menu.js", "Menu principal", "Escena Menu: Nueva partida, Continuar, Logros, Ranking, Nueva historia, Cronica, Opciones, Creditos."), RUNTIME()],
     },
@@ -128,7 +131,7 @@ function escenas() {
     },
     {
       name: "Logros",
-      objects: [sprite("Fondo"), sprite("BotonMini"), sprite("Panel"), sprite("IconoUI"), ...texts(["TxtTitulo", 60], ["TxtTexto", 26], ["TxtBoton", 36])],
+      objects: [sprite("Fondo"), sprite("BotonMini"), sprite("Panel"), sprite("IconoUI"), sprite("Retrato"), ...texts(["TxtTitulo", 60], ["TxtTexto", 26], ["TxtBoton", 36], ["TxtPersonaje", 40])],
       variables: [["Estado", "logros"], ...VARS_AUDIO],
       eventos: [...BASE(), modulo("logros.js", "Lista de logros", "Escena Logros.")],
     },
