@@ -420,7 +420,9 @@ if (!S.u) {
     return U.normDyn(d);
   };
   // Cronica: historias terminadas (destino de la UAN y de Nayarit).
-  U.cronica = () => { const c = U.lsGet("cronica", []); return Array.isArray(c) ? c : []; };
+  // Cache en memoria: publicar() la consulta cada frame y leer+parsear localStorage es caro.
+  let cron = null;
+  U.cronica = () => { if (!cron) { const c = U.lsGet("cronica", []); cron = Array.isArray(c) ? c : []; } return cron; };
   U.addCronica = function (e) { const c = U.cronica(); c.push(e); while (c.length > 30) c.shift(); U.lsSet("cronica", c); };
   U.NOM_METRO = { solv: "Solvencia", paz: "Paz Social", aut: "Autonomía", pre: "Prestigio", des: "Desarrollo", seg: "Seguridad" };
   U.metrosTxt = function (d) {

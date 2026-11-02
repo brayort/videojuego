@@ -2,7 +2,7 @@
 
 Todos los archivos de esta carpeta se generan de forma procedural con `tools/gen_audio.py`
 (sintesis propia con Python + numpy, sin muestras ni grabaciones de terceros) y se codifican a OGG Vorbis con ffmpeg
-(si no hay ffmpeg con libvorbis quedan en WAV). `audio.json` es el manifiesto que lee `src/build.js`.
+(si no hay ffmpeg con libvorbis quedan en WAV). `audio.json` es el manifiesto que lee `tools/build/build.js`.
 
 ## Licencia
 
@@ -20,6 +20,6 @@ acierto, error, campana (eleccion), voto (conteo), gong (sucesion), final (desti
 ## Regenerar
 
     python tools/gen_audio.py
-    node src/build.js && node src/assets_demo.js
+    node tools/build/build.js && node tools/build/assets.js
 
-Para reemplazar un sonido, conserva el nombre de archivo (o cambia la ruta en `audio.json`) y vuelve a correr `build.js` y `assets_demo.js`.
+Para reemplazar un sonido, conserva el nombre de archivo (o cambia la ruta en `audio.json`) y vuelve a correr `build.js` y `tools/build/assets.js`.

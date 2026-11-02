@@ -1,7 +1,7 @@
 // ============================================================================
 // 10 DATOS — cartas, personajes, finales y minijuegos (contenido de cartas.json).
 // build.js sustituye el marcador de abajo. Para cambiar contenido: edita
-// src/cartas.json y ejecuta "node build.js". El esquema esta en src/ESQUEMA.md.
+// src/cartas.json y ejecuta "node tools/build/build.js". El esquema esta en src/ESQUEMA.md.
 // ============================================================================
 const S = runtimeScene.__reigns;
 if (!S.mod_datos) {

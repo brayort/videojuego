@@ -8,7 +8,7 @@
 4. Avisa de textos menores a 22 px (titulos < 40), elementos fuera de pantalla, textos que se salen de su caja
    o de su panel, y textos que se solapan.
 
-Uso:  python tools/preview_layout.py        (despues de node src/build.js y node src/assets_demo.js)
+Uso:  python tools/preview_layout.py        (despues de node tools/build/build.js y node tools/build/assets.js)
 """
 import json, os, re, subprocess, sys
 from PIL import Image, ImageDraw, ImageFont
@@ -22,7 +22,7 @@ src = open(os.path.join(RAIZ, "src", "js", "00_comun.js"), encoding="utf8").read
 LAYOUT = json.loads(re.search(r"/\*LAYOUT:BEGIN\*/(.*?)/\*LAYOUT:END\*/", src, re.S).group(1))
 espejo = os.path.join(RAIZ, "src", "layout.json")
 if not os.path.exists(espejo) or json.load(open(espejo, encoding="utf8")) != LAYOUT:
-    print("AVISO: src/layout.json no coincide con el LAYOUT de 00_comun.js (corre node src/build.js)")
+    print("AVISO: src/layout.json no coincide con el LAYOUT de 00_comun.js (corre node tools/build/build.js)")
 
 # ---- 2. fotos del motor ----
 dump = os.path.join(OUT, "_dump.json")

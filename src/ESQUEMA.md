@@ -1,6 +1,6 @@
 # Esquema de `cartas.json` y mecánicas del motor
 
-Todo el contenido vive en `src/cartas.json`. Tras editarlo: `node build.js` (ver `README.md`).
+Todo el contenido vive en `src/cartas.json`. Tras editarlo: `node tools/build/build.js` (ver `README.md`).
 
 ## Estructura raíz
 
@@ -163,4 +163,4 @@ El proyecto incluye eventos estándar de ejemplo (grupo `[AUTO] Ejemplos...`) qu
 * **3 cadenas largas**: `rc1..rc9` (estudiante reclutado vía falsa oferta laboral, con ramas de rescate o abandono), `hu*` (huracán, edificio B destruido y reconstrucción con fondos opacos; dos disparadores de temporada `hu1`/`hu1b`) e `in1..in9` (investigador SNI que descubre cifras maquilladas del INEGI). Usan `luego`, `estado`, `azar`, `item` y `arriba` (`base_tello`, `dictamen_cortes`).
 * **25 cartas de campaña** (`campana:true`), **10 cartas de sucesor/ex director** (`n_suc_*`, `n_ex_*`, con `{ant} {causa} {antsem} {ex}`) y minijuegos con 6 cartas de presupuesto, 6 de prensa, 5 de plagio y 6 de consejo.
 * Bancos de minijuegos ampliados: prensa 32 preguntas, plagio 24 originales + 24 plagiados, consejo 18 consejeros y 6 argumentos (`ley`, `comunidad` nuevos).
-* **Balance**: se corrigieron las 20 cartas con opción dominante; Brutus depende de 6 intrigas con `azar` (en las que la conspiración solo ocurre en el resultado favorable de la tirada); `mx_est_obra` es única y su "posponer" lleva a `n_obra_techo`; la varianza no controlable es ahora el campo `ruido` (global `S.RUIDO`=9; se eliminaron 298 `azar` genéricos, quedan 18 escritos a mano) para que los jugadores prudentes también puedan caer. Métricas finales: `src/balance_reporte.txt`.
+* **Balance**: se corrigieron las 20 cartas con opción dominante; Brutus depende de 6 intrigas con `azar` (en las que la conspiración solo ocurre en el resultado favorable de la tirada); `mx_est_obra` es única y su "posponer" lleva a `n_obra_techo`; la varianza no controlable es ahora el campo `ruido` (global `S.RUIDO`=9; se eliminaron 298 `azar` genéricos, quedan 18 escritos a mano) para que los jugadores prudentes también puedan caer. Métricas finales: `tools/balance/reporte.txt`.

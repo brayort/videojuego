@@ -1,9 +1,9 @@
 // Simulacion de balance: 5000 partidas por bot (aleatorio, codicioso, equilibrado) usando el MOTOR REAL
 // (los mismos eventos JsCode de la escena Juego) con un runtimeScene simulado.
-// Uso: node balance.js [partidas_por_bot]   ->  escribe src/balance_reporte.txt
+// Uso: node tools/balance/balance.js [partidas_por_bot]   ->  escribe tools/balance/reporte.txt
 // No modifica cartas.json.
 const fs = require("fs"), path = require("path");
-const { construir } = require("./build.js");
+const { construir } = require("../build/build.js");
 const N = +process.argv[2] || 5000;
 const CAP = 400;                       // semanas maximas por partida
 let seed = 12345;
@@ -168,5 +168,5 @@ const mejoran = sesgo.filter(x => x[1] > 6 && x[2] > 6).map(x => x[0]);
 const empeoran = sesgo.filter(x => x[1] < -6 && x[2] < -6).map(x => x[0]);
 L.push("Cartas donde AMBAS opciones suben mucho (>6 neto): " + (mejoran.join(", ") || "(ninguna)"));
 L.push("Cartas donde AMBAS opciones bajan mucho (<-6 neto): " + (empeoran.join(", ") || "(ninguna)"));
-fs.writeFileSync(path.join(__dirname, "balance_reporte.txt"), L.join("\n") + "\n");
+fs.writeFileSync(path.join(__dirname, "reporte.txt"), L.join("\n") + "\n");
 console.log(L.join("\n"));

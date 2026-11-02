@@ -183,7 +183,7 @@ Resumen: 13 retratos/cartas nuevos + 1 animacion de Fondo ("destino").
 10. SPRITES DE INTERFAZ Y EFECTOS (Panel, IconoUI, SombraCarta, Particula)
 ==============================================================
 Estos objetos ya tienen arte provisional generado por tools/gen_placeholders.py (carpetas assets/placeholder/ui y /particulas)
-y se registran con node src/assets_demo.js. Puedes reemplazar cada PNG por arte propio conservando el nombre de la animacion.
+y se registran con node tools/build/assets.js. Puedes reemplazar cada PNG por arte propio conservando el nombre de la animacion.
 
 Panel  (8 x 8, plano)   anim: una por color de la paleta (ver LAYOUT.col): guinda, guinda_osc, vino, dorado, dorado_claro, crema,
   crema_osc, tinta, azul, azul_cl, verde, rojo, ambar, gris, negro, blanco.

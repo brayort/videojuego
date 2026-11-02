@@ -1,7 +1,7 @@
 // Ejecuta el MOTOR REAL (los eventos JavaScript de game.json) con objetos simulados que registran
 // posicion, tamano, texto, animacion, color y opacidad, y escribe una "foto" JSON por pantalla.
 // tools/preview_layout.py las compone con Pillow en assets/preview/*.png.
-// Uso: node tools/dump_screens.js [salida.json]      (correr despues de build.js y assets_demo.js)
+// Uso: node tools/dump_screens.js [salida.json]      (correr despues de build.js y tools/build/assets.js)
 const fs = require("fs"), path = require("path");
 const RAIZ = path.join(__dirname, "..");
 const g = JSON.parse(fs.readFileSync(path.join(RAIZ, "game.json"), "utf8"));

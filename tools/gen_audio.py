@@ -1,7 +1,7 @@
 # Genera los sonidos y la musica del juego de forma PROCEDURAL (sintesis propia, sin muestras externas).
 # Salida: assets/audio/sfx/*.ogg|wav, assets/audio/musica/*.ogg|wav y assets/audio/audio.json (manifiesto).
 # OGG si hay ffmpeg con libvorbis; si no, WAV. Todo es CC0 (ver assets/audio/README.md).
-# Uso: python tools/gen_audio.py        (antes de node src/build.js)
+# Uso: python tools/gen_audio.py        (antes de node tools/build/build.js)
 import os, sys, json, wave, shutil, subprocess
 import numpy as np
 

@@ -4,21 +4,32 @@ Juego de cartas tipo Reigns. Lógica en eventos JavaScript de GDevelop; contenid
 
 ## Estructura
 
-* `game.json`: proyecto GDevelop (ábrelo desde el editor). Escenas **Menu**, **Juego** y **Logros**.
-* `src/js/*.js`: el motor, un archivo por sección (`00_comun`, `05_audio`, `10_datos`, `20_estado`, `30_cartas`, `40_minijuegos`, `50_entrada`, `55_efectos`, `60_render`, `menu`, `logros`). Cada uno acaba como un evento JavaScript dentro de un grupo de eventos `[AUTO] ...`.
-* `src/cartas.json`: contenido. Esquema y mecánicas: `src/ESQUEMA.md`.
-* `src/build.js`: genera / **fusiona** `game.json`.
-* `src/balance.js`: simulación de 5000 partidas por bot (también en dinastía continua, con la distribución de destinos y directores por historia) → `src/balance_reporte.txt`.
-* `src/config.json`: ids de los leaderboards y volúmenes por defecto (se inserta al correr `build.js`).
-* `tools/gen_audio.py`: genera sonidos y música (assets/audio). `tools/gen_placeholders.py`: sprites provisionales (`python tools/gen_placeholders.py particulas` regenera solo las partículas).
-* `SPRITES.txt`: lista de arte a dibujar (incluye Panel, IconoUI, SombraCarta y Particula).
+```
+game.json            proyecto GDevelop (generado/fusionado; ábrelo en el editor). Escenas Menu, Juego y Logros
+package.json         atajos: npm run build | check | sim | balance | audio | placeholders | preview
+src/                 EL JUEGO (lo que se edita)
+  js/*.js            motor, un archivo por sección: 00_comun, 05_audio, 10_datos, 20_estado, 30_cartas,
+                     40_minijuegos, 50_entrada, 55_efectos, 60_render, menu, logros (cada uno = un grupo [AUTO])
+  cartas.json        contenido; esquema y mecánicas en src/ESQUEMA.md
+  config.json        ids de leaderboards y volúmenes por defecto
+  layout.json        espejo generado del LAYOUT de 00_comun.js (no editar)
+tools/               HERRAMIENTAS (no van dentro del juego)
+  build/build.js     genera / fusiona game.json   ·  build/assets.js registra sprites, audio y fuentes
+  build/estilo.js    fuente/color de los textos (compartido por build y assets)
+  balance/           simulación de partidas por bot → balance/reporte.txt
+  sim/               simulador headless de las escenas (prueba de regresión)
+  gen_audio.py, gen_placeholders.py, preview_layout.py, dump_screens.js
+assets/              audio, fuentes y sprites provisionales
+```
+
+`npm run check` construye en un archivo temporal y corre el simulador: úsalo tras tocar `src/js`. `SPRITES.txt` lista el arte a dibujar.
 
 ## Flujo de trabajo (editas arte en GDevelop y cartas en JSON)
 
-Orden completo: `python tools/gen_audio.py` (solo si cambias el audio) → desde `src/`: `node build.js` y luego `node assets_demo.js` → pruebas: `node tools/sim/sim.js <semilla> [frames]` (con `SIM_RANK=1` simula el ranking configurado) y `python tools/preview_layout.py` (capturas en `assets/preview`).
+Orden completo (desde la raíz): `npm run audio` (solo si cambias el audio) → `npm run build` (= `build.js` + `assets.js`) → pruebas: `node tools/sim/sim.js <semilla> [frames]` (con `SIM_RANK=1` simula el ranking configurado) y `python tools/preview_layout.py` (capturas en `assets/preview`).
 
 1. Cierra el proyecto en GDevelop (o prepárate a **recargarlo**). Si el editor queda abierto y guarda, sobrescribe lo que haga el script.
-2. Edita `src/cartas.json` (o `src/js/*.js`) y corre `node src/build.js`.
+2. Edita `src/cartas.json` (o `src/js/*.js`) y corre `node tools/build/build.js`.
 3. Abre / recarga `game.json` en GDevelop.
 
 `build.js` **no sobrescribe**: si `game.json` existe, lo fusiona.
@@ -26,7 +37,7 @@ Orden completo: `python tools/gen_audio.py` (solo si cambias el audio) → desde
 * Solo se reemplazan los eventos generados: son los grupos cuyo nombre empieza por `[AUTO]`. No renombres ni metas tus eventos *dentro* de esos grupos (se pierden); ponlos fuera, antes o después. Si borras un grupo `[AUTO]` el siguiente build lo vuelve a crear.
 * Se agregan los objetos, variables y escenas que falten.
 * Antes de escribir se guarda `game.backup-AAAAMMDD-HHMMSS.json` junto a `game.json`.
-* `node src/build.js --limpio` ignora el `game.json` existente (también con respaldo). `--destino=ruta.json` escribe en otro archivo.
+* `node tools/build/build.js --limpio` ignora el `game.json` existente (también con respaldo). `--destino=ruta.json` escribe en otro archivo.
 
 ## Usar el estado desde eventos normales de GDevelop
 
@@ -48,7 +59,7 @@ Arrastrar la carta o flechas ←/→ (↑ usa expediente); Espacio/Enter/clic av
 
 ## Paleta (LAYOUT.col, en `src/js/00_comun.js`)
 
-Los sprites `Panel` (una animación por color), los textos y los botones usan solo estos colores; si cambias uno en `LAYOUT.col`, corre `node src/build.js` y `python tools/gen_placeholders.py`.
+Los sprites `Panel` (una animación por color), los textos y los botones usan solo estos colores; si cambias uno en `LAYOUT.col`, corre `node tools/build/build.js` y `python tools/gen_placeholders.py`.
 
 | nombre | hex | uso |
 |---|---|---|
@@ -71,10 +82,10 @@ Los sprites `Panel` (una animación por color), los textos y los botones usan so
 
 ## Audio, vibración y partículas
 
-**Audio** (`src/js/05_audio.js`, archivos en `assets/audio/`). Los 16 efectos y las 3 pistas de música (oficina: menor y lenta; campaña: más pulso; destino 2040: ambiental) se generan por síntesis con `tools/gen_audio.py` (OGG si hay ffmpeg con libvorbis, si no WAV) y son **CC0** (ver `assets/audio/README.md`). `assets_demo.js` los registra como recursos `{"kind":"audio"}` (efectos con `preloadAsSound`, música con `preloadAsMusic`).
+**Audio** (`src/js/05_audio.js`, archivos en `assets/audio/`). Los 16 efectos y las 3 pistas de música (oficina: menor y lenta; campaña: más pulso; destino 2040: ambiental) se generan por síntesis con `tools/gen_audio.py` (OGG si hay ffmpeg con libvorbis, si no WAV) y son **CC0** (ver `assets/audio/README.md`). `tools/build/assets.js` los registra como recursos `{"kind":"audio"}` (efectos con `preloadAsSound`, música con `preloadAsMusic`).
 * El motor usa `gdjs.evtTools.sound.playSound(escena, archivo, false, volumen, pitch)` (volumen 0-100) y `playMusicOnChannel(escena, archivo, canal 1, true, volumen, pitch)`; si esa API no existe, cae a `getSoundManager()`. Pitch aleatorio leve en los sonidos repetitivos (generador propio: no altera el azar del juego).
 * **Opciones** (Menú y Pausa): volumen de música y de efectos, silenciar, vibración y nombre del jugador; se guardan en `localStorage` (`directorUAN_ajustes`). La música empieza tras el primer toque/clic/tecla (regla de autoplay del navegador) y sigue entre escenas (las escenas ya no cortan el sonido al empezar).
-* **Reemplazar sonidos con tus eventos**: cada sonido incrementa la variable de escena `SenalSonido` y deja su id en `SonidoUltimo` (`arrastre soltar voltear pagina sube baja golpe logro boton tic acierto error campana voto gong final`); también `MusicaPista` (pista actual) y `SenalVibracion`. Si pones `SonidosPropios = 1`, el motor deja de reproducir sonido y música y tú los manejas con eventos estándar. Para cambiar un archivo conserva el nombre (o edita `assets/audio/audio.json`) y vuelve a correr `build.js` y `assets_demo.js`.
+* **Reemplazar sonidos con tus eventos**: cada sonido incrementa la variable de escena `SenalSonido` y deja su id en `SonidoUltimo` (`arrastre soltar voltear pagina sube baja golpe logro boton tic acierto error campana voto gong final`); también `MusicaPista` (pista actual) y `SenalVibracion`. Si pones `SonidosPropios = 1`, el motor deja de reproducir sonido y música y tú los manejas con eventos estándar. Para cambiar un archivo conserva el nombre (o edita `assets/audio/audio.json`) y vuelve a correr `build.js` y `tools/build/assets.js`.
 * GDevelop solo incluye `gdjs.evtTools.sound` y el runtime de Leaderboards cuando algún evento estándar usa sus instrucciones. Por eso las escenas Menu y Juego traen el grupo `[AUTO] Runtime (audio y ranking; no se ejecuta)` con eventos que nunca se ejecutan (`RuntimeKeepAlive = 123456789`). **No lo borres.**
 
 **Vibración**: `navigator.vibrate` (si existe; funciona en web Android y en la build Android): pulso corto al soltar la carta, doble pulso en cambios ≥ 15, patrón al caer el director, al terminar la historia y en los logros. Se activa/desactiva en Opciones.
@@ -96,7 +107,7 @@ Mientras los ID valgan `PEGA_AQUI_EL_ID` o estén vacíos **no se llama a la API
 2. En **Game dashboard > Leaderboards** pulsa **Crear un nuevo leaderboard** y crea dos: `Semanas de la dinastía` y `Destino`. En ambos elige orden **descendente** (la mayor puntuación gana) y, si quieres, "una sola entrada por jugador" (mejor puntuación).
 3. Abre cada leaderboard y usa **Copiar ID** (es un UUID tipo `a1b2c3d4-...`).
 4. Pega los ID en `src/config.json`: `"semanas": "<id de Semanas de la dinastía>"`, `"destino": "<id de Destino>"`.
-5. Cierra GDevelop, corre `node src/build.js` y `node src/assets_demo.js`, y vuelve a abrir el proyecto.
+5. Cierra GDevelop, corre `node tools/build/build.js` y `node tools/build/assets.js`, y vuelve a abrir el proyecto.
 6. Prueba: juega una historia hasta el Destino (o fuerza uno) y pulsa **Ranking**.
 
 **Si el ranking dice "no disponible en esta versión"**: la exportación no incluyó la extensión Leaderboards. El grupo `[AUTO] Runtime` la usa con las instrucciones `Leaderboards::SavePlayerScore` y `Leaderboards::DisplayLeaderboard` (parámetros `["", id, puntos, nombre]` y `["", id, "no"]`, donde `""` es la escena actual). Los identificadores se tomaron del código fuente de la extensión (`Extensions/Leaderboards/JsExtension.js`) pero no pude comprobarlos abriendo el editor: si GDevelop marca esos eventos como inválidos, bórralos y crea a mano, en un evento que nunca se ejecute, las acciones "Guardar la puntuación del jugador" y "Mostrar un leaderboard" (categoría Leaderboards). También puedes activar la extensión en Proyecto > Gestionar extensiones.

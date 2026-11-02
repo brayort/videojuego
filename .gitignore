@@ -4,3 +4,4 @@ assets/preview/
 node_modules/
 __pycache__/
 *.pyc
+game.check.json

@@ -141,7 +141,7 @@ if (!S.u.audioListo) {
     hayIds() { return !!(U.rank.id("semanas") || U.rank.id("destino")); },
     // "" si se puede usar la tabla k; si no, el mensaje que se muestra al jugador.
     motivo(k) {
-      if (!U.rank.hayIds()) return "El ranking en línea todavía no está configurado.\n\nPara activarlo: crea las dos tablas en GDevelop (Game Dashboard > Leaderboards), copia sus ID y pégalos en src/config.json (campos \"semanas\" y \"destino\"); luego corre node src/build.js. Los pasos están en el README.";
+      if (!U.rank.hayIds()) return "El ranking en línea todavía no está configurado.\n\nPara activarlo: crea las dos tablas en GDevelop (Game Dashboard > Leaderboards), copia sus ID y pégalos en src/config.json (campos \"semanas\" y \"destino\"); luego corre node tools/build/build.js. Los pasos están en el README.";
       if (!U.rank.api()) return "El ranking no está disponible en esta versión del juego: falta la extensión Leaderboards en la exportación. Revisa la sección Ranking del README.";
       if (k && !U.rank.id(k)) return "Esta tabla todavía no tiene ID en src/config.json.";
       return "";

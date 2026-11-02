@@ -1,7 +1,8 @@
 // Registra los PNG provisionales (assets/placeholder) en game.json y los asigna a los sprites.
-// Idempotente. Uso: node assets_demo.js   (correr DESPUES de build.js; cierra GDevelop antes)
+// Idempotente. Uso: node tools/build/assets.js   (correr DESPUES de build.js; cierra GDevelop antes)
 const fs = require("fs"), path = require("path");
-const RAIZ = path.join(__dirname, "..");
+const RAIZ = path.join(__dirname, "..", "..");
+const SRC = path.join(RAIZ, "src");
 const { aplicarEstilo, registrarFuentes } = require("./estilo.js");
 const GJ = path.join(RAIZ, "game.json");
 const BASE = "assets/placeholder";

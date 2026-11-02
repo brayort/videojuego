@@ -1,10 +1,11 @@
-// Estilo de los objetos de texto (fuente, color, alineacion). Lo usan build.js y assets_demo.js.
+// Estilo de los objetos de texto (fuente, color, alineacion). Lo usan build.js y tools/build/assets.js.
 // Los colores salen de la paleta del LAYOUT (src/js/00_comun.js); en ejecucion el motor tambien
 // los fija con setColor, estos son los valores por defecto del editor.
 const fs = require("fs"), path = require("path");
-const RAIZ = path.join(__dirname, "..");
+const RAIZ = path.join(__dirname, "..", "..");
+const SRC = path.join(RAIZ, "src");
 function extraerLayout() {
-  const s = fs.readFileSync(path.join(__dirname, "js", "00_comun.js"), "utf8");
+  const s = fs.readFileSync(path.join(SRC, "js", "00_comun.js"), "utf8");
   const m = /\/\*LAYOUT:BEGIN\*\/([\s\S]*?)\/\*LAYOUT:END\*\//.exec(s);
   if (!m) throw new Error("00_comun.js: no se encuentra el bloque LAYOUT");
   return JSON.parse(m[1]);

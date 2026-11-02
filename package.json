@@ -1,0 +1,15 @@
+{
+  "name": "director-uan",
+  "private": true,
+  "description": "Director UAN: juego de cartas tipo Reigns para GDevelop 5",
+  "scripts": {
+    "build": "node tools/build/build.js && node tools/build/assets.js",
+    "build:limpio": "node tools/build/build.js --limpio && node tools/build/assets.js",
+    "sim": "node tools/sim/sim.js 7 20000",
+    "balance": "node tools/balance/balance.js",
+    "audio": "python tools/gen_audio.py",
+    "placeholders": "python tools/gen_placeholders.py",
+    "preview": "python tools/preview_layout.py",
+    "check": "node tools/build/build.js --destino=game.check.json && node tools/sim/sim.js 7 20000 game.check.json && node -e \"require('fs').unlinkSync('game.check.json')\""
+  }
+}

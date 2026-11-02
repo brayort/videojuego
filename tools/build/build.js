@@ -1,11 +1,12 @@
 // Genera / ACTUALIZA ../game.json (proyecto GDevelop 5) a partir de src/js/*.js + cartas.json.
-// Uso:  node build.js [--destino=ruta.json]  (fusiona con el game.json existente, con respaldo)
-//       node build.js --limpio   (ignora el game.json existente y lo crea de cero, con respaldo)
+// Uso:  node tools/build/build.js [--destino=ruta.json]  (fusiona con el game.json existente, con respaldo)
+//       node tools/build/build.js --limpio   (ignora el game.json existente y lo crea de cero, con respaldo)
 // IMPORTANTE: cierra el proyecto en GDevelop (o recargalo despues) al correr este script,
 // o el editor podria sobrescribir los cambios al guardar.
 const fs = require("fs"), path = require("path");
-const RAIZ = path.join(__dirname, "..");
-const JS = path.join(__dirname, "js");
+const RAIZ = path.join(__dirname, "..", "..");
+const SRC = path.join(RAIZ, "src");
+const JS = path.join(SRC, "js");
 const MARCA = "[AUTO]";            // los eventos "Group" cuyo nombre empieza asi son generados y se reemplazan
 
 const leer = f => fs.readFileSync(path.join(JS, f), "utf8");
@@ -43,14 +44,15 @@ const std = (conditions, actions) => ({
 });
 
 // ---------- modulos ----------
-const cartas = JSON.parse(fs.readFileSync(path.join(__dirname, "cartas.json"), "utf8"));
+const cartas = JSON.parse(fs.readFileSync(path.join(SRC, "cartas.json"), "utf8"));
 // Configuracion editable (ids de leaderboards, volumenes) y manifiesto de audio generado por tools/gen_audio.py.
-const CONFIG = JSON.parse(fs.readFileSync(path.join(__dirname, "config.json"), "utf8"));
+const CONFIG = JSON.parse(fs.readFileSync(path.join(SRC, "config.json"), "utf8"));
 const AUDIO = fs.existsSync(path.join(RAIZ, "assets", "audio", "audio.json")) ? JSON.parse(fs.readFileSync(path.join(RAIZ, "assets", "audio", "audio.json"), "utf8")) : { sfx: {}, musica: {} };
 const modulo = (archivo, titulo, desc) => grupo(titulo, [comentario(desc), js("// [AUTO:" + archivo + "]\n" + leer(archivo)
   .replace("__CARTAS__", () => JSON.stringify(cartas)).replace("__AUDIO__", () => JSON.stringify({ sfx: AUDIO.sfx || {}, musica: AUDIO.musica || {} }))
   .replace("__CONFIG__", () => JSON.stringify(CONFIG)))]);
 const COMUN = () => modulo("00_comun.js", "Comun: utilidades, logros, guardado, entrada", "Utilidades compartidas, logros, guardado y lectura de la entrada (mouse/teclas). Generado: no lo edites, edita src/js/00_comun.js.");
+const BASE = () => [grupo("Comun", COMUN().events), AUDIOM()];   // modulos compartidos por todas las escenas
 const AUDIOM = () => modulo("05_audio.js", "Audio, vibracion, ajustes y ranking", "Sonido y musica (gdjs.evtTools.sound), vibracion, opciones guardadas, Leaderboards de GDevelop y ventanas de Opciones y Ranking. Generado: edita src/js/05_audio.js y src/config.json.");
 
 // Variables de ESCENA de senal / datos de audio, vibracion y ranking (todas las escenas).
@@ -79,7 +81,7 @@ const VARS_JUEGO = [
   ["UAN_Solvencia", 50], ["UAN_Paz", 50], ["UAN_Autonomia", 50], ["UAN_Prestigio", 50], ["Nay_Desarrollo", 50], ["Nay_Seguridad", 50], ["Historia", 1], ["Destino", ""],
   ["UltimoLogro", ""], ["Record", 0], ["AlertaFinanzas", 0],
 ];
-VARS_JUEGO.push(["SenalSonido", 0], ["SonidoUltimo", ""], ["MusicaPista", ""], ["SenalVibracion", 0], ["SonidosPropios", 0], ["SenalRanking", 0], ["PuntajeSemanas", 0], ["PuntajeDestino", 0], ["NombreJugador", ""], ["RuntimeKeepAlive", 0]);
+VARS_JUEGO.push(...VARS_AUDIO);
 const variable = ([name, v]) => ({ name, type: typeof v === "number" ? "number" : "string", value: v });
 
 const EJEMPLOS = () => grupo("Ejemplos de eventos estandar (editalos o borralos)", [
@@ -101,7 +103,7 @@ function escenas() {
       name: "Menu",
       objects: [sprite("Fondo"), sprite("BotonMini"), sprite("Panel"), sprite("IconoUI"), ...texts(["TxtTitulo", 96], ["TxtTexto", 22], ["TxtLogro", 26], ["TxtBoton", 36])],
       variables: [["Estado", "menu"], ["MenuSeleccion", 0], ["UAN_Solvencia", 50], ["UAN_Paz", 50], ["UAN_Autonomia", 50], ["UAN_Prestigio", 50], ["Nay_Desarrollo", 50], ["Nay_Seguridad", 50], ["Historia", 1], ...VARS_AUDIO],
-      eventos: [grupo("Comun", COMUN().events), AUDIOM(), modulo("menu.js", "Menu principal", "Escena Menu: Nueva partida, Continuar, Logros, Ranking, Nueva historia, Cronica, Opciones, Creditos."), RUNTIME()],
+      eventos: [...BASE(), modulo("menu.js", "Menu principal", "Escena Menu: Nueva partida, Continuar, Logros, Ranking, Nueva historia, Cronica, Opciones, Creditos."), RUNTIME()],
     },
     {
       name: "Juego",
@@ -112,8 +114,7 @@ function escenas() {
       ],
       variables: VARS_JUEGO,
       eventos: [
-        grupo("Comun", COMUN().events),
-        AUDIOM(),
+        ...BASE(),
         modulo("10_datos.js", "Datos (cartas.json)", "Contenido: cartas, personajes, candidatos, finales y minijuegos. Se regenera desde src/cartas.json."),
         modulo("20_estado.js", "Estado y reglas", "Stats, afinidad, estados, azar, elecciones, sucesion, finales, guardado."),
         modulo("30_cartas.js", "Seleccion de cartas", "Condiciones, eras, efectos retardados, campana, ponderacion."),
@@ -129,7 +130,7 @@ function escenas() {
       name: "Logros",
       objects: [sprite("Fondo"), sprite("BotonMini"), sprite("Panel"), sprite("IconoUI"), ...texts(["TxtTitulo", 60], ["TxtTexto", 26], ["TxtBoton", 36])],
       variables: [["Estado", "logros"], ...VARS_AUDIO],
-      eventos: [grupo("Comun", COMUN().events), AUDIOM(), modulo("logros.js", "Lista de logros", "Escena Logros.")],
+      eventos: [...BASE(), modulo("logros.js", "Lista de logros", "Escena Logros.")],
     },
   ];
 }
@@ -245,7 +246,7 @@ if (require.main === module) {
   registrarFuentes(salida);
   fs.writeFileSync(destino, JSON.stringify(salida, null, 2));
   // Espejo del LAYOUT (00_comun.js) para tools/preview_layout.py y tools/gen_placeholders.py.
-  const espejo = JSON.stringify(LAYOUT, null, 2) + "\n", fl = path.join(__dirname, "layout.json");
+  const espejo = JSON.stringify(LAYOUT, null, 2) + "\n", fl = path.join(SRC, "layout.json");
   if (!fs.existsSync(fl) || fs.readFileSync(fl, "utf8") !== espejo) fs.writeFileSync(fl, espejo);
   console.log("layout.json actualizado desde LAYOUT (00_comun.js)");
   console.log("game.json " + (info ? "fusionado" : "generado") + ":", cartas.cartas.length, "cartas,", (cartas.candidatos || []).length, "candidatos");
