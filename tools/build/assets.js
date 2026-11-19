@@ -16,13 +16,14 @@ const deUi = pre => ui.filter(n => n.indexOf(pre) === 0).map(n => [n.slice(pre.l
 const prim = (lista, p) => lista.includes(p) ? [p, ...lista.filter(x => x !== p)] : lista;
 const MAPA = {
   Fondo: prim(fondos, "juego").map(n => [n, r("fondos", n)]),
-  Carta: prim(cartas, "carta").map(n => [n, r("cartas", n)]),
+  Carta: prim(cartas, "marco").map(n => [n, r("cartas", n)]),
   Retrato: prim(retratos, "default").map(n => [n, r("retratos", n)]),
   IconoStat: iconos.map(n => [n, r("iconos", n)]),
   Flash: [["blanco", r("efectos", "flash_blanco")], ["bueno", r("efectos", "flash_bueno")], ["malo", r("efectos", "flash_malo")]],
   BotonMini: [["normal", r("ui", "boton_normal")], ["activo", r("ui", "boton_activo")], ["presionado", r("ui", "boton_presionado")]],
   Panel: deUi("panel_"),          // rectangulos de color plano (una animacion por color de la paleta)
   SombraCarta: [["sombra", r("ui", "sombra_carta")]],
+  Halo: deUi("halo_"),          // brillos y sombras suaves escalables (Menu)
   IconoUI: deUi("icono_"),        // flechas, estrella, corazon, cruz, candado, puntos
   Particula: particulas.map(n => [n, r("particulas", n)]),   // pool propio de particulas (src/js/55_efectos.js)
   Fragmento: [["default", r("ui", "fragmento")], ["bien", r("ui", "fragmento_bien")], ["mal", r("ui", "fragmento_mal")]],

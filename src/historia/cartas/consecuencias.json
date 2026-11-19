@@ -1,0 +1,883 @@
+{
+  "cartas": [
+    {
+      "id": "nt1_a",
+      "pj": "monica",
+      "texto": "Salió en el periódico: la UAN recorta 12% del gasto, «temporal». Mónica trae una lista de todos los gastos y pide que decidas cómo recortar. ¿Qué haces?",
+      "izq": {
+        "t": "Recortar parejo en todo",
+        "e": [
+          -3,
+          -3,
+          6,
+          2
+        ]
+      },
+      "der": {
+        "t": "Pedir por escrito que sea temporal",
+        "e": [
+          3,
+          0,
+          -2,
+          -5
+        ],
+        "int": 1,
+        "af": {
+          "monica": 1
+        }
+      },
+      "extra": true,
+      "solo_luego": true
+    },
+    {
+      "id": "nt1_b",
+      "pj": "lugo",
+      "texto": "¡Hola, qué gusto! Mi alumna de la costa me enseñó el periódico: hay asaltos en la carretera y ya faltó dos días por miedo. Quiere seguir estudiando. ¿Qué hacemos?",
+      "izq": {
+        "t": "Dar clases en línea a foráneos",
+        "e": [
+          -3,
+          6,
+          -2,
+          0
+        ]
+      },
+      "der": {
+        "t": "Rentar camioneta con horario fijo",
+        "e": [
+          0,
+          5,
+          -7,
+          3
+        ]
+      },
+      "extra": true,
+      "solo_luego": true
+    },
+    {
+      "id": "nt1_c",
+      "pj": "nayeli",
+      "texto": "Nayeli ya no trae porra: en las asambleas las cartulinas dicen «¿Y mi beca?» y los alumnos piden reunión urgente con rectoría. Quieren que vayas con ellos.",
+      "izq": {
+        "t": "Ir con ellos a rectoría",
+        "e": [
+          2,
+          8,
+          -3,
+          -6
+        ],
+        "int": 1,
+        "af": {
+          "nayeli": 1
+        }
+      },
+      "der": {
+        "t": "Escribir a rectoría desde aquí",
+        "e": [
+          0,
+          -4,
+          0,
+          3
+        ]
+      },
+      "extra": true,
+      "solo_luego": true
+    },
+    {
+      "id": "nt1_d",
+      "pj": "lugo",
+      "texto": "Alberto Lugo llega con el periódico: sus alumnos leyeron del recorte y ya apuestan si se acaba el semestre. Él sonríe, pero no sabe qué contestar. Pide tu ayuda.",
+      "izq": {
+        "t": "Hablar con todos los grupos",
+        "e": [
+          2,
+          5,
+          0,
+          -3
+        ],
+        "int": 1
+      },
+      "der": {
+        "t": "Mandar un aviso corto por escrito",
+        "e": [
+          -2,
+          -3,
+          0,
+          3
+        ]
+      },
+      "extra": true,
+      "solo_luego": true
+    },
+    {
+      "id": "nt2_a",
+      "pj": "perla",
+      "texto": "Perla enseña el pizarrón de avisos: congelaron plazas y bajaron horas a maestros de tiempo completo. Nadie dijo cuánto durará. Pide que alguien dé la cara.",
+      "izq": {
+        "t": "Dar la cara y revisar las horas",
+        "e": [
+          6,
+          -2,
+          -3,
+          -4
+        ],
+        "int": 1,
+        "af": {
+          "perla": 1
+        }
+      },
+      "der": {
+        "t": "Esperar el aviso oficial de rectoría",
+        "e": [
+          -5,
+          0,
+          3,
+          3
+        ]
+      },
+      "extra": true,
+      "solo_luego": true
+    },
+    {
+      "id": "nt2_b",
+      "pj": "maria",
+      "texto": "María leyó que cerraron dos comedores porque los proveedores ya no fían. Dice que nadie aprende con galletas y café, y quiere hacer una olla comunitaria aquí.",
+      "izq": {
+        "t": "Autorizar la olla y pagar insumos",
+        "e": [
+          4,
+          7,
+          -7,
+          -2
+        ],
+        "af": {
+          "maria": 1
+        }
+      },
+      "der": {
+        "t": "Pedir una colecta voluntaria",
+        "e": [
+          -4,
+          4,
+          0,
+          2
+        ]
+      },
+      "extra": true,
+      "solo_luego": true
+    },
+    {
+      "id": "nt2_c",
+      "pj": "edel",
+      "texto": "Edel, seco y puntual: «Llegué temprano. Hay asaltos cerca de las paradas del camión universitario. Piden salir antes de que anochezca. Los vecinos prometen vigilar.»",
+      "izq": {
+        "t": "Adelantar los horarios de la tarde",
+        "e": [
+          -5,
+          6,
+          -2,
+          0
+        ]
+      },
+      "der": {
+        "t": "Pagar guardias en las paradas",
+        "e": [
+          0,
+          3,
+          -6,
+          3
+        ]
+      },
+      "extra": true,
+      "solo_luego": true
+    },
+    {
+      "id": "nt2_d",
+      "pj": "eligardo",
+      "texto": "Jefe, el proveedor de los comedores ya no fía: le deben meses. Vino con pan de regalo, ¡y con pan todo se arregla! Pero pide una fecha de pago.",
+      "izq": {
+        "t": "Abonar algo y reabrir un comedor",
+        "e": [
+          2,
+          6,
+          -7,
+          -2
+        ],
+        "int": 2
+      },
+      "der": {
+        "t": "Prometer pago, sin fecha clara",
+        "e": [
+          0,
+          -4,
+          3,
+          2
+        ],
+        "int": -2
+      },
+      "extra": true,
+      "solo_luego": true
+    },
+    {
+      "id": "nt3_a",
+      "pj": "sergio",
+      "texto": "Sergio lee en voz alta: maestros amenazan con paro por pagos atrasados. «Ya hay más ganas de parar que quincena», dice sin sonreír. Quiere saber qué harás.",
+      "izq": {
+        "t": "Pedir adelanto de sueldos a rectoría",
+        "e": [
+          7,
+          0,
+          -5,
+          -5
+        ],
+        "af": {
+          "sergio": 1
+        }
+      },
+      "der": {
+        "t": "Pedir paciencia y evitar el paro",
+        "e": [
+          -7,
+          3,
+          2,
+          3
+        ]
+      },
+      "extra": true,
+      "solo_luego": true
+    },
+    {
+      "id": "nt3_b",
+      "pj": "raudel",
+      "texto": "¡Director! A un dueño de fonda junto al campus le cobran por «cuidarlo» y ya cierra temprano. ¡No se vale dejarlo solo! Está asustado y pide ayuda.",
+      "izq": {
+        "t": "Acompañarlo a denunciar y avisar",
+        "e": [
+          -2,
+          5,
+          -1,
+          -4
+        ],
+        "int": 2
+      },
+      "der": {
+        "t": "Mandarlo con seguridad pública",
+        "e": [
+          0,
+          -4,
+          0,
+          3
+        ]
+      },
+      "extra": true,
+      "solo_luego": true
+    },
+    {
+      "id": "nt3_c",
+      "pj": "ana",
+      "texto": "Ana revisó el padrón de becas: piden papeles que muchas familias no tienen y las oficinas se llenan desde las siete. Propone abrir una ventanilla de ayuda aquí.",
+      "izq": {
+        "t": "Abrir ventanilla con ayuda de profes",
+        "e": [
+          -4,
+          8,
+          -2,
+          2
+        ],
+        "int": 1,
+        "af": {
+          "ana": 1
+        }
+      },
+      "der": {
+        "t": "Mandarlos a las oficinas centrales",
+        "e": [
+          3,
+          -6,
+          0,
+          3
+        ]
+      },
+      "extra": true,
+      "solo_luego": true
+    },
+    {
+      "id": "nt3_d",
+      "pj": "edel",
+      "texto": "Edel, de pocas palabras, deja el periódico en tu escritorio con «paro por pagos atrasados» subrayado. Quiere dar clases, pero no dejar solos a sus compañeros.",
+      "izq": {
+        "t": "Que dé clase y apoye con avisos",
+        "e": [
+          -3,
+          4,
+          0,
+          2
+        ]
+      },
+      "der": {
+        "t": "Que se sume al paro de un día",
+        "e": [
+          5,
+          -4,
+          0,
+          -3
+        ]
+      },
+      "extra": true,
+      "solo_luego": true
+    },
+    {
+      "id": "nt4_a",
+      "pj": "ricardo",
+      "texto": "Ricardo viene serio, sin broma: por seguridad suspendieron las prácticas en la sierra, y las comunidades ya esperaban a los alumnos. ¿Cómo lo resuelves?",
+      "izq": {
+        "t": "Cancelar todas las prácticas",
+        "e": [
+          -4,
+          -5,
+          -3,
+          -4
+        ]
+      },
+      "der": {
+        "t": "Traer a la comunidad al campus",
+        "e": [
+          4,
+          3,
+          -8,
+          2
+        ],
+        "int": 1,
+        "af": {
+          "ricardo": 1
+        }
+      },
+      "extra": true,
+      "solo_luego": true
+    },
+    {
+      "id": "nt4_b",
+      "pj": "gabriel",
+      "texto": "Gabriel leyó que recortaron los laboratorios: un maestro vendió pastelitos para comprar cables. Él dice que puede revivir equipos viejos con piezas de bodega.",
+      "izq": {
+        "t": "Dejar que Gabriel reviva equipos",
+        "e": [
+          -3,
+          5,
+          -2,
+          2
+        ],
+        "af": {
+          "gabriel": 1
+        }
+      },
+      "der": {
+        "t": "Lanzar una campaña de donativos",
+        "e": [
+          3,
+          2,
+          5,
+          -5
+        ]
+      },
+      "extra": true,
+      "solo_luego": true
+    },
+    {
+      "id": "nt4_c",
+      "pj": "maria",
+      "texto": "Vi la marcha por la paz, mijo: cientos de jóvenes en silencio, tristes y cansados. Se me arrugó el corazón. Hace falta un espacio de escucha, con tecito y galletas.",
+      "izq": {
+        "t": "Abrir un círculo de escucha ya",
+        "e": [
+          -2,
+          7,
+          -3,
+          3
+        ],
+        "int": 1
+      },
+      "der": {
+        "t": "Dejarlo para después de exámenes",
+        "e": [
+          3,
+          -5,
+          3,
+          -1
+        ]
+      },
+      "extra": true,
+      "solo_luego": true
+    },
+    {
+      "id": "nt4_d",
+      "pj": "nayeli",
+      "texto": "Director, un alumno quiere dejar la carrera por miedo y dinero. Su mamá marchó en silencio por la paz y me pidió una razón para que se quede. ¡Hay que animarlo!",
+      "izq": {
+        "t": "Ofrecer apoyo y horario seguro",
+        "e": [
+          -2,
+          7,
+          -5,
+          2
+        ],
+        "int": 1
+      },
+      "der": {
+        "t": "Respetar su decisión con calma",
+        "e": [
+          0,
+          -6,
+          2,
+          0
+        ]
+      },
+      "extra": true,
+      "solo_luego": true
+    },
+    {
+      "id": "nt5_a",
+      "pj": "reyna",
+      "texto": "Los bloqueos por falta de agua y luz llegaron a la Unidad: 38 grados y ni un ventilador. Reyna propone dar clase bajo los árboles. ¿Qué decides?",
+      "izq": {
+        "t": "Dar clase bajo los árboles",
+        "e": [
+          3,
+          4,
+          -3,
+          -2
+        ],
+        "af": {
+          "reyna": 1
+        }
+      },
+      "der": {
+        "t": "Suspender hasta que vuelva la luz",
+        "e": [
+          -2,
+          -4,
+          3,
+          0
+        ]
+      },
+      "extra": true,
+      "solo_luego": true
+    },
+    {
+      "id": "nt5_b",
+      "pj": "janoe",
+      "texto": "Voy a una junta, pero esto urge: una auditora trae carpeta. Hay gastos sin comprobar y cajas «que nunca se contaron». Dice que seguimos nosotros. ¿Le abres los papeles?",
+      "izq": {
+        "t": "Abrirle todos los papeles",
+        "e": [
+          0,
+          0,
+          4,
+          -5
+        ],
+        "int": 3
+      },
+      "der": {
+        "t": "Pedir una semana para ordenarlos",
+        "e": [
+          0,
+          0,
+          -3,
+          4
+        ],
+        "int": -3
+      },
+      "extra": true,
+      "solo_luego": true
+    },
+    {
+      "id": "nt5_c",
+      "pj": "pedro",
+      "texto": "La Corte volvió a recortar los fondos. Pedro llega con el periódico en una mano y un libro de leyes en la otra: quiere mandar una protesta firmada por todos.",
+      "izq": {
+        "t": "Firmar la protesta",
+        "e": [
+          4,
+          0,
+          0,
+          -4
+        ],
+        "int": 2,
+        "af": {
+          "pedro": 1
+        }
+      },
+      "der": {
+        "t": "Mantener la calma, como pide rectoría",
+        "e": [
+          -3,
+          0,
+          0,
+          4
+        ]
+      },
+      "extra": true,
+      "solo_luego": true
+    },
+    {
+      "id": "nt5_d",
+      "pj": "maria",
+      "texto": "María llegó con garrafones de su casa: en su colonia llevan días sin agua. Los alumnos hacen fila con botellas vacías. Pide dejar pasar también a los vecinos.",
+      "izq": {
+        "t": "Abrir el agua a los vecinos",
+        "e": [
+          0,
+          5,
+          -4,
+          0
+        ],
+        "af": {
+          "maria": 1
+        }
+      },
+      "der": {
+        "t": "Solo para alumnos y personal",
+        "e": [
+          -3,
+          0,
+          0,
+          3
+        ]
+      },
+      "extra": true,
+      "solo_luego": true
+    },
+    {
+      "id": "nt6_a",
+      "pj": "pedro",
+      "texto": "Pedro, serio: «La universidad también es refugio. Una mujer náayeri llegó con sus dos hijos: dejaron su pueblo por la inseguridad. Piden dónde seguir estudiando.»",
+      "izq": {
+        "t": "Prestar un salón como aula",
+        "e": [
+          0,
+          5,
+          -4,
+          -2
+        ],
+        "int": 2
+      },
+      "der": {
+        "t": "Hacer colecta de víveres y ropa",
+        "e": [
+          4,
+          0,
+          -2,
+          0
+        ]
+      },
+      "extra": true,
+      "solo_luego": true
+    },
+    {
+      "id": "nt6_b",
+      "pj": "beatriz",
+      "texto": "Director, el segundo recorte es de 15% y seguimos sin plan. Sin orden no se sabe qué se paga primero. En redes dicen «otra vez». Decida ya, no hay tiempo.",
+      "izq": {
+        "t": "Esperar a ver qué pasa",
+        "e": [
+          -4,
+          -5,
+          -3,
+          -4
+        ],
+        "int": -2
+      },
+      "der": {
+        "t": "Presentar un plan de recortes parejos",
+        "e": [
+          -7,
+          -5,
+          5,
+          3
+        ],
+        "int": 2
+      },
+      "extra": true,
+      "solo_luego": true
+    },
+    {
+      "id": "nt6_c",
+      "pj": "oscar",
+      "texto": "Oscar: «¡Idea! Las velas por la paz salieron preciosas. Repitámoslas cada viernes, con foro abierto y hasta micrófono. A rectoría le da nervio.»",
+      "izq": {
+        "t": "Autorizar los viernes de velas",
+        "e": [
+          0,
+          6,
+          0,
+          -4
+        ],
+        "int": 1
+      },
+      "der": {
+        "t": "Una sola vez, nada de foros",
+        "e": [
+          0,
+          -5,
+          0,
+          3
+        ]
+      },
+      "extra": true,
+      "solo_luego": true
+    },
+    {
+      "id": "nt6_d",
+      "pj": "omar",
+      "texto": "Desde el segundo recorte nadie se ríe en el pasillo. Omar, que saluda hasta al conserje, propone un convivio: cada quien trae algo. «Al menos compartimos el arroz».",
+      "izq": {
+        "t": "Hacer la comida de convivio",
+        "e": [
+          4,
+          0,
+          -3,
+          0
+        ],
+        "af": {
+          "omar": 1
+        }
+      },
+      "der": {
+        "t": "Mejor aprovechar la hora para trabajar",
+        "e": [
+          -2,
+          0,
+          3,
+          0
+        ]
+      },
+      "extra": true,
+      "solo_luego": true
+    },
+    {
+      "id": "nt7_a",
+      "pj": "monica",
+      "texto": "A más de dos años del incendio de Finanzas, nadie responde. Mónica guarda una libreta con fechas de aquellos días. No acusa a nadie: dice que «hay cosas que no encajan».",
+      "izq": {
+        "t": "Pedir una revisión en silencio",
+        "e": [
+          0,
+          2,
+          -3,
+          -4
+        ],
+        "int": 3,
+        "af": {
+          "monica": 1
+        }
+      },
+      "der": {
+        "t": "Guardar la libreta y mirar adelante",
+        "e": [
+          -3,
+          0,
+          2,
+          3
+        ],
+        "int": -3,
+        "af": {
+          "monica": -1
+        }
+      },
+      "extra": true,
+      "solo_luego": true
+    },
+    {
+      "id": "nt7_b",
+      "pj": "beatriz",
+      "texto": "Director, aquí está la lista: uno de cada cinco alumnos no volvió y repiten «volveré cuando se pueda». Yo no maquillo cifras. ¿Cómo los anotamos en el reporte?",
+      "izq": {
+        "t": "Marcarlos «en pausa» en el reporte",
+        "e": [
+          2,
+          3,
+          3,
+          3
+        ],
+        "int": -4
+      },
+      "der": {
+        "t": "Reportar la cifra real y buscarlos",
+        "e": [
+          3,
+          5,
+          -3,
+          -6
+        ],
+        "int": 4
+      },
+      "extra": true,
+      "solo_luego": true
+    },
+    {
+      "id": "nt7_c",
+      "pj": "jose_27",
+      "texto": "José Camelo: «Conozco al dueño de una fonda de aquí. Ya apaga la luz a las seis: dice que ya no se puede trabajar. Ofrece vender comida barata en el patio de la Unidad.»",
+      "izq": {
+        "t": "Dejarlo vender sin cobrar renta",
+        "e": [
+          0,
+          6,
+          -4,
+          0
+        ]
+      },
+      "der": {
+        "t": "Cobrarle una renta pequeña",
+        "e": [
+          0,
+          -3,
+          4,
+          0
+        ]
+      },
+      "extra": true,
+      "solo_luego": true
+    },
+    {
+      "id": "nt7_d",
+      "pj": "lugo",
+      "texto": "Lugo sonríe, aunque hoy menos: por primera vez su grupo le hace caso, porque todos quieren salir antes de que oscurezca. Pide terminar las clases a las cinco.",
+      "izq": {
+        "t": "Terminar las clases a las cinco",
+        "e": [
+          -3,
+          5,
+          0,
+          0
+        ],
+        "af": {
+          "lugo": 1
+        }
+      },
+      "der": {
+        "t": "Mantener horario y pagar vigilancia",
+        "e": [
+          3,
+          0,
+          -4,
+          3
+        ]
+      },
+      "extra": true,
+      "solo_luego": true
+    },
+    {
+      "id": "nt8_a",
+      "pj": "maria",
+      "texto": "Ven, mijo, tómate este tecito. En la reunión una madre me jaló la manga: «¿Quién responde por mis hijos?». Quiere promesa escrita de seguridad y becas.",
+      "izq": {
+        "t": "Prometerlo por escrito",
+        "e": [
+          0,
+          6,
+          0,
+          -4
+        ],
+        "int": -3
+      },
+      "der": {
+        "t": "Decir con franqueza lo que sí se puede",
+        "e": [
+          3,
+          -2,
+          0,
+          0
+        ],
+        "int": 3
+      },
+      "extra": true,
+      "solo_luego": true
+    },
+    {
+      "id": "nt8_b",
+      "pj": "victor",
+      "texto": "Hubo paro nacional por los recortes. Víctor, sonriendo, ya habló con todos y propone no pelear: que cada quien decida si para o da clase. «Así nadie se enoja».",
+      "izq": {
+        "t": "Dejar que cada quien decida",
+        "e": [
+          -3,
+          -4,
+          -3,
+          -5
+        ],
+        "int": -2,
+        "af": {
+          "victor": 1
+        }
+      },
+      "der": {
+        "t": "Sumarte al paro todo el día",
+        "e": [
+          6,
+          3,
+          -6,
+          2
+        ],
+        "int": 1
+      },
+      "extra": true,
+      "solo_luego": true
+    },
+    {
+      "id": "nt8_c",
+      "pj": "sergio",
+      "texto": "Director, una periodista quiere saber su opinión de la encuesta: siete de cada diez confían poco en las autoridades. Usted es autoridad, qué sorpresa. ¿Qué le digo?",
+      "izq": {
+        "t": "Decirle que tienen razón en dudar",
+        "e": [
+          0,
+          4,
+          0,
+          -5
+        ],
+        "int": 3
+      },
+      "der": {
+        "t": "Mandarla a hablar con rectoría",
+        "e": [
+          -2,
+          0,
+          0,
+          4
+        ],
+        "int": -1
+      },
+      "extra": true,
+      "solo_luego": true
+    },
+    {
+      "id": "nt8_d",
+      "pj": "alejandro",
+      "texto": "Alejandro llega con una carpeta que dice «Plan B»: terminar el semestre en línea para ahorrar luz y camino. Habla poco: «Mejor ahora que después».",
+      "izq": {
+        "t": "Aprobar el Plan B en línea",
+        "e": [
+          0,
+          -4,
+          5,
+          0
+        ],
+        "af": {
+          "alejandro": 1
+        }
+      },
+      "der": {
+        "t": "Seguir presencial a pesar de todo",
+        "e": [
+          3,
+          4,
+          -4,
+          0
+        ]
+      },
+      "extra": true,
+      "solo_luego": true
+    }
+  ]
+}

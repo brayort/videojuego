@@ -1,0 +1,246 @@
+{
+  "id": "oscar",
+  "titulo": "El agitador",
+  "resumen": "Oscar convierte la asamblea en poder: una lista de exigencias imposible, un patio encendido y una toma de la dirección que él nunca ordena pero tampoco detiene.",
+  "cartas": [
+    {
+      "id": "o1",
+      "pj": "oscar_alumno",
+      "texto": "Oscar reúne a los alumnos en el patio. Dice que la Unidad les debe respuestas y que él las va a conseguir. En la asamblea es al que más escuchan. Quiere que apoyes su lista de peticiones.",
+      "izq": {
+        "t": "Recibir a los alumnos",
+        "e": [
+          0,
+          8,
+          -3,
+          -2
+        ],
+        "set": [
+          "oscar_pliego"
+        ],
+        "luego": {
+          "semanas": 2,
+          "carta": "o2"
+        }
+      },
+      "der": {
+        "t": "Mandarlos a ventanilla",
+        "e": [
+          0,
+          -7,
+          0,
+          3
+        ],
+        "luego": {
+          "semanas": 2,
+          "carta": "o2"
+        }
+      },
+      "peso": 3,
+      "unica": true,
+      "cadena": "oscar",
+      "req": [
+        "cap_oscar"
+      ]
+    },
+    {
+      "id": "o2",
+      "pj": "oscar_alumno",
+      "texto": "Oscar te presenta su lista: becas más grandes, comedor gratis y «voz y voto» en el presupuesto. Suena justo. También suena imposible. A su alrededor, todos aplauden antes de que respondas.",
+      "izq": {
+        "t": "Aceptar casi todo",
+        "e": [
+          -3,
+          12,
+          -12,
+          -2
+        ],
+        "set": [
+          "oscar_cedes"
+        ],
+        "luego": {
+          "semanas": 2,
+          "carta": "o3"
+        }
+      },
+      "der": {
+        "t": "Aceptar solo lo posible",
+        "e": [
+          0,
+          -6,
+          2,
+          0
+        ],
+        "set": [
+          "oscar_resistes"
+        ],
+        "luego": {
+          "semanas": 2,
+          "carta": "o3"
+        }
+      },
+      "solo_luego": true,
+      "unica": true,
+      "cadena": "oscar"
+    },
+    {
+      "id": "o3",
+      "pj": "oscar_alumno",
+      "texto": "Oscar sonríe frente al micrófono: «El director cumplió... a medias». Los ánimos se calientan. Alguien propone tomar la dirección «solo por unas horas». Oscar no lo detiene. Tampoco lo apoya. Espera.",
+      "izq": {
+        "t": "Hablarles a todos",
+        "e": [
+          0,
+          4,
+          0,
+          -3
+        ],
+        "luego": {
+          "semanas": 2,
+          "carta": "o4a"
+        }
+      },
+      "der": {
+        "t": "Pedir que rectoría intervenga",
+        "e": [
+          0,
+          -10,
+          0,
+          6
+        ],
+        "luego": {
+          "semanas": 2,
+          "carta": "o4b"
+        }
+      },
+      "solo_luego": true,
+      "unica": true,
+      "cadena": "oscar"
+    },
+    {
+      "id": "o4a",
+      "pj": "oscar_alumno",
+      "texto": "Hablas ante el patio. Oscar te reta con una pregunta que no puedes esquivar: «¿De dónde saldría el dinero?». Todos esperan. Aquí te cuestionan mejor que en cualquier junta.",
+      "izq": {
+        "t": "Decir la verdad: no alcanza",
+        "e": [
+          0,
+          -4,
+          4,
+          0
+        ],
+        "int": 8,
+        "set": [
+          "oscar_fin",
+          "oscar_verdad"
+        ]
+      },
+      "der": {
+        "t": "Prometer lo que él pide",
+        "e": [
+          0,
+          10,
+          -10,
+          0
+        ],
+        "int": -10,
+        "set": [
+          "oscar_fin",
+          "oscar_gano"
+        ]
+      },
+      "solo_luego": true,
+      "unica": true,
+      "cadena": "oscar"
+    },
+    {
+      "id": "o4b",
+      "pj": "oscar_alumno",
+      "texto": "Con rectoría de testigo se evita la toma... a cambio de un documento que te obliga a «mantener el orden». Oscar se retira tranquilo: acaba de ganar algo que tú todavía no ves.",
+      "izq": {
+        "t": "Firmar el documento",
+        "e": [
+          0,
+          -6,
+          2,
+          8
+        ],
+        "set": [
+          "oscar_fin",
+          "oscar_acta"
+        ]
+      },
+      "der": {
+        "t": "No firmar",
+        "e": [
+          0,
+          -3,
+          0,
+          -6
+        ],
+        "int": 4,
+        "set": [
+          "oscar_fin"
+        ]
+      },
+      "solo_luego": true,
+      "unica": true,
+      "cadena": "oscar"
+    },
+    {
+      "id": "porra_a",
+      "pj": "nayeli",
+      "texto": "El karaoke fue un éxito: cantaron hasta los de posgrado y Alfonso hizo la porra. Entre canción y canción pasó una hoja de firmas pidiendo comedor gratis. Nayeli te la acerca con una sonrisa enorme.",
+      "izq": {
+        "t": "Firmar con ánimo",
+        "e": [
+          0,
+          5,
+          -4,
+          0
+        ],
+        "int": -1
+      },
+      "der": {
+        "t": "Leerla primero, con calma",
+        "e": [
+          0,
+          -2,
+          0,
+          0
+        ],
+        "int": 3
+      },
+      "cadena": "oscar",
+      "solo_luego": true,
+      "unica": true
+    },
+    {
+      "id": "porra_b",
+      "pj": "oscar",
+      "texto": "Sin tu apoyo, el karaoke se hizo igual, pero en el estacionamiento. Oscar Vizcaíno llegó con megáfono y tres bocinas. El otro Oscar, el estudiante, anotó que el director no fue.",
+      "izq": {
+        "t": "Presentarte ahora con un mensaje",
+        "e": [
+          0,
+          3,
+          -2,
+          0
+        ],
+        "int": 1
+      },
+      "der": {
+        "t": "Mandar un saludo por escrito",
+        "e": [
+          0,
+          -3,
+          0,
+          3
+        ]
+      },
+      "cadena": "oscar",
+      "solo_luego": true,
+      "unica": true
+    }
+  ]
+}

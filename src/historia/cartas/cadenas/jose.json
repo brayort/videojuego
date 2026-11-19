@@ -1,0 +1,245 @@
+{
+  "id": "jose",
+  "titulo": "El estratega",
+  "resumen": "José nunca grita. Se hace indispensable en el comité, arma listas y calendarios, y deja que otros llamen al paro por él.",
+  "cartas": [
+    {
+      "id": "j1",
+      "pj": "jose",
+      "texto": "José pide hablar a solas. Nunca levanta la voz. Dice que los maestros están divididos y que solo él puede unirlos... si lo nombras coordinador del comité de planeación.",
+      "izq": {
+        "t": "Nombrarlo coordinador",
+        "e": [
+          7,
+          0,
+          0,
+          2
+        ],
+        "set": [
+          "jose_coordina"
+        ],
+        "luego": {
+          "semanas": 2,
+          "carta": "j2"
+        }
+      },
+      "der": {
+        "t": "Dejar el comité como está",
+        "e": [
+          -5,
+          0,
+          0,
+          0
+        ],
+        "luego": {
+          "semanas": 2,
+          "carta": "j2"
+        }
+      },
+      "peso": 3,
+      "unica": true,
+      "cadena": "jose",
+      "req": [
+        "cap_jose"
+      ]
+    },
+    {
+      "id": "j2",
+      "pj": "jose",
+      "texto": "El comité se reúne y José ya traía el calendario, los acuerdos y hasta las notas de la reunión escritas. Todo lo que propone se aprueba. Perla frunce el ceño: «Aquí ya no se discute nada».",
+      "izq": {
+        "t": "Dejar que avance",
+        "e": [
+          6,
+          0,
+          2,
+          0
+        ],
+        "set": [
+          "jose_cedes"
+        ],
+        "luego": {
+          "semanas": 2,
+          "carta": "j3"
+        }
+      },
+      "der": {
+        "t": "Pedir que se discuta",
+        "e": [
+          -5,
+          0,
+          0,
+          0
+        ],
+        "int": 3,
+        "set": [
+          "jose_resistes"
+        ],
+        "luego": {
+          "semanas": 2,
+          "carta": "j3"
+        }
+      },
+      "solo_luego": true,
+      "unica": true,
+      "cadena": "jose"
+    },
+    {
+      "id": "j3",
+      "pj": "jose",
+      "texto": "José te cita en tu oficina: «Va a haber votación sobre los puestos. Con mi lista, el recorte no te toca. Sin ella, habrá paro en dos semanas». Lo dice como quien comenta el clima.",
+      "izq": {
+        "t": "Aceptar su lista",
+        "e": [
+          8,
+          0,
+          -6,
+          0
+        ],
+        "luego": {
+          "semanas": 2,
+          "carta": "j4a"
+        }
+      },
+      "der": {
+        "t": "Enfrentarlo",
+        "e": [
+          -8,
+          0,
+          3,
+          0
+        ],
+        "luego": {
+          "semanas": 2,
+          "carta": "j4b"
+        }
+      },
+      "solo_luego": true,
+      "unica": true,
+      "cadena": "jose"
+    },
+    {
+      "id": "j4a",
+      "pj": "jose",
+      "texto": "La lista pasa. Una semana después descubres que protege a quienes él quiere y deja fuera a quienes le estorban, incluidos dos profesores que confiaban en ti. Los maestros ahora son suyos. Y tú, quien lo respaldó.",
+      "izq": {
+        "t": "Aceptarlo: tiene un precio",
+        "e": [
+          4,
+          0,
+          0,
+          -3
+        ],
+        "int": -8,
+        "set": [
+          "jose_fin",
+          "jose_gano"
+        ]
+      },
+      "der": {
+        "t": "Corregir la lista",
+        "e": [
+          -4,
+          0,
+          -2,
+          0
+        ],
+        "int": 6,
+        "set": [
+          "jose_fin"
+        ]
+      },
+      "solo_luego": true,
+      "unica": true,
+      "cadena": "jose"
+    },
+    {
+      "id": "j4b",
+      "pj": "jose",
+      "texto": "José no levanta la voz: llama a una asamblea de profesores y deja que otros hablen por él. Dos días después, el paro está votado. «Nada personal», murmura al salir.",
+      "izq": {
+        "t": "Negociar con todos los maestros",
+        "e": [
+          6,
+          0,
+          -6,
+          -2
+        ],
+        "set": [
+          "jose_fin",
+          "jose_negocia"
+        ]
+      },
+      "der": {
+        "t": "Aguantar el paro",
+        "e": [
+          -12,
+          -4,
+          5,
+          3
+        ],
+        "int": 2,
+        "set": [
+          "jose_fin"
+        ]
+      },
+      "solo_luego": true,
+      "unica": true,
+      "cadena": "jose"
+    },
+    {
+      "id": "josefes_a",
+      "pj": "jose_27",
+      "texto": "José Camelo investigó con medio mundo y trae la lista del comité: nueve nombres, todos de confianza de alguien. Falta uno, que nadie quiere escribir. «Conozco a todos, director. A ese, no.»",
+      "izq": {
+        "t": "Pedir que lo escriba aunque incomode",
+        "e": [
+          3,
+          0,
+          0,
+          -3
+        ],
+        "int": 2
+      },
+      "der": {
+        "t": "Dejar el nombre en blanco por ahora",
+        "e": [
+          -2,
+          0,
+          0,
+          2
+        ]
+      },
+      "cadena": "jose",
+      "solo_luego": true,
+      "unica": true
+    },
+    {
+      "id": "josefes_b",
+      "pj": "jose_25",
+      "texto": "José Olivo te enseña su agenda: «Martes, 11:15: el José del comité aparece solo». Son las 11:14. Calculó que tomarías esta decisión... y de qué manera.",
+      "izq": {
+        "t": "Esperar a las 11:15 con él",
+        "e": [
+          2,
+          0,
+          0,
+          -2
+        ]
+      },
+      "der": {
+        "t": "Salir antes, solo para llevarle la contra",
+        "e": [
+          -2,
+          0,
+          2,
+          0
+        ],
+        "int": 2
+      },
+      "cadena": "jose",
+      "solo_luego": true,
+      "unica": true
+    }
+  ]
+}

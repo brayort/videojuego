@@ -1,0 +1,267 @@
+{
+  "unidades_academicas": [
+    {
+      "nombre": "Informática",
+      "personas": [
+        {
+          "numero": 1,
+          "nombre": "Alejandro",
+          "nombre_completo": "Alejandro Granados Magaña",
+          "sprite": "01-alejandro.png",
+          "personalidad": "Tranquilo y metódico; nunca se le ve con prisa y siempre tiene el plan B listo. Habla poco, pero cuando lo hace todos escuchan.",
+          "cargo": null
+        },
+        {
+          "numero": 2,
+          "nombre": "Beatriz",
+          "nombre_completo": "Beatriz Angélica Toscano de la Torre",
+          "sprite": "02-beatriz.png",
+          "personalidad": "Difícil de tratar y de lengua suelta: no se queda callada con nadie y se mete en más de un lío. Estricta al extremo, los alumnos le tienen miedo.",
+          "cargo": null
+        },
+        {
+          "numero": 4,
+          "nombre": "Fernando",
+          "nombre_completo": "Fernando Oregel Rosales",
+          "sprite": "04-fernando.png",
+          "personalidad": "Bromista de pasillo con corazón de oro. Convierte cualquier reunión aburrida en anécdota, pero entrega todo a tiempo.",
+          "cargo": null
+        },
+        {
+          "numero": 5,
+          "nombre": "Janoe",
+          "nombre_completo": "Janoe Antonio González Reyes",
+          "sprite": "05-janoe.png",
+          "personalidad": "Coordinador de Sistemas. Responsable y con carácter de líder; siempre anda resolviendo algo y nunca le falta una reunión pendiente.",
+          "cargo": "Coordinador de Sistemas"
+        },
+        {
+          "numero": 8,
+          "nombre": "Mónica",
+          "nombre_completo": "Mónica Salcedo Rosales",
+          "sprite": "08-monica.png",
+          "personalidad": "Organizada hasta el último detalle y con una calma que contagia. Es quien recuerda la fecha de entrega que todos olvidaron.",
+          "cargo": null
+        },
+        {
+          "numero": 9,
+          "nombre": "Nayeli",
+          "nombre_completo": "Nayeli Yaremi Borrayo González",
+          "sprite": "09-nayeli.png",
+          "personalidad": "Entusiasta y expresiva; se emociona con cada pequeño logro del grupo. Es la porrista oficial del equipo.",
+          "cargo": null
+        },
+        {
+          "numero": 10,
+          "nombre": "Sergio",
+          "nombre_completo": "Sergio Agustín Olivares Granados",
+          "sprite": "10-sergio.png",
+          "personalidad": "Serio por fuera, sarcástico por dentro. Su humor seco llega siempre cuando menos lo esperas.",
+          "cargo": null
+        },
+        {
+          "numero": 11,
+          "nombre": "Sonia",
+          "nombre_completo": "Sonia Yadira Tapia Ponce",
+          "sprite": "11-sonia.png",
+          "personalidad": "Coordinadora de Informática. Sociable y conciliadora; logra que dos personas en desacuerdo terminen tomando café juntas.",
+          "cargo": "Coordinadora de Informática"
+        },
+        {
+          "numero": 12,
+          "nombre": "Víctor",
+          "nombre_completo": "Víctor Javier Torres Covarrubias",
+          "sprite": "12-victor.png",
+          "personalidad": "Político nato: sabe a quién saludar, cuándo sonreír y cómo salir bien parado de cualquier discusión.",
+          "cargo": null
+        }
+      ]
+    },
+    {
+      "nombre": "Sistemas Computacionales",
+      "personas": [
+        {
+          "numero": 13,
+          "nombre": "Alfonso",
+          "nombre_completo": "Alfonso Junior Rodríguez Ayón",
+          "sprite": "13-alfonso.png",
+          "personalidad": "Buena onda de principio a fin. Llega con una sonrisa, se lleva bien con todos y siempre echa la mano.",
+          "cargo": null
+        },
+        {
+          "numero": 14,
+          "nombre": "Ángel",
+          "nombre_completo": "Ángel Armando Benítez Carrazco",
+          "sprite": "14-angel.png",
+          "personalidad": "Muy estricto y de aires de superioridad; no perdona un error ni una tarea tarde. Se cree el rey del pasillo, aunque en el fondo todos lo respetan.",
+          "cargo": null
+        },
+        {
+          "numero": 15,
+          "nombre": "Carlos",
+          "nombre_completo": "Carlos David Ortiz Hernández",
+          "sprite": "15-carlos.png",
+          "personalidad": "Serio y misterioso: nadie sabe bien qué piensa ni qué trae entre manos. Pero en cuanto agarra confianza se vuelve un vacilón de primera.",
+          "cargo": null
+        },
+        {
+          "numero": 16,
+          "nombre": "Eligardo",
+          "nombre_completo": "Eligardo Cruz Sánchez",
+          "sprite": "16-eligardo.png",
+          "personalidad": "Jovial y despreocupado; para él todo problema tiene arreglo después de una buena comida. Nunca pierde la sonrisa.",
+          "cargo": null
+        },
+        {
+          "numero": 17,
+          "nombre": "Gabriel",
+          "nombre_completo": "Gabriel Zepeda Martínez",
+          "sprite": "17-gabriel.png",
+          "personalidad": "El que más sabe de hardware: arma, repara y revive equipos que ya nadie quería. Habla de tarjetas madre con pasión.",
+          "cargo": null
+        },
+        {
+          "numero": 18,
+          "nombre": "Perla",
+          "nombre_completo": "Perla Aguilar Navarrete",
+          "sprite": "18-perla.png",
+          "personalidad": "Líder nata, de las que organizan al grupo sin pedir permiso. Muy buena investigadora, con reconocimiento CNI.",
+          "cargo": null
+        },
+        {
+          "numero": 19,
+          "nombre": "José",
+          "nombre_completo": "José Pedro Luna Mayorquin",
+          "sprite": "19-jose.png",
+          "personalidad": "Sabio y pausado, de los que hablan con refranes. Le gusta aconsejar a los nuevos con una taza de té en la mano.",
+          "cargo": null
+        },
+        {
+          "numero": 20,
+          "nombre": "Raudel",
+          "nombre_completo": "Raudel López Espinoza",
+          "sprite": "20-raudel.png",
+          "personalidad": "Chico rudo de buen porte y poca paciencia. Habla fuerte, no se deja de nadie y tiene un corazón noble debajo de la fachada.",
+          "cargo": null
+        },
+        {
+          "numero": 21,
+          "nombre": "Roberto",
+          "nombre_completo": "Roberto Arturo Herrera Cruz",
+          "sprite": "21-roberto.png",
+          "personalidad": "Platicador incansable: una pregunta suya se convierte en media hora de historias, con digresiones incluidas.",
+          "cargo": null
+        },
+        {
+          "numero": 22,
+          "nombre": "Oscar",
+          "nombre_completo": "Oscar Gabriel Vizcaíno Monroy",
+          "sprite": "22-oscar.png",
+          "personalidad": "Medio loco, impredecible y siempre con una idea descabellada que a veces, sorprendentemente, funciona.",
+          "cargo": null
+        },
+        {
+          "numero": 39,
+          "nombre": "Martinez",
+          "nombre_completo": null,
+          "sprite": "39-martinez.png",
+          "personalidad": "Programador de pocas palabras y algo tímido. Se siente más cómodo hablando con el código que con la gente.",
+          "cargo": null
+        },
+        {
+          "numero": 40,
+          "nombre": "Oliver",
+          "nombre_completo": null,
+          "sprite": "40-oliver.png",
+          "personalidad": "Bohemio y buen conversador: le gusta el trago y la fiesta, pero nunca en horario de clases; dentro del aula es profesional.",
+          "cargo": null
+        },
+        {
+          "numero": 41,
+          "nombre": "Alberto",
+          "nombre_completo": "Alberto Lugo González",
+          "sprite": "41-lugo.png",
+          "personalidad": "Profe amable al que nadie respeta por su falta de autoridad: el grupo se le sube a las barbas y él sigue sonriendo.",
+          "cargo": null
+        }
+      ]
+    },
+    {
+      "nombre": "Economía",
+      "personas": [
+        {
+          "numero": 25,
+          "nombre": "José",
+          "nombre_completo": "José Ramón Olivo Estrada",
+          "sprite": "25-jose.png",
+          "personalidad": "Estratega silencioso que piensa dos jugadas por delante. Calcula todo, hasta el momento ideal para contar un chiste.",
+          "cargo": null
+        },
+        {
+          "numero": 26,
+          "nombre": "Ricardo",
+          "nombre_completo": "Ricardo Becerra Perez",
+          "sprite": "26-ricardo.png",
+          "personalidad": "Muy vacilón y bromista, pero con buena conciencia indígena: orgulloso de sus raíces y siempre listo para defenderlas.",
+          "cargo": null
+        },
+        {
+          "numero": 27,
+          "nombre": "Jose",
+          "nombre_completo": "Jose Octavio Camelo Avedoy",
+          "sprite": "27-jose.png",
+          "personalidad": "Carismático y conversador; conoce a todo el mundo y todos le deben un favor o una buena historia.",
+          "cargo": null
+        },
+        {
+          "numero": 33,
+          "nombre": "Ana",
+          "nombre_completo": "Ana Cecilia Lopez Mondragon",
+          "sprite": "33-ana.png",
+          "personalidad": "Analítica y de ojo agudo. Detecta el error más pequeño y lo señala con tanta amabilidad que nadie se ofende.",
+          "cargo": null
+        },
+        {
+          "numero": 34,
+          "nombre": "Pedro",
+          "nombre_completo": "Pedro Luna Jimenez",
+          "sprite": "34-pedro.png",
+          "personalidad": "Historiador de corazón. Ama la universidad, las leyes y la protección cultural, y puede hablar de patrimonio durante horas.",
+          "cargo": null
+        },
+        {
+          "numero": 35,
+          "nombre": "Maria",
+          "nombre_completo": "Maria de Lourdes Montes Torres",
+          "sprite": "35-maria.png",
+          "personalidad": "Maternal y protectora con quien la necesita. Tiene remedio, consejo o galleta para cada situación.",
+          "cargo": null
+        },
+        {
+          "numero": 36,
+          "nombre": "Reyna",
+          "nombre_completo": "Reyna Myrna Paredes Medina",
+          "sprite": "36-reyna.png",
+          "personalidad": "Enérgica y decidida; cuando se propone algo, nadie la detiene. Habla rápido, piensa más rápido todavía.",
+          "cargo": null
+        },
+        {
+          "numero": 37,
+          "nombre": "Edel",
+          "nombre_completo": "Edel Soto Ceja",
+          "sprite": "37-edel.png",
+          "personalidad": "Discreto, trabajador y de pocas palabras. Prefiere demostrar con hechos y siempre llega primero.",
+          "cargo": null
+        },
+        {
+          "numero": 38,
+          "nombre": "Omar",
+          "nombre_completo": "Omar Wicab Gutierrez",
+          "sprite": "38-omar.png",
+          "personalidad": "Buena onda de pies a cabeza: sonríe a todos, saluda hasta al conserje y siempre tiene tiempo para platicar un rato.",
+          "cargo": null
+        }
+      ]
+    }
+  ]
+}

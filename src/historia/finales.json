@@ -1,0 +1,75 @@
+{
+  "finales": {
+    "acad0": "Los profesores dejaron de creerte. Primero fue un paro de brazos caídos; después, las renuncias en cadena. Sin planta docente no hay clases, y sin clases no hay Unidad. El Consejo te pide el cargo.",
+    "acad100": "Tu planta docente lo puede todo: ya nada se mueve sin su visto bueno, ni un horario ni un presupuesto. La Unidad se volvió un gremio cerrado y el Consejo te retira por inmovilidad.",
+    "est0": "Los alumnos tomaron el edificio. Las aulas se vaciaron y la matrícula se desplomó. La noticia llegó a la prensa antes que a tu escritorio. Es el fin de tu gestión.",
+    "est100": "Quisiste complacer a todos los estudiantes y ya nada se pudo exigir. Bajó el rigor, cayó el prestigio y las acreditaciones quedaron en duda. El Consejo no pudo sostenerte.",
+    "fin0": "Se acabó el dinero. La nómina se atrasa, los proveedores no cobran y los apoyos no alcanzan. Sin caja no hay Unidad que dirigir, y el Consejo acepta tu renuncia.",
+    "fin100": "Guardaste tanto que la Unidad se quedó sin vida: sin becas, sin mantenimiento, sin ánimo. Alguien pidió una auditoría y las cuentas no cuadraron.",
+    "pol0": "Rectoría dejó de contestarte. Sin su respaldo, tus proyectos se quedaron en un cajón y tus enemigos aprovecharon. Te retiraron el cargo con una carta de dos líneas.",
+    "pol100": "Dijiste que sí a todo lo que bajaba de rectoría. La Unidad dejó de ser tuya: decisiones sin consultarte y tu gente sin voz. Terminaste firmando lo que otros decidieron.",
+    "epi_corrupto": "Te vas con favores que ya no podrás cobrar y deudas que no se ven en ningún libro. Alguien en rectoría ya anotó tu nombre.",
+    "epi_gris": "Te vas sin gloria ni vergüenza. Hiciste algunas cosas bien y otras por conveniencia, y la libreta de Mónica sigue con pendientes.",
+    "epi_integro": "Te vas con la cabeza en alto: quienes te conocen saben que dijiste la verdad aun cuando costaba.",
+    "derrota": "Las urnas hablaron: la comunidad prefirió a otra persona. Entregas las llaves y la historia de la Unidad sigue sin ti en la oficina.",
+    "retiro": "Decides no presentarte. Entregas las llaves, cierras el cajón y te vas al salón, que era lo que querías de joven.",
+    "limite": "El reglamento no te permite otro periodo. La comunidad se despide con aplausos tibios y un pastel de sábana.",
+    "epi_retiro": "Cierras la oficina y regresas al salón. Dar clases era lo único que no te pedía nada a cambio."
+  },
+  "finales_raros": {},
+  "caidas": {},
+  "destinos": [
+    {
+      "id": "integro",
+      "titulo": "Director íntegro",
+      "solo": true,
+      "cierre": "Lo dices todo en el Consejo: el edificio, las minutas, los recibos y también los errores propios. No hay aplausos, pero tampoco miedo.",
+      "texto": "2040. La caída de Quintana abrió archivos que nadie quería abrir. La UAN perdió años y dinero, pero ganó algo raro: una auditoría que se hace sola cada semestre y un patronato nuevo con reglas escritas.",
+      "detalle": "En la Unidad de Economía todavía cuentan que {ant} fue quien preguntó. Mónica volvió a dar clases, y su libreta, completa, quedó en la biblioteca.",
+      "pj": "monica"
+    },
+    {
+      "id": "unidad_primero",
+      "titulo": "La Unidad primero",
+      "solo": true,
+      "cierre": "Expones a Quintana y callas el resto. La Unidad sigue en pie; tu conciencia, a medias.",
+      "texto": "2040. Quintana cayó solo, sin arrastrar a nadie más. Los cuatro siguen en sus puestos, más callados que antes. La UAN se recuperó sin escándalo, aunque con una pregunta que nadie vuelve a hacer.",
+      "detalle": "En Economía dicen que {ant} salvó a la Unidad. Otros dicen que salvó sus secretos. Los dos grupos tienen razón.",
+      "pj": "monica"
+    },
+    {
+      "id": "heroica",
+      "titulo": "Caída con la frente en alto",
+      "solo": true,
+      "cierre": "Peleas hasta el final y pierdes. El Consejo te retira el cargo, pero el expediente queda abierto.",
+      "texto": "2040. Años después, un periodista abrió tu expediente y encontró las preguntas que dejaste. Quintana alcanzó a retirarse, pero no a limpiar su apellido. La UAN tardó una década en entender lo que perdió ese día.",
+      "detalle": "{ant} dio clases en Economía hasta el final y nunca volvió a pedir un cargo. Mónica guardó su libreta junto a ese nombre.",
+      "pj": "director"
+    },
+    {
+      "id": "sin_ti",
+      "titulo": "La Unidad sin ti",
+      "solo": true,
+      "cierre": "Filtras todo, renuncias y te vas. Esa noche todo el estado sabe lo que pasó en el edificio.",
+      "texto": "2040. El escándalo derribó a Quintana, al Consejo y a medio patronato. La Unidad quedó en ruinas un tiempo y se reconstruyó sin ti, con otro nombre y reglas nuevas.",
+      "detalle": "Nadie en Economía sabe bien dónde terminó {ant}. Mónica asegura que, de vez en cuando, le llega una carta.",
+      "pj": "director"
+    },
+    {
+      "id": "nuevo_quinto",
+      "titulo": "El nuevo Quinto",
+      "solo": true,
+      "cierre": "Tomas su mano y su lugar. Desde esa noche, las decisiones de la Unidad salen de tu oficina... y de las sombras.",
+      "texto": "2040. La Unidad nunca tuvo tanto dinero ni tan pocas preguntas. Rectoría te cubre, los cuatro te obedecen y el edificio quemado dejó de aparecer en las minutas. En la UAN ya se dice que hay un Quinto.",
+      "detalle": "{ant} firma desde un despacho que antes era de otro. Cada tanto, alguien joven llega a preguntar algo en voz baja, y la historia empieza otra vez.",
+      "pj": "quintana"
+    },
+    {
+      "id": "gris",
+      "titulo": "Sobrevivió",
+      "texto": "2040. La Unidad de Economía sobrevivió a varias rectorías y a demasiados directores. Nunca se supo del todo quién ordenó el incendio: la pregunta quedó escrita en una libreta.",
+      "detalle": "{ant} fue el último director de esta historia. El Quinto sigue siendo un nombre que nadie quiere decir en voz alta.",
+      "pj": "monica"
+    }
+  ]
+}

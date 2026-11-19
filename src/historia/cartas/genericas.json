@@ -1,0 +1,6852 @@
+{
+  "cartas": [
+    {
+      "id": "u_equipos",
+      "pj": "janoe",
+      "texto": "Janoe necesita más equipos para Sistemas, pero el dinero solo alcanza para uno. ¿Lo das ya o esperas al fin del semestre?",
+      "izq": {
+        "t": "Darlo ya",
+        "e": [
+          5,
+          0,
+          -6,
+          0
+        ]
+      },
+      "der": {
+        "t": "Esperar al fin del semestre",
+        "e": [
+          -4,
+          0,
+          4,
+          0
+        ]
+      }
+    },
+    {
+      "id": "u_horario",
+      "pj": "sonia",
+      "texto": "Dos profesores se pelearon por un horario. Sonia ya trajo café para los dos. ¿Lo resuelves tú o dejas que lo arreglen solos?",
+      "izq": {
+        "t": "Meterte tú",
+        "e": [
+          3,
+          0,
+          0,
+          -2
+        ]
+      },
+      "der": {
+        "t": "Dejar que lo arreglen",
+        "e": [
+          -2,
+          0,
+          0,
+          2
+        ]
+      }
+    },
+    {
+      "id": "u_kermes",
+      "pj": "nayeli",
+      "texto": "Los alumnos organizan una kermés para juntar dinero. Nayeli pide permiso y, de paso, el auditorio.",
+      "izq": {
+        "t": "Autorizarla",
+        "e": [
+          0,
+          8,
+          3,
+          -2
+        ]
+      },
+      "der": {
+        "t": "Negarla por el riesgo",
+        "e": [
+          0,
+          -6,
+          0,
+          3
+        ]
+      }
+    },
+    {
+      "id": "u_pumas",
+      "pj": "alfonso",
+      "texto": "Alfonso pide el auditorio para ver el partido de los Pumas. 'Es para unir al equipo', jura con la mano en el pecho.",
+      "izq": {
+        "t": "Autorizar el partido",
+        "e": [
+          3,
+          4,
+          -2,
+          0
+        ]
+      },
+      "der": {
+        "t": "Negar con una sonrisa",
+        "e": [
+          -2,
+          0,
+          1,
+          1
+        ]
+      },
+      "peso": 0.8
+    },
+    {
+      "id": "u_servidor",
+      "pj": "gabriel",
+      "texto": "El servidor de la Unidad murió. Gabriel dice que lo revive con 'piezas de otros equipos'. Rectoría tardaría meses en mandar uno.",
+      "izq": {
+        "t": "Que Gabriel lo reviva",
+        "e": [
+          4,
+          2,
+          -3,
+          0
+        ]
+      },
+      "der": {
+        "t": "Pedir uno nuevo a rectoría",
+        "e": [
+          0,
+          0,
+          0,
+          -6
+        ]
+      }
+    },
+    {
+      "id": "u_beatriz",
+      "pj": "beatriz",
+      "texto": "Un grupo se queja de que Beatriz es demasiado estricta. Ella afirma que sus alumnos aprenden. Tú decides de qué lado estar.",
+      "izq": {
+        "t": "Respaldar a Beatriz",
+        "e": [
+          5,
+          -6,
+          0,
+          0
+        ]
+      },
+      "der": {
+        "t": "Pedirle que sea flexible",
+        "e": [
+          -5,
+          6,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "u_martinez",
+      "pj": "martinez",
+      "texto": "Martínez no quiere presentar su proyecto ante la junta: le dan pánico los micrófonos. Dice que lo manda por correo.",
+      "izq": {
+        "t": "Acompañarlo al frente",
+        "e": [
+          4,
+          0,
+          0,
+          -1
+        ]
+      },
+      "der": {
+        "t": "Aceptar el correo",
+        "e": [
+          1,
+          0,
+          1,
+          0
+        ]
+      }
+    },
+    {
+      "id": "u_roberto",
+      "pj": "roberto",
+      "texto": "Roberto te atrapa en el pasillo con una historia de 1998. Se le pierde el hilo, pero parece que hay una buena idea escondida.",
+      "izq": {
+        "t": "Escucharlo hasta el final",
+        "e": [
+          3,
+          0,
+          -1,
+          0
+        ]
+      },
+      "der": {
+        "t": "Prometer una cita larga",
+        "e": [
+          0,
+          0,
+          1,
+          0
+        ]
+      }
+    },
+    {
+      "id": "u_oscar",
+      "pj": "oscar",
+      "texto": "Oscar propone dar economía con juegos de mercado en vivo, usando dados. 'Va a funcionar', dice. Parece que lo cree.",
+      "izq": {
+        "t": "Probarla un semestre",
+        "e": [
+          3,
+          5,
+          -3,
+          0
+        ]
+      },
+      "der": {
+        "t": "Dejarla para después",
+        "e": [
+          -2,
+          -2,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "u_torneo",
+      "pj": "sergio",
+      "texto": "Sergio Olivares propone un torneo de rol con cosplay obligatorio para juntar dinero. 'Estrictamente recomendable', dice, con total seriedad.",
+      "izq": {
+        "t": "Aprobar el torneo",
+        "e": [
+          2,
+          9,
+          5,
+          -5
+        ],
+        "set": [
+          "torneo_rol"
+        ]
+      },
+      "der": {
+        "t": "Decir que no hay dinero",
+        "e": [
+          0,
+          -3,
+          0,
+          2
+        ]
+      },
+      "unica": true
+    },
+    {
+      "id": "g01_001",
+      "pj": "carlos",
+      "texto": "Hay rumores... unos alumnos quieren vender micheladas en el convivio. Juran que van «sin chela, nomás limón y chile». Yo no digo nada. ¿Tú qué haces?",
+      "izq": {
+        "t": "Dejarlos, pero sin alcohol",
+        "e": [
+          0,
+          5,
+          3,
+          -4
+        ],
+        "int": -1
+      },
+      "der": {
+        "t": "Prohibirlo todo",
+        "e": [
+          2,
+          -5,
+          0,
+          3
+        ]
+      }
+    },
+    {
+      "id": "g01_002",
+      "pj": "beatriz",
+      "texto": "Beatriz aplicó un examen sorpresa y reprobó a media clase. Un alumno llora y otro le ofreció un pastel. Ella dice que aquí nada se negocia. ¿Qué haces?",
+      "izq": {
+        "t": "Pedirle que revise los exámenes",
+        "e": [
+          -5,
+          4,
+          0,
+          0
+        ],
+        "af": {
+          "beatriz": -1
+        }
+      },
+      "der": {
+        "t": "Respaldarla",
+        "e": [
+          4,
+          -6,
+          0,
+          0
+        ],
+        "af": {
+          "beatriz": 1
+        }
+      }
+    },
+    {
+      "id": "g01_003",
+      "pj": "monica",
+      "texto": "Mónica te recuerda que mañana vence el plazo para entregar tesis. Doce alumnos no terminan y piden una semana más, con ojeras de película. ¿Qué haces?",
+      "izq": {
+        "t": "Dar una semana más",
+        "e": [
+          0,
+          6,
+          0,
+          -3
+        ]
+      },
+      "der": {
+        "t": "Mantener la fecha",
+        "e": [
+          3,
+          -5,
+          0,
+          0
+        ],
+        "af": {
+          "monica": 1
+        }
+      }
+    },
+    {
+      "id": "g01_004",
+      "pj": "gabriel",
+      "texto": "Gabriel revivió ocho computadoras con piezas de equipos viejos y los alumnos ya quieren usarlas en prácticas. Rectoría pide registrarlas primero. ¿Qué haces?",
+      "izq": {
+        "t": "Usarlas desde hoy",
+        "e": [
+          3,
+          6,
+          0,
+          -5
+        ],
+        "int": -2,
+        "af": {
+          "gabriel": 1
+        }
+      },
+      "der": {
+        "t": "Registrarlas primero",
+        "e": [
+          -2,
+          -3,
+          2,
+          4
+        ],
+        "int": 2
+      }
+    },
+    {
+      "id": "g01_005",
+      "pj": "sergio",
+      "texto": "Sergio recibió un meme donde sale como el «jefe final» del semestre. Dice, muy serio, que quedó bueno. Los alumnos piden un concurso oficial de memes con premio.",
+      "izq": {
+        "t": "Hacer el concurso",
+        "e": [
+          -3,
+          6,
+          -2,
+          0
+        ],
+        "af": {
+          "sergio": 1
+        }
+      },
+      "der": {
+        "t": "Nada de memes oficiales",
+        "e": [
+          2,
+          -4,
+          0,
+          2
+        ]
+      }
+    },
+    {
+      "id": "g01_006",
+      "pj": "nayeli",
+      "texto": "¡Director! Mis alumnos llegan a exámenes sin dormir y con ansiedad. Quiero un salón de calma con sillones y té, quitándole horas a un aula. ¡Ellos pueden!",
+      "izq": {
+        "t": "Abrir el salón de calma",
+        "e": [
+          -3,
+          7,
+          -2,
+          0
+        ],
+        "int": 2
+      },
+      "der": {
+        "t": "Dejar todo como está",
+        "e": [
+          2,
+          -5,
+          3,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g01_007",
+      "pj": "maria",
+      "texto": "Ay, mijo, ven, hay galletas. Una madre me contó que su hija hizo servicio social pintando bardas y archivando, sin aprender de su carrera. Pide darlo por cumplido.",
+      "izq": {
+        "t": "Darlo por cumplido",
+        "e": [
+          -3,
+          5,
+          0,
+          -3
+        ],
+        "int": -2
+      },
+      "der": {
+        "t": "Prometer mejores proyectos",
+        "e": [
+          3,
+          3,
+          -5,
+          0
+        ],
+        "int": 1
+      }
+    },
+    {
+      "id": "g01_008",
+      "pj": "raudel",
+      "texto": "¡Director! Un empresario de Tepic ofrece 15 plazas pagadas, pero sábados y domingos y todo de palabra, sin contrato. ¡Yo así no firmo nada! ¿Qué hacemos?",
+      "izq": {
+        "t": "Aceptar las plazas",
+        "e": [
+          0,
+          5,
+          5,
+          -3
+        ],
+        "int": -3
+      },
+      "der": {
+        "t": "Pedir mejores condiciones",
+        "e": [
+          2,
+          -3,
+          0,
+          2
+        ],
+        "int": 3
+      }
+    },
+    {
+      "id": "g01_009",
+      "pj": "jose_25",
+      "texto": "José Olivo calcula: «Una hotelera de la Riviera Nayarit da cuartos baratos para la salida de campo. Es temporada de huracanes y el cielo ya está gris. Riesgo alto.»",
+      "izq": {
+        "t": "Mantener la salida",
+        "e": [
+          2,
+          6,
+          -4,
+          0
+        ],
+        "int": -2
+      },
+      "der": {
+        "t": "Mover la fecha",
+        "e": [
+          -2,
+          -3,
+          0,
+          3
+        ],
+        "int": 1
+      }
+    },
+    {
+      "id": "g01_010",
+      "pj": "omar",
+      "texto": "Omar sonríe, pero trae mala noticia: 20 alumnos con beca no entregaron un papel a tiempo. Si hoy no firmas fuera de plazo, pierden la beca.",
+      "izq": {
+        "t": "Firmar fuera de plazo",
+        "e": [
+          0,
+          7,
+          0,
+          -6
+        ],
+        "int": -3
+      },
+      "der": {
+        "t": "Respetar el plazo",
+        "e": [
+          0,
+          -6,
+          0,
+          3
+        ],
+        "int": 2
+      }
+    },
+    {
+      "id": "g01_011",
+      "pj": "alfonso",
+      "texto": "Director, hay que echarle la mano a una alumna de 9.8 que trabaja de noche y no paga la inscripción. Pide un mes. Si todos piden igual, se vacía la caja.",
+      "izq": {
+        "t": "Darle el mes de plazo",
+        "e": [
+          0,
+          5,
+          -5,
+          0
+        ],
+        "int": 1
+      },
+      "der": {
+        "t": "Decirle que no se puede",
+        "e": [
+          0,
+          -4,
+          4,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g01_012",
+      "pj": "alfonso",
+      "texto": "¡Director, hay que apoyar a la porra! Un porro quiere playeras y tambores para ver el Mundial en el patio. ¡Dice que «la camiseta une», como con los Pumas! ¿Qué hacemos?",
+      "izq": {
+        "t": "Pagar playeras y tambores",
+        "e": [
+          0,
+          7,
+          -5,
+          0
+        ]
+      },
+      "der": {
+        "t": "Solo el patio, sin tambores",
+        "e": [
+          2,
+          -3,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g01_013",
+      "pj": "oscar",
+      "texto": "Oscar: «¡Jefe, 200 mil vistas! Alumnos bailando en la cancha con el nombre de la unidad. ¡Hagamos un reto viral! Un reportero pide entrevista; unos profes dudan.»",
+      "izq": {
+        "t": "Dar la entrevista",
+        "e": [
+          -3,
+          5,
+          2,
+          4
+        ]
+      },
+      "der": {
+        "t": "No dar entrevista",
+        "e": [
+          2,
+          -3,
+          0,
+          -3
+        ]
+      }
+    },
+    {
+      "id": "g01_014",
+      "pj": "jose_19",
+      "texto": "Con té en la mano te lo digo: un egresado, gerente en Bahía de Banderas, quiere dar plática y pagar la comida. Ojo, será casi comercial. «Nadie da paso sin huarache».",
+      "izq": {
+        "t": "Aceptar la plática con comida",
+        "e": [
+          0,
+          4,
+          4,
+          0
+        ],
+        "int": -2
+      },
+      "der": {
+        "t": "Rechazar el comercial",
+        "e": [
+          0,
+          -2,
+          0,
+          3
+        ],
+        "int": 2
+      }
+    },
+    {
+      "id": "g01_015",
+      "pj": "jose_19",
+      "texto": "José Luna quiere dar tutorías los viernes con su taza de té, para que los de primer semestre no se rindan. Pide que le cuenten las horas y que la unidad ponga el té.",
+      "izq": {
+        "t": "Aprobar las tutorías",
+        "e": [
+          3,
+          5,
+          -4,
+          0
+        ],
+        "int": 1,
+        "af": {
+          "jose_19": 1
+        }
+      },
+      "der": {
+        "t": "Que sea voluntario",
+        "e": [
+          -3,
+          2,
+          1,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g01_016",
+      "pj": "raudel",
+      "texto": "Raudel descubrió un acordeón pegado en una botella de agua en pleno examen. Gritó «afuera» y el alumno dice que su mamá lo mata si reprueba. ¿Qué haces?",
+      "izq": {
+        "t": "Anular su examen",
+        "e": [
+          3,
+          -5,
+          0,
+          0
+        ],
+        "int": 2,
+        "af": {
+          "raudel": 1
+        }
+      },
+      "der": {
+        "t": "Dejarlo repetir el examen",
+        "e": [
+          0,
+          4,
+          0,
+          -3
+        ],
+        "int": -1
+      }
+    },
+    {
+      "id": "g01_017",
+      "pj": "beatriz",
+      "texto": "Director, revisé la kermés: vendieron 8 mil pesos en tamales y en caja hay 5 mil. Dicen que el resto fue gas y servilletas. Sin recibos, no me convence.",
+      "izq": {
+        "t": "Pedir cuentas claras",
+        "e": [
+          0,
+          -5,
+          3,
+          0
+        ],
+        "int": 2
+      },
+      "der": {
+        "t": "Dejarlo pasar",
+        "e": [
+          0,
+          3,
+          0,
+          -4
+        ],
+        "int": -3
+      }
+    },
+    {
+      "id": "g01_018",
+      "pj": "jose_25",
+      "texto": "José Olivo: «Sin datos no llega dinero. Planeación quiere que todos contesten una encuesta de 80 preguntas antes de ver sus calificaciones. Ya lo calculé: es mucho.»",
+      "izq": {
+        "t": "Hacerla obligatoria",
+        "e": [
+          0,
+          -5,
+          0,
+          4
+        ]
+      },
+      "der": {
+        "t": "Hacerla corta y voluntaria",
+        "e": [
+          0,
+          3,
+          -3,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g01_019",
+      "pj": "janoe",
+      "texto": "Salgo de junta y ya tengo otra, pero esto va primero: 60 alumnos quieren ir a la feria de tecnología en Guadalajara y el camión tiene 40 lugares. Yo propongo sorteo.",
+      "izq": {
+        "t": "Sortear los lugares",
+        "e": [
+          0,
+          -4,
+          3,
+          0
+        ]
+      },
+      "der": {
+        "t": "Hacer la rifa y pagar otro camión",
+        "e": [
+          -3,
+          6,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g01_020",
+      "pj": "maria",
+      "texto": "Con 41 grados, el salón del tercer semestre parece sartén. María ya repartió suero y galletas, pero dos alumnos se marearon. Propone suspender las clases de la tarde.",
+      "izq": {
+        "t": "Suspender las clases de la tarde",
+        "e": [
+          -2,
+          6,
+          0,
+          -4
+        ]
+      },
+      "der": {
+        "t": "Comprar ventiladores",
+        "e": [
+          2,
+          3,
+          -6,
+          0
+        ],
+        "af": {
+          "maria": 1
+        }
+      }
+    },
+    {
+      "id": "g01_021",
+      "pj": "alejandro",
+      "texto": "Se cayó el sistema de calificaciones justo al cerrar el semestre y todos culpan a todos. Alejandro, tranquilo, tiene plan B: capturar todo a mano esta noche. ¿Qué haces?",
+      "izq": {
+        "t": "Capturar todo a mano esta noche",
+        "e": [
+          -4,
+          -5,
+          -3,
+          -4
+        ],
+        "int": 2,
+        "af": {
+          "alejandro": 1
+        }
+      },
+      "der": {
+        "t": "Esperar a que vuelva el sistema",
+        "e": [
+          3,
+          -6,
+          0,
+          -3
+        ]
+      },
+      "peso": 0.12
+    },
+    {
+      "id": "g01_022",
+      "pj": "fernando",
+      "texto": "Un equipo de alumnos ganó un concurso nacional de programación. Fernando ya trae agua de jamaica para el brindis y sugiere que en la foto salgas tú al centro.",
+      "izq": {
+        "t": "Salir al centro de la foto",
+        "e": [
+          3,
+          5,
+          2,
+          4
+        ],
+        "int": -3
+      },
+      "der": {
+        "t": "Que salga solo el equipo",
+        "e": [
+          -2,
+          6,
+          -1,
+          1
+        ],
+        "int": 3
+      },
+      "peso": 0.12
+    },
+    {
+      "id": "g02_001",
+      "pj": "beatriz",
+      "texto": "Beatriz exige quitar las clases del viernes por la tarde: con 38 grados ni ella ni los alumnos rinden. Pero el lunes ya no caben más grupos. ¿Qué haces?",
+      "izq": {
+        "t": "Quitar las clases del viernes",
+        "e": [
+          5,
+          4,
+          0,
+          -4
+        ],
+        "af": {
+          "beatriz": 1
+        }
+      },
+      "der": {
+        "t": "Dejar el horario igual",
+        "e": [
+          -4,
+          -3,
+          0,
+          3
+        ]
+      }
+    },
+    {
+      "id": "g02_002",
+      "pj": "ricardo",
+      "texto": "Ricardo pide dos horas a la semana para asesorar en wixárika y español a alumnos de la sierra que llegan perdidos. Dice: «entre paisanos se entiende mejor».",
+      "izq": {
+        "t": "Darle las horas",
+        "e": [
+          3,
+          6,
+          -3,
+          0
+        ],
+        "int": 1
+      },
+      "der": {
+        "t": "Que lo haga en sus ratos libres",
+        "e": [
+          -5,
+          -3,
+          3,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g02_003",
+      "pj": "perla",
+      "texto": "Perla terminó un artículo para una revista internacional, pero publicarlo cuesta una cuota enorme. Si no sale este año, pierde su reconocimiento de investigadora.",
+      "izq": {
+        "t": "Pagar la cuota",
+        "e": [
+          5,
+          0,
+          -7,
+          0
+        ],
+        "af": {
+          "perla": 1
+        }
+      },
+      "der": {
+        "t": "Buscar una revista sin costo",
+        "e": [
+          -4,
+          0,
+          3,
+          0
+        ],
+        "int": 1
+      }
+    },
+    {
+      "id": "g02_004",
+      "pj": "jose_19",
+      "texto": "José Luna dice que «a todo santo le llega su día»: ya puede jubilarse. Pide un año para enseñarle sus secretos a un joven, con té incluido. Su plaza cuesta mientras.",
+      "izq": {
+        "t": "Darle el año de transición",
+        "e": [
+          4,
+          3,
+          -6,
+          0
+        ],
+        "af": {
+          "jose_19": 1
+        }
+      },
+      "der": {
+        "t": "Jubilarlo y abrir la plaza ya",
+        "e": [
+          -5,
+          -2,
+          4,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g02_005",
+      "pj": "sonia",
+      "texto": "Sonia cuenta que el grupo de Alberto Lugo hizo un concurso de aviones de papel en plena clase y él aplaudió. Los alumnos lo quieren, pero piden que alguien ponga orden.",
+      "izq": {
+        "t": "Pagarle un curso para manejar grupos",
+        "e": [
+          4,
+          0,
+          -3,
+          0
+        ],
+        "af": {
+          "lugo": 1
+        }
+      },
+      "der": {
+        "t": "Cambiar al grupo de maestro",
+        "e": [
+          -5,
+          3,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g02_006",
+      "pj": "fernando",
+      "texto": "Fernando invita a todos al congreso de Guadalajara: «el café de la sala dos vale el viaje». Hay dinero para dos viajes y ya van seis profes anotados.",
+      "izq": {
+        "t": "Mandar a los seis",
+        "e": [
+          6,
+          0,
+          -8,
+          -3
+        ]
+      },
+      "der": {
+        "t": "Solo a quienes presentan trabajo",
+        "e": [
+          -4,
+          0,
+          3,
+          3
+        ],
+        "int": 1
+      }
+    },
+    {
+      "id": "g02_007",
+      "pj": "gabriel",
+      "texto": "Gabriel revivió un aire acondicionado que iba a la basura. Quiere ponerlo en el cubículo donde se asan seis profes. Pero sube el recibo de la luz.",
+      "izq": {
+        "t": "Instalar el aire",
+        "e": [
+          5,
+          0,
+          -4,
+          0
+        ],
+        "af": {
+          "gabriel": 1
+        }
+      },
+      "der": {
+        "t": "Comprar mejor unos ventiladores",
+        "e": [
+          -3,
+          0,
+          2,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g02_008",
+      "pj": "ana",
+      "texto": "Ana vio que el nuevo reporte pide el número de alumnos tres veces, en tres hojas, y cada una da una cifra distinta. Los profes llevan semanas llenándolo. ¿Qué haces?",
+      "izq": {
+        "t": "Simplificar el formato",
+        "e": [
+          5,
+          0,
+          0,
+          -4
+        ],
+        "af": {
+          "ana": 1
+        }
+      },
+      "der": {
+        "t": "Pedirlo igual a todos",
+        "e": [
+          -6,
+          0,
+          0,
+          4
+        ]
+      }
+    },
+    {
+      "id": "g02_009",
+      "pj": "reyna",
+      "texto": "Reyna ya tiene candidatos para una plaza nueva de tiempo completo en Economía. Con el recorte, el sueldo saldría del bolsillo de la unidad. «¡Hoy o nunca!», dice.",
+      "izq": {
+        "t": "Abrir la plaza",
+        "e": [
+          6,
+          3,
+          -7,
+          -2
+        ],
+        "af": {
+          "reyna": 1
+        }
+      },
+      "der": {
+        "t": "Congelarla otro año",
+        "e": [
+          -4,
+          -3,
+          5,
+          2
+        ]
+      }
+    },
+    {
+      "id": "g02_010",
+      "pj": "monica",
+      "texto": "Mónica te recuerda con calma que mañana vence la entrega de las cargas de trabajo. Falta el 40 % de los profes y varios andan de congreso.",
+      "izq": {
+        "t": "Dar una semana más",
+        "e": [
+          4,
+          0,
+          0,
+          -5
+        ]
+      },
+      "der": {
+        "t": "Cerrar mañana, sin prórroga",
+        "e": [
+          -5,
+          0,
+          0,
+          4
+        ],
+        "int": 1
+      }
+    },
+    {
+      "id": "g02_011",
+      "pj": "janoe",
+      "texto": "Dos profes de Sistemas pidieron licencia y quedan 90 alumnos sin maestro. Janoe propone juntar los grupos en un solo salón o contratar gente por horas.",
+      "izq": {
+        "t": "Juntar los grupos",
+        "e": [
+          -4,
+          -5,
+          4,
+          0
+        ]
+      },
+      "der": {
+        "t": "Contratar maestros por horas",
+        "e": [
+          3,
+          3,
+          -6,
+          0
+        ],
+        "af": {
+          "janoe": 1
+        }
+      }
+    },
+    {
+      "id": "g02_012",
+      "pj": "alfonso",
+      "texto": "Alfonso dio asesorías gratis los sábados y 15 alumnos que reprobaban Programación ya pasaron. Ahora otros profes preguntan: «¿y a nosotros nos pagan lo mismo?»",
+      "izq": {
+        "t": "Pagar las asesorías extra",
+        "e": [
+          6,
+          3,
+          -6,
+          0
+        ],
+        "af": {
+          "alfonso": 1
+        }
+      },
+      "der": {
+        "t": "Solo darle un diploma",
+        "e": [
+          -4,
+          1,
+          0,
+          3
+        ]
+      }
+    },
+    {
+      "id": "g02_013",
+      "pj": "sergio",
+      "texto": "Sergio dice, seco: «La reunión de academia pudo ser un correo. El correo pudo ser un silencio». Son cuatro reuniones por semana y casi no queda tiempo de dar clase.",
+      "izq": {
+        "t": "Dejar una reunión al mes",
+        "e": [
+          0,
+          5,
+          0,
+          -3
+        ]
+      },
+      "der": {
+        "t": "Mantener las cuatro",
+        "e": [
+          -3,
+          0,
+          0,
+          4
+        ]
+      }
+    },
+    {
+      "id": "g02_014",
+      "pj": "edel",
+      "texto": "Edel, seco: «Mi estudio gusta. Una hotelera de la Riviera Nayarit pagaría la edición, pero pide quitar el capítulo sobre los sueldos bajos de su personal. Tú decides.»",
+      "izq": {
+        "t": "Publicarlo completo, sin su dinero",
+        "e": [
+          4,
+          2,
+          -5,
+          0
+        ],
+        "int": 3,
+        "af": {
+          "edel": 1
+        }
+      },
+      "der": {
+        "t": "Aceptar y quitar el capítulo",
+        "e": [
+          -5,
+          -3,
+          5,
+          2
+        ],
+        "int": -4,
+        "af": {
+          "edel": -1
+        }
+      }
+    },
+    {
+      "id": "g02_015",
+      "pj": "omar",
+      "texto": "Omar saludó a todo el mundo y ahora vienen 200 personas al coloquio de Economía en vez de 60. El salón no alcanza ni con las ventanas abiertas.",
+      "izq": {
+        "t": "Moverlo a la cancha techada",
+        "e": [
+          3,
+          5,
+          -5,
+          0
+        ]
+      },
+      "der": {
+        "t": "Cupo de 60 y el resto por video",
+        "e": [
+          -2,
+          -4,
+          0,
+          3
+        ]
+      }
+    },
+    {
+      "id": "g02_016",
+      "pj": "roberto",
+      "texto": "Roberto quiere examinar de forma oral a sus 60 alumnos, «cinco minutitos» cada uno. Ya sabes cómo acaban sus cinco minutitos: con historias del año 94.",
+      "izq": {
+        "t": "Dejarlo hacer los orales",
+        "e": [
+          4,
+          -4,
+          0,
+          0
+        ]
+      },
+      "der": {
+        "t": "Pedirle examen escrito",
+        "e": [
+          -3,
+          3,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g02_017",
+      "pj": "pedro",
+      "texto": "Pedro encontró en una bodega cajas con tesis de 1975, llenas de humedad. Quiere rescatarlas en un cubículo que hoy usan dos profes. «Es patrimonio», jura.",
+      "izq": {
+        "t": "Hacer un archivo con el cubículo",
+        "e": [
+          0,
+          0,
+          -3,
+          5
+        ],
+        "af": {
+          "pedro": 1
+        }
+      },
+      "der": {
+        "t": "Tirar lo dañado",
+        "e": [
+          4,
+          0,
+          0,
+          -5
+        ],
+        "af": {
+          "pedro": -1
+        }
+      }
+    },
+    {
+      "id": "g02_018",
+      "pj": "victor",
+      "texto": "Quedó libre el único cubículo con ventana y aire. Dos profes lo quieren: uno con 25 años de antigüedad y otra con más artículos publicados. Víctor ya saludó a ambos.",
+      "izq": {
+        "t": "Dárselo al más antiguo",
+        "e": [
+          5,
+          0,
+          0,
+          -3
+        ]
+      },
+      "der": {
+        "t": "Dárselo a quien más publica",
+        "e": [
+          -4,
+          0,
+          0,
+          4
+        ]
+      }
+    },
+    {
+      "id": "g02_019",
+      "pj": "carlos",
+      "texto": "Rectoría pide «la lista de todo lo investigado en 20 años» en tres días. Carlos sonríe sin decir nada, que es peor. ¿Quién junta tanto papel?",
+      "izq": {
+        "t": "Pedir un mes de plazo",
+        "e": [
+          3,
+          0,
+          0,
+          -4
+        ]
+      },
+      "der": {
+        "t": "Poner al servicio social a juntarlo",
+        "e": [
+          0,
+          -4,
+          0,
+          4
+        ],
+        "int": -1
+      }
+    },
+    {
+      "id": "g02_020",
+      "pj": "eligardo",
+      "texto": "Eligardo cree que la carga de trabajo se arregla con carnitas. Hoy cinco profes dan 24 horas y tres dan 12. «Primero comemos, luego vemos», sonríe.",
+      "izq": {
+        "t": "Repartir las horas parejas",
+        "e": [
+          6,
+          -3,
+          0,
+          0
+        ],
+        "int": 1
+      },
+      "der": {
+        "t": "Primero la comida",
+        "e": [
+          2,
+          0,
+          -3,
+          0
+        ],
+        "af": {
+          "eligardo": 1
+        }
+      }
+    },
+    {
+      "id": "g02_021",
+      "pj": "gabriel",
+      "texto": "Director, el sistema de calificaciones se cayó antes del cierre y el servidor quedó «en pausa». Hay 900 notas por capturar y todos con cara de funeral.",
+      "izq": {
+        "t": "Capturar todo a mano, fin de semana",
+        "e": [
+          -4,
+          -5,
+          -3,
+          -4
+        ],
+        "int": 2
+      },
+      "der": {
+        "t": "Poner 8 a todos y arreglar luego",
+        "e": [
+          3,
+          5,
+          0,
+          -9
+        ],
+        "int": -4
+      },
+      "peso": 0.12
+    },
+    {
+      "id": "g02_022",
+      "pj": "perla",
+      "texto": "Ya les organicé la reunión. Un empresario paga tres plazas de investigación y viajes a congresos, pero quiere ver los resultados antes y «opinar». Decide pronto.",
+      "izq": {
+        "t": "Firmar hoy mismo",
+        "e": [
+          4,
+          3,
+          3,
+          3
+        ],
+        "int": -4
+      },
+      "der": {
+        "t": "Aceptar sin ver resultados antes",
+        "e": [
+          -3,
+          1,
+          -3,
+          5
+        ],
+        "int": 4
+      },
+      "peso": 0.12
+    },
+    {
+      "id": "g03_001",
+      "pj": "gabriel",
+      "texto": "Gabriel encontró un lote de computadoras usadas muy baratas. Él las revive todas, pero el vendedor no da factura ni recibo. ¿Las compras?",
+      "izq": {
+        "t": "Comprarlas sin factura",
+        "e": [
+          5,
+          3,
+          -3,
+          -5
+        ],
+        "int": -3
+      },
+      "der": {
+        "t": "Pedir factura y esperar",
+        "e": [
+          -4,
+          0,
+          2,
+          3
+        ],
+        "int": 2
+      }
+    },
+    {
+      "id": "g03_002",
+      "pj": "nayeli",
+      "texto": "Nayeli quiere rifar una pantalla para ver el Mundial y juntar dinero para el laboratorio. Ya vendió 300 boletos entre gritos de emoción.",
+      "izq": {
+        "t": "Dejarla rifar",
+        "e": [
+          0,
+          0,
+          6,
+          -4
+        ],
+        "int": -1,
+        "af": {
+          "nayeli": 1
+        }
+      },
+      "der": {
+        "t": "Pedirle que no rife",
+        "e": [
+          0,
+          -5,
+          0,
+          3
+        ],
+        "int": 1
+      }
+    },
+    {
+      "id": "g03_003",
+      "pj": "sergio",
+      "texto": "Sergio revisó el gasto: pagamos más plumones que internet. Dice, seco: «O escriben mucho, o los plumones tienen patas». ¿Qué haces?",
+      "izq": {
+        "t": "Poner candado al almacén",
+        "e": [
+          -5,
+          0,
+          4,
+          0
+        ],
+        "int": 1
+      },
+      "der": {
+        "t": "Dejarlo pasar, son plumones",
+        "e": [
+          3,
+          0,
+          -4,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g03_004",
+      "pj": "maria",
+      "texto": "María propone que cada profe ponga 50 pesos para arreglar la cafetera, que ya echa humo. Los sueldos llegaron tarde y a nadie le sobra.",
+      "izq": {
+        "t": "Que cooperen todos",
+        "e": [
+          -4,
+          0,
+          0,
+          2
+        ]
+      },
+      "der": {
+        "t": "Pagarla de caja chica",
+        "e": [
+          6,
+          0,
+          -4,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g03_005",
+      "pj": "ana",
+      "texto": "Ana, amable: «Revisé y ojo: el señor de la papelería trae una factura de tres meses y una caja de dulces. Dice que sin pago ya no hay más hojas. ¿Qué hacemos?»",
+      "izq": {
+        "t": "Pagarle todo ya",
+        "e": [
+          3,
+          0,
+          -7,
+          0
+        ],
+        "int": 1
+      },
+      "der": {
+        "t": "Pedirle un mes más",
+        "e": [
+          -4,
+          0,
+          3,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g03_006",
+      "pj": "ricardo",
+      "texto": "¡Qué onda, jefe! Una artesana wixárika, con orgullo, dona cuadros de chaquira para pagar becas. Pide que cada peso quede anotado, a la vista de todos.",
+      "izq": {
+        "t": "Anotarlo todo a la vista",
+        "e": [
+          0,
+          5,
+          3,
+          1
+        ],
+        "int": 3,
+        "af": {
+          "ricardo": 1
+        }
+      },
+      "der": {
+        "t": "Venderlos rápido, sin tanto papel",
+        "e": [
+          0,
+          3,
+          5,
+          -5
+        ],
+        "int": -3,
+        "af": {
+          "ricardo": -1
+        }
+      }
+    },
+    {
+      "id": "g03_007",
+      "pj": "oliver",
+      "texto": "Mientras platicábamos, una hotelera de la Riviera Nayarit ofreció pagar la graduación, pero quiere su logo gigante en lona, sillas y hasta togas. ¿Cómo ves?",
+      "izq": {
+        "t": "Aceptar el logo gigante",
+        "e": [
+          0,
+          6,
+          4,
+          -3
+        ],
+        "int": -1
+      },
+      "der": {
+        "t": "Agradecer y decir que no",
+        "e": [
+          0,
+          -4,
+          0,
+          3
+        ],
+        "int": 1
+      }
+    },
+    {
+      "id": "g03_008",
+      "pj": "ana",
+      "texto": "Ana, con cariño: «Revisé la caja chica y hay un detalle: tickets de tacos, un trofeo y una piñata. Y faltan 800 pesos. ¿Cómo lo explicamos?»",
+      "izq": {
+        "t": "Pedir cuentas a cada área",
+        "e": [
+          -5,
+          0,
+          3,
+          4
+        ],
+        "int": 2
+      },
+      "der": {
+        "t": "Decir que fue convivencia",
+        "e": [
+          4,
+          0,
+          -3,
+          -4
+        ],
+        "int": -3
+      }
+    },
+    {
+      "id": "g03_009",
+      "pj": "oliver",
+      "texto": "Oliver propone una cena de fin de semestre, con cooperación de 300 pesos. «Con brindis chiquito y nada en horario de clases», promete.",
+      "izq": {
+        "t": "Aprobar la cena",
+        "e": [
+          6,
+          0,
+          0,
+          -3
+        ]
+      },
+      "der": {
+        "t": "Cancelarla por el recorte",
+        "e": [
+          -5,
+          0,
+          3,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g03_010",
+      "pj": "victor",
+      "texto": "Víctor ya saludó a medio edificio de rectoría y los sueldos siguen sin llegar. Los profes ya cuentan monedas en el pasillo. ¿Qué haces?",
+      "izq": {
+        "t": "Adelantar un mes con fondos propios",
+        "e": [
+          8,
+          0,
+          -8,
+          -2
+        ]
+      },
+      "der": {
+        "t": "Pedir paciencia y esperar",
+        "e": [
+          -8,
+          0,
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "id": "g03_011",
+      "pj": "fernando",
+      "texto": "Fernando juntó firmas para comprar una pantalla grande y ver el Mundial en el patio. «Es para convivir», dice, y ya trae el cable.",
+      "izq": {
+        "t": "Comprar la pantalla",
+        "e": [
+          5,
+          5,
+          -6,
+          0
+        ]
+      },
+      "der": {
+        "t": "Usar el proyector viejo",
+        "e": [
+          -3,
+          0,
+          4,
+          2
+        ]
+      }
+    },
+    {
+      "id": "g03_012",
+      "pj": "lugo",
+      "texto": "Lugo pagó de su bolsa las fotocopias del grupo y aún le deben casi todo. Sonríe y dice que no hay prisa, pero ya trae la cartera flaca.",
+      "izq": {
+        "t": "Pagarle de caja chica",
+        "e": [
+          6,
+          0,
+          -4,
+          0
+        ]
+      },
+      "der": {
+        "t": "Que el grupo le devuelva",
+        "e": [
+          3,
+          -5,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g03_013",
+      "pj": "ana",
+      "texto": "Ana vio que la factura del aire acondicionado cobra dos veces el mismo filtro. Con 38 grados, el proveedor dice que fue «un detalle».",
+      "izq": {
+        "t": "Reclamar y esperar corrección",
+        "e": [
+          -4,
+          -3,
+          6,
+          0
+        ],
+        "int": 3
+      },
+      "der": {
+        "t": "Pagar y tener clima hoy",
+        "e": [
+          5,
+          2,
+          -5,
+          0
+        ],
+        "int": -3
+      }
+    },
+    {
+      "id": "g03_014",
+      "pj": "roberto",
+      "texto": "Un periodista me preguntó cuánto costó arreglar la biblioteca y, bueno, me fui por las ramas. Tú tienes las cuentas, pero no todas se ven bonitas. ¿Qué le muestras?",
+      "izq": {
+        "t": "Mostrarle todas las cuentas",
+        "e": [
+          0,
+          5,
+          0,
+          -4
+        ],
+        "int": 3
+      },
+      "der": {
+        "t": "Mandarlo a rectoría",
+        "e": [
+          0,
+          -4,
+          0,
+          4
+        ],
+        "int": -2
+      }
+    },
+    {
+      "id": "g03_015",
+      "pj": "angel",
+      "texto": "Ángel, rey del pasillo: «Llegó el emisario de rectoría con un sobre: recortar 10 % del gasto. Sonríe, pero no se sienta. Mala señal, y yo no perdono sorpresas.»",
+      "izq": {
+        "t": "Recortar parejo a todos",
+        "e": [
+          -6,
+          0,
+          6,
+          3
+        ]
+      },
+      "der": {
+        "t": "Recortar solo viajes y eventos",
+        "e": [
+          3,
+          -5,
+          3,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g03_016",
+      "pj": "eligardo",
+      "texto": "Director, una mamá pagó la inscripción con monedas de diez de la alcancía de su hijo. Faltan 40 pesos, lo que cuestan unos tacos. ¿Qué hacemos?",
+      "izq": {
+        "t": "Cubrir lo que falta",
+        "e": [
+          0,
+          7,
+          -3,
+          0
+        ],
+        "int": 2
+      },
+      "der": {
+        "t": "Exigir el pago completo",
+        "e": [
+          0,
+          -6,
+          3,
+          0
+        ],
+        "int": -1
+      }
+    },
+    {
+      "id": "g03_017",
+      "pj": "jose_19",
+      "texto": "Despacio, que la prisa es mala consejera. Un egresado exitoso quiere donar una beca grande, pero elegiría él a quién. Dice que su ojo «nunca falla». Pensémoslo con té.",
+      "izq": {
+        "t": "Dejar que él elija",
+        "e": [
+          0,
+          0,
+          6,
+          -3
+        ],
+        "int": -2
+      },
+      "der": {
+        "t": "Que elija un comité",
+        "e": [
+          0,
+          5,
+          -3,
+          0
+        ],
+        "int": 2
+      }
+    },
+    {
+      "id": "g03_018",
+      "pj": "nayeli",
+      "texto": "¡Director! Pido dinero para un rincón con sillones y té en exámenes. ¡Los gritos del pasillo bajarían a la mitad! Yo misma lo estreno con porras. ¿Lo aprueba?",
+      "izq": {
+        "t": "Aprobar el rincón",
+        "e": [
+          0,
+          6,
+          -5,
+          0
+        ]
+      },
+      "der": {
+        "t": "Esperar otro semestre",
+        "e": [
+          0,
+          -5,
+          4,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g03_019",
+      "pj": "fernando",
+      "texto": "Director, en la caja chica quedan 12 pesos y falta agua para el garrafón. Con este calor, hasta las plantas piden suero. ¡Y yo con la lengua seca! ¿Qué hacemos?",
+      "izq": {
+        "t": "Pagar el agua con ahorros",
+        "e": [
+          4,
+          0,
+          -5,
+          0
+        ]
+      },
+      "der": {
+        "t": "Pedir que traigan su botella",
+        "e": [
+          -3,
+          0,
+          0,
+          2
+        ]
+      }
+    },
+    {
+      "id": "g03_020",
+      "pj": "perla",
+      "texto": "Perla ganó un proyecto de investigación con dinero para equipo, pero solo puede usarse en su laboratorio. Otros profes ya preguntan por qué.",
+      "izq": {
+        "t": "Respetar las reglas del proyecto",
+        "e": [
+          -4,
+          0,
+          5,
+          3
+        ],
+        "int": 2,
+        "af": {
+          "perla": 1
+        }
+      },
+      "der": {
+        "t": "Compartir el equipo con todos",
+        "e": [
+          5,
+          0,
+          -4,
+          -3
+        ],
+        "int": -2,
+        "af": {
+          "perla": -1
+        }
+      }
+    },
+    {
+      "id": "g03_021",
+      "pj": "monica",
+      "texto": "Mónica recuerda que el seguro venció hace una semana, y anoche llegó el huracán. Se mojaron compus y libros. ¿Quién paga?",
+      "izq": {
+        "t": "Repartir el golpe entre todos",
+        "e": [
+          -4,
+          -5,
+          -3,
+          -4
+        ]
+      },
+      "der": {
+        "t": "Pagarlo con los ahorros",
+        "e": [
+          3,
+          2,
+          -10,
+          0
+        ],
+        "int": 1
+      },
+      "peso": 0.12
+    },
+    {
+      "id": "g03_022",
+      "pj": "jose_25",
+      "texto": "José Olivo, bajito: «Un empresario regala dinero para becas y pintura del edificio, sin pedir nada. Solo dice mejor sin recibo, amigo. Yo desconfío de lo gratis.»",
+      "izq": {
+        "t": "Aceptar sin recibo",
+        "e": [
+          4,
+          5,
+          3,
+          3
+        ],
+        "int": -4
+      },
+      "der": {
+        "t": "Aceptar con recibo y contrato",
+        "e": [
+          -4,
+          -2,
+          5,
+          6
+        ],
+        "int": 4
+      },
+      "peso": 0.12
+    },
+    {
+      "id": "g04_001",
+      "pj": "monica",
+      "texto": "Mañana hay junta del Consejo y nadie leyó los papeles. Mónica ya hizo un resumen de una hoja, con colores y todo. ¿Lees los 200 papeles o te fías de su hoja?",
+      "izq": {
+        "t": "Leerlo todo esta noche",
+        "e": [
+          0,
+          -3,
+          0,
+          4
+        ],
+        "int": 1
+      },
+      "der": {
+        "t": "Confiar en la hoja de Mónica",
+        "e": [
+          0,
+          3,
+          0,
+          -4
+        ]
+      }
+    },
+    {
+      "id": "g04_002",
+      "pj": "janoe",
+      "texto": "Janoe consiguió que una universidad vecina nos preste su laboratorio de redes. A cambio quieren usar nuestro auditorio cada mes. ¿Aceptas el trato?",
+      "izq": {
+        "t": "Aceptar el trato",
+        "e": [
+          4,
+          3,
+          -3,
+          0
+        ]
+      },
+      "der": {
+        "t": "Mejor no, el auditorio es nuestro",
+        "e": [
+          -3,
+          0,
+          3,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g04_003",
+      "pj": "sergio",
+      "texto": "Sergio avisa, muy serio: el jueves viene una visita de rectoría y quieren un pasillo que huela a «excelencia», no a cloro. Pintar todo sale caro.",
+      "izq": {
+        "t": "Pintar y maquillar todo",
+        "e": [
+          0,
+          0,
+          -5,
+          5
+        ],
+        "int": -1
+      },
+      "der": {
+        "t": "Mostrar la unidad tal cual es",
+        "e": [
+          3,
+          0,
+          0,
+          -4
+        ],
+        "int": 2
+      }
+    },
+    {
+      "id": "g04_004",
+      "pj": "reyna",
+      "texto": "¡Director! Un trámite lleva 14 sellos y rectoría quiere solo 3. ¡Se hace en un minuto! Pero hay gente que vive de esos sellos y todo el pasillo lo sabe.",
+      "izq": {
+        "t": "Quitar sellos",
+        "e": [
+          -4,
+          5,
+          0,
+          0
+        ],
+        "int": 1
+      },
+      "der": {
+        "t": "Dejarlo como siempre",
+        "e": [
+          3,
+          0,
+          0,
+          -4
+        ]
+      }
+    },
+    {
+      "id": "g04_005",
+      "pj": "beatriz",
+      "texto": "Beatriz descubrió que el reglamento pide entregar calificaciones en 5 días y casi nadie cumple. «Yo sí», dice. «Y todos lo van a saber.»",
+      "izq": {
+        "t": "Exigir que se cumpla",
+        "e": [
+          -6,
+          5,
+          0,
+          0
+        ],
+        "int": 2,
+        "af": {
+          "beatriz": 1
+        }
+      },
+      "der": {
+        "t": "Pedir paciencia a los alumnos",
+        "e": [
+          3,
+          -4,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g04_006",
+      "pj": "fernando",
+      "texto": "Fernando quiere escribir el informe anual como periódico, con titulares y chistes. «Nadie lee lo aburrido», dice. Rectoría pidió formato serio.",
+      "izq": {
+        "t": "Hacerlo con humor",
+        "e": [
+          2,
+          4,
+          0,
+          -5
+        ]
+      },
+      "der": {
+        "t": "Formato serio, sin chistes",
+        "e": [
+          -3,
+          0,
+          0,
+          4
+        ]
+      }
+    },
+    {
+      "id": "g04_007",
+      "pj": "victor",
+      "texto": "Víctor te pide un favor con su mejor sonrisa: dar prácticas al sobrino de un amigo de rectoría. «Es buen muchacho, nomás no sabe nada», dice.",
+      "izq": {
+        "t": "Aceptar el favor",
+        "e": [
+          -3,
+          0,
+          0,
+          5
+        ],
+        "int": -2,
+        "af": {
+          "victor": 1
+        }
+      },
+      "der": {
+        "t": "Que entre por convocatoria",
+        "e": [
+          0,
+          3,
+          0,
+          -5
+        ],
+        "int": 2
+      }
+    },
+    {
+      "id": "g04_008",
+      "pj": "victor",
+      "texto": "Víctor: «Vengo de rectoría con un acuerdo: gastar 10 % menos en luz. En Tepic y en agosto, eso es apagar los aires. ¿Obedecemos o negociamos una excepción?»",
+      "izq": {
+        "t": "Apagar los aires",
+        "e": [
+          -5,
+          -6,
+          5,
+          2
+        ]
+      },
+      "der": {
+        "t": "Pedir excepción por el calor",
+        "e": [
+          3,
+          0,
+          0,
+          -5
+        ]
+      }
+    },
+    {
+      "id": "g04_009",
+      "pj": "victor",
+      "texto": "Víctor: «Ya hablé con varios consejeros. Mañana votan si las clases empiezan a las 7 por el calor. Los que vienen de lejos se quejan. Todo depende de tu voto.»",
+      "izq": {
+        "t": "Votar por las 7 de la mañana",
+        "e": [
+          -5,
+          4,
+          0,
+          2
+        ]
+      },
+      "der": {
+        "t": "Votar por mantener las 9",
+        "e": [
+          4,
+          -4,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g04_010",
+      "pj": "omar",
+      "texto": "¡Buenas, buenas! Saludé al barrio y dicen que viene un huracán. La UAN podría ser refugio. ¿Abres el gimnasio a los vecinos o cierras y mandas a todos a casa?",
+      "izq": {
+        "t": "Abrir como refugio",
+        "e": [
+          0,
+          4,
+          -4,
+          0
+        ],
+        "int": 2
+      },
+      "der": {
+        "t": "Cerrar y mandar a todos a casa",
+        "e": [
+          2,
+          0,
+          0,
+          -4
+        ]
+      }
+    },
+    {
+      "id": "g04_011",
+      "pj": "ricardo",
+      "texto": "Ricardo propone invitar a un maestro náayeri como profesor visitante, con un convenio que otra universidad ya usa. «Se aprende de todos lados», dice, orgulloso.",
+      "izq": {
+        "t": "Firmar el convenio",
+        "e": [
+          3,
+          4,
+          -3,
+          0
+        ],
+        "int": 1,
+        "af": {
+          "ricardo": 1
+        }
+      },
+      "der": {
+        "t": "Esperar al próximo año",
+        "e": [
+          0,
+          -3,
+          3,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g04_012",
+      "pj": "ana",
+      "texto": "Ana revisó el informe que ya firmaste y halló un error de 200 mil pesos que nos hace ver con más dinero. «Nadie lo va a notar», dice. «Pero yo sí.»",
+      "izq": {
+        "t": "Corregir y avisar a rectoría",
+        "e": [
+          2,
+          0,
+          -4,
+          -3
+        ],
+        "int": 4,
+        "af": {
+          "ana": 1
+        }
+      },
+      "der": {
+        "t": "Dejarlo pasar",
+        "e": [
+          -3,
+          0,
+          3,
+          4
+        ],
+        "int": -4,
+        "af": {
+          "ana": -1
+        }
+      }
+    },
+    {
+      "id": "g04_013",
+      "pj": "pedro",
+      "texto": "Pedro descubrió que el edificio viejo está protegido por ley: no se puede tirar la barda para hacer estacionamiento. Los profesores ya llevan meses dando vueltas.",
+      "izq": {
+        "t": "Respetar el edificio",
+        "e": [
+          -4,
+          0,
+          0,
+          3
+        ],
+        "int": 2,
+        "af": {
+          "pedro": 1
+        }
+      },
+      "der": {
+        "t": "Pedir permiso para tirarla",
+        "e": [
+          3,
+          0,
+          -4,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g04_014",
+      "pj": "reyna",
+      "texto": "Reyna se ofrece a presidir la comisión del nuevo reglamento. Ya trae calendario, borrador y plumones. Nadie más levantó la mano. ¿Se la das?",
+      "izq": {
+        "t": "Darle la comisión a Reyna",
+        "e": [
+          4,
+          -2,
+          0,
+          -3
+        ]
+      },
+      "der": {
+        "t": "Armar una comisión con varios",
+        "e": [
+          -3,
+          3,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g04_015",
+      "pj": "omar",
+      "texto": "Omar saludó tan bien a un visitante extranjero que resultó ser quien evalúa a la unidad. Ya lo invitó a comer. ¿Lo llevas al restaurante caro o al comedor?",
+      "izq": {
+        "t": "Al restaurante caro",
+        "e": [
+          2,
+          0,
+          -5,
+          2
+        ],
+        "int": -2
+      },
+      "der": {
+        "t": "Al comedor de la universidad",
+        "e": [
+          0,
+          0,
+          3,
+          -3
+        ],
+        "int": 2
+      }
+    },
+    {
+      "id": "g04_016",
+      "pj": "alejandro",
+      "texto": "Alejandro, siempre con plan B, pide dinero para copiar todos los archivos antes del informe anual. «Si se cae el sistema, nos quedamos sin nada», dice, y ya.",
+      "izq": {
+        "t": "Pagar el respaldo",
+        "e": [
+          2,
+          0,
+          -4,
+          3
+        ]
+      },
+      "der": {
+        "t": "Confiar en que no se caiga",
+        "e": [
+          0,
+          0,
+          4,
+          -5
+        ]
+      }
+    },
+    {
+      "id": "g04_017",
+      "pj": "lugo",
+      "texto": "Los alumnos evaluaron al profe Lugo: «muy amable, poca autoridad». Rectoría pide un plan. Lugo sonríe: «¿Les ofrezco un cafecito?»",
+      "izq": {
+        "t": "Mandarlo a un curso",
+        "e": [
+          0,
+          4,
+          -3,
+          0
+        ]
+      },
+      "der": {
+        "t": "Dejarlo como es",
+        "e": [
+          3,
+          0,
+          0,
+          -4
+        ]
+      }
+    },
+    {
+      "id": "g04_018",
+      "pj": "jose_19",
+      "texto": "Despacito, con té: el reglamento no deja cobrar la cuota de talleres, y sin cuota no hay material. Hay un huequito legal, medio dudoso. «Quien busca atajos, tropieza».",
+      "izq": {
+        "t": "Usar el huequito",
+        "e": [
+          3,
+          -4,
+          5,
+          0
+        ],
+        "int": -3
+      },
+      "der": {
+        "t": "Cumplir el reglamento al pie de la letra",
+        "e": [
+          -2,
+          3,
+          -5,
+          3
+        ],
+        "int": 3
+      }
+    },
+    {
+      "id": "g04_019",
+      "pj": "eligardo",
+      "texto": "Eligardo dice que el Consejo aprueba todo con la panza llena y propone tacos de pescado antes de votar el presupuesto. «Es pura táctica», jura.",
+      "izq": {
+        "t": "Pagar los tacos",
+        "e": [
+          2,
+          0,
+          -4,
+          4
+        ],
+        "int": -1
+      },
+      "der": {
+        "t": "Votar sin tacos",
+        "e": [
+          0,
+          0,
+          3,
+          -3
+        ]
+      }
+    },
+    {
+      "id": "g04_020",
+      "pj": "roberto",
+      "texto": "Me acuerdo que en mis tiempos... bueno, al grano: llegó orden de simulacro a las 2 de la tarde, a 38 grados, en día de exámenes. La rectora dijo que no se mueve.",
+      "izq": {
+        "t": "Hacer el simulacro tal cual",
+        "e": [
+          -4,
+          -5,
+          -3,
+          -4
+        ]
+      },
+      "der": {
+        "t": "Pedir otra fecha de todos modos",
+        "e": [
+          3,
+          2,
+          -2,
+          -8
+        ]
+      },
+      "peso": 0.12
+    },
+    {
+      "id": "g04_021",
+      "pj": "alejandro",
+      "texto": "Director, el sistema de rectoría marcó «todas las metas cumplidas». Es un error: faltan tres. Viene bono y aplausos. Tengo plan B para ambos caminos. ¿Qué hacemos?",
+      "izq": {
+        "t": "Aceptar el reconocimiento",
+        "e": [
+          3,
+          4,
+          2,
+          3
+        ],
+        "int": -4,
+        "af": {
+          "alejandro": -1
+        }
+      },
+      "der": {
+        "t": "Avisar que fue un error",
+        "e": [
+          -3,
+          0,
+          -2,
+          4
+        ],
+        "int": 4,
+        "af": {
+          "alejandro": 1
+        }
+      },
+      "peso": 0.12
+    },
+    {
+      "id": "g04_022",
+      "pj": "gabriel",
+      "texto": "Gabriel contó el inventario: faltan 6 computadoras. Las tiene él, ya reparadas, en el laboratorio. No hay papeles de préstamo y el lunes llegan a revisar las cuentas.",
+      "izq": {
+        "t": "Hacer los papeles y avisar",
+        "e": [
+          -2,
+          0,
+          0,
+          4
+        ],
+        "int": 2
+      },
+      "der": {
+        "t": "Esperar a que nadie pregunte",
+        "e": [
+          3,
+          0,
+          0,
+          -5
+        ],
+        "int": -2
+      }
+    },
+    {
+      "id": "g05_001",
+      "pj": "gabriel",
+      "texto": "Gabriel revivió doce computadoras que iban a la basura. Funcionan, pero sus ventiladores suenan como avión despegando. ¿Las pones ya en el laboratorio?",
+      "izq": {
+        "t": "Ponerlas ya",
+        "e": [
+          4,
+          -3,
+          0,
+          0
+        ],
+        "af": {
+          "gabriel": 1
+        }
+      },
+      "der": {
+        "t": "Comprar equipos nuevos",
+        "e": [
+          0,
+          5,
+          -6,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g05_002",
+      "pj": "alejandro",
+      "texto": "Alejandro explica con calma por qué se cae el wifi: 400 celulares viendo videos a la vez. Su plan B es limitar el video en clase. ¿Lo autorizas?",
+      "izq": {
+        "t": "Limitar el video",
+        "e": [
+          3,
+          -6,
+          0,
+          2
+        ]
+      },
+      "der": {
+        "t": "Contratar más internet",
+        "e": [
+          0,
+          5,
+          -7,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g05_003",
+      "pj": "martinez",
+      "texto": "Martínez, casi en susurros, avisa que casi todos hacen la tarea con inteligencia artificial. Propone un taller para usarla bien. ¿Qué haces?",
+      "izq": {
+        "t": "Hacer el taller",
+        "e": [
+          3,
+          5,
+          -4,
+          0
+        ],
+        "int": 1,
+        "af": {
+          "martinez": 1
+        }
+      },
+      "der": {
+        "t": "Prohibirla en las tareas",
+        "e": [
+          -4,
+          -3,
+          0,
+          4
+        ]
+      }
+    },
+    {
+      "id": "g05_004",
+      "pj": "beatriz",
+      "texto": "Beatriz dice que su salón está a 38 grados y que no da examen en un horno. Amenaza con aplicarlo en el pasillo, bajo el único ventilador. ¿Qué haces?",
+      "izq": {
+        "t": "Arreglar el aire ahora",
+        "e": [
+          5,
+          0,
+          -6,
+          0
+        ]
+      },
+      "der": {
+        "t": "Dejar que lo dé en el pasillo",
+        "e": [
+          -2,
+          -4,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g05_005",
+      "pj": "fernando",
+      "texto": "En el salón de Fernando gotea justo sobre su escritorio. Ya puso una cubeta y le puso nombre: Don Chorro. ¿Arreglas el techo o esperas a que pase la lluvia?",
+      "izq": {
+        "t": "Arreglar el techo",
+        "e": [
+          3,
+          2,
+          -6,
+          0
+        ]
+      },
+      "der": {
+        "t": "Esperar con cubetas",
+        "e": [
+          -3,
+          -4,
+          3,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g05_006",
+      "pj": "raudel",
+      "texto": "Una camioneta enorme ocupa el lugar de Raudel, que pide multas para todos con voz de trueno. Resulta ser de un amigo de rectoría. ¿Qué haces?",
+      "izq": {
+        "t": "Multas parejas para todos",
+        "e": [
+          3,
+          -2,
+          2,
+          -3
+        ],
+        "int": 2,
+        "af": {
+          "raudel": 1
+        }
+      },
+      "der": {
+        "t": "Hablar con el dueño",
+        "e": [
+          -2,
+          0,
+          0,
+          2
+        ]
+      }
+    },
+    {
+      "id": "g05_007",
+      "pj": "roberto",
+      "texto": "Te cuento rápido... bueno, no tan rápido: un vendedor ofrece licencias con descuento si pagas hoy. Si no, los alumnos siguen con copias piratas. ¿Pagas ya?",
+      "izq": {
+        "t": "Pagar las licencias",
+        "e": [
+          2,
+          4,
+          -8,
+          0
+        ],
+        "int": 2
+      },
+      "der": {
+        "t": "Seguir como estamos",
+        "e": [
+          0,
+          2,
+          3,
+          -6
+        ],
+        "int": -3
+      }
+    },
+    {
+      "id": "g05_008",
+      "pj": "perla",
+      "texto": "Perla necesita un servidor potente para su investigación y gastará tanta luz como medio edificio. Promete conseguir fondos de fuera. ¿Le das el espacio?",
+      "izq": {
+        "t": "Darle el espacio",
+        "e": [
+          5,
+          2,
+          -3,
+          2
+        ],
+        "af": {
+          "perla": 1
+        }
+      },
+      "der": {
+        "t": "Esperar otro semestre",
+        "e": [
+          -5,
+          -3,
+          3,
+          -2
+        ],
+        "af": {
+          "perla": -1
+        }
+      }
+    },
+    {
+      "id": "g05_009",
+      "pj": "roberto",
+      "texto": "Roberto te cuenta cómo era el internet en 1998: por teléfono y con diez minutos de espera. Al final pide una antena para su salón. ¿Se la das?",
+      "izq": {
+        "t": "Poner la antena",
+        "e": [
+          0,
+          5,
+          -5,
+          0
+        ]
+      },
+      "der": {
+        "t": "Decirle que espere",
+        "e": [
+          -4,
+          0,
+          3,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g05_010",
+      "pj": "eligardo",
+      "texto": "Una tormenta apagó la luz de toda la Unidad. Eligardo propone suspender clases e irse a comer, pero hoy hay exámenes en línea. ¿Qué haces?",
+      "izq": {
+        "t": "Suspender y reprogramar",
+        "e": [
+          4,
+          3,
+          0,
+          -4
+        ]
+      },
+      "der": {
+        "t": "Exámenes en papel, en el patio",
+        "e": [
+          -3,
+          -5,
+          0,
+          3
+        ]
+      }
+    },
+    {
+      "id": "g05_011",
+      "pj": "nayeli",
+      "texto": "El nuevo laboratorio de cómputo ya tiene veinte equipos y Nayeli no cabe de emoción. Quiere inauguración con globos, pastel y fotos. ¿Se la autorizas?",
+      "izq": {
+        "t": "Hacer la inauguración",
+        "e": [
+          3,
+          4,
+          -4,
+          2
+        ],
+        "af": {
+          "nayeli": 1
+        }
+      },
+      "der": {
+        "t": "Inaugurar sin fiesta",
+        "e": [
+          -3,
+          -2,
+          3,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g05_012",
+      "pj": "janoe",
+      "texto": "Janoe avisa que el servidor de calificaciones no tiene copia de respaldo. Si falla, se pierde un semestre entero. Respaldar cuesta. ¿Qué haces?",
+      "izq": {
+        "t": "Pagar el respaldo",
+        "e": [
+          3,
+          0,
+          -6,
+          2
+        ],
+        "int": 2
+      },
+      "der": {
+        "t": "Dejarlo así por ahora",
+        "e": [
+          0,
+          -3,
+          4,
+          -3
+        ],
+        "int": -2
+      }
+    },
+    {
+      "id": "g05_013",
+      "pj": "sonia",
+      "texto": "Sonia logró que dos grupos compartan el laboratorio, pero aún hay treinta alumnos en lista de espera. Se podría abrir un turno de noche. ¿Qué haces?",
+      "izq": {
+        "t": "Abrir turno de noche",
+        "e": [
+          -4,
+          5,
+          -2,
+          0
+        ]
+      },
+      "der": {
+        "t": "Dejar la lista de espera",
+        "e": [
+          2,
+          -5,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g05_014",
+      "pj": "victor",
+      "texto": "Una empresa local regala paneles solares, pero quiere su logo gigante en el techo. Víctor ya sabe a quién saludar para la foto. ¿Aceptas?",
+      "izq": {
+        "t": "Aceptar con el logo",
+        "e": [
+          2,
+          -3,
+          6,
+          -2
+        ],
+        "int": -1,
+        "af": {
+          "victor": 1
+        }
+      },
+      "der": {
+        "t": "Buscar patrocinio sin logo",
+        "e": [
+          -2,
+          3,
+          -3,
+          3
+        ]
+      }
+    },
+    {
+      "id": "g05_015",
+      "pj": "alfonso",
+      "texto": "Alfonso lleva tres semanas trayendo su proyector de casa porque el del salón no sirve, y nunca se queja. Hoy lo olvidó. ¿Qué haces?",
+      "izq": {
+        "t": "Comprar proyector para el salón",
+        "e": [
+          4,
+          2,
+          -5,
+          0
+        ],
+        "af": {
+          "alfonso": 1
+        }
+      },
+      "der": {
+        "t": "Agradecerle y seguir igual",
+        "e": [
+          -4,
+          0,
+          2,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g05_016",
+      "pj": "angel",
+      "texto": "Ángel, muy serio, exige cambiar las contraseñas cada mes. Los demás ya las pegan en notas amarillas sobre el monitor. ¿Lo apoyas?",
+      "izq": {
+        "t": "Apoyarlo",
+        "e": [
+          -4,
+          0,
+          0,
+          4
+        ],
+        "int": 1
+      },
+      "der": {
+        "t": "Dejar las contraseñas",
+        "e": [
+          3,
+          0,
+          0,
+          -3
+        ]
+      }
+    },
+    {
+      "id": "g05_017",
+      "pj": "carlos",
+      "texto": "Carlos encontró un router escondido tras un archivero. Alguien lo puso por su cuenta; da buen wifi, pero desordena la red. No dice quién fue.",
+      "izq": {
+        "t": "Quitarlo",
+        "e": [
+          -3,
+          0,
+          0,
+          4
+        ],
+        "int": 1
+      },
+      "der": {
+        "t": "Dejarlo y no preguntar",
+        "e": [
+          0,
+          4,
+          0,
+          -4
+        ],
+        "int": -2
+      }
+    },
+    {
+      "id": "g05_018",
+      "pj": "jose_19",
+      "texto": "José Luna cita su refrán: «camarón que se duerme...». Los equipos siguen sin actualizar y hacerlo toma una semana sin computadoras. ¿Qué haces?",
+      "izq": {
+        "t": "Actualizar esta semana",
+        "e": [
+          0,
+          -4,
+          0,
+          4
+        ]
+      },
+      "der": {
+        "t": "Esperar a las vacaciones",
+        "e": [
+          3,
+          0,
+          -3,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g05_019",
+      "pj": "oliver",
+      "texto": "Oliver da sus mejores asesorías bajo el árbol del patio, pero allí no llega el wifi. Ya hay fila de alumnos con el celular en alto. ¿Pones un repetidor?",
+      "izq": {
+        "t": "Poner el repetidor",
+        "e": [
+          3,
+          0,
+          -5,
+          0
+        ]
+      },
+      "der": {
+        "t": "Mover asesorías adentro",
+        "e": [
+          0,
+          -3,
+          3,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g05_020",
+      "pj": "lugo",
+      "texto": "El grupo de Lugo cambió la clave del proyector y ahora solo sale un meme del curso. Lugo se ríe más que todos. ¿Qué haces?",
+      "izq": {
+        "t": "Hablar con el grupo",
+        "e": [
+          0,
+          -4,
+          0,
+          3
+        ]
+      },
+      "der": {
+        "t": "Dejarlo pasar",
+        "e": [
+          -2,
+          3,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g05_021",
+      "pj": "reyna",
+      "texto": "¡Director, rápido! Una alumna casi se desmaya del calor en clase y unos papás ofrecen juntar cuotas para el aire acondicionado. ¿Aceptamos? ¡Dígame ya!",
+      "izq": {
+        "t": "Aceptar la ayuda",
+        "e": [
+          0,
+          3,
+          5,
+          -3
+        ]
+      },
+      "der": {
+        "t": "Mover clases a la mañana",
+        "e": [
+          -4,
+          2,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g05_022",
+      "pj": "reyna",
+      "texto": "Director, ¿cuántas computadoras sirven? ¡Ya! Gabriel dice 40, Janoe 35 y la lista dice 52. Alguien tiene equipos fantasma. ¿Qué hacemos?",
+      "izq": {
+        "t": "Contar equipo por equipo",
+        "e": [
+          -3,
+          0,
+          0,
+          4
+        ],
+        "int": 3
+      },
+      "der": {
+        "t": "Entregar el número más bonito",
+        "e": [
+          0,
+          0,
+          3,
+          -5
+        ],
+        "int": -4
+      }
+    },
+    {
+      "id": "g06_001",
+      "pj": "oliver",
+      "texto": "Oliver propone una posada de profesores con ponche, piñata y bocina. Jura que empieza después de clases, «como gente seria». El dinero anda corto. ¿La haces?",
+      "izq": {
+        "t": "Hacerla con cuota voluntaria",
+        "e": [
+          5,
+          0,
+          -2,
+          0
+        ]
+      },
+      "der": {
+        "t": "Dejarla para enero",
+        "e": [
+          -4,
+          0,
+          3,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g06_002",
+      "pj": "nayeli",
+      "texto": "Nayeli armó un torneo de futbol: alumnos contra profes. Ya tiene porras, playeras y hasta un himno. Falta pagar el arbitraje y los balones. ¿Qué respondes?",
+      "izq": {
+        "t": "Pagar arbitraje y balones",
+        "e": [
+          0,
+          7,
+          -5,
+          0
+        ]
+      },
+      "der": {
+        "t": "Que cada equipo coopere",
+        "e": [
+          -3,
+          0,
+          4,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g06_003",
+      "pj": "ricardo",
+      "texto": "¡Jefe, vacilón! Mi grupo quiere el auditorio para ver a los Pumas y promete un análisis económico del equipo después. Es en horario de clase. ¡Hasta la economía anima!",
+      "izq": {
+        "t": "Prestar el auditorio",
+        "e": [
+          -3,
+          6,
+          0,
+          0
+        ]
+      },
+      "der": {
+        "t": "Negarlo, hay clases",
+        "e": [
+          0,
+          -4,
+          0,
+          3
+        ]
+      }
+    },
+    {
+      "id": "g06_004",
+      "pj": "omar",
+      "texto": "Se acerca el Día del Estudiante. Omar ya saludó a medio mundo y consiguió un grupo musical baratito. Los alumnos quieren concierto; los profes, pastel. ¿Qué eliges?",
+      "izq": {
+        "t": "Concierto en el patio",
+        "e": [
+          0,
+          8,
+          -5,
+          0
+        ]
+      },
+      "der": {
+        "t": "Pastel y mañanitas",
+        "e": [
+          0,
+          -3,
+          4,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g06_005",
+      "pj": "fernando",
+      "texto": "Director, una mamá pregunta dónde será la graduación: su hija trae tacones, hacen 38 grados y la abuela ya trae abanico. ¡Esa sí vino preparada! ¿Dónde la hacemos?",
+      "izq": {
+        "t": "Salón con clima",
+        "e": [
+          0,
+          6,
+          -7,
+          3
+        ]
+      },
+      "der": {
+        "t": "Patio con toldos y abanicos",
+        "e": [
+          0,
+          -4,
+          3,
+          -2
+        ]
+      }
+    },
+    {
+      "id": "g06_006",
+      "pj": "oliver",
+      "texto": "En la sobremesa, un empresario de la Riviera Nayarit me soltó que quiere hacer aquí una feria de empleo, pero antes pide la lista de mejores promedios. ¿Se la das?",
+      "izq": {
+        "t": "Darle la lista",
+        "e": [
+          -3,
+          5,
+          2,
+          0
+        ],
+        "int": -2
+      },
+      "der": {
+        "t": "Feria abierta a todos",
+        "e": [
+          3,
+          2,
+          -4,
+          0
+        ],
+        "int": 2
+      }
+    },
+    {
+      "id": "g06_007",
+      "pj": "pedro",
+      "texto": "Pedro encontró fotos viejas de la Unidad: la primera generación, el primer pizarrón, un ventilador heroico. Quiere una exposición de aniversario. Imprimir cuesta. ¿Sí?",
+      "izq": {
+        "t": "Apoyar la exposición",
+        "e": [
+          4,
+          0,
+          -5,
+          0
+        ],
+        "af": {
+          "pedro": 1
+        }
+      },
+      "der": {
+        "t": "Solo subirlas a redes",
+        "e": [
+          -3,
+          0,
+          3,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g06_008",
+      "pj": "perla",
+      "texto": "Perla quiere llevar a cuatro alumnos a un congreso de economía en Guadalajara. Ahí se consiguen contactos y prácticas. Camión y hospedaje salen caros. ¿Qué decides?",
+      "izq": {
+        "t": "Pagar el viaje de los cuatro",
+        "e": [
+          0,
+          7,
+          -7,
+          0
+        ]
+      },
+      "der": {
+        "t": "Que vaya solo ella a presentar",
+        "e": [
+          3,
+          -5,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g06_009",
+      "pj": "sergio",
+      "texto": "Director, una hotelera de la Riviera Nayarit da 10 mil pesos al concurso de emprendimiento. Solo pide ser jurado y que gane su sobrino. Qué generosa. ¿Aceptamos?",
+      "izq": {
+        "t": "Aceptar sus condiciones",
+        "e": [
+          -3,
+          -6,
+          5,
+          2
+        ],
+        "int": -4
+      },
+      "der": {
+        "t": "Jurado libre, sin su dinero",
+        "e": [
+          3,
+          5,
+          -4,
+          0
+        ],
+        "int": 3
+      }
+    },
+    {
+      "id": "g06_010",
+      "pj": "roberto",
+      "texto": "Roberto cuenta que en una rifa de hace años ganó el conserje y nadie le creyó. Hoy los alumnos quieren rifar una tablet para juntar dinero. ¿La autorizas?",
+      "izq": {
+        "t": "Autorizarla, con boletos numerados",
+        "e": [
+          0,
+          5,
+          4,
+          -3
+        ]
+      },
+      "der": {
+        "t": "Mejor una kermés con comida",
+        "e": [
+          2,
+          3,
+          -2,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g06_011",
+      "pj": "ricardo",
+      "texto": "Ricardo propone un festival cultural con música, danza y comida wixárika y náayeri. Quiere invitar a las comunidades de verdad, con transporte y pago. ¿Lo pagas?",
+      "izq": {
+        "t": "Pagar transporte y su trabajo",
+        "e": [
+          3,
+          4,
+          -6,
+          3
+        ],
+        "int": 3,
+        "af": {
+          "ricardo": 1
+        }
+      },
+      "der": {
+        "t": "Hacerlo solo con alumnos",
+        "e": [
+          -4,
+          2,
+          3,
+          -2
+        ],
+        "int": -3,
+        "af": {
+          "ricardo": -1
+        }
+      }
+    },
+    {
+      "id": "g06_012",
+      "pj": "gabriel",
+      "texto": "Gabriel armó tres pantallas con equipos viejos para ver el Mundial en el patio. Funcionan perfecto, pero el griterío llega a la biblioteca en exámenes. ¿Las dejas?",
+      "izq": {
+        "t": "Dejarlas y vender botanas",
+        "e": [
+          -3,
+          6,
+          2,
+          -2
+        ]
+      },
+      "der": {
+        "t": "Apagarlas en horario de exámenes",
+        "e": [
+          3,
+          -5,
+          0,
+          2
+        ]
+      }
+    },
+    {
+      "id": "g06_013",
+      "pj": "oliver",
+      "texto": "Te lo cuento con un buen vaso... de agua, ¿eh? Mi generación hace reencuentro aquí y promete donar para laboratorios, pero quiere cerveza en el patio. ¿Qué respondes?",
+      "izq": {
+        "t": "Aceptar brindis y donativo",
+        "e": [
+          -3,
+          -2,
+          6,
+          -3
+        ],
+        "int": -2
+      },
+      "der": {
+        "t": "Café y refrescos, sin cerveza",
+        "e": [
+          3,
+          2,
+          -2,
+          0
+        ],
+        "int": 1
+      }
+    },
+    {
+      "id": "g06_014",
+      "pj": "lugo",
+      "texto": "¡Hola, qué gusto verte! Unos alumnos quieren dar la «bienvenida» a los nuevos con harina, huevo y gritos. Dicen que es tradición. Yo sonrío, pero los nuevos dudan.",
+      "izq": {
+        "t": "Permitir, pero sin huevos",
+        "e": [
+          0,
+          5,
+          0,
+          -4
+        ]
+      },
+      "der": {
+        "t": "Prohibir y hacer jornada de bienvenida",
+        "e": [
+          3,
+          -4,
+          0,
+          0
+        ],
+        "int": 2
+      }
+    },
+    {
+      "id": "g06_015",
+      "pj": "raudel",
+      "texto": "Raudel organizó una carrera de 5 kilómetros a las 12 del día. «El calor forja el carácter», dice. Nayarit marca 38 grados y hay alumnos con gorra y miedo. ¿La mueves?",
+      "izq": {
+        "t": "Moverla al amanecer",
+        "e": [
+          3,
+          -4,
+          0,
+          2
+        ]
+      },
+      "der": {
+        "t": "Dejarla al mediodía, con agua",
+        "e": [
+          -2,
+          5,
+          -4,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g06_016",
+      "pj": "fernando",
+      "texto": "Fernando se anotó en la noche de talentos con un número de «ilusionismo informático». Nadie sabe qué hará y él no suelta prenda. Pide luces y sonido. ¿Se los das?",
+      "izq": {
+        "t": "Darle luces y sonido",
+        "e": [
+          3,
+          4,
+          -5,
+          0
+        ]
+      },
+      "der": {
+        "t": "Que use lo que haya",
+        "e": [
+          -3,
+          0,
+          3,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g06_017",
+      "pj": "ana",
+      "texto": "Una librería de Tepic quiere un puesto en la feria del libro. Revisé las cuentas: paga renta justa, pero compite con los libros usados de los alumnos. ¿A quién se lo das?",
+      "izq": {
+        "t": "Dar el puesto a la librería",
+        "e": [
+          0,
+          -4,
+          5,
+          0
+        ]
+      },
+      "der": {
+        "t": "Reservarlo a libros de alumnos",
+        "e": [
+          0,
+          5,
+          -3,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g06_018",
+      "pj": "sonia",
+      "texto": "Sonia propone un día de puertas abiertas para que jóvenes de prepa conozcan la Unidad. Hay que pintar y limpiar, y los profes ya se quejan del trabajo extra. ¿Lo haces?",
+      "izq": {
+        "t": "Hacerlo, con voluntarios",
+        "e": [
+          -5,
+          2,
+          0,
+          4
+        ]
+      },
+      "der": {
+        "t": "Dejarlo para el otro semestre",
+        "e": [
+          3,
+          0,
+          0,
+          -3
+        ]
+      }
+    },
+    {
+      "id": "g06_019",
+      "pj": "edel",
+      "texto": "Edel, sin decir nada, inscribió a la Unidad en un torneo de ajedrez. Nadie sabía que jugaba tan bien. Falta pagar la inscripción y cubrir dos tardes de clases. ¿Y ahora?",
+      "izq": {
+        "t": "Pagar y cubrir sus clases",
+        "e": [
+          -2,
+          0,
+          -3,
+          4
+        ]
+      },
+      "der": {
+        "t": "No hay dinero ni tiempo",
+        "e": [
+          2,
+          0,
+          3,
+          -3
+        ]
+      }
+    },
+    {
+      "id": "g06_020",
+      "pj": "carlos",
+      "texto": "No te asustes... unos alumnos quieren un concurso de disfraces de «crisis económica»: billetes rotos y tijeras. Hay chistes sobre rectoría. Yo no vi nada. ¿Lo autorizas?",
+      "izq": {
+        "t": "Autorizarlo, sin burlas personales",
+        "e": [
+          0,
+          6,
+          0,
+          -3
+        ]
+      },
+      "der": {
+        "t": "Cambiar el tema a «economía divertida»",
+        "e": [
+          0,
+          -4,
+          0,
+          3
+        ]
+      }
+    },
+    {
+      "id": "g06_021",
+      "pj": "maria",
+      "texto": "María propone una muestra de comida de la costa: pescado zarandeado, tamales y agua de jamaica. Los alumnos cobrarían por plato. Con calor, hay que cuidar todo. ¿Sí?",
+      "izq": {
+        "t": "Autorizarla en la cafetería",
+        "e": [
+          0,
+          5,
+          3,
+          -3
+        ]
+      },
+      "der": {
+        "t": "Solo con comida empacada",
+        "e": [
+          2,
+          -3,
+          0,
+          2
+        ]
+      }
+    },
+    {
+      "id": "g06_022",
+      "pj": "monica",
+      "texto": "Mónica recuerda que falta la ceremonia de mejores promedios. No hay dinero para medallas. Propone diplomas bonitos y desayuno sencillo. Otros piden cancelarla. ¿Y ahora?",
+      "izq": {
+        "t": "Hacerla con diplomas y desayuno",
+        "e": [
+          0,
+          6,
+          -4,
+          3
+        ]
+      },
+      "der": {
+        "t": "Cancelarla este año",
+        "e": [
+          -3,
+          -5,
+          4,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g07_001",
+      "pj": "alfonso",
+      "texto": "¡Qué onda, Director! Una hotelera de la Riviera Nayarit quiere 20 alumnos para prácticas en temporada alta. Pagan poco, pero hay comida y vista al mar. ¿Los mando?",
+      "izq": {
+        "t": "Mandarlos a la playa",
+        "e": [
+          -4,
+          6,
+          0,
+          0
+        ]
+      },
+      "der": {
+        "t": "Pedir mejor sueldo primero",
+        "e": [
+          2,
+          -3,
+          0,
+          0
+        ],
+        "int": 1
+      }
+    },
+    {
+      "id": "g07_002",
+      "pj": "ricardo",
+      "texto": "Ricardo quiere invitar a una familia wixárika a dar una plática sobre maíz y artesanía. Dice: «Se les paga su tiempo, no solo se les aplaude». ¿Lo apoyas?",
+      "izq": {
+        "t": "Pagar y organizar la plática",
+        "e": [
+          4,
+          5,
+          -5,
+          0
+        ],
+        "int": 2,
+        "af": {
+          "ricardo": 1
+        }
+      },
+      "der": {
+        "t": "Dejarlo para otro semestre",
+        "e": [
+          -2,
+          -3,
+          3,
+          0
+        ],
+        "af": {
+          "ricardo": -1
+        }
+      }
+    },
+    {
+      "id": "g07_003",
+      "pj": "pedro",
+      "texto": "Pedro, serio: «El patrimonio se respeta. Unos alumnos vendieron playeras con diseños wixárika sin permiso. Una autoridad de la comunidad pide parar. Hay 40 apartadas.»",
+      "izq": {
+        "t": "Parar la venta y pedir disculpas",
+        "e": [
+          0,
+          -4,
+          0,
+          4
+        ],
+        "int": 3,
+        "af": {
+          "ricardo": 1
+        }
+      },
+      "der": {
+        "t": "Terminar de vender las apartadas",
+        "e": [
+          0,
+          4,
+          0,
+          -5
+        ],
+        "int": -3,
+        "af": {
+          "ricardo": -1
+        }
+      }
+    },
+    {
+      "id": "g07_004",
+      "pj": "eligardo",
+      "texto": "Eligardo propone que los alumnos hagan un estudio de precios en el mercado municipal. Los locatarios pagan con tacos de pescado. ¿Lo autorizas?",
+      "izq": {
+        "t": "Autorizarlo, tacos incluidos",
+        "e": [
+          -3,
+          6,
+          0,
+          0
+        ],
+        "af": {
+          "eligardo": 1
+        }
+      },
+      "der": {
+        "t": "Pedir mejor un cuestionario formal",
+        "e": [
+          3,
+          -4,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g07_005",
+      "pj": "alejandro",
+      "texto": "Viene un huracán fuerte. Alejandro ya tiene su plan B listo, pero faltan tablas y bolsas para proteger los equipos del laboratorio. ¿Las compras?",
+      "izq": {
+        "t": "Comprar el material",
+        "e": [
+          3,
+          0,
+          -6,
+          2
+        ]
+      },
+      "der": {
+        "t": "Que alumnos suban el equipo a mano",
+        "e": [
+          -4,
+          3,
+          4,
+          -3
+        ]
+      }
+    },
+    {
+      "id": "g07_006",
+      "pj": "omar",
+      "texto": "¡Buenos días! Saludé a una madre vecina de la UAN y me contó que hay carros en la banqueta, música fuerte y vasos tirados. Me pidió que hagas algo.",
+      "izq": {
+        "t": "Jornada de limpieza y reglas",
+        "e": [
+          0,
+          -3,
+          0,
+          3
+        ],
+        "int": 1
+      },
+      "der": {
+        "t": "Cobrar el estacionamiento",
+        "e": [
+          0,
+          -5,
+          4,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g07_007",
+      "pj": "martinez",
+      "texto": "Martínez, en voz baja: «Un egresado con taller de computadoras en Tepic dona 10 monitores usados. Ya los probé, sirven. Quiere su letrero grande en el laboratorio.»",
+      "izq": {
+        "t": "Aceptar con letrero grande",
+        "e": [
+          4,
+          0,
+          3,
+          -3
+        ]
+      },
+      "der": {
+        "t": "Aceptar, pero con letrero chico",
+        "e": [
+          1,
+          0,
+          0,
+          3
+        ]
+      }
+    },
+    {
+      "id": "g07_008",
+      "pj": "victor",
+      "texto": "Víctor, sonriente: «Un reportero de radio quiere entrevistarte por el recorte. Dice que serán preguntas sencillas. Conozco esa sonrisa: trae cara de que no.»",
+      "izq": {
+        "t": "Dar la entrevista con la verdad",
+        "e": [
+          0,
+          4,
+          0,
+          -5
+        ],
+        "int": 3
+      },
+      "der": {
+        "t": "Pedir las preguntas por escrito",
+        "e": [
+          0,
+          -3,
+          0,
+          4
+        ],
+        "int": -1
+      }
+    },
+    {
+      "id": "g07_009",
+      "pj": "jose_25",
+      "texto": "José Olivo calcula: «La cooperativa de mango ofrece precio fijo por un año para la cafetería. Si el mango baja de precio, pierdes; si sube, ganas. ¿Firmas?»",
+      "izq": {
+        "t": "Firmar el convenio",
+        "e": [
+          2,
+          5,
+          -5,
+          0
+        ]
+      },
+      "der": {
+        "t": "Comprar sin compromiso",
+        "e": [
+          -2,
+          -3,
+          4,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g07_010",
+      "pj": "jose_27",
+      "texto": "José Camelo conoce a medio mundo y organizó una comida con empresarios de la Riviera. Quiere que vayas tú para conseguir empleos a egresados.",
+      "izq": {
+        "t": "Ir a la comida",
+        "e": [
+          0,
+          5,
+          -3,
+          3
+        ],
+        "af": {
+          "jose_27": 1
+        }
+      },
+      "der": {
+        "t": "Que vaya Camelo solo",
+        "e": [
+          0,
+          -3,
+          2,
+          -3
+        ]
+      }
+    },
+    {
+      "id": "g07_011",
+      "pj": "alfonso",
+      "texto": "Director, una comunidad náayeri invita a alumnos de servicio social a hacer un sistema de agua de lluvia. Piden escuchar primero. ¡Buena causa! Pero el viaje cuesta.",
+      "izq": {
+        "t": "Mandar alumnos, gasolina pagada",
+        "e": [
+          -2,
+          6,
+          -5,
+          3
+        ],
+        "int": 2
+      },
+      "der": {
+        "t": "Dejarlo para el próximo semestre",
+        "e": [
+          2,
+          -4,
+          3,
+          0
+        ],
+        "int": -1
+      }
+    },
+    {
+      "id": "g07_012",
+      "pj": "alfonso",
+      "texto": "Alfonso cuenta que llegan las ballenas jorobadas y los hoteles necesitan guías con inglés. Los alumnos quieren ir una mañana entre clases. ¿Los dejas?",
+      "izq": {
+        "t": "Dejarlos ir de guías",
+        "e": [
+          -4,
+          6,
+          0,
+          0
+        ],
+        "af": {
+          "alfonso": 1
+        }
+      },
+      "der": {
+        "t": "Pedir que vayan en fin de semana",
+        "e": [
+          3,
+          -4,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g07_013",
+      "pj": "pedro",
+      "texto": "Un empresario quiere tirar una casona vieja del centro de Tepic para hacer estacionamiento. Pedro pide que la UAN firme una carta para salvarla.",
+      "izq": {
+        "t": "Firmar la carta",
+        "e": [
+          3,
+          3,
+          0,
+          -4
+        ],
+        "int": 2,
+        "af": {
+          "pedro": 1
+        }
+      },
+      "der": {
+        "t": "No meternos en eso",
+        "e": [
+          -3,
+          0,
+          3,
+          3
+        ],
+        "af": {
+          "pedro": -1
+        }
+      }
+    },
+    {
+      "id": "g07_014",
+      "pj": "maria",
+      "texto": "Con 41 grados se descompuso el aire del salón. María llegó con agua de jamaica y gorras. Pide cancelar las clases de la tarde. ¿Qué dices?",
+      "izq": {
+        "t": "Cancelar clases de la tarde",
+        "e": [
+          4,
+          3,
+          0,
+          -4
+        ],
+        "af": {
+          "maria": 1
+        }
+      },
+      "der": {
+        "t": "Seguir con descansos y agua",
+        "e": [
+          -4,
+          -2,
+          3,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g07_015",
+      "pj": "raudel",
+      "texto": "Raudel avisa que los faroles del estacionamiento están fundidos. Una alumna se asustó al salir de noche. ¿Contratas vigilante o arreglas los faroles?",
+      "izq": {
+        "t": "Contratar un vigilante",
+        "e": [
+          0,
+          5,
+          -6,
+          0
+        ]
+      },
+      "der": {
+        "t": "Arreglar solo los faroles",
+        "e": [
+          0,
+          -3,
+          3,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g07_016",
+      "pj": "omar",
+      "texto": "Omar saludó a unos pescadores de San Blas que llevan sus cuentas en un cuaderno mojado. Piden ayuda de alumnos con una hoja de cálculo. ¿Los mandas?",
+      "izq": {
+        "t": "Mandar alumnos a ayudar",
+        "e": [
+          -2,
+          5,
+          0,
+          0
+        ],
+        "int": 1
+      },
+      "der": {
+        "t": "Cobrar la asesoría",
+        "e": [
+          0,
+          -3,
+          4,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g07_017",
+      "pj": "pedro",
+      "texto": "Pedro: «La universidad nació para pensar con libertad. Un empresario camaronero paga una cátedra de economía azul, pero pide no estudiar el agua sucia de la laguna.»",
+      "izq": {
+        "t": "Aceptar y no tocar el tema",
+        "e": [
+          2,
+          -3,
+          6,
+          -3
+        ],
+        "int": -4
+      },
+      "der": {
+        "t": "Rechazar y estudiar con libertad",
+        "e": [
+          -3,
+          4,
+          -2,
+          3
+        ],
+        "int": 3
+      }
+    },
+    {
+      "id": "g07_018",
+      "pj": "sonia",
+      "texto": "Sonia ya sentó con café a los vendedores del tianguis de los jueves. Quieren instalarse dentro del campus. Los alumnos aplauden. ¿Los dejas entrar?",
+      "izq": {
+        "t": "Dejar entrar al tianguis",
+        "e": [
+          -2,
+          5,
+          0,
+          -3
+        ],
+        "af": {
+          "sonia": 1
+        }
+      },
+      "der": {
+        "t": "Dejarlos afuera, en la banqueta",
+        "e": [
+          3,
+          -3,
+          0,
+          2
+        ]
+      }
+    },
+    {
+      "id": "g07_019",
+      "pj": "reyna",
+      "texto": "Reyna quiere limpiar la playa un sábado con 100 alumnos. Ya consiguió bolsas, pero faltan camiones y guantes. Habla tan rápido que ya cuenta con tu sí.",
+      "izq": {
+        "t": "Autorizar la limpieza",
+        "e": [
+          0,
+          6,
+          -5,
+          0
+        ]
+      },
+      "der": {
+        "t": "Hacerla más chica y barata",
+        "e": [
+          0,
+          -4,
+          3,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g07_020",
+      "pj": "janoe",
+      "texto": "Alumnos de Sistemas hicieron una app de reservas para negocios de la Riviera. Una empresa quiere comprarla. Janoe duda: ¿vender o regalarla a negocios chicos?",
+      "izq": {
+        "t": "Vender la app a la empresa",
+        "e": [
+          0,
+          -3,
+          7,
+          0
+        ],
+        "int": -2
+      },
+      "der": {
+        "t": "Regalarla a negocios chicos",
+        "e": [
+          0,
+          4,
+          -2,
+          3
+        ],
+        "int": 3
+      }
+    },
+    {
+      "id": "g07_021",
+      "pj": "martinez",
+      "texto": "Martínez, bajito: «Hablé con la psicóloga: muchos alumnos duermen mal tras las lluvias, con casas inundadas y calles cerradas. Piden una semana sin exámenes.»",
+      "izq": {
+        "t": "Dar una semana sin exámenes",
+        "e": [
+          -3,
+          6,
+          0,
+          0
+        ]
+      },
+      "der": {
+        "t": "Dar asesoría, pero seguir normal",
+        "e": [
+          2,
+          -5,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g07_022",
+      "pj": "fernando",
+      "texto": "Fernando quiere hacer la convivencia de fin de semestre en la playa de Sayulita. Dice que será «trabajo de campo de economía azul». Nadie le cree.",
+      "izq": {
+        "t": "Aprobarla como práctica de campo",
+        "e": [
+          4,
+          5,
+          -4,
+          -3
+        ],
+        "int": -2,
+        "af": {
+          "fernando": 1
+        }
+      },
+      "der": {
+        "t": "Mejor en el patio con hamburguesas",
+        "e": [
+          -3,
+          -4,
+          3,
+          2
+        ]
+      }
+    },
+    {
+      "id": "g08_001",
+      "pj": "alejandro",
+      "texto": "Director, la psicóloga pide un cuartito con sillones, tés y silencio: en exámenes llega una fila de alumnos con insomnio y nervios. Ya tengo plan B. ¿Se lo damos?",
+      "izq": {
+        "t": "Darle el cuartito y los tés",
+        "e": [
+          0,
+          7,
+          -4,
+          0
+        ],
+        "int": 1
+      },
+      "der": {
+        "t": "Decirle que no hay lugar ni dinero",
+        "e": [
+          0,
+          -5,
+          3,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g08_002",
+      "pj": "maria",
+      "texto": "María vio a varios alumnos comiendo solo galletas a la hora de la comida. Propone una despensa con frijol, arroz y fruta. Dice que nadie estudia con hambre.",
+      "izq": {
+        "t": "Abrir la despensa",
+        "e": [
+          3,
+          7,
+          -6,
+          0
+        ],
+        "int": 1,
+        "af": {
+          "maria": 1
+        }
+      },
+      "der": {
+        "t": "Hacer una colecta entre profes",
+        "e": [
+          -4,
+          4,
+          2,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g08_003",
+      "pj": "beatriz",
+      "texto": "Beatriz, sin rodeos: una alumna denunció acoso de un compañero y el trámite lleva semanas. Exige actuar hoy. Otros piden esperar a tener más pruebas.",
+      "izq": {
+        "t": "Activar el protocolo hoy",
+        "e": [
+          3,
+          6,
+          -3,
+          0
+        ],
+        "int": 3,
+        "af": {
+          "beatriz": 1
+        }
+      },
+      "der": {
+        "t": "Esperar a juntar más pruebas",
+        "e": [
+          -2,
+          -9,
+          0,
+          4
+        ],
+        "int": -3
+      }
+    },
+    {
+      "id": "g08_004",
+      "pj": "janoe",
+      "texto": "Un alumno en silla de ruedas no puede subir al laboratorio del segundo piso. Janoe propone mover las clases abajo o construir una rampa larga con elevador.",
+      "izq": {
+        "t": "Mover las clases a planta baja",
+        "e": [
+          -4,
+          5,
+          -2,
+          0
+        ]
+      },
+      "der": {
+        "t": "Construir rampa y elevador",
+        "e": [
+          2,
+          8,
+          -10,
+          3
+        ],
+        "int": 2
+      }
+    },
+    {
+      "id": "g08_005",
+      "pj": "oliver",
+      "texto": "Los alumnos piden un convivio de fin de semestre con cerveza. Oliver, que sabe de fiestas, propone uno sin alcohol, con música y botanas. Dice que así sí se acuerdan.",
+      "izq": {
+        "t": "Hacerlo sin alcohol",
+        "e": [
+          0,
+          -2,
+          0,
+          4
+        ],
+        "int": 1
+      },
+      "der": {
+        "t": "Permitir cerveza, con vigilancia",
+        "e": [
+          0,
+          6,
+          0,
+          -5
+        ]
+      }
+    },
+    {
+      "id": "g08_006",
+      "pj": "nayeli",
+      "texto": "¡Nayeli propone un torneo de voleibol de playa, Economía contra Informática, con porra incluida! Hay que pagar balones, red y camión a la playa. ¿Lo organizas?",
+      "izq": {
+        "t": "Organizar el torneo",
+        "e": [
+          0,
+          7,
+          -5,
+          0
+        ],
+        "af": {
+          "nayeli": 1
+        }
+      },
+      "der": {
+        "t": "Jugar en la cancha de la escuela",
+        "e": [
+          0,
+          -3,
+          2,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g08_007",
+      "pj": "martinez",
+      "texto": "Martínez, tímido: «Una compañera estudia con su bebé y no tiene con quién dejarlo por las tardes. Pide clases en la mañana, pero otros grupos están llenos.»",
+      "izq": {
+        "t": "Mover su horario",
+        "e": [
+          -5,
+          6,
+          0,
+          0
+        ]
+      },
+      "der": {
+        "t": "Hacer un cuarto para mamás y papás",
+        "e": [
+          0,
+          6,
+          -6,
+          0
+        ],
+        "int": 1
+      }
+    },
+    {
+      "id": "g08_008",
+      "pj": "sonia",
+      "texto": "Sonia notó que en el cartel del congreso solo salen hombres como ponentes, aunque hay maestras con proyectos buenísimos. Ya está impreso. ¿Lo cambias?",
+      "izq": {
+        "t": "Reimprimir con más ponentes",
+        "e": [
+          5,
+          0,
+          -3,
+          0
+        ],
+        "int": 2,
+        "af": {
+          "sonia": 1
+        }
+      },
+      "der": {
+        "t": "Dejarlo así, ya salió",
+        "e": [
+          -4,
+          0,
+          2,
+          0
+        ],
+        "int": -1
+      }
+    },
+    {
+      "id": "g08_009",
+      "pj": "fernando",
+      "texto": "Fernando bromea que en la junta de academia los profes truenan como palomitas al pararse. Propone diez minutos de estiramientos con música. ¿Lo permites?",
+      "izq": {
+        "t": "Hacer la pausa activa",
+        "e": [
+          4,
+          0,
+          0,
+          -3
+        ],
+        "af": {
+          "fernando": 1
+        }
+      },
+      "der": {
+        "t": "Junta corta y sin bailes",
+        "e": [
+          -3,
+          0,
+          0,
+          3
+        ]
+      }
+    },
+    {
+      "id": "g08_010",
+      "pj": "alejandro",
+      "texto": "Hay 40 grados y los salones no tienen clima. Alejandro, con su plan B, propone comprar minisplits o mover las clases a las 7 de la mañana. Los aparatos cuestan.",
+      "izq": {
+        "t": "Comprar minisplits",
+        "e": [
+          3,
+          6,
+          -9,
+          0
+        ]
+      },
+      "der": {
+        "t": "Dar clases desde las 7 de la mañana",
+        "e": [
+          -5,
+          -3,
+          2,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g08_011",
+      "pj": "nayeli",
+      "texto": "Director, a una alumna le mandan memes crueles en el WhatsApp de su salón. No quiere meter a nadie en problemas, pero ya no quiere venir. ¡Hay que ayudarla!",
+      "izq": {
+        "t": "Hablar con el grupo y la psicóloga",
+        "e": [
+          2,
+          5,
+          -2,
+          0
+        ],
+        "int": 2
+      },
+      "der": {
+        "t": "Sancionar a quienes los mandaron",
+        "e": [
+          -2,
+          -3,
+          0,
+          5
+        ]
+      }
+    },
+    {
+      "id": "g08_012",
+      "pj": "eligardo",
+      "texto": "La cafetería solo vende papitas y refresco. Eligardo, con el estómago roto, pide comida de verdad: pescado, fruta y tortas. El dueño dice que así no gana.",
+      "izq": {
+        "t": "Exigir un menú sano",
+        "e": [
+          0,
+          5,
+          -4,
+          0
+        ],
+        "int": 1,
+        "af": {
+          "eligardo": 1
+        }
+      },
+      "der": {
+        "t": "Dejar que venda lo que quiera",
+        "e": [
+          0,
+          -3,
+          4,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g08_013",
+      "pj": "ricardo",
+      "texto": "Ricardo cuenta que varios alumnos wixárika van a la peregrinación y faltarán una semana. Piden que no les cuenten las faltas y poder entregar tareas después.",
+      "izq": {
+        "t": "Dar permiso y tareas flexibles",
+        "e": [
+          -3,
+          7,
+          0,
+          -2
+        ],
+        "int": 2,
+        "af": {
+          "ricardo": 1
+        }
+      },
+      "der": {
+        "t": "Aplicar el reglamento parejo",
+        "e": [
+          3,
+          -8,
+          0,
+          2
+        ],
+        "int": -2
+      }
+    },
+    {
+      "id": "g08_014",
+      "pj": "ana",
+      "texto": "Ana notó que el camino al estacionamiento no tiene luz. Varias alumnas salen a las 9 de la noche con miedo. Poner lámparas cuesta dinero. ¿Qué haces?",
+      "izq": {
+        "t": "Poner lámparas ya",
+        "e": [
+          2,
+          7,
+          -6,
+          0
+        ],
+        "int": 1
+      },
+      "der": {
+        "t": "Pedir a rectoría que las pague",
+        "e": [
+          0,
+          -3,
+          3,
+          -4
+        ]
+      }
+    },
+    {
+      "id": "g08_015",
+      "pj": "ana",
+      "texto": "Ana, con cariño: «Ojo, que hay un detalle: alumnos con dislexia o TDAH necesitan más tiempo en los exámenes. Varios profes temen que sea ventaja y se cuelen otros.»",
+      "izq": {
+        "t": "Dar tiempo extra con constancia médica",
+        "e": [
+          -3,
+          7,
+          -2,
+          3
+        ],
+        "int": 2
+      },
+      "der": {
+        "t": "Mismo tiempo para todos",
+        "e": [
+          3,
+          -6,
+          1,
+          -3
+        ],
+        "int": -1
+      }
+    },
+    {
+      "id": "g08_016",
+      "pj": "raudel",
+      "texto": "¡Director! Una hotelera de la Riviera ofrece 20 plazas de servicio social con turnos de doce horas y fines de semana. Dice que «así es el turismo». ¡A mí no me late!",
+      "izq": {
+        "t": "Aceptar las 20 plazas tal cual",
+        "e": [
+          -3,
+          -6,
+          5,
+          3
+        ],
+        "int": -2
+      },
+      "der": {
+        "t": "Pedir turnos de seis horas",
+        "e": [
+          2,
+          6,
+          -3,
+          -2
+        ],
+        "int": 2
+      }
+    },
+    {
+      "id": "g08_017",
+      "pj": "raudel",
+      "texto": "Raudel quiere un gimnasio con las pesas viejas que sobraron. Grita: «¡Cuerpo sano, mente sana!». El único cuarto libre es la bodega de papelería.",
+      "izq": {
+        "t": "Abrir el gimnasio",
+        "e": [
+          2,
+          6,
+          -4,
+          0
+        ],
+        "af": {
+          "raudel": 1
+        }
+      },
+      "der": {
+        "t": "Dejar la papelería en su lugar",
+        "e": [
+          -2,
+          -3,
+          3,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g08_018",
+      "pj": "monica",
+      "texto": "Mónica revisó el calendario: un mismo grupo tiene cuatro exámenes finales el viernes. Reacomodarlos es un lío, pero así nadie va a estudiar bien.",
+      "izq": {
+        "t": "Reacomodar los exámenes",
+        "e": [
+          -5,
+          6,
+          0,
+          0
+        ],
+        "int": 1
+      },
+      "der": {
+        "t": "Dejar el calendario así",
+        "e": [
+          4,
+          -7,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g08_019",
+      "pj": "omar",
+      "texto": "Omar saluda cada mañana al conserje y hoy lo vio mareado por el sol. El personal de intendencia trabaja sin sombra ni pausas. Piden toldo y diez minutos de descanso.",
+      "izq": {
+        "t": "Dar toldo y pausas",
+        "e": [
+          4,
+          3,
+          -5,
+          0
+        ],
+        "int": 2,
+        "af": {
+          "omar": 1
+        }
+      },
+      "der": {
+        "t": "Prometerlo para el próximo año",
+        "e": [
+          -4,
+          0,
+          3,
+          2
+        ],
+        "int": -1
+      }
+    },
+    {
+      "id": "g08_020",
+      "pj": "perla",
+      "texto": "Perla, investigadora, dice que dos maestras embarazadas perderán puntos por no publicar a tiempo. Pide ajustar sus metas este año. Rectoría quiere reglas parejas.",
+      "izq": {
+        "t": "Ajustar sus metas",
+        "e": [
+          5,
+          0,
+          0,
+          -4
+        ],
+        "int": 2,
+        "af": {
+          "perla": 1
+        }
+      },
+      "der": {
+        "t": "Mantener las reglas parejas",
+        "e": [
+          -6,
+          0,
+          0,
+          3
+        ]
+      }
+    },
+    {
+      "id": "g08_021",
+      "pj": "victor",
+      "texto": "Víctor avisa que en los baños hay nubes de vapeadores. Pide no dar sermones: mejor pláticas sin regaño y ayuda a quien quiera dejarlo. Otros piden multas.",
+      "izq": {
+        "t": "Pláticas sin regaño y ayuda",
+        "e": [
+          0,
+          5,
+          -3,
+          0
+        ],
+        "int": 1
+      },
+      "der": {
+        "t": "Poner multas a quien vapee",
+        "e": [
+          0,
+          -6,
+          0,
+          4
+        ]
+      }
+    },
+    {
+      "id": "g08_022",
+      "pj": "lugo",
+      "texto": "Lugo, siempre amable, cuenta que dos alumnos se duermen en clase porque trabajan de noche en un restaurante. Pide que no los repruebes por faltas.",
+      "izq": {
+        "t": "Darles un horario flexible",
+        "e": [
+          -3,
+          7,
+          -2,
+          2
+        ],
+        "int": 2
+      },
+      "der": {
+        "t": "Mantener la asistencia obligatoria",
+        "e": [
+          3,
+          -7,
+          1,
+          -2
+        ],
+        "int": -1
+      }
+    },
+    {
+      "id": "g09_001",
+      "pj": "fernando",
+      "texto": "Fernando pegó un letrero en la cafetera: «Solo para directores». Ahora todos te piden café con cara de víctimas. ¿Qué haces?",
+      "izq": {
+        "t": "Invitar el café a todos",
+        "e": [
+          5,
+          0,
+          -4,
+          0
+        ],
+        "int": 1
+      },
+      "der": {
+        "t": "Cobrar cinco pesos por taza",
+        "e": [
+          -3,
+          0,
+          4,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g09_002",
+      "pj": "sonia",
+      "texto": "El grupo de WhatsApp de maestros es un caos: alguien mandó un meme tuyo y dos profes discuten si es gracioso. Sonia ya puso café. ¿Qué haces?",
+      "izq": {
+        "t": "Poner reglas al grupo",
+        "e": [
+          -4,
+          0,
+          0,
+          3
+        ],
+        "af": {
+          "sonia": 1
+        }
+      },
+      "der": {
+        "t": "Mandar tú un meme mejor",
+        "e": [
+          6,
+          2,
+          0,
+          -4
+        ]
+      }
+    },
+    {
+      "id": "g09_003",
+      "pj": "beatriz",
+      "texto": "Beatriz dijo a gritos que el café de la cafetería sabe a calcetín. La dueña la oyó y ahora todos miran el piso. ¿Qué haces?",
+      "izq": {
+        "t": "Disculparte tú, con pan dulce",
+        "e": [
+          -3,
+          0,
+          -2,
+          3
+        ],
+        "int": 1
+      },
+      "der": {
+        "t": "Admitir que el café está feo",
+        "e": [
+          4,
+          3,
+          0,
+          -4
+        ]
+      }
+    },
+    {
+      "id": "g09_004",
+      "pj": "alejandro",
+      "texto": "Alejandro, con su plan B de siempre, trae un plano: mudar los cubículos de Informática antes de las lluvias. Son tres días de cajas. ¿Qué haces?",
+      "izq": {
+        "t": "Aprobar la mudanza",
+        "e": [
+          4,
+          0,
+          -5,
+          0
+        ],
+        "af": {
+          "alejandro": 1
+        }
+      },
+      "der": {
+        "t": "Esperar a ver si llueve",
+        "e": [
+          -5,
+          0,
+          3,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g09_005",
+      "pj": "lugo",
+      "texto": "Un perrito callejero se coló al salón del profe Lugo y los alumnos votaron quedárselo. Lugo, sonriendo, dice que él no manda. ¿Qué haces?",
+      "izq": {
+        "t": "Dejar que el perro se quede",
+        "e": [
+          -3,
+          7,
+          -2,
+          -3
+        ]
+      },
+      "der": {
+        "t": "Llevarlo con cariño a un refugio",
+        "e": [
+          3,
+          -5,
+          0,
+          3
+        ],
+        "int": 1
+      }
+    },
+    {
+      "id": "g09_006",
+      "pj": "monica",
+      "texto": "Mónica recordó que mañana es el cumpleaños de la secretaria y nadie compró nada. Propone pastel y globos antes de las diez. ¿Quién paga?",
+      "izq": {
+        "t": "Pagarlo tú del fondo de la unidad",
+        "e": [
+          6,
+          0,
+          -4,
+          0
+        ]
+      },
+      "der": {
+        "t": "Pedir cuota a cada profe",
+        "e": [
+          -2,
+          0,
+          2,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g09_007",
+      "pj": "nayeli",
+      "texto": "Nayeli armó una porra con matracas para el equipo de fut de la unidad. Perdieron 8 a 0 y ella gritó: «¡Fue un golazo moral!». Piden uniformes.",
+      "izq": {
+        "t": "Pagar los uniformes nuevos",
+        "e": [
+          3,
+          6,
+          -5,
+          0
+        ],
+        "af": {
+          "nayeli": 1
+        }
+      },
+      "der": {
+        "t": "Que cada quien compre su playera",
+        "e": [
+          -2,
+          -5,
+          3,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g09_008",
+      "pj": "sergio",
+      "texto": "Sergio dejó en el pizarrón: «Se busca el plumón que me robaron. Recompensa: ninguna». Ya hay tres sospechosos y una apuesta de 50 pesos.",
+      "izq": {
+        "t": "Entrar a la apuesta",
+        "e": [
+          5,
+          0,
+          0,
+          -3
+        ]
+      },
+      "der": {
+        "t": "Comprar una caja de plumones",
+        "e": [
+          0,
+          0,
+          -4,
+          3
+        ],
+        "int": 1
+      }
+    },
+    {
+      "id": "g09_009",
+      "pj": "victor",
+      "texto": "Víctor oyó en el pasillo que la rectora visitará la unidad el viernes. Nadie lo confirma, pero él ya saludó a todos. ¿Preparas todo o esperas aviso?",
+      "izq": {
+        "t": "Arreglar y pintar todo ya",
+        "e": [
+          -3,
+          0,
+          -6,
+          5
+        ]
+      },
+      "der": {
+        "t": "Esperar el aviso oficial",
+        "e": [
+          2,
+          0,
+          3,
+          -5
+        ]
+      }
+    },
+    {
+      "id": "g09_010",
+      "pj": "alfonso",
+      "texto": "Alfonso reparte pan de plátano de su abuela en clase. Ahora los alumnos van a sus «asesorías», que son puro pan. ¿Qué haces?",
+      "izq": {
+        "t": "Dejarlo, el pan une",
+        "e": [
+          0,
+          6,
+          0,
+          -4
+        ],
+        "af": {
+          "alfonso": 1
+        }
+      },
+      "der": {
+        "t": "Ponerle horario a las asesorías",
+        "e": [
+          3,
+          -4,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g09_011",
+      "pj": "angel",
+      "texto": "Ángel colgó un letrero: «Pasillo del segundo piso: solo por la derecha». Los alumnos obedecen. Los profes se ríen bajito. ¿Qué haces?",
+      "izq": {
+        "t": "Dejar el letrero",
+        "e": [
+          -3,
+          4,
+          0,
+          0
+        ]
+      },
+      "der": {
+        "t": "Quitarlo con humor",
+        "e": [
+          3,
+          0,
+          0,
+          -3
+        ]
+      }
+    },
+    {
+      "id": "g09_012",
+      "pj": "carlos",
+      "texto": "Carlos, el serio, apareció en el convivio vestido de dinosaurio y bailó. Nadie sabía ese lado suyo. Los alumnos grabaron todo. ¿Qué haces?",
+      "izq": {
+        "t": "Dejar que el video circule",
+        "e": [
+          4,
+          6,
+          0,
+          -4
+        ]
+      },
+      "der": {
+        "t": "Pedir que lo borren",
+        "e": [
+          -3,
+          -3,
+          0,
+          3
+        ]
+      }
+    },
+    {
+      "id": "g09_013",
+      "pj": "eligardo",
+      "texto": "Eligardo jura que todo se arregla con tacos y quiere hacer la junta de presupuesto en la taquería. Dice que los números saben mejor así.",
+      "izq": {
+        "t": "Ir a la taquería",
+        "e": [
+          4,
+          0,
+          -3,
+          -3
+        ]
+      },
+      "der": {
+        "t": "Junta en la sala, con galletas",
+        "e": [
+          -2,
+          0,
+          3,
+          2
+        ],
+        "int": 1
+      }
+    },
+    {
+      "id": "g09_014",
+      "pj": "gabriel",
+      "texto": "Gabriel revivió una compu con piezas de tres equipos muertos y la llamó «Frankenstein 2.0». Funciona, pero se calienta y huele raro. ¿Qué haces?",
+      "izq": {
+        "t": "Usarla en el laboratorio",
+        "e": [
+          2,
+          4,
+          3,
+          -4
+        ],
+        "af": {
+          "gabriel": 1
+        }
+      },
+      "der": {
+        "t": "Retirarla con honores",
+        "e": [
+          -4,
+          0,
+          -2,
+          3
+        ]
+      }
+    },
+    {
+      "id": "g09_015",
+      "pj": "perla",
+      "texto": "Perla vendió todos los boletos de una rifa entre profes para becas de alumnos, sin pedirte permiso. El premio es una cena. ¿Qué haces?",
+      "izq": {
+        "t": "Aplaudir y poner tú la cena",
+        "e": [
+          3,
+          5,
+          -3,
+          0
+        ]
+      },
+      "der": {
+        "t": "Pedirle que lo haga formal",
+        "e": [
+          -4,
+          -3,
+          0,
+          3
+        ],
+        "int": 1
+      }
+    },
+    {
+      "id": "g09_016",
+      "pj": "jose_19",
+      "texto": "Llegaron profes nuevos y faltan cubículos. José Luna te sirve té y dice: «Donde caben dos, caben tres». Ofrece compartir el suyo.",
+      "izq": {
+        "t": "Compartir cubículos",
+        "e": [
+          -3,
+          0,
+          4,
+          0
+        ]
+      },
+      "der": {
+        "t": "Rentar un espacio aparte",
+        "e": [
+          3,
+          0,
+          -5,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g09_017",
+      "pj": "raudel",
+      "texto": "Alguien se come cada día el almuerzo del refri de la sala de maestros. Raudel grita que lo va a cazar, y todos le creen. ¿Qué haces?",
+      "izq": {
+        "t": "Dejar que Raudel investigue",
+        "e": [
+          4,
+          0,
+          0,
+          -3
+        ]
+      },
+      "der": {
+        "t": "Comprar un refri con candado",
+        "e": [
+          0,
+          0,
+          -4,
+          3
+        ]
+      }
+    },
+    {
+      "id": "g09_018",
+      "pj": "roberto",
+      "texto": "Roberto preguntó «¿cómo vas?» y 40 minutos después va por su tercer cuento de la sierra. Cinco profes atrapados. Soltó un dato útil.",
+      "izq": {
+        "t": "Inventar una junta urgente",
+        "e": [
+          3,
+          0,
+          0,
+          -3
+        ],
+        "int": -1
+      },
+      "der": {
+        "t": "Escuchar el cuento completo",
+        "e": [
+          -3,
+          0,
+          3,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g09_019",
+      "pj": "oscar",
+      "texto": "Oscar trajo un loro al laboratorio como «monitor de ruido». El loro repite la contraseña del wifi y los alumnos ya se la saben. ¿Qué haces?",
+      "izq": {
+        "t": "Cambiar claves y mandar al loro a casa",
+        "e": [
+          3,
+          -4,
+          -2,
+          4
+        ],
+        "int": 1
+      },
+      "der": {
+        "t": "Dejar al loro en el laboratorio",
+        "e": [
+          -3,
+          6,
+          0,
+          -4
+        ]
+      }
+    },
+    {
+      "id": "g09_020",
+      "pj": "ricardo",
+      "texto": "Ricardo organizó un convivio con tamales y trajo a su familia a contar leyendas del cerro. Los alumnos quieren uno cada mes. ¿Qué haces?",
+      "izq": {
+        "t": "Hacerlo cada mes",
+        "e": [
+          0,
+          6,
+          -4,
+          0
+        ],
+        "af": {
+          "ricardo": 1
+        }
+      },
+      "der": {
+        "t": "Solo uno por semestre",
+        "e": [
+          0,
+          -3,
+          3,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g09_021",
+      "pj": "pedro",
+      "texto": "Pedro halló en la bodega un reloj de pared de la primera generación y quiere colgarlo en el pasillo. Va 15 minutos adelantado. «Es patrimonio».",
+      "izq": {
+        "t": "Colgarlo adelantado y todo",
+        "e": [
+          0,
+          5,
+          0,
+          -3
+        ]
+      },
+      "der": {
+        "t": "Repararlo antes de colgarlo",
+        "e": [
+          0,
+          0,
+          -4,
+          4
+        ]
+      }
+    },
+    {
+      "id": "g09_022",
+      "pj": "maria",
+      "texto": "María le llevó té de hierbabuena y galletas a un profe con tos de tres días que no quiere faltar. Pide que lo mandes a descansar.",
+      "izq": {
+        "t": "Mandarlo a descansar",
+        "e": [
+          5,
+          -4,
+          0,
+          0
+        ],
+        "int": 1,
+        "af": {
+          "maria": 1
+        }
+      },
+      "der": {
+        "t": "Dejar que siga dando clases",
+        "e": [
+          -4,
+          0,
+          3,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g10_001",
+      "pj": "beatriz",
+      "texto": "Beatriz encontró tres páginas de internet pegadas en la tesis de un alumno. Él llora y jura que fue por el estrés. Ella pide reprobarlo. ¿Qué decides?",
+      "izq": {
+        "t": "Reprobarlo y reportarlo",
+        "e": [
+          3,
+          -6,
+          0,
+          0
+        ],
+        "int": 3,
+        "af": {
+          "beatriz": 1
+        }
+      },
+      "der": {
+        "t": "Dejarlo reescribir sin acta",
+        "e": [
+          -4,
+          4,
+          0,
+          0
+        ],
+        "int": -3
+      }
+    },
+    {
+      "id": "g10_002",
+      "pj": "fernando",
+      "texto": "Fernando descubrió que media clase entregó la tarea hecha con inteligencia artificial. Hasta repitieron la misma falta de ortografía. ¿Qué haces?",
+      "izq": {
+        "t": "Prohibirla y calificar a mano",
+        "e": [
+          4,
+          -5,
+          0,
+          0
+        ],
+        "int": 2
+      },
+      "der": {
+        "t": "Enseñar a usarla con honestidad",
+        "e": [
+          0,
+          5,
+          -3,
+          0
+        ],
+        "int": 1
+      }
+    },
+    {
+      "id": "g10_003",
+      "pj": "jose_27",
+      "texto": "José Camelo: «Jefe, me topé a una madre de familia con una caja de mangos de su huerta y un sobre con dinero para que su hijo pase la materia. Huelen riquísimo.»",
+      "izq": {
+        "t": "Devolver los mangos y el sobre",
+        "e": [
+          0,
+          -3,
+          0,
+          2
+        ],
+        "int": 3
+      },
+      "der": {
+        "t": "Aceptar el regalo y ayudar al niño",
+        "e": [
+          0,
+          4,
+          0,
+          -3
+        ],
+        "int": -4
+      }
+    },
+    {
+      "id": "g10_004",
+      "pj": "alfonso",
+      "texto": "Alfonso, siempre buena onda, te pide firmar una carta de recomendación para su sobrino, que casi no vino a clases. «Ándale, jefe, es familia».",
+      "izq": {
+        "t": "Firmar la carta",
+        "e": [
+          3,
+          2,
+          0,
+          -3
+        ],
+        "int": -3,
+        "af": {
+          "alfonso": 1
+        }
+      },
+      "der": {
+        "t": "Negarte con cariño",
+        "e": [
+          -2,
+          -2,
+          0,
+          2
+        ],
+        "int": 3
+      }
+    },
+    {
+      "id": "g10_005",
+      "pj": "lugo",
+      "texto": "Lugo jura que dejó sobre el escritorio los exámenes de 30 alumnos. Ahora no están. Había viento, dos ventiladores y la puerta abierta. ¿Y ahora?",
+      "izq": {
+        "t": "Repetir el examen",
+        "e": [
+          -2,
+          -6,
+          0,
+          0
+        ],
+        "int": 3
+      },
+      "der": {
+        "t": "Calificar con el promedio de tareas",
+        "e": [
+          2,
+          3,
+          0,
+          -3
+        ],
+        "int": -2
+      }
+    },
+    {
+      "id": "g10_006",
+      "pj": "jose_27",
+      "texto": "José Camelo: «Aquí todo se sabe. Alguien le pasó a una periodista el acta del presupuesto y quiere que le confirmes si viene otro recorte. ¿Qué le respondes?»",
+      "izq": {
+        "t": "Decirle la verdad",
+        "e": [
+          -3,
+          4,
+          0,
+          -4
+        ],
+        "int": 4
+      },
+      "der": {
+        "t": "Negarlo todo",
+        "e": [
+          2,
+          -4,
+          0,
+          3
+        ],
+        "int": -4
+      }
+    },
+    {
+      "id": "g10_007",
+      "pj": "perla",
+      "texto": "Ya lo revisé, no hace falta que me des permiso. En el informe del apoyo federal salen 41 % de titulados; contando de otro modo, 58 % y más dinero. Tú decides.",
+      "izq": {
+        "t": "Entregar los números reales",
+        "e": [
+          0,
+          0,
+          -6,
+          3
+        ],
+        "int": 4
+      },
+      "der": {
+        "t": "Usar la cuenta bonita",
+        "e": [
+          0,
+          0,
+          7,
+          -3
+        ],
+        "int": -5
+      }
+    },
+    {
+      "id": "g10_008",
+      "pj": "oliver",
+      "texto": "Oliver recomienda las pantallas de la tienda de su cuñado: son buenas y baratas. Pero habría que comprarlas sin comparar precios con nadie más.",
+      "izq": {
+        "t": "Pedir tres cotizaciones",
+        "e": [
+          3,
+          -3,
+          -4,
+          0
+        ],
+        "int": 3
+      },
+      "der": {
+        "t": "Comprarle al cuñado",
+        "e": [
+          0,
+          4,
+          5,
+          -4
+        ],
+        "int": -4
+      }
+    },
+    {
+      "id": "g10_009",
+      "pj": "perla",
+      "texto": "Perla trae capturas de pantalla: un profe cobra «asesorías» a alumnos para pasarlos. Quiere una investigación formal, aunque la unidad se alborote.",
+      "izq": {
+        "t": "Abrir la investigación",
+        "e": [
+          -6,
+          4,
+          -2,
+          3
+        ],
+        "int": 5,
+        "af": {
+          "perla": 1
+        }
+      },
+      "der": {
+        "t": "Hablar con él a solas",
+        "e": [
+          2,
+          -4,
+          0,
+          -1
+        ],
+        "int": -2
+      }
+    },
+    {
+      "id": "g10_010",
+      "pj": "gabriel",
+      "texto": "Director, hay vacante de ayudante en el laboratorio. Su cuñado propone a su hijo, sin experiencia. Ximena sí sabe de tarjetas madre, pero pide más sueldo.",
+      "izq": {
+        "t": "Contratar a Ximena",
+        "e": [
+          3,
+          2,
+          -2,
+          0
+        ],
+        "int": 4
+      },
+      "der": {
+        "t": "Contratar al sobrino",
+        "e": [
+          -4,
+          -2,
+          2,
+          0
+        ],
+        "int": -4
+      }
+    },
+    {
+      "id": "g10_011",
+      "pj": "jose_27",
+      "texto": "José Camelo: «Un proveedor nos invita a ti y a tu equipo a un fin de semana pagado en Nuevo Vallarta. Qué casualidad: el lunes se decide el contrato de impresoras.»",
+      "izq": {
+        "t": "Rechazar la invitación",
+        "e": [
+          -3,
+          0,
+          3,
+          0
+        ],
+        "int": 4
+      },
+      "der": {
+        "t": "Aceptar el fin de semana",
+        "e": [
+          5,
+          0,
+          -4,
+          -2
+        ],
+        "int": -5
+      }
+    },
+    {
+      "id": "g10_012",
+      "pj": "jose_19",
+      "texto": "José Luna, con su té en la mano, te cuenta que un profe puso su nombre primero en un artículo escrito casi todo por una alumna de servicio social.",
+      "izq": {
+        "t": "Corregir los créditos",
+        "e": [
+          -5,
+          4,
+          0,
+          0
+        ],
+        "int": 4,
+        "af": {
+          "jose_19": 1
+        }
+      },
+      "der": {
+        "t": "Dejarlo así, es costumbre",
+        "e": [
+          3,
+          -4,
+          0,
+          0
+        ],
+        "int": -3
+      }
+    },
+    {
+      "id": "g10_013",
+      "pj": "reyna",
+      "texto": "Reyna evaluará proyectos para un fondo de investigación. Uno es de su mejor amiga. «Yo soy justa, nadie me detiene. ¿Tú qué dices?»",
+      "izq": {
+        "t": "Que se excuse y evalúe otro",
+        "e": [
+          -3,
+          0,
+          -2,
+          3
+        ],
+        "int": 3
+      },
+      "der": {
+        "t": "Dejarla evaluar",
+        "e": [
+          2,
+          0,
+          3,
+          -3
+        ],
+        "int": -3
+      }
+    },
+    {
+      "id": "g10_014",
+      "pj": "janoe",
+      "texto": "Janoe encontró en un grupo de WhatsApp las preguntas del examen de Redes, una hora antes de aplicarlo. Ya casi todos las vieron. ¿Qué haces?",
+      "izq": {
+        "t": "Cambiar el examen ya",
+        "e": [
+          -3,
+          -4,
+          0,
+          0
+        ],
+        "int": 3,
+        "af": {
+          "janoe": 1
+        }
+      },
+      "der": {
+        "t": "Aplicarlo así",
+        "e": [
+          0,
+          4,
+          0,
+          -3
+        ],
+        "int": -3
+      }
+    },
+    {
+      "id": "g10_015",
+      "pj": "angel",
+      "texto": "Ángel, indignado: «¡Inaceptable! Un alumno becado falsificó la constancia de ingresos de su familia. Aunque su mamá vende elotes en la esquina. ¿Qué decides?»",
+      "izq": {
+        "t": "Quitarle la beca",
+        "e": [
+          2,
+          -6,
+          3,
+          0
+        ],
+        "int": 3
+      },
+      "der": {
+        "t": "Cerrar los ojos esta vez",
+        "e": [
+          -2,
+          5,
+          0,
+          -2
+        ],
+        "int": -3
+      }
+    },
+    {
+      "id": "g10_016",
+      "pj": "edel",
+      "texto": "Edel, calladito, notó que los promedios de un grupo subieron 15 puntos de un semestre a otro. El profe dice que ahora enseña mejor. ¿Revisas?",
+      "izq": {
+        "t": "Revisar los exámenes",
+        "e": [
+          -4,
+          -3,
+          2,
+          0
+        ],
+        "int": 3,
+        "af": {
+          "edel": 1
+        }
+      },
+      "der": {
+        "t": "Celebrar los promedios",
+        "e": [
+          2,
+          4,
+          -3,
+          3
+        ],
+        "int": -4
+      }
+    },
+    {
+      "id": "g10_017",
+      "pj": "carlos",
+      "texto": "Carlos, serio y misterioso, admite que prepara sus clases con inteligencia artificial. Los alumnos ya lo notaron y murmuran por los pasillos. ¿Qué haces?",
+      "izq": {
+        "t": "Que lo diga en clase",
+        "e": [
+          -2,
+          3,
+          0,
+          0
+        ],
+        "int": 3,
+        "af": {
+          "carlos": 1
+        }
+      },
+      "der": {
+        "t": "Que siga, pero callado",
+        "e": [
+          3,
+          -3,
+          0,
+          0
+        ],
+        "int": -2
+      }
+    },
+    {
+      "id": "g10_018",
+      "pj": "carlos",
+      "texto": "Shhh... ven. Una hotelera de la Riviera Nayarit dona 50 mil pesos para las prácticas. ¿Lo raro? Quiere que sus empleados reciban título sin cursar todas las clases.",
+      "izq": {
+        "t": "Rechazar la donación",
+        "e": [
+          0,
+          -3,
+          -5,
+          2
+        ],
+        "int": 4
+      },
+      "der": {
+        "t": "Aceptar el trato",
+        "e": [
+          0,
+          3,
+          5,
+          -5
+        ],
+        "int": -5
+      }
+    },
+    {
+      "id": "g10_019",
+      "pj": "lugo",
+      "texto": "¡Hola, qué gusto! Mi alumna está muy dolida: me enseñó capturas de que su proyecto de la feria de ciencias lo copió otro equipo, que ya ganó el premio. ¿Qué hacemos?",
+      "izq": {
+        "t": "Quitar el premio al otro equipo",
+        "e": [
+          3,
+          -3,
+          0,
+          0
+        ],
+        "int": 4
+      },
+      "der": {
+        "t": "Dejar el premio donde está",
+        "e": [
+          -2,
+          0,
+          3,
+          0
+        ],
+        "int": -3
+      }
+    },
+    {
+      "id": "g10_020",
+      "pj": "martinez",
+      "texto": "Martínez, rojo como jitomate, confiesa que mandó por error a todo el grupo el archivo con calificaciones y nombres completos. Casi no lo dice de la pena.",
+      "izq": {
+        "t": "Avisar al grupo y pedir borrarlo",
+        "e": [
+          -2,
+          3,
+          0,
+          0
+        ],
+        "int": 3
+      },
+      "der": {
+        "t": "Callar y esperar que nadie lo vea",
+        "e": [
+          3,
+          0,
+          0,
+          -4
+        ],
+        "int": -3
+      }
+    },
+    {
+      "id": "g10_021",
+      "pj": "victor",
+      "texto": "Víctor sonríe: «Un diputado amigo quiere a su sobrina en la maestría sin examen. Y de paso dice que hay muy buen ánimo con el presupuesto. Todo es cuestión de acuerdos.»",
+      "izq": {
+        "t": "Que haga el examen como todos",
+        "e": [
+          2,
+          0,
+          -5,
+          -1
+        ],
+        "int": 4
+      },
+      "der": {
+        "t": "Aceptarla sin examen",
+        "e": [
+          -3,
+          -2,
+          5,
+          2
+        ],
+        "int": -5
+      }
+    },
+    {
+      "id": "g10_022",
+      "pj": "sergio",
+      "texto": "Sergio, seco como siempre: «Veinte alumnos firmaron su servicio social en un centro de salud cerrado por obras. Nadie hizo horas. Qué eficiencia».",
+      "izq": {
+        "t": "Anular las horas",
+        "e": [
+          2,
+          -6,
+          0,
+          2
+        ],
+        "int": 4,
+        "af": {
+          "sergio": 1
+        }
+      },
+      "der": {
+        "t": "Dejarlo pasar",
+        "e": [
+          0,
+          5,
+          2,
+          -4
+        ],
+        "int": -4
+      }
+    },
+    {
+      "id": "g11_001",
+      "pj": "sonia",
+      "texto": "Sonia, con su café: «Pobre Doña Chelo, la secretaria de la dirección: 25 años en la misma silla y hoy se le cayó el respaldo en plena llamada. ¿Le compramos una nueva?»",
+      "izq": {
+        "t": "Comprar una silla nueva",
+        "e": [
+          4,
+          0,
+          -5,
+          0
+        ],
+        "int": 1
+      },
+      "der": {
+        "t": "Pegarla con cinta otra vez",
+        "e": [
+          -4,
+          0,
+          3,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g11_002",
+      "pj": "maria",
+      "texto": "María trajo tamales de la cafetería de doña Lupe. Ella ya no sale con las cuentas: sube el café a 20 pesos o le perdonas la renta del local.",
+      "izq": {
+        "t": "Perdonarle la renta",
+        "e": [
+          3,
+          4,
+          -6,
+          0
+        ],
+        "int": 1,
+        "af": {
+          "maria": 1
+        }
+      },
+      "der": {
+        "t": "Dejarla subir los precios",
+        "e": [
+          -3,
+          -5,
+          4,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g11_003",
+      "pj": "omar",
+      "texto": "Omar saluda siempre a don Beto, el vigilante de la caseta. Don Beto pide turno de día: las noches de 12 horas ya lo tienen agotado. ¿Le cambias el horario?",
+      "izq": {
+        "t": "Cambiarle el turno",
+        "e": [
+          4,
+          0,
+          -4,
+          0
+        ],
+        "int": 1
+      },
+      "der": {
+        "t": "Dejar el rol como está",
+        "e": [
+          -5,
+          0,
+          3,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g11_004",
+      "pj": "angel",
+      "texto": "Ángel, con aires de jefe: «Exijo orden. El de la papelería da hojas y plumones a mitad de precio, sin factura. Dice que así todos ganan. Yo jamás, pero tú decides.»",
+      "izq": {
+        "t": "Aceptar sin factura",
+        "e": [
+          0,
+          0,
+          6,
+          -5
+        ],
+        "int": -4
+      },
+      "der": {
+        "t": "Pedir factura y pagar completo",
+        "e": [
+          0,
+          0,
+          -4,
+          3
+        ],
+        "int": 3
+      }
+    },
+    {
+      "id": "g11_005",
+      "pj": "alejandro",
+      "texto": "Director, tengo plan B y plan C, pero el aguinaldo del personal de apoyo no alcanza completo en diciembre. Faltan 200 mil pesos. Dígame cuál usamos.",
+      "izq": {
+        "t": "Pagarlo completo con ahorros",
+        "e": [
+          6,
+          3,
+          -9,
+          2
+        ],
+        "int": 2
+      },
+      "der": {
+        "t": "Pagarlo en dos partes",
+        "e": [
+          -7,
+          0,
+          4,
+          -3
+        ]
+      }
+    },
+    {
+      "id": "g11_006",
+      "pj": "eligardo",
+      "texto": "Eligardo organizó una comida de tacos y aguas para el personal de intendencia. Dice que hace años nadie los invita. Se pierde media tarde de trabajo.",
+      "izq": {
+        "t": "Autorizar la comida",
+        "e": [
+          5,
+          0,
+          -3,
+          0
+        ],
+        "int": 1,
+        "af": {
+          "eligardo": 1
+        }
+      },
+      "der": {
+        "t": "Que sea en su hora libre",
+        "e": [
+          -3,
+          0,
+          3,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g11_007",
+      "pj": "sonia",
+      "texto": "Sonia te sirve un café: «Siéntate, platiquemos. Piden abrir la biblioteca los sábados, pero Doña Rosa, la bibliotecaria, ya no puede más y nadie le pagaría extra.»",
+      "izq": {
+        "t": "Abrir sábados con pago extra",
+        "e": [
+          0,
+          6,
+          -5,
+          0
+        ]
+      },
+      "der": {
+        "t": "Mantener el horario",
+        "e": [
+          3,
+          -5,
+          0,
+          0
+        ],
+        "int": 1
+      }
+    },
+    {
+      "id": "g11_008",
+      "pj": "roberto",
+      "texto": "Roberto viajó tres horas con don Chuy, el chofer. Entre historias supo que al camión se le están acabando los frenos. ¿Lo mandas arreglar ya?",
+      "izq": {
+        "t": "Repararlo ya mismo",
+        "e": [
+          2,
+          3,
+          -7,
+          2
+        ],
+        "int": 2
+      },
+      "der": {
+        "t": "Esperar al próximo mes",
+        "e": [
+          -3,
+          -4,
+          4,
+          -3
+        ],
+        "int": -3
+      }
+    },
+    {
+      "id": "g11_009",
+      "pj": "reyna",
+      "texto": "Reyna ya cotizó uniformes nuevos para intendencia y vigilancia: los de ahora están rotos y despintados por el sol. Los quiere ya. ¿Qué decides?",
+      "izq": {
+        "t": "Comprar los uniformes",
+        "e": [
+          4,
+          0,
+          -5,
+          2
+        ],
+        "af": {
+          "reyna": 1
+        }
+      },
+      "der": {
+        "t": "Remendar los de ahora",
+        "e": [
+          -3,
+          0,
+          2,
+          -2
+        ]
+      }
+    },
+    {
+      "id": "g11_010",
+      "pj": "alfonso",
+      "texto": "Alfonso defiende a Lety, secretaria con 15 años, para jefa de oficina. Pero también llegó alguien con título nuevo. ¿A quién le das el puesto?",
+      "izq": {
+        "t": "Ascender a Lety",
+        "e": [
+          5,
+          0,
+          -2,
+          0
+        ],
+        "int": 1,
+        "af": {
+          "alfonso": 1
+        }
+      },
+      "der": {
+        "t": "Contratar a la persona nueva",
+        "e": [
+          -4,
+          0,
+          0,
+          3
+        ]
+      }
+    },
+    {
+      "id": "g11_011",
+      "pj": "eligardo",
+      "texto": "Director, la intendente del edificio B encontró una cartera con 2 mil pesos y la devolvió completa. ¡Eso se celebra! Yo digo que con comida. ¿La reconocemos?",
+      "izq": {
+        "t": "Hacerle un homenaje en la explanada",
+        "e": [
+          4,
+          3,
+          -4,
+          0
+        ],
+        "int": 2
+      },
+      "der": {
+        "t": "Darle un diploma sencillo",
+        "e": [
+          1,
+          0,
+          -1,
+          2
+        ]
+      }
+    },
+    {
+      "id": "g11_012",
+      "pj": "maria",
+      "texto": "Mijo, traen pastel, ¡qué lindos! Los trabajadores de apoyo piden reunirse contigo, con una lista de ocho peticiones sobre sueldos y turnos. ¿Los recibes hoy o después?",
+      "izq": {
+        "t": "Recibirlos hoy mismo",
+        "e": [
+          5,
+          0,
+          -2,
+          -3
+        ]
+      },
+      "der": {
+        "t": "Citarlos la próxima semana",
+        "e": [
+          -4,
+          -2,
+          0,
+          3
+        ]
+      }
+    },
+    {
+      "id": "g11_013",
+      "pj": "sergio",
+      "texto": "Director, el proveedor de garrafones sube 30 por ciento. Quién iba a pensar que en Nayarit hay calor: el personal se acaba diez garrafones al día. ¿Qué hacemos?",
+      "izq": {
+        "t": "Pagar el aumento",
+        "e": [
+          3,
+          0,
+          -5,
+          0
+        ]
+      },
+      "der": {
+        "t": "Cambiar a un agua más barata",
+        "e": [
+          0,
+          -3,
+          4,
+          0
+        ],
+        "int": -1
+      }
+    },
+    {
+      "id": "g11_014",
+      "pj": "edel",
+      "texto": "Edel, directo: «Los veo llegar y salir tarde: dobles turnos, calor y sueldos cortos. El personal de apoyo está agotado. Propongo un día de descanso para todos.»",
+      "izq": {
+        "t": "Dar el día de descanso",
+        "e": [
+          6,
+          -3,
+          -3,
+          0
+        ],
+        "int": 2
+      },
+      "der": {
+        "t": "Seguir como estamos",
+        "e": [
+          -6,
+          2,
+          2,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g11_015",
+      "pj": "ana",
+      "texto": "Ana encontró un error en los pagos: a tres compañeros de intendencia les han pagado de menos por meses. Lo dijo con tanta amabilidad que da pena ignorarlo.",
+      "izq": {
+        "t": "Pagarles todo lo que falta",
+        "e": [
+          5,
+          0,
+          -7,
+          3
+        ],
+        "int": 4,
+        "af": {
+          "ana": 1
+        }
+      },
+      "der": {
+        "t": "Corregirlo de aquí en adelante",
+        "e": [
+          -6,
+          0,
+          3,
+          -4
+        ],
+        "int": -4
+      }
+    },
+    {
+      "id": "g11_016",
+      "pj": "raudel",
+      "texto": "Raudel cuenta que don Memo, el vigilante, adoptó un perro en la caseta. Los alumnos lo adoran y ya es famoso en redes, pero rectoría no quiere mascotas.",
+      "izq": {
+        "t": "Dejar que el perro se quede",
+        "e": [
+          2,
+          6,
+          0,
+          -5
+        ]
+      },
+      "der": {
+        "t": "Llevarlo a un refugio",
+        "e": [
+          -3,
+          -5,
+          -2,
+          4
+        ]
+      }
+    },
+    {
+      "id": "g11_017",
+      "pj": "sonia",
+      "texto": "Sonia dice que las secretarias de Informática y de Economía no se hablan desde una junta, y los papeles se atoran. Propone una comida para que hagan las paces.",
+      "izq": {
+        "t": "Organizar la comida",
+        "e": [
+          5,
+          0,
+          -3,
+          0
+        ],
+        "af": {
+          "sonia": 1
+        }
+      },
+      "der": {
+        "t": "Que lo arreglen ellas solas",
+        "e": [
+          -4,
+          0,
+          0,
+          2
+        ]
+      }
+    },
+    {
+      "id": "g11_018",
+      "pj": "omar",
+      "texto": "¡Buenas, jefe! ¿Cómo amaneció? Un egresado con papelería en Tepic ofrece donar hojas y tinta todo el semestre, pero quiere su letrero en cada oficina. ¿Aceptamos?",
+      "izq": {
+        "t": "Aceptar la donación",
+        "e": [
+          3,
+          0,
+          5,
+          -3
+        ],
+        "int": -1
+      },
+      "der": {
+        "t": "Rechazarla y comprar con lo nuestro",
+        "e": [
+          -2,
+          0,
+          -4,
+          3
+        ],
+        "int": 2
+      }
+    },
+    {
+      "id": "g11_019",
+      "pj": "janoe",
+      "texto": "Un apagón dejó sin red a Sistemas. Don Pancho, de intendencia, se quedó hasta medianoche ayudando a Janoe con linternas y cables. Pide que le cuenten las horas extra.",
+      "izq": {
+        "t": "Pagarle sus horas extra",
+        "e": [
+          5,
+          0,
+          -4,
+          0
+        ],
+        "int": 2,
+        "af": {
+          "janoe": 1
+        }
+      },
+      "der": {
+        "t": "Darle solo las gracias",
+        "e": [
+          -5,
+          0,
+          3,
+          0
+        ],
+        "int": -2
+      }
+    },
+    {
+      "id": "g11_020",
+      "pj": "edel",
+      "texto": "Se acerca un huracán. Edel llegó temprano y puso a todos a acomodar costales. El personal de apoyo pide irse a cuidar a sus familias. ¿Los dejas ir?",
+      "izq": {
+        "t": "Dejarlos ir a sus casas",
+        "e": [
+          6,
+          0,
+          0,
+          -3
+        ],
+        "int": 3
+      },
+      "der": {
+        "t": "Que terminen los costales",
+        "e": [
+          -6,
+          0,
+          0,
+          3
+        ],
+        "int": -2
+      }
+    },
+    {
+      "id": "g11_021",
+      "pj": "monica",
+      "texto": "Mónica recuerda que el contrato del personal de limpieza vence el lunes. Si no se renueva, el edificio se queda sin escobas ni cloro. ¿Qué haces?",
+      "izq": {
+        "t": "Renovarlo por un año",
+        "e": [
+          5,
+          3,
+          -6,
+          0
+        ]
+      },
+      "der": {
+        "t": "Renovarlo solo por tres meses",
+        "e": [
+          -4,
+          -3,
+          3,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g11_022",
+      "pj": "pedro",
+      "texto": "Pedro descubrió que Margarita, la bibliotecaria, guarda en el cuarto de atrás fotos y cartas viejas de la universidad. Quiere hacer una exposición con ella.",
+      "izq": {
+        "t": "Hacer la exposición",
+        "e": [
+          3,
+          4,
+          -4,
+          2
+        ],
+        "af": {
+          "pedro": 1
+        }
+      },
+      "der": {
+        "t": "Guardarlo todo para después",
+        "e": [
+          -3,
+          -3,
+          1,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g12_001",
+      "pj": "fernando",
+      "texto": "Se fue la luz en todo el edificio a media clase. Fernando ya cuenta chistes a oscuras, pero el calor está insoportable. ¿Qué haces con los grupos?",
+      "izq": {
+        "t": "Suspender y mandarlos a casa",
+        "e": [
+          0,
+          5,
+          0,
+          -4
+        ],
+        "int": -1
+      },
+      "der": {
+        "t": "Seguir con linternas y abanicos",
+        "e": [
+          -4,
+          -4,
+          0,
+          3
+        ],
+        "int": 1
+      }
+    },
+    {
+      "id": "g12_002",
+      "pj": "nayeli",
+      "texto": "¡Director, el video de los chavos bailando en el patio ya tiene 200 mil vistas! Todos nos felicitan, pero rectoría pregunta quién lo autorizó.",
+      "izq": {
+        "t": "Aprovechar y promover la carrera",
+        "e": [
+          3,
+          6,
+          4,
+          -5
+        ],
+        "af": {
+          "nayeli": 1
+        }
+      },
+      "der": {
+        "t": "Pedir que lo bajen",
+        "e": [
+          0,
+          -5,
+          0,
+          4
+        ]
+      }
+    },
+    {
+      "id": "g12_003",
+      "pj": "gabriel",
+      "texto": "Llovió toda la noche y el sótano de la biblioteca amaneció con agua hasta los tobillos. Gabriel ya trae botas y quiere rescatar los equipos.",
+      "izq": {
+        "t": "Contratar una empresa de bombeo",
+        "e": [
+          2,
+          3,
+          -7,
+          0
+        ]
+      },
+      "der": {
+        "t": "Pedir voluntarios y hacerlo nosotros",
+        "e": [
+          3,
+          -4,
+          5,
+          -3
+        ]
+      }
+    },
+    {
+      "id": "g12_004",
+      "pj": "perla",
+      "texto": "Ya me puse a organizar, no hubo tiempo de pedirte permiso: llegaron evaluadores sin avisar y piden ver aulas y papeles. Hay goteras y carteles sin pegar. ¿Qué hacemos?",
+      "izq": {
+        "t": "Mostrarles todo tal cual",
+        "e": [
+          -3,
+          2,
+          -2,
+          5
+        ],
+        "int": 3
+      },
+      "der": {
+        "t": "Pedir una hora y maquillar todo",
+        "e": [
+          4,
+          0,
+          0,
+          -4
+        ],
+        "int": -3
+      }
+    },
+    {
+      "id": "g12_005",
+      "pj": "janoe",
+      "texto": "Entre junta y junta lo vi: el sistema dejó reprobados a 40 alumnos que sí aprobaron. Ya hay papás llamando muy enojados. ¿Cómo lo arreglas?",
+      "izq": {
+        "t": "Corregir hoy y pedir disculpas",
+        "e": [
+          -4,
+          5,
+          0,
+          2
+        ],
+        "int": 3
+      },
+      "der": {
+        "t": "Esperar a que sistemas lo revise",
+        "e": [
+          3,
+          -6,
+          0,
+          0
+        ],
+        "int": -1
+      }
+    },
+    {
+      "id": "g12_006",
+      "pj": "ricardo",
+      "texto": "Ricardo reporta: una iguana verde se metió al salón y se acomodó sobre el proyector. Los chavos ya la bautizaron «Fiscal». ¿Qué haces con ella?",
+      "izq": {
+        "t": "Dejarla de mascota del grupo",
+        "e": [
+          0,
+          6,
+          0,
+          -4
+        ]
+      },
+      "der": {
+        "t": "Llamar a protección civil",
+        "e": [
+          2,
+          -5,
+          0,
+          3
+        ]
+      }
+    },
+    {
+      "id": "g12_007",
+      "pj": "oliver",
+      "texto": "La fiesta de fin de curso se salió de control: música a todo volumen y vecinos asomados. Oliver jura que solo «pasaba por ahí». ¿Cómo respondes?",
+      "izq": {
+        "t": "Sancionar a los organizadores",
+        "e": [
+          0,
+          -6,
+          0,
+          3
+        ],
+        "int": 1
+      },
+      "der": {
+        "t": "Pedir perdón a vecinos y advertir",
+        "e": [
+          0,
+          4,
+          -3,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g12_008",
+      "pj": "sonia",
+      "texto": "Sonia, con café: «Platiqué con una madre de familia: en un chat dicen que la Unidad cierra el próximo año por el recorte. Piensa sacar a su hijo. ¿Qué le decimos?»",
+      "izq": {
+        "t": "Reunir a las familias y dar la cara",
+        "e": [
+          -3,
+          5,
+          0,
+          3
+        ],
+        "int": 3
+      },
+      "der": {
+        "t": "Dejar que el rumor se apague solo",
+        "e": [
+          2,
+          -6,
+          0,
+          0
+        ],
+        "int": -2
+      }
+    },
+    {
+      "id": "g12_009",
+      "pj": "alfonso",
+      "texto": "Alfonso cuenta que un alumno de primero tiene dos millones de seguidores y faltó a tres exámenes por grabar un anuncio. Ahora pide prórroga.",
+      "izq": {
+        "t": "Darle prórroga y que nos mencione",
+        "e": [
+          -4,
+          0,
+          5,
+          0
+        ],
+        "int": -2
+      },
+      "der": {
+        "t": "Exigir que presente como todos",
+        "e": [
+          4,
+          -3,
+          0,
+          0
+        ],
+        "int": 3
+      }
+    },
+    {
+      "id": "g12_010",
+      "pj": "ricardo",
+      "texto": "¡Jefe! Llegó sin cita una comunidad wixárika con jóvenes que quieren conocer la carrera, ¡con orgullo! Pero hoy hay examen en dos grupos y falta personal.",
+      "izq": {
+        "t": "Recibirlos y posponer el examen",
+        "e": [
+          -4,
+          4,
+          0,
+          3
+        ],
+        "int": 2
+      },
+      "der": {
+        "t": "Darles cita para el viernes",
+        "e": [
+          3,
+          0,
+          0,
+          -3
+        ]
+      }
+    },
+    {
+      "id": "g12_011",
+      "pj": "ana",
+      "texto": "Ana detectó que el sistema depositó doble beca a 12 alumnos. Nadie se ha dado cuenta todavía y ellos ya hicieron planes con ese dinero.",
+      "izq": {
+        "t": "Avisar y pedir que devuelvan el dinero",
+        "e": [
+          0,
+          -5,
+          4,
+          0
+        ],
+        "int": 4
+      },
+      "der": {
+        "t": "Dejarlo pasar en silencio",
+        "e": [
+          0,
+          5,
+          -4,
+          0
+        ],
+        "int": -4
+      }
+    },
+    {
+      "id": "g12_012",
+      "pj": "beatriz",
+      "texto": "Beatriz llegó echando chispas: un alumno grabó su clase a escondidas y la subió a redes. Exige una sanción ya mismo. ¿Qué decides?",
+      "izq": {
+        "t": "Sancionar al alumno que grabó",
+        "e": [
+          5,
+          -5,
+          0,
+          0
+        ],
+        "int": -1
+      },
+      "der": {
+        "t": "Hablar con ambos y fijar reglas",
+        "e": [
+          -2,
+          3,
+          0,
+          2
+        ],
+        "int": 2
+      }
+    },
+    {
+      "id": "g12_013",
+      "pj": "monica",
+      "texto": "Mónica avisa: viene un huracán y rectoría pide reponer lo perdido. Los chavos quieren puente largo y los profes, descansar. Nadie quedará contento.",
+      "izq": {
+        "t": "Reponer clases en sábado",
+        "e": [
+          -4,
+          -5,
+          -3,
+          -4
+        ],
+        "int": 2
+      },
+      "der": {
+        "t": "Dar la semana libre sin reponer",
+        "e": [
+          3,
+          5,
+          -2,
+          -8
+        ],
+        "int": -2
+      },
+      "peso": 0.12
+    },
+    {
+      "id": "g12_014",
+      "pj": "jose_27",
+      "texto": "José Camelo llegó con un empresario que lo regala todo: becas, computadoras y cursos. Solo pide una cosita: su marca en la entrada de la Unidad.",
+      "izq": {
+        "t": "Aceptar todo y poner su marca",
+        "e": [
+          3,
+          4,
+          2,
+          3
+        ],
+        "int": -3,
+        "af": {
+          "jose_27": 1
+        }
+      },
+      "der": {
+        "t": "Aceptar solo las becas, sin marca",
+        "e": [
+          -3,
+          3,
+          -3,
+          0
+        ],
+        "int": 3
+      },
+      "peso": 0.12
+    },
+    {
+      "id": "g12_015",
+      "pj": "fernando",
+      "texto": "Director, llegó un reportero de la tele sin avisar, con cámara y todo. Quiere hablar del recorte y hoy no hay agua en los baños. ¡Qué día! ¿Lo atiende?",
+      "izq": {
+        "t": "Dar la entrevista con la verdad",
+        "e": [
+          0,
+          3,
+          2,
+          -4
+        ],
+        "int": 3
+      },
+      "der": {
+        "t": "Pedirle que regrese con cita",
+        "e": [
+          3,
+          0,
+          -3,
+          0
+        ],
+        "int": -1
+      }
+    },
+    {
+      "id": "g12_016",
+      "pj": "alejandro",
+      "texto": "Tembló fuerte a media mañana. Nadie se lastimó, pero hay una grieta en el pasillo. Alejandro ya tiene un plan B para reubicar los salones.",
+      "izq": {
+        "t": "Cerrar el pasillo y reubicar clases",
+        "e": [
+          -3,
+          -2,
+          -4,
+          6
+        ],
+        "int": 2
+      },
+      "der": {
+        "t": "Seguir con clases y revisarla luego",
+        "e": [
+          2,
+          4,
+          0,
+          -6
+        ],
+        "int": -3
+      }
+    },
+    {
+      "id": "g12_017",
+      "pj": "janoe",
+      "texto": "¡Emergencia, y eso que ando entre reuniones! Se cayó el internet justo hoy que se entregan proyectos finales, y la plataforma cierra a medianoche. Hay que decidir ya.",
+      "izq": {
+        "t": "Ampliar el plazo a todos",
+        "e": [
+          0,
+          5,
+          0,
+          -3
+        ]
+      },
+      "der": {
+        "t": "Mantener la fecha límite",
+        "e": [
+          3,
+          -6,
+          0,
+          2
+        ]
+      }
+    },
+    {
+      "id": "g12_018",
+      "pj": "eligardo",
+      "texto": "Faltan dos horas para la graduación y el aire del auditorio murió. Afuera hay 38 grados. Eligardo opina que un buen lonche lo arregla todo.",
+      "izq": {
+        "t": "Rentar ventiladores de emergencia",
+        "e": [
+          0,
+          4,
+          -6,
+          0
+        ]
+      },
+      "der": {
+        "t": "Mover la ceremonia al atardecer",
+        "e": [
+          -4,
+          -3,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g12_019",
+      "pj": "victor",
+      "texto": "Una emisaria de rectoría llegó sin avisar y se sentó al fondo de una clase. Víctor ya le ofreció café, tres saludos y una sonrisa. ¿Qué haces?",
+      "izq": {
+        "t": "Dejar que vea todo como está",
+        "e": [
+          -3,
+          0,
+          0,
+          4
+        ],
+        "int": 3
+      },
+      "der": {
+        "t": "Armar una visita guiada exprés",
+        "e": [
+          4,
+          0,
+          -3,
+          0
+        ],
+        "int": -1
+      }
+    },
+    {
+      "id": "g12_020",
+      "pj": "sonia",
+      "texto": "Corre el rumor de que el examen de Programación se filtró y todos ya tienen las respuestas. Sonia trae café y dos versiones distintas del chisme.",
+      "izq": {
+        "t": "Cambiar el examen hoy mismo",
+        "e": [
+          -5,
+          -3,
+          0,
+          2
+        ],
+        "int": 2
+      },
+      "der": {
+        "t": "Aplicarlo igual y vigilar bien",
+        "e": [
+          3,
+          3,
+          0,
+          -4
+        ],
+        "int": -2
+      }
+    },
+    {
+      "id": "g12_021",
+      "pj": "maria",
+      "texto": "María trae agua, suero y galletas: tres alumnos se marearon por el calor en el patio. Dice que hay que cambiar los horarios o dar sombra.",
+      "izq": {
+        "t": "Mover actividades a horas frescas",
+        "e": [
+          -4,
+          0,
+          0,
+          3
+        ],
+        "int": 2
+      },
+      "der": {
+        "t": "Comprar toldos y garrafones",
+        "e": [
+          2,
+          4,
+          -6,
+          0
+        ]
+      }
+    },
+    {
+      "id": "g12_022",
+      "pj": "carlos",
+      "texto": "Carlos, serio como siempre, avisa: un equipo de la Unidad ganó un concurso nacional de programación. Usaron el laboratorio de noche, sin permiso.",
+      "izq": {
+        "t": "Celebrarlos con bombo y platillo",
+        "e": [
+          2,
+          6,
+          -3,
+          3
+        ],
+        "int": -1
+      },
+      "der": {
+        "t": "Felicitarlos y reportar el permiso",
+        "e": [
+          4,
+          -4,
+          0,
+          2
+        ],
+        "int": 2
+      }
+    }
+  ]
+}

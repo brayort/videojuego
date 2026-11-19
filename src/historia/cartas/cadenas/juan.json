@@ -1,0 +1,256 @@
+{
+  "id": "juan",
+  "titulo": "El contador",
+  "resumen": "Juan ofrece ordenar las cuentas después del incendio: balances demasiado limpios, cajas que nunca se contaron y una renuncia que huele a miedo.",
+  "cartas": [
+    {
+      "id": "u1",
+      "pj": "juan",
+      "texto": "Juan, el contador de siempre, aparece con una carpeta delgada. «Vi que Ana revisó las cuentas de antes. Cuidado: tocar eso puede quemarte. Yo puedo ordenarlo todo para que nadie se queme».",
+      "izq": {
+        "t": "Dejar que Juan ordene",
+        "e": [
+          0,
+          0,
+          6,
+          2
+        ],
+        "int": -4,
+        "set": [
+          "juan_ordena"
+        ],
+        "luego": {
+          "semanas": 2,
+          "carta": "u2"
+        }
+      },
+      "der": {
+        "t": "Que Ana siga con su revisión",
+        "e": [
+          0,
+          0,
+          -4,
+          0
+        ],
+        "int": 4,
+        "set": [
+          "ana_sigue"
+        ],
+        "luego": {
+          "semanas": 2,
+          "carta": "u2"
+        }
+      },
+      "peso": 3,
+      "unica": true,
+      "cadena": "juan",
+      "req": [
+        "cap_juan"
+      ]
+    },
+    {
+      "id": "u2",
+      "pj": "juan",
+      "texto": "Juan te muestra un balance perfecto: el hueco casi desaparece. Demasiado limpio. Ana susurra: «Cuadra porque falta una línea. Hay cajas que nunca se contaron».",
+      "izq": {
+        "t": "Aprobar el balance",
+        "e": [
+          0,
+          0,
+          10,
+          3
+        ],
+        "int": -8,
+        "set": [
+          "juan_cedes"
+        ],
+        "luego": {
+          "semanas": 2,
+          "carta": "u3"
+        }
+      },
+      "der": {
+        "t": "Exigir la línea que falta",
+        "e": [
+          0,
+          0,
+          -5,
+          0
+        ],
+        "int": 4,
+        "set": [
+          "juan_resistes"
+        ],
+        "luego": {
+          "semanas": 2,
+          "carta": "u3"
+        }
+      },
+      "solo_luego": true,
+      "unica": true,
+      "cadena": "juan"
+    },
+    {
+      "id": "u3",
+      "pj": "juan",
+      "texto": "Una noche, Juan te espera en la oficina. «El edificio ardió una vez y todos prefirieron no preguntar. Tú también puedes preferirlo». No es una amenaza. Es peor: parece un consejo.",
+      "izq": {
+        "t": "Preguntar por las cajas",
+        "e": [
+          0,
+          0,
+          -3,
+          -3
+        ],
+        "luego": {
+          "semanas": 2,
+          "carta": "u4a"
+        }
+      },
+      "der": {
+        "t": "Fingir que no lo oíste",
+        "e": [
+          0,
+          0,
+          3,
+          3
+        ],
+        "int": -6,
+        "luego": {
+          "semanas": 2,
+          "carta": "u4b"
+        }
+      },
+      "solo_luego": true,
+      "unica": true,
+      "cadena": "juan"
+    },
+    {
+      "id": "u4a",
+      "pj": "juan",
+      "texto": "Juan se queda en silencio. Luego abre su carpeta: copias de recibos de antes del incendio. «No son todos. Son los que se salvaron». Te los da. O finge que te los da.",
+      "izq": {
+        "t": "Guardarlos y seguir el rastro",
+        "e": [
+          0,
+          0,
+          -4,
+          0
+        ],
+        "int": 10,
+        "set": [
+          "juan_fin",
+          "juan_pistas"
+        ]
+      },
+      "der": {
+        "t": "Devolvérselos y cerrar el tema",
+        "e": [
+          0,
+          0,
+          4,
+          2
+        ],
+        "int": -6,
+        "set": [
+          "juan_fin"
+        ]
+      },
+      "solo_luego": true,
+      "unica": true,
+      "cadena": "juan"
+    },
+    {
+      "id": "u4b",
+      "pj": "juan",
+      "texto": "Las cuentas cierran en paz. Demasiada paz. Ana renuncia sin explicar y deja una nota sobre tu escritorio: «Ya sabes quién lleva las cuentas».",
+      "izq": {
+        "t": "Dejarla ir",
+        "e": [
+          0,
+          0,
+          5,
+          3
+        ],
+        "int": -8,
+        "set": [
+          "juan_fin",
+          "juan_gano"
+        ]
+      },
+      "der": {
+        "t": "Rogarle que se quede",
+        "e": [
+          -2,
+          0,
+          -3,
+          0
+        ],
+        "int": 3,
+        "set": [
+          "juan_fin",
+          "ana_se_queda"
+        ]
+      },
+      "solo_luego": true,
+      "unica": true,
+      "cadena": "juan"
+    },
+    {
+      "id": "coma_a",
+      "pj": "ana",
+      "texto": "Ana revisó tres años de cuentas con cariño y una lupa. Encontró catorce errores chicos y uno grande: una partida de «mantenimiento» sin factura ni edificio que lo justifique.",
+      "izq": {
+        "t": "Corregir todo y avisar a rectoría",
+        "e": [
+          0,
+          0,
+          -4,
+          -4
+        ],
+        "int": 4
+      },
+      "der": {
+        "t": "Corregir todo en silencio",
+        "e": [
+          0,
+          0,
+          2,
+          0
+        ],
+        "int": -3
+      },
+      "cadena": "juan",
+      "solo_luego": true,
+      "unica": true
+    },
+    {
+      "id": "coma_b",
+      "pj": "gabriel",
+      "texto": "Doña Remedios revivió sola y mostró una hoja de cálculo olvidada, con una columna que no existe en los reportes oficiales. Gabriel te la enseña encantado: «Yo solo arreglo equipos».",
+      "izq": {
+        "t": "Borrar la hoja: mejor no saber",
+        "e": [
+          0,
+          0,
+          3,
+          3
+        ],
+        "int": -5
+      },
+      "der": {
+        "t": "Guardarla como respaldo",
+        "e": [
+          0,
+          0,
+          -2,
+          0
+        ],
+        "int": 3
+      },
+      "cadena": "juan",
+      "solo_luego": true,
+      "unica": true
+    }
+  ]
+}

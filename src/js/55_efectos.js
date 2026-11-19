@@ -82,7 +82,7 @@ if (!S.mod_fx) {
   };
   P.papeles = function () {
     for (let i = 0; i < 34; i++)
-      P.emitir("papel", { x: rr(0, W), y: -rr(30, 520), vx: 0, vy: rr(110, 230), g: 25, vr: rr(-150, 150), vida: 6, esc: rr(0.8, 1.4), sway: rr(40, 110) });
+      P.emitir("papel", { x: rr(0, W), y: -rr(30, 520), vx: 0, vy: rr(110, 230), g: 25, vr: rr(-150, 150), vida: 6, esc: rr(0.8, 1.4), sway: rr(40, 110), z: 7, op: 90 });   // detras del texto: no tapa lo que se lee
   };
   P.chispas = function (x, y) {
     for (let i = 0; i < 22; i++) {

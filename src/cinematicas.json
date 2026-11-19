@@ -1,124 +1,2880 @@
 {
- "_comentario": "Cinematicas: introduccion (menu / historia_inicio), final (destino) y especiales (campo \"cine\" en una carta u opcion de cartas.json). Formato en src/ESQUEMA.md. Tras editar: npm run build.",
- "disparos": {
-  "menu": "bienvenida",
-  "historia_inicio": "historia",
-  "destino:quiebra": "destino_quiebra",
-  "destino:renacimiento": "destino_renacimiento",
-  "destino": "destino"
- },
- "cinematicas": {
-  "bienvenida": {
-   "una_vez": true,
-   "fondo": "menu",
-   "musica": "oficina",
-   "tinte": 120,
-   "lineas": [
-    {
-     "titulo": "TEPIC, NAYARIT",
-     "sub": "Septiembre de 2025",
-     "fundido": true,
-     "espera": 2.2
-    },
-    {
-     "narra": "La Unidad Académica de Economía lleva meses sin director. Las cuentas no cuadran y los pasillos hablan más que las actas."
-    },
-    {
-     "pj": "secretaria",
-     "nombre": "Lupita Navarro",
-     "lado": "der",
-     "texto": "¿Usted es {jugador}? Pase, pase. Le dejé los expedientes en el escritorio… todos."
-    },
-    {
-     "pj": "secretaria",
-     "nombre": "Lupita Navarro",
-     "lado": "der",
-     "texto": "Arrastre cada asunto a la izquierda o a la derecha. Y cuide las cuatro barras de arriba: si una se vacía o se desborda, se acaba su gestión."
-    }
-   ]
+  "disparos": {
+    "historia_inicio": "historia",
+    "acto:acto2": "acto2",
+    "acto:acto3": "acto3",
+    "caida:stat:0:bajo": "caida_acad0",
+    "caida:stat:0:alto": "caida_acad100",
+    "caida:stat:1:bajo": "caida_est0",
+    "caida:stat:1:alto": "caida_est100",
+    "caida:stat:2:bajo": "caida_fin0",
+    "caida:stat:2:alto": "caida_fin100",
+    "caida:stat:3:bajo": "caida_pol0",
+    "caida:stat:3:alto": "caida_pol100",
+    "caida:derrota": "caida_derrota",
+    "caida:retiro": "caida_retiro",
+    "caida:limite": "caida_limite",
+    "relevo:cand_perla": "relevo_perla",
+    "relevo:cand_victor": "relevo_victor",
+    "relevo:cand_nayeli": "relevo_nayeli"
   },
-  "historia": {
-   "fondo": "carta",
-   "musica": "oficina",
-   "tinte": 90,
-   "lineas": [
-    {
-     "titulo": "UNA NUEVA HISTORIA",
-     "sub": "Ocho directores. Una universidad. Un estado que observa.",
-     "fundido": true,
-     "espera": 2.5
-    },
-    {
-     "pj": "rector",
-     "nombre": "Rector Bañuelos",
-     "lado": "izq",
-     "texto": "{dir}. Bienvenido. La UAN no necesita héroes; necesita a alguien que no la deje caer."
-    },
-    {
-     "pj": "lider_sindical",
-     "nombre": "Leonel Ibarra",
-     "lado": "der",
-     "texto": "El sindicato le da cien días. Después de eso, hablamos en la explanada."
-    },
-    {
-     "pj": "rector",
-     "nombre": "Rector Bañuelos",
-     "lado": "izq",
-     "texto": "Ya lo oyó. Empiece."
-    }
-   ]
+  "nombres": {
+    "alejandro": "Alejandro",
+    "fernando": "Fernando",
+    "angel": "Ángel",
+    "carlos": "Carlos",
+    "eligardo": "Eligardo",
+    "jose_19": "José Luna",
+    "raudel": "Raudel",
+    "jose_25": "José Olivo",
+    "ricardo": "Ricardo",
+    "jose_27": "José Camelo",
+    "pedro": "Pedro",
+    "maria": "María",
+    "reyna": "Reyna",
+    "omar": "Omar",
+    "oliver": "Oliver",
+    "lugo": "Alberto Lugo"
   },
-  "destino": {
-   "fondo": "destino",
-   "musica": "destino",
-   "tinte": 100,
-   "lineas": [
-    {
-     "titulo": "NAYARIT, 2040",
-     "sub": "Lo que quedó de la UAN",
-     "fundido": true,
-     "espera": 2.5
-    }
-   ]
-  },
-  "destino_quiebra": {
-   "fondo": "destino",
-   "musica": "destino",
-   "tinte": 160,
-   "lineas": [
-    {
-     "titulo": "NAYARIT, 2040",
-     "sub": "Quiebra y rescate",
-     "fundido": true,
-     "espera": 2
+  "cinematicas": {
+    "historia": {
+      "fondo": "juego",
+      "musica": "oficina",
+      "una_vez": false,
+      "cps": 34,
+      "lineas": [
+        {
+          "titulo": "DIRECTOR UAN",
+          "sub": "Noviembre de 2026",
+          "fundido": true
+        },
+        {
+          "narra": "El 19 de octubre, la Suprema Corte tiró el impuesto que sostenía a la Universidad. Una parte enorme del dinero con que vivía desapareció de un plumazo."
+        },
+        {
+          "narra": "En la Unidad Académica de Economía el hueco se siente primero. Y la dirección está vacía."
+        },
+        {
+          "pj": "monica",
+          "lado": "centro",
+          "texto": "Llegaste. Qué bueno. Pensé que no vendrías.",
+          "fundido": true
+        },
+        {
+          "pj": "monica",
+          "lado": "centro",
+          "texto": "Esta oficina te va a pedir cosas que no sabes dar: rectoría, alumnos, profesores, dinero. Todos van a querer que seas suyo."
+        },
+        {
+          "pj": "monica",
+          "lado": "centro",
+          "texto": "Me voy. No por la Corte. Por algo que encontré en los libros del edificio que se quemó."
+        },
+        {
+          "pj": "monica",
+          "lado": "centro",
+          "texto": "Aquí está mi libreta de pendientes. Son siete. Léelos en orden, uno por uno."
+        },
+        {
+          "pj": "monica",
+          "lado": "centro",
+          "texto": "Y el último... el último léelo cuando entiendas por qué me fui."
+        },
+        {
+          "narra": "Mónica deja las llaves sobre el escritorio. Y con ellas, el hueco.",
+          "salir": "todos",
+          "sfx": "gong"
+        },
+        {
+          "titulo": "LOS PENDIENTES DE MÓNICA",
+          "sub": "Capítulo 1",
+          "fundido": true
+        }
+      ]
     },
-    {
-     "pj": "emisario",
-     "nombre": "Lic. Ferreira",
-     "lado": "der",
-     "texto": "El Gobernador firmó el rescate. Las condiciones… las pone él."
-    }
-   ]
-  },
-  "destino_renacimiento": {
-   "fondo": "destino",
-   "musica": "destino",
-   "tinte": 60,
-   "lineas": [
-    {
-     "titulo": "NAYARIT, 2040",
-     "sub": "Renacimiento",
-     "fundido": true,
-     "espera": 2,
-     "flash": "bueno"
+    "acto2": {
+      "fondo": "juego",
+      "musica": "campana",
+      "una_vez": false,
+      "cps": 36,
+      "lineas": [
+        {
+          "titulo": "ACTO II",
+          "sub": "Las manos",
+          "fundido": true,
+          "espera": 2.2
+        },
+        {
+          "narra": "Cuatro personas se acercan a tu escritorio, cada una con una ayuda. Todas sonríen. Ninguna pide nada... todavía."
+        }
+      ]
     },
-    {
-     "pj": "alumna",
-     "nombre": "Regina Palomino",
-     "lado": "izq",
-     "texto": "Mi hija entra este año a Economía. Dicen que es la mejor del Pacífico."
+    "acto3": {
+      "fondo": "juego",
+      "musica": "destino",
+      "tinte": 90,
+      "una_vez": false,
+      "cps": 36,
+      "lineas": [
+        {
+          "titulo": "ACTO III",
+          "sub": "El Quinto",
+          "fundido": true,
+          "espera": 2.2,
+          "sfx": "gong"
+        },
+        {
+          "narra": "Los cuatro eran las manos. Alguien más da las órdenes, y ya sabe tu nombre."
+        }
+      ]
+    },
+    "inter_cafe": {
+      "fondo": "juego",
+      "musica": "oficina",
+      "una_vez": false,
+      "cps": 40,
+      "lineas": [
+        {
+          "titulo": "FIN DEL SEMESTRE {sem}",
+          "sub": "{fecha} · La cooperación del café",
+          "fundido": true,
+          "espera": 2.2,
+          "sfx": "campana",
+          "parte": "papeles"
+        },
+        {
+          "narra": "Sala de maestros, 8:03 a. m. La cafetera lleva una semana haciendo ruidos raros y nadie se atreve a preguntarle qué le pasa.",
+          "fundido": true
+        },
+        {
+          "pj": "fernando",
+          "lado": "izq",
+          "texto": "Si la cafetera hace ruido es porque quiere platicar. La entiendo: a mí tampoco me dejan hablar en las juntas.",
+          "entra": "lado",
+          "anima": "brinco",
+          "sfx": "tic"
+        },
+        {
+          "pj": "sonia",
+          "lado": "der",
+          "texto": "Fernando, tú hablas en todas las juntas.",
+          "entra": "lado"
+        },
+        {
+          "pj": "fernando",
+          "lado": "izq",
+          "texto": "Por eso soy experto en que no me dejen.",
+          "anima": "risa",
+          "emote": "jaja",
+          "sfx": "acierto"
+        },
+        {
+          "pj": "roberto",
+          "lado": "centro",
+          "texto": "Hablando de cafeteras: en 1998 teníamos una en el edificio viejo y un día, sin avisar...",
+          "entra": "pop",
+          "anima": "saludo"
+        },
+        {
+          "pj": "sonia",
+          "lado": "der",
+          "texto": "Roberto, cariño, un segundo: ¿alguien sabe quién guarda la cooperación del café? Todos ponen diez pesos y nadie ha visto el dinero.",
+          "anima": "pensar",
+          "emote": {
+            "der": "?"
+          }
+        },
+        {
+          "pj": "roberto",
+          "lado": "centro",
+          "texto": "Yo puse veinte en 2003. Era martes. Llovía. Y había un señor con una camisa verde que...",
+          "anima": "saludo"
+        },
+        {
+          "pj": "fernando",
+          "lado": "izq",
+          "texto": "Esto es más grave que cualquier pendiente de Mónica.",
+          "anima": "no",
+          "emote": {
+            "izq": "!"
+          }
+        },
+        {
+          "narra": "Tres minutos después, Roberto va en 2007 y la cafetera todavía no aparece en la historia.",
+          "sfx": "tic",
+          "anima": {
+            "centro": "saludo"
+          }
+        },
+        {
+          "pj": "sonia",
+          "lado": "der",
+          "texto": "Si {dir} logra poner de acuerdo a los maestros, que también nos encuentre los diez pesos.",
+          "anima": "cabeceo"
+        },
+        {
+          "gag": 1.3,
+          "sfx": "golpe",
+          "sacudir": 0.5,
+          "parte": "polvo",
+          "anima": {
+            "izq": "susto",
+            "der": "susto",
+            "centro": "susto"
+          },
+          "emote": {
+            "centro": "!!"
+          }
+        },
+        {
+          "elige": {
+            "id": "cafe",
+            "texto": "La cafetera murió. ¿Qué haces con la cooperación del café?",
+            "izq": {
+              "t": "Comprar una cafetera nueva con tus ahorros",
+              "e": [
+                3,
+                0,
+                -4,
+                0
+              ],
+              "int": 2,
+              "af": {
+                "sonia": 1
+              },
+              "set": [
+                "cafe_regalo"
+              ],
+              "luego": {
+                "semanas": 3,
+                "carta": "cafe_a"
+              }
+            },
+            "der": {
+              "t": "Que Roberto lleve las cuentas del café",
+              "e": [
+                0,
+                0,
+                3,
+                0
+              ],
+              "af": {
+                "roberto": 1
+              },
+              "set": [
+                "cafe_roberto"
+              ],
+              "luego": {
+                "semanas": 3,
+                "carta": "cafe_b"
+              }
+            }
+          }
+        },
+        {
+          "narra": "La cafetera soltó vapor, hizo un ruido enorme y, por fin, sirvió. Fernando dice que fue por su chiste. Sonia dice que fue por la cooperación. Nadie volvió a ver los diez pesos.",
+          "sfx": "acierto",
+          "salir": "todos",
+          "anima": {
+            "izq": "risa"
+          }
+        }
+      ]
+    },
+    "inter_pasillo": {
+      "fondo": "juego",
+      "musica": "oficina",
+      "una_vez": false,
+      "cps": 40,
+      "lineas": [
+        {
+          "titulo": "FIN DEL SEMESTRE {sem}",
+          "sub": "{fecha} · El rey del pasillo",
+          "fundido": true,
+          "espera": 2.2,
+          "sfx": "campana",
+          "parte": "papeles"
+        },
+        {
+          "narra": "Pasillo del segundo piso. Hace diez minutos, Edel trapeó. A Ángel nadie le avisó.",
+          "fundido": true
+        },
+        {
+          "pj": "angel",
+          "lado": "izq",
+          "texto": "El pasillo es mío. Se camina por la derecha, a paso firme y sin correr. Eso incluye alumnos, maestros y fantasmas del edificio viejo.",
+          "entra": "lado",
+          "anima": "gigante"
+        },
+        {
+          "pj": "raudel",
+          "lado": "der",
+          "texto": "¡Pues este fantasma va por el centro, maestro! ¡Y no me hago a un lado!",
+          "entra": "lado",
+          "anima": "furia",
+          "emote": {
+            "der": "¡Ja!"
+          }
+        },
+        {
+          "pj": "angel",
+          "lado": "izq",
+          "texto": "Respeto su carácter. Pero hay un protocolo.",
+          "anima": "pensar"
+        },
+        {
+          "pj": "raudel",
+          "lado": "der",
+          "texto": "¿Cuál protocolo?",
+          "anima": "no"
+        },
+        {
+          "pj": "angel",
+          "lado": "izq",
+          "texto": "El del piso mojado.",
+          "emote": {
+            "izq": "!"
+          },
+          "sfx": "tic"
+        },
+        {
+          "gag": 1.5,
+          "sfx": "golpe",
+          "sacudir": 0.45,
+          "parte": "polvo",
+          "anima": {
+            "izq": "desmayo",
+            "der": "susto"
+          }
+        },
+        {
+          "pj": "raudel",
+          "lado": "der",
+          "texto": "¡JAJAJA! ¡Qué estilo para caerse, maestro!",
+          "anima": "risa",
+          "emote": {
+            "der": "jajaja"
+          },
+          "sfx": "acierto"
+        },
+        {
+          "pj": "angel",
+          "lado": "izq",
+          "texto": "Fue una maniobra táctica.",
+          "anima": "levanta",
+          "sfx": "sube"
+        },
+        {
+          "pj": "raudel",
+          "lado": "der",
+          "texto": "Ajá. ¿Y el aterrizaje también?",
+          "anima": "cabeceo"
+        },
+        {
+          "pj": "angel",
+          "lado": "izq",
+          "texto": "También.",
+          "anima": "gigante"
+        },
+        {
+          "pj": "maria",
+          "lado": "centro",
+          "texto": "Ay, mis niños, ¿se lastimaron? Para cada caída, una galleta. Para cada orgullo, tres.",
+          "entra": "caer",
+          "sfx": "soltar",
+          "parte": "polvo"
+        },
+        {
+          "pj": "angel",
+          "lado": "izq",
+          "texto": "No necesito... bueno, una.",
+          "anima": "cabeceo"
+        },
+        {
+          "pj": "raudel",
+          "lado": "der",
+          "texto": "Yo, dos. Para la solidaridad.",
+          "anima": "salto",
+          "emote": {
+            "der": "¡Ñam!"
+          }
+        },
+        {
+          "elige": {
+            "id": "pasillo",
+            "texto": "Ángel pide un reglamento del pasillo. Raudel pide que no lo haya. ¿Qué haces?",
+            "izq": {
+              "t": "Poner un letrero oficial de «piso mojado»",
+              "e": [
+                0,
+                0,
+                -2,
+                3
+              ],
+              "af": {
+                "edel": 1
+              },
+              "set": [
+                "pasillo_letrero"
+              ],
+              "luego": {
+                "semanas": 3,
+                "carta": "pasillo_a"
+              }
+            },
+            "der": {
+              "t": "Que Ángel y Raudel lo arreglen entre ellos",
+              "e": [
+                3,
+                0,
+                0,
+                -2
+              ],
+              "af": {
+                "angel": 1
+              },
+              "set": [
+                "pasillo_pacto"
+              ],
+              "luego": {
+                "semanas": 3,
+                "carta": "pasillo_b"
+              }
+            }
+          }
+        },
+        {
+          "narra": "En la esquina, con el trapeador en la mano, Edel miraba la escena. Había puesto el letrero de «piso mojado». Cuatro letreros, de hecho. Nadie los leyó.",
+          "salir": [
+            "izq",
+            "der"
+          ]
+        },
+        {
+          "pj": "edel",
+          "lado": "izq",
+          "texto": "Director, mañana llego más temprano. Hay una bodega que no me gusta.",
+          "entra": "lado",
+          "sfx": "tic"
+        },
+        {
+          "narra": "Y desapareció antes de que alguien le preguntara a cuál.",
+          "salir": "todos",
+          "sfx": "pagina"
+        }
+      ]
+    },
+    "inter_porra": {
+      "fondo": "juego",
+      "musica": "oficina",
+      "una_vez": false,
+      "cps": 40,
+      "lineas": [
+        {
+          "titulo": "FIN DEL SEMESTRE {sem}",
+          "sub": "{fecha} · Ensayo de porra",
+          "fundido": true,
+          "espera": 2.2,
+          "sfx": "campana",
+          "parte": "papeles"
+        },
+        {
+          "narra": "Patio central. En todas partes se habla de una asamblea. Mientras tanto, en una banca, un equipo ensaya otra cosa.",
+          "fundido": true
+        },
+        {
+          "pj": "nayeli",
+          "lado": "izq",
+          "texto": "¡Equipo! ¡Porra para {dir}! ¡Dame una D! ¡Dame una I! ¡Dame una R! ¡Dame una E!...",
+          "entra": "caer",
+          "anima": "baile",
+          "parte": "chispas",
+          "sfx": "sube"
+        },
+        {
+          "pj": "alfonso",
+          "lado": "der",
+          "texto": "¡Goya, goya, cachún cachún ra ra! ¡Cachún, cachún, ra, ra! ¡Goya!... Perdón, reflejo. Soy de los Pumas, ya saben.",
+          "entra": "lado",
+          "anima": "aplauso"
+        },
+        {
+          "pj": "nayeli",
+          "lado": "izq",
+          "texto": "Alfonso, esto es la porra del director, no la del estadio.",
+          "anima": "no"
+        },
+        {
+          "pj": "alfonso",
+          "lado": "der",
+          "texto": "Es la misma energía. Y tiene mejor vista.",
+          "anima": "risa",
+          "emote": {
+            "der": "¡Goya!"
+          }
+        },
+        {
+          "pj": "oscar",
+          "lado": "centro",
+          "texto": "Tengo una idea descabellada: ¡asamblea con karaoke! Va a venir todo el mundo. Creo.",
+          "entra": "pop",
+          "anima": "gigante",
+          "emote": {
+            "centro": "?!"
+          }
+        },
+        {
+          "pj": "nayeli",
+          "lado": "izq",
+          "texto": "¡Me encanta! ¡Yo hago la coreografía!",
+          "anima": "salto",
+          "parte": "chispas"
+        },
+        {
+          "pj": "alfonso",
+          "lado": "der",
+          "texto": "Yo llevo las bocinas.",
+          "anima": "cabeceo"
+        },
+        {
+          "narra": "En el patio hay dos Oscares: el profe y un estudiante. Cada vez que alguien grita «¡Oscar!», voltean los dos y se miran con desconfianza.",
+          "sfx": "tic"
+        },
+        {
+          "pj": "oscar_alumno",
+          "lado": "der",
+          "texto": "Qué buena porra. Mañana la necesito en la asamblea.",
+          "anima": "gigante",
+          "entra": "lado",
+          "sfx": "voto"
+        },
+        {
+          "pj": "oscar",
+          "lado": "centro",
+          "texto": "Eh... ¿cuál de los dos Oscares?",
+          "anima": "pensar",
+          "emote": {
+            "centro": "?"
+          }
+        },
+        {
+          "pj": "oscar_alumno",
+          "lado": "der",
+          "texto": "El que sepa organizar a la gente.",
+          "emote": {
+            "der": "..."
+          }
+        },
+        {
+          "elige": {
+            "id": "porra",
+            "texto": "Nayeli y Oscar quieren una asamblea con karaoke. ¿Los apoyas?",
+            "izq": {
+              "t": "Apoyar el karaoke y ponerte a cantar",
+              "e": [
+                0,
+                4,
+                -2,
+                0
+              ],
+              "af": {
+                "nayeli": 1
+              },
+              "set": [
+                "karaoke_si"
+              ],
+              "luego": {
+                "semanas": 2,
+                "carta": "porra_a"
+              }
+            },
+            "der": {
+              "t": "Mantenerte al margen de la asamblea",
+              "e": [
+                0,
+                -3,
+                0,
+                2
+              ],
+              "set": [
+                "karaoke_no"
+              ],
+              "luego": {
+                "semanas": 2,
+                "carta": "porra_b"
+              }
+            }
+          }
+        },
+        {
+          "narra": "Nayeli dejó de aplaudir. Alfonso dejó de cantar. Por primera vez en la historia del patio, hubo silencio.",
+          "salir": "todos",
+          "sfx": "gong"
+        },
+        {
+          "titulo": "EL AGITADOR",
+          "sub": "Alumnos",
+          "fundido": true,
+          "espera": 2.2
+        }
+      ]
+    },
+    "inter_josefes": {
+      "fondo": "juego",
+      "musica": "oficina",
+      "una_vez": false,
+      "cps": 40,
+      "lineas": [
+        {
+          "titulo": "FIN DEL SEMESTRE {sem}",
+          "sub": "{fecha} · Los tres Josés",
+          "fundido": true,
+          "espera": 2.2,
+          "sfx": "campana",
+          "parte": "papeles"
+        },
+        {
+          "narra": "En la Unidad hay tres Josés. Cuando alguien grita «¡José!» por el pasillo, voltean los tres. Ninguno ha dejado de contestarle a los otros dos.",
+          "fundido": true
+        },
+        {
+          "pj": "jose_19",
+          "lado": "izq",
+          "texto": "Camina despacio, que a donde vas llegarás igual. Siéntense, hay té.",
+          "entra": "lado",
+          "anima": "saludo",
+          "nombre": "José Luna"
+        },
+        {
+          "pj": "jose_25",
+          "lado": "der",
+          "texto": "Calculé que hoy alguien nos iba a confundir. Lo anoté: martes, 11:15 a. m. Voy ganando.",
+          "entra": "lado",
+          "anima": "pensar",
+          "nombre": "José Olivo"
+        },
+        {
+          "pj": "jose_27",
+          "lado": "centro",
+          "texto": "¡Si todo el mundo me conoce a mí! Bueno, a uno de los tres. Bueno, a quien se parezca.",
+          "entra": "pop",
+          "anima": "gigante",
+          "nombre": "José Camelo"
+        },
+        {
+          "narra": "Desde la puerta alguien grita: «¡José!».",
+          "sfx": "tic",
+          "anima": {
+            "izq": "salto",
+            "der": "salto",
+            "centro": "salto"
+          },
+          "emote": {
+            "izq": "?",
+            "der": "?",
+            "centro": "?"
+          }
+        },
+        {
+          "pj": "jose_19",
+          "lado": "izq",
+          "texto": "¿Cuál?",
+          "anima": "no"
+        },
+        {
+          "narra": "«¡El del comité!»",
+          "anima": {
+            "izq": "balanceo",
+            "der": "balanceo",
+            "centro": "balanceo"
+          }
+        },
+        {
+          "pj": "jose_25",
+          "lado": "der",
+          "texto": "Eso reduce las opciones a... ninguna. No hay un José del comité.",
+          "anima": "pensar"
+        },
+        {
+          "pj": "jose_27",
+          "lado": "centro",
+          "texto": "Conozco a medio mundo, y a ese José no lo ubico. Y eso... me inquieta.",
+          "anima": "susto",
+          "sfx": "error",
+          "emote": {
+            "centro": "!"
+          }
+        },
+        {
+          "pj": "jose_25",
+          "lado": "der",
+          "texto": "Yo ya lo calculé. No me gustó el resultado.",
+          "anima": "furia"
+        },
+        {
+          "pj": "jose_19",
+          "lado": "izq",
+          "texto": "Cuando el río suena, agua lleva. Y cuando suena demasiado callado... mejor sírvanse más té.",
+          "anima": "cabeceo",
+          "emote": {
+            "izq": "..."
+          }
+        },
+        {
+          "elige": {
+            "id": "josefes",
+            "texto": "Nadie conoce al «José del comité». ¿Qué haces?",
+            "izq": {
+              "t": "Pedir la lista completa de integrantes del comité",
+              "e": [
+                2,
+                0,
+                0,
+                -3
+              ],
+              "int": 2,
+              "set": [
+                "comite_lista"
+              ],
+              "luego": {
+                "semanas": 3,
+                "carta": "josefes_a"
+              }
+            },
+            "der": {
+              "t": "Dejarlo pasar: seguro aparece solo",
+              "e": [
+                0,
+                0,
+                0,
+                2
+              ],
+              "int": -2,
+              "set": [
+                "comite_pasar"
+              ],
+              "luego": {
+                "semanas": 3,
+                "carta": "josefes_b"
+              }
+            }
+          }
+        },
+        {
+          "narra": "Los tres Josés se miraron. Era la primera vez que alguien en la Unidad les preocupaba más que la cafetera.",
+          "salir": "todos",
+          "sfx": "gong"
+        },
+        {
+          "titulo": "EL ESTRATEGA",
+          "sub": "Profesores",
+          "fundido": true,
+          "espera": 2.2
+        }
+      ]
+    },
+    "inter_coma": {
+      "fondo": "juego",
+      "musica": "oficina",
+      "una_vez": false,
+      "cps": 40,
+      "lineas": [
+        {
+          "titulo": "FIN DEL SEMESTRE {sem}",
+          "sub": "{fecha} · La coma de Ana",
+          "fundido": true,
+          "espera": 2.2,
+          "sfx": "campana",
+          "parte": "papeles"
+        },
+        {
+          "narra": "Laboratorio de cómputo. Gabriel acaba de revivir una computadora que llevaba cinco años «en pausa».",
+          "fundido": true
+        },
+        {
+          "pj": "gabriel",
+          "lado": "izq",
+          "texto": "¡Miren! Cinco años apagada y ya arranca. Se llama Doña Remedios. Escuchen ese ventilador: eso es música.",
+          "entra": "caer",
+          "sfx": "sube",
+          "parte": "chispas",
+          "emote": {
+            "izq": "!"
+          }
+        },
+        {
+          "pj": "martinez",
+          "lado": "der",
+          "texto": "Eh... hola. Compiló. Digo... prendió. Bienvenida, Doña Remedios.",
+          "entra": "lado",
+          "anima": "cabeceo",
+          "emote": {
+            "der": "..."
+          }
+        },
+        {
+          "pj": "ana",
+          "lado": "centro",
+          "texto": "Qué bonito se ve. Solo un detallito, con mucho cariño: aquí falta una coma.",
+          "entra": "pop",
+          "anima": "pensar"
+        },
+        {
+          "pj": "gabriel",
+          "lado": "izq",
+          "texto": "¿Una coma?",
+          "anima": "no"
+        },
+        {
+          "pj": "martinez",
+          "lado": "der",
+          "texto": "Una coma puede ser un bug crítico. Perdón, me emocioné.",
+          "anima": "gigante",
+          "emote": {
+            "der": "¡!"
+          }
+        },
+        {
+          "pj": "ana",
+          "lado": "centro",
+          "texto": "En una cifra de millones, una coma es una diferencia enorme. Los números no mienten.",
+          "anima": "cabeceo"
+        },
+        {
+          "pj": "ana",
+          "lado": "centro",
+          "texto": "Pero las cuentas demasiado bonitas, a veces sí. Cuando algo cuadra perfecto, me pongo a buscar.",
+          "emote": {
+            "centro": "..."
+          },
+          "sfx": "tic"
+        },
+        {
+          "pj": "martinez",
+          "lado": "der",
+          "texto": "Esas me dan miedo.",
+          "anima": "susto"
+        },
+        {
+          "gag": 1.4,
+          "sfx": "error",
+          "flash": "malo",
+          "sacudir": 0.4,
+          "anima": {
+            "izq": "susto",
+            "der": "susto"
+          },
+          "emote": {
+            "izq": "?!"
+          }
+        },
+        {
+          "pj": "gabriel",
+          "lado": "izq",
+          "texto": "Se apagó. ...Está en pausa.",
+          "anima": "pensar"
+        },
+        {
+          "elige": {
+            "id": "coma",
+            "texto": "Ana encontró una coma de más en el balance anual. ¿Qué haces?",
+            "izq": {
+              "t": "Pedirle que revise todas las cuentas",
+              "e": [
+                0,
+                0,
+                -3,
+                0
+              ],
+              "int": 4,
+              "af": {
+                "ana": 1
+              },
+              "set": [
+                "cuentas_revisadas"
+              ],
+              "luego": {
+                "semanas": 3,
+                "carta": "coma_a"
+              }
+            },
+            "der": {
+              "t": "Dejar las cuentas como están",
+              "e": [
+                0,
+                0,
+                3,
+                2
+              ],
+              "int": -4,
+              "set": [
+                "cuentas_quietas"
+              ],
+              "luego": {
+                "semanas": 3,
+                "carta": "coma_b"
+              }
+            }
+          }
+        },
+        {
+          "narra": "Ana encontró la coma. Doña Remedios no sobrevivió a la noticia. Gabriel dice que solo está pensando.",
+          "salir": "todos",
+          "sfx": "pagina"
+        },
+        {
+          "titulo": "EL CONTADOR",
+          "sub": "Finanzas",
+          "fundido": true,
+          "espera": 2.2
+        }
+      ]
+    },
+    "inter_pastel": {
+      "fondo": "juego",
+      "musica": "oficina",
+      "una_vez": false,
+      "cps": 40,
+      "lineas": [
+        {
+          "titulo": "FIN DEL SEMESTRE {sem}",
+          "sub": "{fecha} · La guerra de los pasteles",
+          "fundido": true,
+          "espera": 2.2,
+          "sfx": "campana",
+          "parte": "papeles"
+        },
+        {
+          "narra": "Mediodía. Hay un pastel de zanahoria sobre la mesa de juntas. Tres personas lo miran. Solo una sabe por qué hay que desconfiar de los pasteles.",
+          "fundido": true
+        },
+        {
+          "pj": "maria",
+          "lado": "izq",
+          "texto": "Mi pastel no pide nada a cambio. Bueno, que se lo terminen.",
+          "entra": "lado",
+          "anima": "latido",
+          "nombre": "María"
+        },
+        {
+          "pj": "eligardo",
+          "lado": "der",
+          "texto": "No hay problema que se resista después de comer. Ya me comí dos rebanadas. Por si acaso.",
+          "entra": "lado",
+          "anima": "aplauso",
+          "emote": {
+            "der": "¡Ñam!"
+          }
+        },
+        {
+          "pj": "victor",
+          "lado": "centro",
+          "texto": "Un pastel bien repartido es una alianza. Uno mal repartido es una crisis diplomática.",
+          "entra": "pop",
+          "anima": "saludo"
+        },
+        {
+          "pj": "eligardo",
+          "lado": "der",
+          "texto": "Víctor, me comí tu rebanada.",
+          "anima": "risa"
+        },
+        {
+          "pj": "victor",
+          "lado": "centro",
+          "texto": "...Lo considero una oportunidad de negociación.",
+          "anima": "pensar",
+          "emote": {
+            "centro": "..."
+          }
+        },
+        {
+          "pj": "eligardo",
+          "lado": "der",
+          "texto": "Te pago con otra rebanada.",
+          "anima": "cabeceo"
+        },
+        {
+          "pj": "victor",
+          "lado": "centro",
+          "texto": "Trato hecho. Siempre es un placer hacer negocios con usted.",
+          "anima": "gigante",
+          "sfx": "voto"
+        },
+        {
+          "pj": "maria",
+          "lado": "izq",
+          "texto": "Mis niños, escuchen a una vieja: cuando alguien llega con un pastel que no pidieron, pregúntense qué quiere.",
+          "anima": "pensar"
+        },
+        {
+          "pj": "victor",
+          "lado": "centro",
+          "texto": "Lo sé de primera mano. Yo lo hago todo el tiempo.",
+          "anima": "no",
+          "emote": {
+            "centro": "jeje"
+          }
+        },
+        {
+          "pj": "maria",
+          "lado": "izq",
+          "texto": "Ya lo sé, mijo. Por eso te cuido.",
+          "anima": "latido",
+          "sfx": "acierto"
+        },
+        {
+          "narra": "Del pasillo llegó un olor a vainilla y una voz dulce: «Para los directores nuevos, siempre algo dulce».",
+          "sfx": "campana",
+          "emote": {
+            "izq": "!",
+            "der": "!",
+            "centro": "!"
+          }
+        },
+        {
+          "pj": "eligardo",
+          "lado": "der",
+          "texto": "...Dejé el tenedor.",
+          "anima": "susto"
+        },
+        {
+          "pj": "victor",
+          "lado": "centro",
+          "texto": "Y yo dejé de sonreír. Por primera vez.",
+          "anima": "temblor",
+          "sfx": "error"
+        },
+        {
+          "elige": {
+            "id": "pastel",
+            "texto": "Hay dos pasteles en la mesa: el de María y uno sin nombre. ¿Cuál abres?",
+            "izq": {
+              "t": "Compartir el pastel de María con todos",
+              "e": [
+                2,
+                0,
+                0,
+                -2
+              ],
+              "int": 2,
+              "af": {
+                "maria": 1
+              },
+              "set": [
+                "pastel_maria"
+              ],
+              "luego": {
+                "semanas": 3,
+                "carta": "pastel_a"
+              }
+            },
+            "der": {
+              "t": "Aceptar el pastel que llegó sin nombre",
+              "e": [
+                0,
+                0,
+                2,
+                3
+              ],
+              "int": -2,
+              "set": [
+                "pastel_anonimo"
+              ],
+              "luego": {
+                "semanas": 3,
+                "carta": "pastel_b"
+              }
+            }
+          }
+        },
+        {
+          "narra": "María acomodó la servilleta con calma. Ella sí tenía galletas. Las de Norma siempre traen letra chiquita.",
+          "salir": "todos"
+        },
+        {
+          "titulo": "LA MADRINA",
+          "sub": "Rectoría",
+          "fundido": true,
+          "espera": 2.2
+        }
+      ]
+    },
+    "inter_foto": {
+      "fondo": "juego",
+      "musica": "oficina",
+      "una_vez": false,
+      "cps": 40,
+      "lineas": [
+        {
+          "titulo": "FIN DEL SEMESTRE {sem}",
+          "sub": "{fecha} · Antes de la lluvia",
+          "fundido": true,
+          "espera": 2.2,
+          "sfx": "campana",
+          "parte": "papeles"
+        },
+        {
+          "narra": "Viernes, 6:40 p. m. La Unidad entera se quedó después de hora para algo que Perla llama «la foto del equipo» y Sergio llama «una emboscada».",
+          "fundido": true
+        },
+        {
+          "pj": "perla",
+          "lado": "izq",
+          "texto": "Ya los organicé. No pregunté, pero quedaron contentos. Informática a la izquierda, Sistemas a la derecha, y al centro quien no sepa dónde ponerse.",
+          "entra": "lado",
+          "anima": "gigante"
+        },
+        {
+          "pj": "sergio",
+          "lado": "der",
+          "texto": "Qué ánimo tan contagioso. Casi sonrío.",
+          "entra": "lado",
+          "anima": "pensar"
+        },
+        {
+          "pj": "janoe",
+          "lado": "centro",
+          "texto": "Perdón, tengo una reunión en cinco minutos. Y otra después de esa. ¿La hacemos rápida?",
+          "entra": "caer",
+          "sfx": "soltar"
+        },
+        {
+          "pj": "perla",
+          "lado": "izq",
+          "texto": "Se hace cuando todos estén listos.",
+          "anima": "no"
+        },
+        {
+          "pj": "janoe",
+          "lado": "centro",
+          "texto": "Es que nunca están todos listos.",
+          "anima": "cabeceo",
+          "emote": {
+            "centro": "¡Tarde!"
+          }
+        },
+        {
+          "gag": 1.1,
+          "anima": {
+            "centro": "huir"
+          },
+          "sfx": "baja",
+          "parte": "polvo"
+        },
+        {
+          "pj": "sergio",
+          "lado": "der",
+          "texto": "Ahí va. Es el único que le gana a su propia agenda.",
+          "anima": "risa"
+        },
+        {
+          "pj": "alejandro",
+          "lado": "centro",
+          "texto": "Sin prisa. Traje trípode de repuesto, batería de repuesto y otra cámara, por si falla la primera.",
+          "entra": "pop",
+          "anima": "cabeceo"
+        },
+        {
+          "pj": "sergio",
+          "lado": "der",
+          "texto": "Un plan B para una foto. Qué nivel.",
+          "anima": "balanceo"
+        },
+        {
+          "pj": "alejandro",
+          "lado": "centro",
+          "texto": "También hay un plan C. Es mejor.",
+          "anima": "gigante",
+          "emote": {
+            "centro": "..."
+          }
+        },
+        {
+          "narra": "Temporizador de diez segundos. Todos corren a su lugar. Sergio, por primera vez, no corre.",
+          "sfx": "tic"
+        },
+        {
+          "narra": "3...",
+          "sfx": "tic",
+          "anima": {
+            "izq": "salto",
+            "der": "salto",
+            "centro": "salto"
+          }
+        },
+        {
+          "narra": "2...",
+          "sfx": "tic"
+        },
+        {
+          "narra": "1...",
+          "sfx": "tic",
+          "emote": {
+            "izq": "!",
+            "der": "!",
+            "centro": "!"
+          }
+        },
+        {
+          "gag": 1.6,
+          "flash": "blanco",
+          "sfx": "logro",
+          "parte": [
+            "confeti",
+            "chispas"
+          ],
+          "anima": {
+            "izq": "brinco",
+            "der": "brinco",
+            "centro": "brinco"
+          },
+          "vibrar": [
+            60
+          ]
+        },
+        {
+          "pj": "sergio",
+          "lado": "der",
+          "texto": "...Es la primera vez que sonrío sin sarcasmo. No se acostumbren.",
+          "anima": "latido"
+        },
+        {
+          "pj": "perla",
+          "lado": "izq",
+          "texto": "Salimos horribles. Perfecto.",
+          "anima": "aplauso"
+        },
+        {
+          "pj": "alejandro",
+          "lado": "centro",
+          "texto": "Ya la guardé en tres lugares.",
+          "anima": "cabeceo"
+        },
+        {
+          "elige": {
+            "id": "foto",
+            "texto": "La foto del equipo quedó perfecta. ¿Qué haces con ella?",
+            "izq": {
+              "t": "Colgarla en tu oficina, bien a la vista",
+              "e": [
+                3,
+                0,
+                0,
+                0
+              ],
+              "int": 2,
+              "af": {
+                "sergio": 1
+              },
+              "set": [
+                "foto_colgada"
+              ],
+              "luego": {
+                "semanas": 2,
+                "carta": "foto_a"
+              }
+            },
+            "der": {
+              "t": "Guardarla bajo llave en tu escritorio",
+              "e": [
+                0,
+                0,
+                0,
+                3
+              ],
+              "set": [
+                "foto_guardada"
+              ],
+              "luego": {
+                "semanas": 2,
+                "carta": "foto_b"
+              }
+            }
+          }
+        },
+        {
+          "gag": 0.9,
+          "sfx": "baja",
+          "tinte": 120,
+          "parte": "lluvia"
+        },
+        {
+          "narra": "Afuera empezó a llover. Esa foto sería, después, la última donde todos sonríen sin preocuparse.",
+          "flash": "blanco",
+          "sacudir": 0.5,
+          "sfx": "gong",
+          "tinte": 150
+        },
+        {
+          "narra": "Alguien toca la puerta de la Unidad. Ya nadie se ríe.",
+          "salir": "todos",
+          "sfx": "voto",
+          "parte": "nada"
+        }
+      ]
+    },
+    "caida_acad0": {
+      "fondo": "fin",
+      "musica": "destino",
+      "tinte": 70,
+      "una_vez": false,
+      "cps": 40,
+      "lineas": [
+        {
+          "titulo": "FIN DE LA GESTIÓN",
+          "sub": "Los maestros dejaron de creerte",
+          "fundido": true,
+          "espera": 2.2,
+          "sfx": "gong"
+        },
+        {
+          "gag": 1,
+          "pj": "@caido",
+          "lado": "centro",
+          "entra": "pop",
+          "sfx": "gong",
+          "emote": {
+            "centro": "..."
+          }
+        },
+        {
+          "gag": 0.7,
+          "anima": {
+            "centro": "temblor"
+          },
+          "sfx": "error",
+          "sacudir": 0.4
+        },
+        {
+          "gag": 1.7,
+          "anima": {
+            "centro": "derrumbe"
+          },
+          "sfx": "baja",
+          "sacudir": 0.6,
+          "flash": "malo",
+          "vibrar": [
+            80,
+            40,
+            120
+          ],
+          "parte": [
+            "papeles",
+            "polvo"
+          ]
+        },
+        {
+          "narra": "Primero fue un paro de brazos caídos. Después, las renuncias en cadena. Sin maestros no hay clases, y sin clases no hay Unidad.",
+          "fundido": true
+        },
+        {
+          "pj": "@caido",
+          "lado": "izq",
+          "texto": "Pensé que me iban a escuchar.",
+          "entra": "lado",
+          "anima": "no"
+        },
+        {
+          "pj": "jose",
+          "lado": "der",
+          "texto": "Lo escucharon, director. Después votaron. Nada personal.",
+          "entra": "lado",
+          "anima": "pensar"
+        },
+        {
+          "pj": "sonia",
+          "lado": "centro",
+          "texto": "Traje café para todos. Hoy, por primera vez, el café no alcanzó para arreglar nada.",
+          "entra": "pop",
+          "anima": "cabeceo",
+          "emote": {
+            "centro": "..."
+          }
+        },
+        {
+          "pj": "@caido",
+          "lado": "izq",
+          "texto": "¿Y quién va a dar las clases?",
+          "anima": "susto"
+        },
+        {
+          "pj": "jose",
+          "lado": "der",
+          "texto": "Eso lo resolverá el comité. Yo ya tengo la lista.",
+          "emote": {
+            "der": "..."
+          },
+          "sfx": "voto"
+        },
+        {
+          "narra": "El Consejo recibió tu renuncia en una carta de tres líneas. Nadie pidió que la releyeras.",
+          "salir": "todos",
+          "sfx": "pagina"
+        }
+      ]
+    },
+    "caida_acad100": {
+      "fondo": "fin",
+      "musica": "destino",
+      "tinte": 70,
+      "una_vez": false,
+      "cps": 40,
+      "lineas": [
+        {
+          "titulo": "FIN DE LA GESTIÓN",
+          "sub": "Nada se mueve sin su visto bueno",
+          "fundido": true,
+          "espera": 2.2,
+          "sfx": "gong"
+        },
+        {
+          "gag": 1,
+          "pj": "@caido",
+          "lado": "centro",
+          "entra": "pop",
+          "sfx": "gong",
+          "emote": {
+            "centro": "..."
+          }
+        },
+        {
+          "gag": 0.7,
+          "anima": {
+            "centro": "temblor"
+          },
+          "sfx": "error",
+          "sacudir": 0.4
+        },
+        {
+          "gag": 1.7,
+          "anima": {
+            "centro": "derrumbe"
+          },
+          "sfx": "baja",
+          "sacudir": 0.6,
+          "flash": "malo",
+          "vibrar": [
+            80,
+            40,
+            120
+          ],
+          "parte": [
+            "papeles",
+            "polvo"
+          ]
+        },
+        {
+          "narra": "Para cambiar un horario hacía falta una firma. Para la firma, un comité. Para el comité, un café. Y el café necesitaba autorización.",
+          "fundido": true
+        },
+        {
+          "pj": "@caido",
+          "lado": "izq",
+          "texto": "Solo quería cambiar un foco del pasillo.",
+          "entra": "lado",
+          "anima": "pensar"
+        },
+        {
+          "pj": "beatriz",
+          "lado": "der",
+          "texto": "Para eso hace falta una requisición, un dictamen y mi sello. Y yo no sello a la ligera.",
+          "entra": "lado",
+          "anima": "gigante",
+          "sfx": "golpe"
+        },
+        {
+          "pj": "angel",
+          "lado": "centro",
+          "texto": "Yo reviso lo que ella sella. Y luego alguien revisa lo que yo reviso.",
+          "entra": "pop",
+          "anima": "gigante"
+        },
+        {
+          "pj": "@caido",
+          "lado": "izq",
+          "texto": "¿Y quién revisa a quien revisa?",
+          "anima": "no",
+          "emote": {
+            "izq": "?!"
+          }
+        },
+        {
+          "pj": "beatriz",
+          "lado": "der",
+          "texto": "Excelente pregunta. Debe presentarse por escrito.",
+          "anima": "cabeceo",
+          "sfx": "golpe",
+          "parte": "papeles"
+        },
+        {
+          "narra": "El foco llevaba cuatro meses en trámite. El Consejo declaró a la Unidad «inmóvil» y aceptó tu salida, sin necesidad de firma.",
+          "salir": "todos"
+        }
+      ]
+    },
+    "caida_est0": {
+      "fondo": "fin",
+      "musica": "destino",
+      "tinte": 70,
+      "una_vez": false,
+      "cps": 40,
+      "lineas": [
+        {
+          "titulo": "FIN DE LA GESTIÓN",
+          "sub": "Los alumnos tomaron el edificio",
+          "fundido": true,
+          "espera": 2.2,
+          "sfx": "gong"
+        },
+        {
+          "gag": 1,
+          "pj": "@caido",
+          "lado": "centro",
+          "entra": "pop",
+          "sfx": "gong",
+          "emote": {
+            "centro": "..."
+          }
+        },
+        {
+          "gag": 0.7,
+          "anima": {
+            "centro": "temblor"
+          },
+          "sfx": "error",
+          "sacudir": 0.4
+        },
+        {
+          "gag": 1.7,
+          "anima": {
+            "centro": "derrumbe"
+          },
+          "sfx": "baja",
+          "sacudir": 0.6,
+          "flash": "malo",
+          "vibrar": [
+            80,
+            40,
+            120
+          ],
+          "parte": [
+            "papeles",
+            "polvo"
+          ]
+        },
+        {
+          "narra": "Las aulas se vaciaron, la matrícula se desplomó y la noticia llegó a la prensa antes que a tu escritorio.",
+          "fundido": true
+        },
+        {
+          "pj": "@caido",
+          "lado": "izq",
+          "texto": "¿Y las clases?",
+          "entra": "lado",
+          "anima": "susto"
+        },
+        {
+          "pj": "oscar_alumno",
+          "lado": "der",
+          "texto": "Hay asamblea, director. Con orden: hay turnos hasta para el baño.",
+          "entra": "lado",
+          "anima": "gigante"
+        },
+        {
+          "pj": "oscar",
+          "lado": "centro",
+          "texto": "Yo no tuve nada que ver. Bueno, lo del karaoke sí. Fue una idea descabellada.",
+          "entra": "pop",
+          "anima": "saludo",
+          "emote": {
+            "centro": "?!"
+          }
+        },
+        {
+          "pj": "oscar_alumno",
+          "lado": "der",
+          "texto": "Los martes, peticiones. Los jueves, karaoke. Los viernes... depende de cómo salga el jueves.",
+          "anima": "cabeceo"
+        },
+        {
+          "pj": "@caido",
+          "lado": "izq",
+          "texto": "¿Alguien me quiere escuchar?",
+          "anima": "no"
+        },
+        {
+          "narra": "Dentro del edificio alguien cantaba una balada a todo pulmón. Fuera, nadie dirigía la Unidad. El Consejo aceptó tu salida.",
+          "salir": "todos"
+        }
+      ]
+    },
+    "caida_est100": {
+      "fondo": "fin",
+      "musica": "destino",
+      "tinte": 70,
+      "una_vez": false,
+      "cps": 40,
+      "lineas": [
+        {
+          "titulo": "FIN DE LA GESTIÓN",
+          "sub": "Quisiste complacer a todos",
+          "fundido": true,
+          "espera": 2.2,
+          "sfx": "gong"
+        },
+        {
+          "gag": 1,
+          "pj": "@caido",
+          "lado": "centro",
+          "entra": "pop",
+          "sfx": "gong",
+          "emote": {
+            "centro": "..."
+          }
+        },
+        {
+          "gag": 0.7,
+          "anima": {
+            "centro": "temblor"
+          },
+          "sfx": "error",
+          "sacudir": 0.4
+        },
+        {
+          "gag": 1.7,
+          "anima": {
+            "centro": "derrumbe"
+          },
+          "sfx": "baja",
+          "sacudir": 0.6,
+          "flash": "malo",
+          "vibrar": [
+            80,
+            40,
+            120
+          ],
+          "parte": [
+            "papeles",
+            "polvo"
+          ]
+        },
+        {
+          "narra": "Todos pasaron con diez. Hasta el que nunca fue a clases. Hasta el perro de la cafetería.",
+          "fundido": true
+        },
+        {
+          "pj": "ricardo",
+          "lado": "der",
+          "texto": "¡Qué onda, director! ¡La mejor administración de la historia! ¡Nadie reprobó!",
+          "entra": "lado",
+          "anima": "risa"
+        },
+        {
+          "pj": "@caido",
+          "lado": "izq",
+          "texto": "Solo quería que todos estuvieran contentos.",
+          "entra": "lado",
+          "anima": "cabeceo"
+        },
+        {
+          "pj": "ana",
+          "lado": "centro",
+          "texto": "Con mucho cariño, director: vinieron los evaluadores y preguntaron por qué el promedio general es 10.0.",
+          "entra": "pop",
+          "anima": "pensar"
+        },
+        {
+          "pj": "@caido",
+          "lado": "izq",
+          "texto": "¿Por qué es 10.0? ...¿Por buena onda?",
+          "anima": "susto",
+          "emote": {
+            "izq": "?"
+          }
+        },
+        {
+          "pj": "ana",
+          "lado": "centro",
+          "texto": "Es una razón muy bonita. Pero no es una razón.",
+          "emote": {
+            "centro": "..."
+          }
+        },
+        {
+          "narra": "Sin rigor, el prestigio cayó y las acreditaciones quedaron en duda. El perro de la cafetería conservó su diez.",
+          "salir": "todos"
+        }
+      ]
+    },
+    "caida_fin0": {
+      "fondo": "fin",
+      "musica": "destino",
+      "tinte": 70,
+      "una_vez": false,
+      "cps": 40,
+      "lineas": [
+        {
+          "titulo": "FIN DE LA GESTIÓN",
+          "sub": "Se acabó el dinero",
+          "fundido": true,
+          "espera": 2.2,
+          "sfx": "gong"
+        },
+        {
+          "gag": 1,
+          "pj": "@caido",
+          "lado": "centro",
+          "entra": "pop",
+          "sfx": "gong",
+          "emote": {
+            "centro": "..."
+          }
+        },
+        {
+          "gag": 0.7,
+          "anima": {
+            "centro": "temblor"
+          },
+          "sfx": "error",
+          "sacudir": 0.4
+        },
+        {
+          "gag": 1.7,
+          "anima": {
+            "centro": "derrumbe"
+          },
+          "sfx": "baja",
+          "sacudir": 0.6,
+          "flash": "malo",
+          "vibrar": [
+            80,
+            40,
+            120
+          ],
+          "parte": [
+            "papeles",
+            "polvo"
+          ]
+        },
+        {
+          "narra": "La nómina se atrasa, los proveedores no cobran y el único teléfono que contestan es el de la pizzería.",
+          "fundido": true
+        },
+        {
+          "pj": "@caido",
+          "lado": "izq",
+          "texto": "Dime que queda algo en caja.",
+          "entra": "lado",
+          "anima": "susto"
+        },
+        {
+          "pj": "edel",
+          "lado": "der",
+          "texto": "Ya revisé, director. Hay seis pesos y un clip.",
+          "entra": "lado",
+          "anima": "cabeceo"
+        },
+        {
+          "pj": "@caido",
+          "lado": "izq",
+          "texto": "¿El clip es de oro?",
+          "emote": {
+            "izq": "?"
+          }
+        },
+        {
+          "pj": "edel",
+          "lado": "der",
+          "texto": "Es de plástico.",
+          "sfx": "error",
+          "anima": "no"
+        },
+        {
+          "pj": "juan",
+          "lado": "centro",
+          "texto": "Los números no mienten, director. Yo solo los ordeno.",
+          "entra": "pop",
+          "anima": "saludo"
+        },
+        {
+          "narra": "El Consejo aceptó tu renuncia. Edel guardó el clip por si acaso.",
+          "salir": "todos"
+        }
+      ]
+    },
+    "caida_fin100": {
+      "fondo": "fin",
+      "musica": "destino",
+      "tinte": 70,
+      "una_vez": false,
+      "cps": 40,
+      "lineas": [
+        {
+          "titulo": "FIN DE LA GESTIÓN",
+          "sub": "La Unidad se quedó sin vida",
+          "fundido": true,
+          "espera": 2.2,
+          "sfx": "gong"
+        },
+        {
+          "gag": 1,
+          "pj": "@caido",
+          "lado": "centro",
+          "entra": "pop",
+          "sfx": "gong",
+          "emote": {
+            "centro": "..."
+          }
+        },
+        {
+          "gag": 0.7,
+          "anima": {
+            "centro": "temblor"
+          },
+          "sfx": "error",
+          "sacudir": 0.4
+        },
+        {
+          "gag": 1.7,
+          "anima": {
+            "centro": "derrumbe"
+          },
+          "sfx": "baja",
+          "sacudir": 0.6,
+          "flash": "malo",
+          "vibrar": [
+            80,
+            40,
+            120
+          ],
+          "parte": [
+            "papeles",
+            "polvo"
+          ]
+        },
+        {
+          "narra": "Sin becas, sin mantenimiento, sin ánimo. Alguien pidió una auditoría y las cuentas no cuadraron.",
+          "fundido": true
+        },
+        {
+          "pj": "@caido",
+          "lado": "izq",
+          "texto": "Estaba cuidando el dinero.",
+          "entra": "lado",
+          "anima": "pensar"
+        },
+        {
+          "pj": "gabriel",
+          "lado": "der",
+          "texto": "Director, los equipos del laboratorio llevan años «en pausa». Todos.",
+          "entra": "lado",
+          "anima": "no"
+        },
+        {
+          "pj": "ana",
+          "lado": "centro",
+          "texto": "Y las cuentas, con cariño, no cuadran: hay dinero guardado que nadie ha usado.",
+          "entra": "pop",
+          "anima": "pensar"
+        },
+        {
+          "pj": "@caido",
+          "lado": "izq",
+          "texto": "Es que... no lo quise gastar.",
+          "anima": "susto"
+        },
+        {
+          "pj": "ana",
+          "lado": "centro",
+          "texto": "Eso se llama guardarlo debajo del colchón.",
+          "emote": {
+            "centro": "..."
+          }
+        },
+        {
+          "narra": "Gabriel intentó reanimar una computadora para imprimir tu renuncia. Tampoco prendió.",
+          "salir": "todos",
+          "sfx": "error"
+        }
+      ]
+    },
+    "caida_pol0": {
+      "fondo": "fin",
+      "musica": "destino",
+      "tinte": 70,
+      "una_vez": false,
+      "cps": 40,
+      "lineas": [
+        {
+          "titulo": "FIN DE LA GESTIÓN",
+          "sub": "Rectoría dejó de contestarte",
+          "fundido": true,
+          "espera": 2.2,
+          "sfx": "gong"
+        },
+        {
+          "gag": 1,
+          "pj": "@caido",
+          "lado": "centro",
+          "entra": "pop",
+          "sfx": "gong",
+          "emote": {
+            "centro": "..."
+          }
+        },
+        {
+          "gag": 0.7,
+          "anima": {
+            "centro": "temblor"
+          },
+          "sfx": "error",
+          "sacudir": 0.4
+        },
+        {
+          "gag": 1.7,
+          "anima": {
+            "centro": "derrumbe"
+          },
+          "sfx": "baja",
+          "sacudir": 0.6,
+          "flash": "malo",
+          "vibrar": [
+            80,
+            40,
+            120
+          ],
+          "parte": [
+            "papeles",
+            "polvo"
+          ]
+        },
+        {
+          "narra": "Tus proyectos se quedaron en un cajón. Tus enemigos aprovecharon cada semana de silencio.",
+          "fundido": true
+        },
+        {
+          "pj": "@caido",
+          "lado": "izq",
+          "texto": "Llevo tres semanas llamando a rectoría.",
+          "entra": "lado",
+          "anima": "no"
+        },
+        {
+          "pj": "norma",
+          "lado": "der",
+          "texto": "Ay, director, qué pena. Te traje un pastelito, para que no te vayas con las manos vacías.",
+          "entra": "lado",
+          "anima": "latido"
+        },
+        {
+          "pj": "norma",
+          "lado": "der",
+          "texto": "Y esta carta. Son solo dos líneas, las cuidé mucho: «Se agradecen sus servicios. Atentamente».",
+          "anima": "cabeceo",
+          "sfx": "pagina"
+        },
+        {
+          "pj": "@caido",
+          "lado": "izq",
+          "texto": "¿Eso es todo?",
+          "anima": "susto"
+        },
+        {
+          "pj": "norma",
+          "lado": "der",
+          "texto": "Con cariño, sí. Pero hay pastelito.",
+          "anima": "saludo"
+        },
+        {
+          "narra": "Te retiraron el cargo con una carta de dos líneas y una rebanada de pastel. Estaba rico, por cierto.",
+          "salir": "todos"
+        }
+      ]
+    },
+    "caida_pol100": {
+      "fondo": "fin",
+      "musica": "destino",
+      "tinte": 70,
+      "una_vez": false,
+      "cps": 40,
+      "lineas": [
+        {
+          "titulo": "FIN DE LA GESTIÓN",
+          "sub": "Terminaste firmando lo que otros decidieron",
+          "fundido": true,
+          "espera": 2.2,
+          "sfx": "gong"
+        },
+        {
+          "gag": 1,
+          "pj": "@caido",
+          "lado": "centro",
+          "entra": "pop",
+          "sfx": "gong",
+          "emote": {
+            "centro": "..."
+          }
+        },
+        {
+          "gag": 0.7,
+          "anima": {
+            "centro": "temblor"
+          },
+          "sfx": "error",
+          "sacudir": 0.4
+        },
+        {
+          "gag": 1.7,
+          "anima": {
+            "centro": "derrumbe"
+          },
+          "sfx": "baja",
+          "sacudir": 0.6,
+          "flash": "malo",
+          "vibrar": [
+            80,
+            40,
+            120
+          ],
+          "parte": [
+            "papeles",
+            "polvo"
+          ]
+        },
+        {
+          "narra": "Dijiste que sí a todo lo que bajaba de rectoría. Nadie te preguntó nada. Nadie te explicó qué firmabas.",
+          "fundido": true
+        },
+        {
+          "pj": "@caido",
+          "lado": "izq",
+          "texto": "Firmé lo que me mandaron. Confío en rectoría.",
+          "entra": "lado",
+          "anima": "cabeceo"
+        },
+        {
+          "pj": "pedro",
+          "lado": "der",
+          "texto": "¡Director! Entre esos papeles había una cesión del edificio B para convertirlo en estacionamiento. ¡Es patrimonio cultural!",
+          "entra": "lado",
+          "anima": "susto"
+        },
+        {
+          "pj": "jose_27",
+          "lado": "centro",
+          "texto": "Yo le dije: «director, lea». Él me dijo: «confío». Conozco a medio mundo y ese día nadie me hizo caso.",
+          "entra": "pop",
+          "anima": "no"
+        },
+        {
+          "pj": "@caido",
+          "lado": "izq",
+          "texto": "¿Y el otro papel?",
+          "emote": {
+            "izq": "?"
+          }
+        },
+        {
+          "pj": "pedro",
+          "lado": "der",
+          "texto": "Pintar la Unidad del color de rectoría. Ese era el menos grave.",
+          "anima": "gigante"
+        },
+        {
+          "narra": "La Unidad dejó de ser tuya. Faltaba un papel más y habrías firmado tu propia renuncia. Bueno, ya la firmaste.",
+          "salir": "todos"
+        }
+      ]
+    },
+    "caida_derrota": {
+      "fondo": "fin",
+      "musica": "destino",
+      "tinte": 70,
+      "una_vez": false,
+      "cps": 40,
+      "lineas": [
+        {
+          "titulo": "FIN DE LA GESTIÓN",
+          "sub": "Las urnas hablaron",
+          "fundido": true,
+          "espera": 2.2,
+          "sfx": "gong"
+        },
+        {
+          "gag": 1,
+          "pj": "@caido",
+          "lado": "centro",
+          "entra": "pop",
+          "sfx": "gong",
+          "emote": {
+            "centro": "..."
+          }
+        },
+        {
+          "gag": 0.7,
+          "anima": {
+            "centro": "temblor"
+          },
+          "sfx": "error",
+          "sacudir": 0.4
+        },
+        {
+          "gag": 1.7,
+          "anima": {
+            "centro": "derrumbe"
+          },
+          "sfx": "baja",
+          "sacudir": 0.6,
+          "flash": "malo",
+          "vibrar": [
+            80,
+            40,
+            120
+          ],
+          "parte": [
+            "papeles",
+            "polvo"
+          ]
+        },
+        {
+          "narra": "Votó toda la comunidad. Los votos se contaron tres veces porque Reyna insistió.",
+          "fundido": true
+        },
+        {
+          "pj": "@caido",
+          "lado": "izq",
+          "texto": "Ya lo vi. ¿Y cuántos votos saqué?",
+          "entra": "lado",
+          "anima": "pensar"
+        },
+        {
+          "pj": "reyna",
+          "lado": "der",
+          "texto": "¡Ya conté! ¡Dos veces! ¡Tres! Perdón, director: el resultado no cambió.",
+          "entra": "lado",
+          "anima": "furia"
+        },
+        {
+          "pj": "omar",
+          "lado": "centro",
+          "texto": "¡Ánimo, director! Yo te voté. Bueno... creo que fui yo. Saludo a tanta gente.",
+          "entra": "pop",
+          "anima": "saludo"
+        },
+        {
+          "pj": "reyna",
+          "lado": "der",
+          "texto": "Perdiste por poco. Poquísimo. Digamos que por un café.",
+          "anima": "cabeceo"
+        },
+        {
+          "narra": "La comunidad prefirió a {suc}. Entregas las llaves con la frente en alto... o con rencor, según lo que hayas sembrado.",
+          "salir": "todos"
+        }
+      ]
+    },
+    "caida_retiro": {
+      "fondo": "fin",
+      "musica": "destino",
+      "tinte": 70,
+      "una_vez": false,
+      "cps": 40,
+      "lineas": [
+        {
+          "titulo": "FIN DE LA GESTIÓN",
+          "sub": "Una decisión tuya",
+          "fundido": true,
+          "espera": 2.2,
+          "sfx": "gong"
+        },
+        {
+          "gag": 1,
+          "pj": "@caido",
+          "lado": "centro",
+          "entra": "pop",
+          "sfx": "gong",
+          "emote": {
+            "centro": "..."
+          }
+        },
+        {
+          "gag": 0.7,
+          "anima": {
+            "centro": "temblor"
+          },
+          "sfx": "error",
+          "sacudir": 0.4
+        },
+        {
+          "gag": 1.7,
+          "anima": {
+            "centro": "derrumbe"
+          },
+          "sfx": "baja",
+          "sacudir": 0.6,
+          "flash": "malo",
+          "vibrar": [
+            80,
+            40,
+            120
+          ],
+          "parte": [
+            "papeles",
+            "polvo"
+          ]
+        },
+        {
+          "narra": "Decides no presentarte. Cierras el cajón con llave y vuelves a lo que querías desde joven: dar clases.",
+          "fundido": true
+        },
+        {
+          "pj": "lugo",
+          "lado": "der",
+          "texto": "¡Pásale, ya te guardé la silla de la esquina! La del ventilador sí funciona.",
+          "entra": "lado",
+          "anima": "saludo"
+        },
+        {
+          "pj": "@caido",
+          "lado": "izq",
+          "texto": "Gracias, maestro. Hacía mucho que no entraba a un salón.",
+          "entra": "lado",
+          "anima": "cabeceo"
+        },
+        {
+          "pj": "lugo",
+          "lado": "der",
+          "texto": "Mi secreto es sonreír primero. Casi siempre funciona.",
+          "anima": "risa"
+        },
+        {
+          "pj": "monica",
+          "lado": "centro",
+          "texto": "Dar clases es lo único que no te pide nada a cambio. Yo también tardé en entenderlo.",
+          "entra": "pop",
+          "anima": "latido"
+        },
+        {
+          "narra": "Cierras la oficina. La libreta de Mónica sigue con pendientes, pero ya no son tuyos.",
+          "salir": "todos"
+        }
+      ]
+    },
+    "caida_limite": {
+      "fondo": "fin",
+      "musica": "destino",
+      "tinte": 70,
+      "una_vez": false,
+      "cps": 40,
+      "lineas": [
+        {
+          "titulo": "FIN DE LA GESTIÓN",
+          "sub": "El reglamento no te permite otro periodo",
+          "fundido": true,
+          "espera": 2.2,
+          "sfx": "gong"
+        },
+        {
+          "gag": 1,
+          "pj": "@caido",
+          "lado": "centro",
+          "entra": "pop",
+          "sfx": "gong",
+          "emote": {
+            "centro": "..."
+          }
+        },
+        {
+          "gag": 0.7,
+          "anima": {
+            "centro": "temblor"
+          },
+          "sfx": "error",
+          "sacudir": 0.4
+        },
+        {
+          "gag": 1.7,
+          "anima": {
+            "centro": "derrumbe"
+          },
+          "sfx": "baja",
+          "sacudir": 0.6,
+          "flash": "malo",
+          "vibrar": [
+            80,
+            40,
+            120
+          ],
+          "parte": [
+            "papeles",
+            "polvo"
+          ]
+        },
+        {
+          "narra": "La comunidad se despide con aplausos tibios. Y con un pastel de sábana.",
+          "fundido": true
+        },
+        {
+          "pj": "eligardo",
+          "lado": "der",
+          "texto": "¡Pastel de sábana! ¡Hay para todos! ¡Y sobra! Ningún problema resiste un buen pastel.",
+          "entra": "lado",
+          "anima": "aplauso",
+          "parte": "confeti"
+        },
+        {
+          "pj": "fernando",
+          "lado": "centro",
+          "texto": "Trae dedicatoria. Dice: «Gracias por todo, Direct». No alcanzó el espacio.",
+          "entra": "pop",
+          "anima": "risa",
+          "emote": {
+            "centro": "jaja"
+          }
+        },
+        {
+          "pj": "@caido",
+          "lado": "izq",
+          "texto": "Me quedo con la D mayúscula. Me gusta cómo se ve.",
+          "entra": "lado",
+          "anima": "cabeceo"
+        },
+        {
+          "narra": "Aplausos tibios, pastel tibio, abrazos calientes. Así termina la gestión de {dir}.",
+          "salir": "todos"
+        }
+      ]
+    },
+    "relevo_perla": {
+      "fondo": "sucesion",
+      "musica": "campana",
+      "una_vez": false,
+      "cps": 40,
+      "lineas": [
+        {
+          "titulo": "NUEVO DIRECTOR",
+          "sub": "Director #{n} · {suc}",
+          "fundido": true,
+          "espera": 2.4,
+          "sfx": "campana"
+        },
+        {
+          "gag": 1.3,
+          "pj": "@sucesor",
+          "lado": "centro",
+          "anima": "asciende",
+          "sfx": "sube",
+          "parte": "chispas"
+        },
+        {
+          "gag": 2,
+          "flash": "bueno",
+          "sfx": "logro",
+          "parte": [
+            "confeti",
+            "chispas"
+          ],
+          "anima": {
+            "centro": "latido"
+          },
+          "sacudir": 0.2,
+          "vibrar": [
+            60
+          ]
+        },
+        {
+          "narra": "El Consejo contó los votos. Perla ya había mandado imprimir la placa de la dirección. Nadie le preguntó cómo sabía.",
+          "fundido": true,
+          "salir": [
+            "centro"
+          ]
+        },
+        {
+          "pj": "@caido",
+          "lado": "izq",
+          "texto": "Te dejo las llaves y la cafetera. La cafetera es más complicada.",
+          "entra": "lado",
+          "anima": "saludo"
+        },
+        {
+          "pj": "@sucesor",
+          "lado": "der",
+          "texto": "Gracias. Ya organicé la entrega, el calendario del semestre y la agenda de la semana. Quedaron contentos.",
+          "entra": "lado",
+          "anima": "gigante"
+        },
+        {
+          "pj": "@caido",
+          "lado": "izq",
+          "texto": "¿Quiénes?",
+          "anima": "pensar",
+          "emote": {
+            "izq": "?"
+          }
+        },
+        {
+          "pj": "@sucesor",
+          "lado": "der",
+          "texto": "Todos. No pregunté.",
+          "anima": "cabeceo",
+          "sfx": "acierto"
+        },
+        {
+          "pj": "sergio",
+          "lado": "centro",
+          "texto": "Qué bonito: un mandato con plan. Se siente raro.",
+          "entra": "pop",
+          "anima": "pensar"
+        },
+        {
+          "pj": "@sucesor",
+          "lado": "der",
+          "texto": "Investigación primero; luego, el plan. Y luego, el plan B de Alejandro.",
+          "anima": "saludo"
+        },
+        {
+          "narra": "{suc} sube como Director #{n}. Lo primero que hace es abrir la libreta de Mónica y subrayar los pendientes en tres colores.",
+          "salir": "todos",
+          "sfx": "gong"
+        }
+      ]
+    },
+    "relevo_victor": {
+      "fondo": "sucesion",
+      "musica": "campana",
+      "una_vez": false,
+      "cps": 40,
+      "lineas": [
+        {
+          "titulo": "NUEVO DIRECTOR",
+          "sub": "Director #{n} · {suc}",
+          "fundido": true,
+          "espera": 2.4,
+          "sfx": "campana"
+        },
+        {
+          "gag": 1.3,
+          "pj": "@sucesor",
+          "lado": "centro",
+          "anima": "asciende",
+          "sfx": "sube",
+          "parte": "chispas"
+        },
+        {
+          "gag": 2,
+          "flash": "bueno",
+          "sfx": "logro",
+          "parte": [
+            "confeti",
+            "chispas"
+          ],
+          "anima": {
+            "centro": "latido"
+          },
+          "sacudir": 0.2,
+          "vibrar": [
+            60
+          ]
+        },
+        {
+          "narra": "El Consejo contó los votos. Víctor ya había saludado a todos los consejeros. Antes y después.",
+          "fundido": true,
+          "salir": [
+            "centro"
+          ]
+        },
+        {
+          "pj": "@caido",
+          "lado": "izq",
+          "texto": "Es todo tuyo. Te deseo suerte.",
+          "entra": "lado",
+          "anima": "saludo"
+        },
+        {
+          "pj": "@sucesor",
+          "lado": "der",
+          "texto": "Qué gusto, qué honor, de verdad. Prometo llegar a acuerdos favorables... para todos. O para casi todos.",
+          "entra": "lado",
+          "anima": "gigante"
+        },
+        {
+          "pj": "omar",
+          "lado": "centro",
+          "texto": "¡Hola, hola, Víctor! ¡Felicidades! ¿Ya saludaste al conserje?",
+          "entra": "pop",
+          "anima": "saludo"
+        },
+        {
+          "pj": "@sucesor",
+          "lado": "der",
+          "texto": "Desde las siete. Y a su familia, por videollamada.",
+          "anima": "latido",
+          "emote": {
+            "der": "jeje"
+          }
+        },
+        {
+          "pj": "@caido",
+          "lado": "izq",
+          "texto": "¿Alguien lo ha visto discutir alguna vez?",
+          "anima": "pensar"
+        },
+        {
+          "pj": "@sucesor",
+          "lado": "der",
+          "texto": "Yo no discuto. Yo llego a acuerdos.",
+          "anima": "cabeceo",
+          "sfx": "voto"
+        },
+        {
+          "narra": "{suc} sube como Director #{n}. Sonríe tanto que nadie nota que ya firmó tres acuerdos.",
+          "salir": "todos",
+          "sfx": "gong"
+        }
+      ]
+    },
+    "relevo_nayeli": {
+      "fondo": "sucesion",
+      "musica": "campana",
+      "una_vez": false,
+      "cps": 40,
+      "lineas": [
+        {
+          "titulo": "NUEVO DIRECTOR",
+          "sub": "Director #{n} · {suc}",
+          "fundido": true,
+          "espera": 2.4,
+          "sfx": "campana"
+        },
+        {
+          "gag": 1.3,
+          "pj": "@sucesor",
+          "lado": "centro",
+          "anima": "asciende",
+          "sfx": "sube",
+          "parte": "chispas"
+        },
+        {
+          "gag": 2,
+          "flash": "bueno",
+          "sfx": "logro",
+          "parte": [
+            "confeti",
+            "chispas"
+          ],
+          "anima": {
+            "centro": "latido"
+          },
+          "sacudir": 0.2,
+          "vibrar": [
+            60
+          ]
+        },
+        {
+          "narra": "El Consejo contó los votos. Alfonso ya tenía lista la porra. Nayeli, el confeti.",
+          "fundido": true,
+          "salir": [
+            "centro"
+          ]
+        },
+        {
+          "pj": "@caido",
+          "lado": "izq",
+          "texto": "Mucha suerte. Te va a hacer falta.",
+          "entra": "lado",
+          "anima": "cabeceo"
+        },
+        {
+          "pj": "@sucesor",
+          "lado": "der",
+          "texto": "¡Gracias! ¡Lo voy a hacer increíble! ¡Y ni siquiera he empezado!",
+          "entra": "caer",
+          "anima": "salto",
+          "parte": "confeti",
+          "sfx": "logro"
+        },
+        {
+          "pj": "alfonso",
+          "lado": "centro",
+          "texto": "¡Goya, goya, cachún cachún ra ra! ¡Es la directora de los Pumas! Bueno, no oficialmente.",
+          "entra": "pop",
+          "anima": "aplauso"
+        },
+        {
+          "pj": "@sucesor",
+          "lado": "der",
+          "texto": "¡Dame una D, dame una I, dame una R...! Ay, ya me emocioné.",
+          "anima": "baile",
+          "parte": "chispas"
+        },
+        {
+          "pj": "sonia",
+          "lado": "centro",
+          "texto": "Nayeli, cariño, respira. Primero firmamos y luego celebramos.",
+          "entra": "pop",
+          "anima": "cabeceo"
+        },
+        {
+          "pj": "@caido",
+          "lado": "izq",
+          "texto": "Con ese ánimo, seguro les va bien.",
+          "anima": "cabeceo"
+        },
+        {
+          "narra": "{suc} sube como Director #{n}. Cada logro, hasta el más chiquito, tendrá su porra.",
+          "salir": "todos",
+          "sfx": "gong"
+        }
+      ]
+    },
+    "diario_1": {
+      "fondo": "informe",
+      "musica": "oficina",
+      "tinte": 110,
+      "una_vez": false,
+      "cps": 40,
+      "lineas": [
+        {
+          "periodico": {
+            "nombre": "EL PREGONERO NAYARITA",
+            "fecha": "Marzo de 2027",
+            "notas": [
+              {
+                "h": "Corte tira el impuesto y la UAN recorta 12% del gasto",
+                "t": "Rectoría anuncia que baja el gasto en todas las unidades. «Será temporal», dijo. Los directores piden que lo pongan por escrito."
+              },
+              {
+                "h": "Más alertas en la carretera a la costa",
+                "t": "Transportistas y estudiantes foráneos reportan asaltos en tramos de la costa. Algunos ya faltan a clases por miedo al camino."
+              },
+              {
+                "h": "Estudiantes piden reunión urgente con rectoría",
+                "t": "Hubo asambleas en varias facultades. En las cartulinas hay una sola pregunta: «¿Y mi beca?»."
+              }
+            ]
+          },
+          "sfx": "pagina",
+          "fundido": true
+        }
+      ]
+    },
+    "diario_2": {
+      "fondo": "informe",
+      "musica": "oficina",
+      "tinte": 110,
+      "una_vez": false,
+      "cps": 40,
+      "lineas": [
+        {
+          "periodico": {
+            "nombre": "EL PREGONERO NAYARITA",
+            "fecha": "Junio de 2027",
+            "notas": [
+              {
+                "h": "Congelan plazas y bajan horas a maestros de tiempo completo",
+                "t": "Docentes de varias unidades se enteraron por el pizarrón de avisos. Nadie les explicó cuánto durará."
+              },
+              {
+                "h": "Cierran dos comedores: los proveedores ya no fían",
+                "t": "Alumnos comieron galletas y café durante dos días. Un grupo repartió tortas con su propio dinero."
+              },
+              {
+                "h": "Asaltos cerca de las paradas del camión universitario",
+                "t": "Estudiantes piden salir antes de que anochezca. Los vecinos de la zona prometen vigilarse entre ellos."
+              }
+            ]
+          },
+          "sfx": "pagina",
+          "fundido": true
+        }
+      ]
+    },
+    "diario_3": {
+      "fondo": "informe",
+      "musica": "oficina",
+      "tinte": 110,
+      "una_vez": false,
+      "cps": 40,
+      "lineas": [
+        {
+          "periodico": {
+            "nombre": "EL PREGONERO NAYARITA",
+            "fecha": "Octubre de 2027",
+            "notas": [
+              {
+                "h": "Maestros amenazan con paro por pagos atrasados",
+                "t": "Varias quincenas llegaron incompletas. En los pasillos ya se habla de «parar un día para que nos escuchen»."
+              },
+              {
+                "h": "Negocios cerca del campus denuncian cobro de «cuotas»",
+                "t": "Dueños de papelerías y fondas dicen que alguien les pide dinero por «cuidarlos». Algunos cerraron temprano."
+              },
+              {
+                "h": "Becas en revisión: miles podrían perderlas",
+                "t": "Un nuevo padrón pide papeles que muchas familias no tienen. Las oficinas de trámites se llenaron desde las siete de la mañana."
+              }
+            ]
+          },
+          "sfx": "pagina",
+          "fundido": true
+        }
+      ]
+    },
+    "diario_4": {
+      "fondo": "informe",
+      "musica": "oficina",
+      "tinte": 110,
+      "una_vez": false,
+      "cps": 40,
+      "lineas": [
+        {
+          "periodico": {
+            "nombre": "EL PREGONERO NAYARITA",
+            "fecha": "Febrero de 2028",
+            "notas": [
+              {
+                "h": "Suspenden prácticas de campo en la sierra",
+                "t": "Por seguridad, ningún grupo saldrá de la ciudad este semestre. Varias materias tendrán que inventar otra forma de práctica."
+              },
+              {
+                "h": "Recortan laboratorios: investigadores piden donaciones",
+                "t": "Falta dinero para reactivos y refacciones. Un maestro vendió pastelitos en el pasillo para comprar cables."
+              },
+              {
+                "h": "Marcha por la paz y por la educación bloquea el centro",
+                "t": "Cientos de jóvenes y familias caminaron en silencio con carteles. Piden seguridad y presupuesto, en ese orden."
+              }
+            ]
+          },
+          "sfx": "pagina",
+          "fundido": true
+        }
+      ]
+    },
+    "diario_5": {
+      "fondo": "informe",
+      "musica": "oficina",
+      "tinte": 110,
+      "una_vez": false,
+      "cps": 40,
+      "lineas": [
+        {
+          "periodico": {
+            "nombre": "EL PREGONERO NAYARITA",
+            "fecha": "Mayo de 2028",
+            "notas": [
+              {
+                "h": "Bloqueos en la ciudad por falta de agua y de luz",
+                "t": "Vecinos cerraron avenidas durante horas. Varias escuelas, entre ellas facultades de la UAN, suspendieron clases por el calor y el apagón."
+              },
+              {
+                "h": "Auditoría encuentra huecos en cuentas de varias dependencias",
+                "t": "El informe habla de gastos sin comprobar y cajas «que nunca se contaron». Nadie quiere dar nombres."
+              },
+              {
+                "h": "La Corte vuelve a la carga: otro golpe a los fondos universitarios",
+                "t": "Un nuevo fallo recorta recursos extraordinarios. Rectoría pide «mantener la calma y apretarse el cinturón»."
+              }
+            ]
+          },
+          "sfx": "pagina",
+          "fundido": true
+        }
+      ]
+    },
+    "diario_6": {
+      "fondo": "informe",
+      "musica": "oficina",
+      "tinte": 110,
+      "una_vez": false,
+      "cps": 40,
+      "lineas": [
+        {
+          "periodico": {
+            "nombre": "EL PREGONERO NAYARITA",
+            "fecha": "Septiembre de 2028",
+            "notas": [
+              {
+                "h": "Familias de comunidades rurales llegan a la ciudad por la inseguridad",
+                "t": "Albergues y casas particulares reciben a quienes dejaron sus pueblos. Algunos niños pidieron entrar a escuelas cercanas."
+              },
+              {
+                "h": "Segundo recorte: ahora de 15%",
+                "t": "Rectoría lo anuncia por video. En los comentarios, la palabra más repetida es «otra vez»."
+              },
+              {
+                "h": "Jóvenes encienden velas en el patio «por la paz»",
+                "t": "Sin discursos ni micrófono, cientos de estudiantes se quedaron un rato en silencio. Después recogieron todo y se fueron a sus clases."
+              }
+            ]
+          },
+          "sfx": "pagina",
+          "fundido": true
+        }
+      ]
+    },
+    "diario_7": {
+      "fondo": "informe",
+      "musica": "oficina",
+      "tinte": 110,
+      "una_vez": false,
+      "cps": 40,
+      "lineas": [
+        {
+          "periodico": {
+            "nombre": "EL PREGONERO NAYARITA",
+            "fecha": "Enero de 2029",
+            "notas": [
+              {
+                "h": "A más de dos años del incendio de Finanzas, nadie responde",
+                "t": "Las cajas, los papeles y las preguntas siguen sin aparecer. Un consejero asegura que «ya se hizo todo lo posible»."
+              },
+              {
+                "h": "Aumentan las deserciones: uno de cada cinco alumnos no volvió",
+                "t": "Dinero, miedo y cansancio son las razones que más se repiten. Algunos prometen volver «cuando se pueda»."
+              },
+              {
+                "h": "Comerciantes cierran temprano: «ya no se puede trabajar»",
+                "t": "Las fondas cerca del campus apagan la luz a las seis. Los estudiantes comen más rápido y caminan en grupo."
+              }
+            ]
+          },
+          "sfx": "pagina",
+          "fundido": true
+        }
+      ]
+    },
+    "diario_8": {
+      "fondo": "informe",
+      "musica": "oficina",
+      "tinte": 110,
+      "una_vez": false,
+      "cps": 40,
+      "lineas": [
+        {
+          "periodico": {
+            "nombre": "EL PREGONERO NAYARITA",
+            "fecha": "Abril de 2029",
+            "notas": [
+              {
+                "h": "Universidad en vilo: padres de familia piden garantías",
+                "t": "En una reunión muy llena, madres y padres preguntaron lo mismo muchas veces: seguridad, becas y quién va a responder."
+              },
+              {
+                "h": "Paro nacional de universidades públicas por los recortes",
+                "t": "Rectores y sindicatos de todo el país pararon un día. En Nayarit hubo clases a medias y muchas dudas."
+              },
+              {
+                "h": "Encuesta: siete de cada diez confían poco en las autoridades",
+                "t": "El enojo ya no tiene un solo culpable. Tampoco una sola puerta donde tocar."
+              }
+            ]
+          },
+          "sfx": "pagina",
+          "fundido": true
+        }
+      ]
     }
-   ]
   }
- }
 }

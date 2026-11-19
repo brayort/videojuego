@@ -1,6 +1,6 @@
 # Director UAN: Economía (GDevelop 5)
 
-Juego de cartas tipo Reigns. Lógica en eventos JavaScript de GDevelop; contenido en `src/cartas.json`.
+Juego de cartas tipo Reigns. Lógica en eventos JavaScript de GDevelop; contenido en `src/historia/` (módulos por tema y por tipo de carta).
 
 ## Estructura
 
@@ -10,7 +10,8 @@ package.json         atajos: npm run build | check | sim | balance | audio | pla
 src/                 EL JUEGO (lo que se edita)
   js/*.js            motor, un archivo por sección: 00_comun, 05_audio, 10_datos, 20_estado, 30_cartas,
                      40_minijuegos, 50_entrada, 55_efectos, 60_render, menu, logros (cada uno = un grupo [AUTO])
-  cartas.json        contenido; esquema y mecánicas en src/ESQUEMA.md
+  historia/          contenido por módulos (personajes, finales, mundo y cartas: genéricas, especiales, consecuencias y cadenas); esquema en src/ESQUEMA.md
+  historias/         historias archivadas (uan_original)
   config.json        ids de leaderboards y volúmenes por defecto
   layout.json        espejo generado del LAYOUT de 00_comun.js (no editar)
 tools/               HERRAMIENTAS (no van dentro del juego)
@@ -28,7 +29,8 @@ assets/              audio, fuentes y sprites provisionales
 
 | comando | qué hace |
 |---|---|
-| `npm run editor` | **Editor web** en http://localhost:5178 (solo local). **Cartas**: buscar y filtrar (personaje, con problemas, solo_luego, campaña, era, con cine, nunca vistas), formulario por carta y opción, vista previa con el LAYOUT real (marca en rojo el texto que no cabe), referencias cruzadas (quién pone o lee cada bandera, quién encola la carta). **Cinemáticas**: editar guiones línea a línea, disparos y un reproductor igual al del juego. **Balance**: corre la simulación y la muestra en gráficas (duración, causas de caída, destinos, sucesores, cartas más vistas, nunca vistas y con opción dominante). **Revisión**: el lint en vivo. Guarda `src/cartas.json` y `src/cinematicas.json` con respaldo en `tools/editor/respaldos/`; el botón *Build* genera `game.json` (cierra GDevelop antes). |
+| `npm run editor` | **Editor web** en http://localhost:5178 (solo local). **Personajes**: lista de todos los personajes (aliados, antagonistas, candidatos, el director del jugador) con su retrato, ficha (rol, unidad, personalidad), frases del menú, candidato a sucesor y cartas de participación; avisa de nombres repetidos y los arregla; importa sprites de `sprites/`. **Cartas**: buscar y filtrar (personaje, con problemas, solo_luego, campaña, era, con cine, nunca vistas), formulario por carta y opción, vista previa con el LAYOUT real (marca en rojo el texto que no cabe), referencias cruzadas (quién pone o lee cada bandera, quién encola la carta). **Cinemáticas**: editar guiones línea a línea, disparos y un reproductor igual al del juego. **Balance**: corre la simulación y la muestra en gráficas (duración, causas de caída, destinos, sucesores, cartas más vistas, nunca vistas y con opción dominante). **Revisión**: el lint en vivo. Filtra cartas por tipo (genéricas, especiales, consecuencias, cadenas) y asigna cada carta a una cadena. Guarda `src/historia/` y `src/cinematicas.json` con respaldo en `tools/editor/respaldos/`; el botón *Build* genera `game.json` (cierra GDevelop antes). |
+| `npm run play` | **Reproductor con recarga en caliente** en http://localhost:5180 (solo local). Ejecuta el motor real del juego en el navegador y vigila `src/`: al guardar una carta, un guion o un `.js` reconstruye en un archivo temporal (no toca `game.json`, no hace falta cerrar GDevelop), vuelve a pasar el lint y reinicia la escena (con *continuar al recargar* vuelve a tu partida). Barra con Menú, Nueva partida, Borrar guardado, panel de depuración (F2) y el lint en vivo. El dibujo es una aproximación fiel al de `npm run preview`, no el renderizador de GDevelop: para la última palabra usa *Preview* en GDevelop. |
 | `npm run lint` | Revisa el contenido: ids duplicados, personajes, expedientes, `luego` hacia cartas que no existen, cartas `solo_luego` que nunca se encolan, banderas que se leen pero nada pone, umbrales y eras mal escritos, cinemáticas y assets que faltan, textos demasiado largos. `--todo` muestra también la info. |
 | `npm run check` | lint + build a un archivo temporal + simulador de escenas. Úsalo antes de cada commit. |
 | `npm run balance` | 5000 partidas por bot → `tools/balance/reporte.txt` y `reporte.json` (este último lo lee el editor). |
@@ -39,7 +41,7 @@ assets/              audio, fuentes y sprites provisionales
 Orden completo (desde la raíz): `npm run audio` (solo si cambias el audio) → `npm run build` (= `build.js` + `assets.js`) → pruebas: `node tools/sim/sim.js <semilla> [frames]` (con `SIM_RANK=1` simula el ranking configurado) y `python tools/preview_layout.py` (capturas en `assets/preview`).
 
 1. Cierra el proyecto en GDevelop (o prepárate a **recargarlo**). Si el editor queda abierto y guarda, sobrescribe lo que haga el script.
-2. Edita `src/cartas.json` (o `src/js/*.js`) y corre `node tools/build/build.js`.
+2. Edita `src/historia/` (o `src/js/*.js`) y corre `node tools/build/build.js`.
 3. Abre / recarga `game.json` en GDevelop.
 
 `build.js` **no sobrescribe**: si `game.json` existe, lo fusiona.

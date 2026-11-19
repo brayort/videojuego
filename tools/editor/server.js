@@ -1,13 +1,14 @@
 // Editor del juego: servidor local sin dependencias (solo 127.0.0.1).
 // Uso: npm run editor   (o node tools/editor/server.js [puerto])  ->  http://localhost:5178
-// Lee y GUARDA src/cartas.json y src/cinematicas.json (con respaldo en tools/editor/respaldos/),
+// Lee y GUARDA src/historia/ (modulos por tema y por tipo de carta, ver tools/historia.js) y src/cinematicas.json (con respaldo en tools/editor/respaldos/),
 // valida con tools/lint.js, corre el balance y el build. Cierra GDevelop antes de "Build".
 const http = require("http"), fs = require("fs"), path = require("path"), os = require("os");
 const { spawn } = require("child_process");
 const { revisar } = require("../lint.js");
 const RAIZ = path.join(__dirname, "..", ".."), SRC = path.join(RAIZ, "src");
 const PUERTO = +process.argv[2] || 5178;
-const ARCH = { cartas: path.join(SRC, "cartas.json"), cinematicas: path.join(SRC, "cinematicas.json") };
+const historia = require("../historia.js");   // src/historia/: cartas por tipo, cadenas, finales... (se edita como un solo objeto)
+const ARCH = { cartas: path.join(SRC, "historia"), cinematicas: path.join(SRC, "cinematicas.json") };
 const RESP = path.join(__dirname, "respaldos");
 const leerJ = (p, def) => (fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, "utf8")) : def);
 const lsPng = d => { const p = path.join(RAIZ, "assets", "placeholder", d); return fs.existsSync(p) ? fs.readdirSync(p).filter(f => f.endsWith(".png")).map(f => f.slice(0, -4)).sort() : []; };
@@ -21,10 +22,11 @@ const correr = (args, env) => new Promise(ok => {
   p.on("close", code => ok({ code, out: out.slice(-20000) }));
 });
 const datos = () => ({
-  cartas: leerJ(ARCH.cartas), cinematicas: leerJ(ARCH.cinematicas, { disparos: {}, cinematicas: {} }),
+  cartas: historia.cargar(RAIZ), tipos: historia.TIPOS, condiciones: historia.CONDICIONES, cinematicas: leerJ(ARCH.cinematicas, { disparos: {}, cinematicas: {} }),
   layout: leerJ(path.join(SRC, "layout.json")), audio: leerJ(path.join(RAIZ, "assets", "audio", "audio.json"), { sfx: {}, musica: {} }),
   assets: { retratos: lsPng("retratos"), cartas: lsPng("cartas"), fondos: lsPng("fondos"), iconos: lsPng("iconos") },
   balance: leerJ(path.join(RAIZ, "tools", "balance", "reporte.json"), null),
+  sprites: fs.existsSync(path.join(RAIZ, "sprites")) ? fs.readdirSync(path.join(RAIZ, "sprites")).filter(f => /\.png$/i.test(f)).sort() : [],
 });
 
 const rutas = {
@@ -35,9 +37,13 @@ const rutas = {
     if (!f || !b.datos || typeof b.datos !== "object") throw new Error("archivo o datos invalidos");
     fs.mkdirSync(RESP, { recursive: true });
     const sello = new Date().toISOString().replace(/[-:]/g, "").replace("T", "-").slice(0, 15);
-    if (fs.existsSync(f)) fs.copyFileSync(f, path.join(RESP, b.archivo + "-" + sello + ".json"));
+    const esHistoria = b.archivo === "cartas";
+    // Respaldo: para cartas es una foto del contenido unido (se restaura con historia.guardar); para el resto, copia del archivo.
+    if (esHistoria) { if (fs.existsSync(f)) fs.writeFileSync(path.join(RESP, b.archivo + "-" + sello + ".json"), JSON.stringify(historia.cargar(RAIZ))); }
+    else if (fs.existsSync(f)) fs.copyFileSync(f, path.join(RESP, b.archivo + "-" + sello + ".json"));
     // limpia respaldos viejos (se quedan los 20 mas recientes por archivo)
     fs.readdirSync(RESP).filter(x => x.indexOf(b.archivo + "-") === 0).sort().reverse().slice(20).forEach(x => fs.unlinkSync(path.join(RESP, x)));
+    if (esHistoria) { historia.guardar(b.datos, RAIZ); return { ok: true, respaldo: b.archivo + "-" + sello + ".json" }; }
     // misma sangria y mismo final de archivo que el original (diff limpio en git)
     const prev = fs.existsSync(f) ? fs.readFileSync(f, "utf8") : "\n";
     const sangria = (/\n( +)"/.exec(prev) || [0, "  "])[1].length;
@@ -58,6 +64,15 @@ const rutas = {
     const r = await correr(["tools/balance/balance.js", String(n)], { BALANCE_OUT: dir });
     if (r.code) return { ok: false, out: r.out };
     return { ok: true, oficial, reporte: leerJ(path.join(dir, "reporte.json")) };
+  },
+  // Importa un sprite de sprites/ como retrato y carta de un personaje (tools/importar_sprites.py)
+  "POST /api/importar-sprite": async b => {
+    const id = String(b.id || ""), arch = path.basename(String(b.archivo || ""));
+    if (!/^[a-z0-9_]+$/.test(id)) throw new Error("id invalido (solo minusculas, numeros y _)");
+    if (!/\.png$/i.test(arch) || !fs.existsSync(path.join(RAIZ, "sprites", arch))) throw new Error("sprite no encontrado en sprites/");
+    const r = await new Promise(ok => { const p = spawn("python", [path.join(RAIZ, "tools", "importar_sprites.py"), id + "=" + arch, "--optimizar"], { cwd: RAIZ, env: Object.assign({}, process.env, { PYTHONIOENCODING: "utf-8" }) }); let out = ""; p.stdout.on("data", d => { out += d; }); p.stderr.on("data", d => { out += d; }); p.on("close", code => ok({ code, out })); p.on("error", e => ok({ code: 1, out: String(e) })); });
+    if (r.code) throw new Error("fallo la importacion: " + r.out.trim().slice(-300));
+    return { ok: true, out: r.out.trim() };
   },
   "POST /api/sim": async b => correr(["tools/sim/sim.js", String(+b.semilla || 7), String(+b.frames || 20000)]),
 };

@@ -45,6 +45,22 @@ main { height: calc(100% - 52px); }
 .col { overflow: auto; padding: 14px; border-right: 1px solid var(--linea); min-width: 0; }
 .col:last-child { border-right: 0; }
 #tCartas, #tCine { grid-template-columns: 300px minmax(380px, 1fr) 400px; }
+#tPj { grid-template-columns: 320px minmax(440px, 1fr) 340px; }
+.pj-cab { display: flex; gap: 14px; align-items: center; margin-bottom: 6px; }
+.pj-cab img, .pj-mini { background: var(--negro); border: 2px solid var(--linea); border-radius: 8px; object-fit: contain; }
+.pj-cab img { width: 120px; height: 120px; } .pj-mini { width: 38px; height: 38px; vertical-align: middle; margin-right: 8px; }
+.pj-lista li { display: flex; align-items: center; } .pj-lista .nn { flex: 1; min-width: 0; } .pj-lista .nn b { font-weight: normal; color: var(--crema); }
+.rep { color: #f0a49d; font-size: 12px; margin-top: 3px; }
+.rol { font-size: 10px; padding: 0 6px; border-radius: 8px; border: 1px solid var(--linea); color: var(--txt2); margin-left: 4px; }
+.rol.antagonista { border-color: var(--rojo); color: #f0a49d; } .rol.jugador, .rol.anfitriona { border-color: var(--dorado); color: var(--dorado-cl); }
+.bloque { border: 1px solid var(--linea); border-radius: 8px; padding: 2px 12px 12px; margin-top: 12px; background: var(--panel); }
+.bloque > h3 { margin-top: 10px; }
+.chk { display: flex; gap: 8px; align-items: center; margin: 10px 0 2px; font-size: 13px; color: var(--crema); cursor: pointer; }
+.chk input { width: auto; }
+.cajad { background: var(--guinda-osc); border: 2px solid var(--dorado); border-radius: 8px; padding: 22px 14px 12px; margin: 22px 0 8px; position: relative; }
+.cajad .placa { position: absolute; top: -14px; left: 12px; background: var(--dorado); color: var(--tinta); font-size: 13px; padding: 2px 12px; border-radius: 3px; }
+.cajad.rara { color: var(--dorado-cl); }
+.cinfo { font-size: 11px; color: var(--txt3); }
 #tBalance, #tLint { display: none; }
 #tBalance.on, #tLint.on { display: block; overflow: auto; padding: 18px 22px; }
 .lista { list-style: none; margin: 8px 0 0; padding: 0; }
@@ -128,6 +144,7 @@ table.disp td { padding: 3px 2px; }
   <h1>DIRECTOR UAN · EDITOR</h1>
   <nav id="nav">
     <button data-t="tCartas" class="on">Cartas</button>
+    <button data-t="tPj">Personajes</button>
     <button data-t="tCine">Cinemáticas</button>
     <button data-t="tBalance">Balance</button>
     <button data-t="tLint">Revisión <span id="lintBadge"></span></button>
@@ -144,6 +161,7 @@ table.disp td { padding: 3px 2px; }
       <input id="cBuscar" placeholder="Buscar id, texto, opción, bandera…">
       <div class="fila" style="margin-top:6px">
         <select id="cPj"><option value="">Todos los personajes</option></select>
+        <select id="cTipo"><option value="">Todos los tipos</option><option value="t:generica">Genéricas</option><option value="t:especial">Especiales</option><option value="t:consecuencia">Consecuencias</option><option value="t:cadena">Cadenas (todas)</option></select>
       </div>
       <div class="filtros" id="cFiltros">
         <span class="chip" data-f="problemas">con problemas</span>
@@ -164,6 +182,21 @@ table.disp td { padding: 3px 2px; }
       </div>
       <div id="cInfo" class="refs"></div>
     </div>
+  </section>
+  <!-- ================= PERSONAJES ================= -->
+  <section class="tab" id="tPj">
+    <div class="col">
+      <input id="pBuscar" placeholder="Buscar nombre, id o personalidad…">
+      <div class="filtros" id="pFiltros">
+        <span class="chip" data-f="aliado">aliados</span><span class="chip" data-f="antagonista">antagonistas</span>
+        <span class="chip" data-f="menu">en el menú</span><span class="chip" data-f="cand">candidatos</span>
+        <span class="chip" data-f="rep">nombre repetido</span><span class="chip" data-f="sin">sin cartas</span>
+      </div>
+      <div class="barra-herr"><button id="pNuevo" class="mini">+ Nuevo</button><button id="pArreglar" class="mini sec" title="Cambia los nombres repetidos usando el apellido del directorio">Arreglar nombres repetidos</button><span class="esp"></span><span id="pCuenta" class="cnt"></span></div>
+      <ul class="lista pj-lista" id="pLista"></ul>
+    </div>
+    <div class="col" id="pForm"></div>
+    <div class="col" id="pVista"></div>
   </section>
   <!-- ================= CINEMATICAS ================= -->
   <section class="tab" id="tCine">
@@ -211,7 +244,7 @@ const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAl
 const h = (tag, attrs, ...hijos) => { const e = document.createElement(tag); if (attrs) for (const k in attrs) { if (k === "on") for (const ev in attrs.on) e.addEventListener(ev, attrs.on[ev]); else if (k === "html") e.innerHTML = attrs[k]; else if (attrs[k] !== undefined && attrs[k] !== null && attrs[k] !== false) e.setAttribute(k, attrs[k]); } hijos.flat().forEach(x => { if (x !== null && x !== undefined && x !== false) e.append(x.nodeType ? x : String(x)); }); return e; };
 const api = async (ruta, cuerpo) => { const r = await fetch(ruta, cuerpo ? { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(cuerpo) } : undefined); const j = await r.json(); if (j && j.error) throw new Error(j.error); return j; };
 let COL = {};   // paleta del juego: se lee de LAYOUT.col (src/layout.json) al arrancar
-const STATN = ["Académico", "Estudiantes", "Finanzas", "Política"], STATI = ["academico", "estudiantes", "finanzas", "politica"];
+const STATN = ["Profesores", "Alumnos", "Finanzas", "Rectoría"], STATI = ["academico", "estudiantes", "finanzas", "politica"];
 const EJ = { n: 3, ant: "Mtra. Quintero", causa: "perdió la elección", antsem: 61, dir: "Dr. Fausto Meléndez", ex: "Mtra. Quintero", jugador: "Héctor", evento: "" };
 const fmt = s => String(s || "").replace(/\{(\w+)\}/g, (m, k) => (EJ[k] !== undefined ? EJ[k] : m));
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -239,7 +272,9 @@ async function correrLint() {
 const deCarta = id => LINT.filter(x => x.donde === "carta " + id || x.donde.indexOf("carta " + id + ".") === 0);
 const deCine = id => LINT.filter(x => x.donde === "cine " + id || x.donde.indexOf("cine " + id + " ") === 0);
 function irA(donde) {
-  let m = /^carta ([^.\s]+)/.exec(donde);
+  let m = /^(?:personajes|menu|ficha|personaje)(?: (\S+))?/.exec(donde);
+  if (m && /^(personajes|menu|ficha|personaje)\b/.test(donde)) { tab("tPj"); if (m[1] && todosIds().includes(m[1])) selP = m[1]; pintarTodoP(); return; }
+  m = /^carta ([^.\s]+)/.exec(donde);
   if (m) { const i = D.cartas.findIndex(c => c.id === m[1]); if (i >= 0) { tab("tCartas"); selC = i; pintarTodoC(true); } return; }
   m = /^cine (\S+)(?: linea (\d+))?/.exec(donde);
   if (m) { tab("tCine"); selN = m[1]; selLin = m[2] ? +m[2] - 1 : 0; pintarTodoN(); }
@@ -254,7 +289,7 @@ function pintarLint() {
 $("#lFiltros").addEventListener("click", e => { const c = e.target.closest(".chip"); if (c) { c.classList.toggle("on"); pintarLint(); } });
 
 // ======================= tabs, guardar, build =======================
-function tab(id) { $$("#nav button").forEach(b => b.classList.toggle("on", b.dataset.t === id)); $$(".tab").forEach(t => t.classList.toggle("on", t.id === id)); if (id === "tBalance") pintarBalance(); if (id !== "tCine") pararCine(); }
+function tab(id) { $$("#nav button").forEach(b => b.classList.toggle("on", b.dataset.t === id)); $$(".tab").forEach(t => t.classList.toggle("on", t.id === id)); if (id === "tPj") pintarTodoP(); if (id === "tBalance") pintarBalance(); if (id !== "tCine") pararCine(); }
 $("#nav").addEventListener("click", e => { const b = e.target.closest("button"); if (b) tab(b.dataset.t); });
 async function guardar() {
   const errs = LINT.filter(x => x.nivel === "error");
@@ -272,9 +307,11 @@ $("#bBuild").onclick = async () => {
 };
 
 // ======================= CARTAS =======================
-const C_BASE = ["id", "pj", "texto", "izq", "der", "arriba", "peso", "unica", "solo_luego", "cine"];
+const C_BASE = ["id", "pj", "texto", "izq", "der", "arriba", "peso", "unica", "solo_luego", "cine", "cadena"];
 const O_BASE = ["t", "e"];
 const filtrosC = new Set();
+const CONDS = [];   // campos de condicion (los manda el servidor: tools/historia.js)
+const tipoDe = c => c.cadena ? "cadena" : c.solo_luego ? "consecuencia" : CONDS.some(k => c[k] !== undefined) ? "especial" : "generica";
 let indice = null;   // banderas -> cartas que las ponen / leen; luego -> quien encola
 function indexar() {
   const pone = {}, lee = {}, encola = {};
@@ -298,6 +335,7 @@ function pintarListaC() {
   let n = 0;
   D.cartas.forEach((c, i) => {
     if (pj && c.pj !== pj) return;
+    const tp = $("#cTipo").value; if (tp && (tp.startsWith("c:") ? c.cadena !== tp.slice(2) : tipoDe(c) !== tp.slice(2))) return;
     if (q && JSON.stringify(c).toLowerCase().indexOf(q) < 0) return;
     const msgs = deCarta(c.id).filter(x => x.nivel !== "info");
     if (filtrosC.has("problemas") && !msgs.length) return;
@@ -318,6 +356,7 @@ function pintarListaC() {
 }
 $("#cBuscar").addEventListener("input", pintarListaC);
 $("#cPj").addEventListener("change", pintarListaC);
+$("#cTipo").addEventListener("change", pintarListaC);
 $("#cFiltros").addEventListener("click", e => { const c = e.target.closest(".chip"); if (!c) return; c.classList.toggle("on"); c.classList.contains("on") ? filtrosC.add(c.dataset.f) : filtrosC.delete(c.dataset.f); pintarListaC(); });
 
 const jsonResto = (o, base) => { const r = {}; Object.keys(o || {}).forEach(k => { if (!base.includes(k)) r[k] = o[k]; }); return Object.keys(r).length ? JSON.stringify(r, null, 1) : ""; };
@@ -346,6 +385,8 @@ function pintarFormC() {
     h("option", { value: "" }, "por defecto (1 vez, recicla)"), h("option", { value: "true", selected: c.unica === true ? "" : null }, "true (nunca recicla)"), h("option", { value: "false", selected: c.unica === false ? "" : null }, "false (repetible)"));
   const cineSel = h("select", { on: { change: e => { if (e.target.value) c.cine = e.target.value; else delete c.cine; cambio(); } } }, h("option", { value: "" }, "— ninguna —"), Object.keys(CI.cinematicas).map(k => h("option", { value: k, selected: c.cine === k ? "" : null }, k)));
   const sl = h("input", { type: "checkbox", style: "width:auto" }); sl.checked = !!c.solo_luego; sl.addEventListener("change", () => { if (sl.checked) c.solo_luego = true; else delete c.solo_luego; cambio(); });
+  const cadSel = h("select", { on: { change: e => { if (e.target.value) c.cadena = e.target.value; else delete c.cadena; pintarListaC(); cambio(); } } },
+    h("option", { value: "" }, "— ninguna (suelta) —"), Object.keys(D.cadenas || {}).map(k => h("option", { value: k, selected: c.cadena === k ? "" : null }, k + " · " + ((D.cadenas[k] || {}).titulo || ""))));
   f.append(
     h("div", { class: "fila" }, h("div", null, h("label", null, "id"), inp(c.id, v => { c.id = v.trim(); })), h("div", null, h("label", null, "Personaje"), pjSel)),
     h("label", null, "Texto ", cnt), texto,
@@ -353,6 +394,7 @@ function pintarFormC() {
       h("div", { class: "angosto" }, h("label", null, "peso"), inp(c.peso, v => { if (v === "") delete c.peso; else c.peso = +v; }, { type: "number", step: "0.1", placeholder: "1" })),
       h("div", null, h("label", null, "única"), unica),
       h("div", null, h("label", null, "Cinemática previa"), cineSel)),
+    h("div", { class: "fila" }, h("div", null, h("label", null, "Cadena (mini historia)"), cadSel), h("div", null, h("label", null, "Tipo (se deduce solo)"), h("div", { class: "cnt" }, tipoDe(c)))),
     h("label", { style: "display:flex;gap:6px;align-items:center" }, sl, "solo_luego (solo sale encolada con luego)"),
     h("label", null, "Condiciones y extras de la carta (JSON: req, noreq, si, uansi, desde, hasta, semana, campana, afmin, fx…)"),
     campoJson(jsonResto(c, C_BASE), o => { Object.keys(c).forEach(k => { if (!C_BASE.includes(k)) delete c[k]; }); Object.assign(c, o); cambio(); }, '{ "req": ["bandera"], "si": {"fin": "<30"} }'));
@@ -645,7 +687,7 @@ $("#nTelMarco").addEventListener("click", e => {
 document.addEventListener("keydown", e => { if (e.key === "Escape" && R && raf) { R.cerrando = true; R.veloObj = 1; } });
 
 // ======================= BALANCE =======================
-const NOMBRE_CAUSA = { acad0: "Académico 0", acad100: "Académico 100", est0: "Estudiantes 0", est100: "Estudiantes 100", fin0: "Finanzas 0", fin100: "Finanzas 100", pol0: "Política 0", pol100: "Política 100", derrota: "Perdió elección", limite: "Límite de mandatos", retiro: "Retiro" };
+const NOMBRE_CAUSA = { acad0: "Profesores 0", acad100: "Profesores 100", est0: "Alumnos 0", est100: "Alumnos 100", fin0: "Finanzas 0", fin100: "Finanzas 100", pol0: "Rectoría 0", pol100: "Rectoría 100", derrota: "Perdió elección", limite: "Límite de mandatos", retiro: "Retiro" };
 function barras(obj, total, nombres, max) {
   const ks = Object.keys(obj).sort((a, b) => obj[b] - obj[a]).slice(0, max || 99), mx = Math.max(1, ...ks.map(k => obj[k]));
   if (!ks.length) return h("div", { class: "vacio" }, "Sin datos.");
@@ -698,11 +740,166 @@ $("#bCorrer").onclick = async () => {
 };
 $("#bSim").onclick = async () => { const b = $("#bSim"); b.disabled = true; try { const r = await api("/api/sim", { semilla: 7, frames: 20000 }); alert((r.code ? "FALLÓ\n\n" : "OK\n\n") + r.out.trim().split("\n").slice(-4).join("\n")); } finally { b.disabled = false; } };
 
+// ======================= PERSONAJES =======================
+const RASGOS = ["sindicalista", "tecnocrata", "operador", "idealista", "veterano", "hijo_exdirector"], ROLES = ["aliado", "antagonista", "anfitriona", "jugador", "neutral"];
+let selP = null; const filtrosP = new Set();
+const menuPj = () => ((D.menu = D.menu || {}).personajes = D.menu.personajes || {});
+const fichaDe = id => (D.fichas = D.fichas || {})[id] || (D.fichas[id] = { rol: "aliado", nombre_completo: "", unidad: "", cargo: "", personalidad: "", medidor: "", notas: "" });
+const todosIds = () => [...new Set([...Object.keys(D.personajes || {}), ...Object.keys(menuPj()), ...Object.keys(D.fichas || {})])].sort((a, b) => nombreDe(a).localeCompare(nombreDe(b), "es"));
+function nombreDe(id) { if (id === "director") return D.uan.nombre_director || "Director"; const n = (D.personajes || {})[id]; if (n && !/\{/.test(n)) return n; const m = menuPj()[id]; return (m && m.nombre) || id; }
+const candDe = id => (D.candidatos || []).find(c => c.pj === id);
+const usoCartas = id => D.cartas.filter(c => c.pj === id);
+const usoCine = id => Object.keys((CI && CI.cinematicas) || {}).filter(k => (CI.cinematicas[k].lineas || []).some(l => l.pj === id));
+const retratoId = id => (id === "director" ? (D.uan.retrato_director || "director") : id);
+const retratoUrl = id => "/assets/placeholder/retratos/" + retratoId(id) + ".png?v=" + (window.__rv || 0);
+function repetidos() { const m = {}; todosIds().forEach(id => { if (id !== "director") (m[nombreDe(id)] = m[nombreDe(id)] || []).push(id); }); const r = {}; Object.values(m).forEach(ids => { if (ids.length > 1) ids.forEach(i => { r[i] = ids.filter(x => x !== i); }); }); return r; }
+function sugerirNombre(id) {
+  const f = (D.fichas || {})[id] || {}, t = String(f.nombre_completo || "").split(/\s+/).filter(Boolean);
+  const base = nombreDe(id).split(/\s+/)[0];
+  if (t.length >= 4) return t[0] + " " + t[2]; if (t.length >= 2) return t[0] + " " + t[1];
+  let n = 2, cand; do { cand = base + " (" + n++ + ")"; } while (todosIds().some(x => nombreDe(x) === cand)); return cand;
+}
+function setNombre(id, n) {
+  if (id === "director") { D.uan.nombre_director = n; return; }
+  if (D.personajes && id in D.personajes) D.personajes[id] = n;
+  if (menuPj()[id]) menuPj()[id].nombre = n;
+  if (!(D.personajes && id in D.personajes) && !menuPj()[id]) (D.personajes = D.personajes || {})[id] = n;
+}
+const cambioP = () => marcar("cartas");
+
+function pintarListaP() {
+  const q = $("#pBuscar").value.trim().toLowerCase(), ul = $("#pLista"), rep = repetidos(); ul.innerHTML = ""; let n = 0;
+  todosIds().forEach(id => {
+    const f = (D.fichas || {})[id] || {}, nom = nombreDe(id);
+    if (q && (nom + " " + id + " " + (f.personalidad || "") + " " + (f.nombre_completo || "")).toLowerCase().indexOf(q) < 0) return;
+    if (filtrosP.has("aliado") && (f.rol || "aliado") !== "aliado") return;
+    if (filtrosP.has("antagonista") && f.rol !== "antagonista") return;
+    if (filtrosP.has("menu") && !menuPj()[id]) return;
+    if (filtrosP.has("cand") && !candDe(id)) return;
+    if (filtrosP.has("rep") && !rep[id]) return;
+    if (filtrosP.has("sin") && usoCartas(id).length) return;
+    n++;
+    ul.append(h("li", { class: id === selP ? "on" : "", on: { click: () => { selP = id; pintarTodoP(); } } },
+      h("img", { class: "pj-mini", src: retratoUrl(id), onerror: "this.style.opacity=.25" }),
+      h("div", { class: "nn" }, h("b", null, nom), rep[id] ? h("span", { class: "badge b-error", "data-tip": "Nombre repetido con " + rep[id].join(", ") }, "=") : null, h("span", { class: "rol " + (f.rol || "") }, f.rol || "aliado"), h("div", { class: "ex" }, id + (menuPj()[id] ? " · menú" : "") + (candDe(id) ? " · candidato" : "") + " · " + usoCartas(id).length + " cartas"))));
+  });
+  $("#pCuenta").textContent = n + " de " + todosIds().length;
+}
+const campoP = (valor, fn, attrs) => { const e = h("input", Object.assign({ type: "text" }, attrs || {})); e.value = valor === undefined || valor === null ? "" : valor; e.addEventListener("input", () => { fn(attrs && attrs.type === "number" ? (e.value === "" ? "" : +e.value) : e.value); }); return e; };
+const areaP = (valor, fn, filas, attrs) => { const e = h("textarea", Object.assign({ rows: filas || 3 }, attrs || {})); e.value = valor || ""; e.addEventListener("input", () => fn(e.value)); return e; };
+const selP_ = (opciones, valor, fn) => { const e = h("select", null, opciones.map(o => h("option", { value: o }, o))); e.value = valor; e.addEventListener("change", () => fn(e.value)); return e; };
+const chkP = (txt, val, fn) => { const c = h("input", { type: "checkbox" }); c.checked = !!val; c.addEventListener("change", () => fn(c.checked)); return h("label", { class: "chk" }, c, txt); };
+
+function pintarFormP() {
+  const f = $("#pForm"); f.innerHTML = ""; if (!selP || !todosIds().includes(selP)) { f.append(h("div", { class: "vacio" }, "Elige un personaje de la lista o crea uno nuevo.")); return pintarVistaP(); }
+  const id = selP, fi = fichaDe(id), esDir = id === "director", mp = menuPj()[id], cand = candDe(id), rep = repetidos()[id];
+  // --- cabecera: retrato + nombre
+  const img = h("img", { src: retratoUrl(id), onerror: "this.style.opacity=.25" });
+  const nom = campoP(nombreDe(id), v => { setNombre(id, v); cambioP(); pintarListaP(); pintarVistaP(); });
+  const aviso = h("div", { class: "rep" }, rep ? "Nombre repetido con: " + rep.map(nombreDe).join(", ") + " " : "");
+  if (rep) aviso.append(h("button", { class: "mini sec", on: { click: () => { const s = sugerirNombre(id); setNombre(id, s); cambioP(); pintarTodoP(); } } }, "Usar «" + sugerirNombre(id) + "»"));
+  f.append(h("div", { class: "pj-cab" }, img, h("div", { style: "flex:1" }, h("h2", null, nombreDe(id)), h("div", { class: "cinfo" }, "id: " + id + (esDir ? " · el director del jugador (quien dirige en cada momento)" : "")), h("label", null, esDir ? "Nombre por defecto del director" : "Nombre en pantalla (placa de cartas, menú y cinemáticas)"), nom, aviso)));
+  // --- retrato
+  const bl = h("div", { class: "bloque" }, h("h3", null, "Retrato"));
+  if (esDir) { const s = selP_(["(el predeterminado)", ...AS.retratos], D.uan.retrato_director && AS.retratos.includes(D.uan.retrato_director) ? D.uan.retrato_director : "(el predeterminado)", v => { D.uan.retrato_director = v === "(el predeterminado)" ? "director" : v; window.__rv = Date.now(); cambioP(); pintarTodoP(); }); bl.append(h("label", null, "Retrato del director (un retrato existente)"), s, h("div", { class: "cinfo" }, "Los sucesores (candidatos) usan su propio retrato cuando dirigen."));
+  } else {
+    const sp = selP_(["— elegir sprite de sprites/ —", ...(window.__sprites || [])], "— elegir sprite de sprites/ —", () => { });
+    const bt = h("button", { class: "mini", on: { click: async () => { if (!sp.value || sp.value.startsWith("—")) return; bt.disabled = true; try { const r = await api("/api/importar-sprite", { id, archivo: sp.value }); window.__rv = Date.now(); if (!AS.retratos.includes(id)) AS.retratos.push(id); if (!AS.cartas.includes(id)) AS.cartas.push(id); alert("Importado.\n\nPulsa «Build game.json» para registrarlo en el juego."); pintarTodoP(); } catch (e) { alert("No se pudo importar:\n" + e.message); } finally { bt.disabled = false; } } } }, "Importar como retrato y carta");
+    bl.append(h("div", { class: "cinfo" }, AS.retratos.includes(id) ? "Tiene retrato (assets/placeholder/retratos/" + id + ".png)." : "Sin retrato: se usa el genérico."), h("div", { class: "fila", style: "margin-top:6px" }, sp, h("div", { style: "flex:0 0 auto" }, bt)));
+  }
+  f.append(bl);
+  // --- ficha
+  const fb = h("div", { class: "bloque" }, h("h3", null, "Ficha"));
+  fb.append(h("div", { class: "fila" }, h("div", null, h("label", null, "Rol"), selP_(ROLES, ROLES.includes(fi.rol) ? fi.rol : "aliado", v => { fi.rol = v; cambioP(); pintarTodoP(); })),
+    h("div", null, h("label", null, "Medidor que empuja (antagonista)"), selP_(["", "Profesores", "Alumnos", "Finanzas", "Rectoría"], fi.medidor || "", v => { fi.medidor = v; cambioP(); }))));
+  fb.append(h("div", { class: "fila" }, h("div", null, h("label", null, "Nombre completo"), campoP(fi.nombre_completo, v => { fi.nombre_completo = v; cambioP(); })), h("div", null, h("label", null, "Unidad"), campoP(fi.unidad, v => { fi.unidad = v; cambioP(); })), h("div", null, h("label", null, "Cargo"), campoP(fi.cargo, v => { fi.cargo = v; cambioP(); }))));
+  fb.append(h("label", null, "Personalidad (guía para escribir sus frases y cartas)"), areaP(fi.personalidad, v => { fi.personalidad = v; cambioP(); }, 3), h("label", null, "Notas"), areaP(fi.notas, v => { fi.notas = v; cambioP(); }, 2));
+  f.append(fb);
+  // --- en el juego: cartas y candidato
+  const jb = h("div", { class: "bloque" }, h("h3", null, "En el juego"));
+  if (!esDir) jb.append(chkP("Disponible en cartas y cinemáticas", D.personajes && id in D.personajes, on => { if (on) { (D.personajes = D.personajes || {})[id] = nombreDe(id); } else if (usoCartas(id).length || usoCine(id).length) { alert("Lo usan cartas o cinemáticas: quítalo de ahí primero."); } else delete D.personajes[id]; cambioP(); pintarTodoP(); }));
+  jb.append(chkP("Puede dirigir la Unidad (candidato a sucesor y reelegible)", cand, on => { if (on) { (D.candidatos = D.candidatos || []).push({ id: "cand_" + id, pj: id, nombre: nombreDe(id), rasgo: "operador", faccion: "", bonos: [0, 0, 0, 0], fuerza: 10, favorece: {} }); if (!(D.personajes && id in D.personajes)) D.personajes[id] = nombreDe(id); } else D.candidatos = D.candidatos.filter(c => c.pj !== id); cambioP(); pintarTodoP(); }));
+  if (cand) {
+    jb.append(h("div", { class: "fila" }, h("div", null, h("label", null, "Rasgo"), selP_(RASGOS, RASGOS.includes(cand.rasgo) ? cand.rasgo : "operador", v => { cand.rasgo = v; cambioP(); })), h("div", null, h("label", null, "Facción"), campoP(cand.faccion, v => { cand.faccion = v; cambioP(); })), h("div", { class: "angosto" }, h("label", null, "Fuerza"), campoP(cand.fuerza, v => { cand.fuerza = v === "" ? 10 : v; cambioP(); }, { type: "number" }))));
+    jb.append(h("label", null, "Ajuste a los medidores iniciales cuando dirige: " + STATN.join(" / ")), h("div", { class: "stats" }, [0, 1, 2, 3].map(i => campoP((cand.bonos || [0, 0, 0, 0])[i], v => { cand.bonos = cand.bonos || [0, 0, 0, 0]; cand.bonos[i] = v === "" ? 0 : v; cambioP(); }, { type: "number" }))), h("div", { class: "cinfo" }, "Si dirige, puede reelegirse hasta 2 veces; sus cartas con \"pj\":\"director\" se muestran con su retrato."));
+  }
+  f.append(jb);
+  // --- menu
+  const mb = h("div", { class: "bloque" }, h("h3", null, "En el menú"));
+  mb.append(chkP("Sale en el menú principal (saluda y da mensajes)", mp, on => { if (on) { menuPj()[id] = { nombre: nombreDe(id), peso: 1, frases: [""], raras: [] }; } else delete menuPj()[id]; cambioP(); pintarTodoP(); }));
+  if (mp) {
+    mb.append(h("div", { class: "fila" }, h("div", null, h("label", null, "Peso (cuánto sale; 1 = normal)"), campoP(mp.peso, v => { mp.peso = v === "" ? 1 : v; cambioP(); }, { type: "number", step: "0.1" })), h("div", null, h("label", null, "Ventana (descanso, apariciones)"), campoP(mp.ventana, v => { if (v === "") delete mp.ventana; else mp.ventana = v; cambioP(); }, { type: "number", placeholder: "12" })), h("div", null, h("label", null, "Garantía (cambios sin salir)"), campoP(mp.garantia, v => { if (v === "") delete mp.garantia; else mp.garantia = v; cambioP(); }, { type: "number", placeholder: "—" }))));
+    const cuenta = h("div", { class: "cinfo" }), lineas = t => t.split("\n").map(x => x.trim()).filter(Boolean);
+    const rev = () => { const l = lineas(mp.frases.join("\n")).concat(mp.raras || []).filter(x => x.length > 84).length; cuenta.textContent = (mp.frases || []).length + " frases · " + (mp.raras || []).length + " raras" + (l ? " · " + l + " pasan de 84 letras (no caben en 2 líneas)" : ""); cuenta.style.color = l ? "var(--ambar)" : ""; };
+    mb.append(h("label", null, "Frases normales (una por línea; salen por turnos sin repetirse)"), areaP((mp.frases || []).join("\n"), v => { mp.frases = lineas(v); rev(); cambioP(); pintarVistaP(); }, 6),
+      h("label", null, "Frases raras (poco probables, salen en dorado)"), areaP((mp.raras || []).join("\n"), v => { mp.raras = lineas(v); rev(); cambioP(); pintarVistaP(); }, 3), cuenta); rev();
+  }
+  f.append(mb);
+  // --- participacion: cartas de plantilla
+  const pb = h("div", { class: "bloque" }, h("h3", null, "Participación en cartas y decisiones"));
+  const usadas = usoCartas(id);
+  pb.append(h("div", { class: "refs" }, usadas.length ? "Aparece en " + usadas.length + " cartas: " : "Todavía no aparece en ninguna carta. ", usadas.map(c => h("a", { on: { click: () => { const i = D.cartas.indexOf(c); tab("tCartas"); selC = i; pintarTodoC(true); } } }, c.id))));
+  pb.append(h("div", { class: "cinfo", style: "margin-top:6px" }, "Crea cartas de ejemplo con esta persona para editarlas: un favor (sube/baja su afinidad), una decisión importante (si te lleva bien) y su apoyo en tu campaña de reelección."));
+  pb.append(h("button", { class: "mini", style: "margin-top:6px", on: { click: () => crearCartasP(id) } }, "Crear cartas de participación"));
+  f.append(pb);
+  // --- borrar
+  if (!esDir) f.append(h("div", { class: "barra-herr", style: "margin-top:14px" }, h("button", { class: "mini peligro", on: { click: () => borrarP(id) } }, "Borrar personaje")));
+  pintarVistaP();
+}
+function crearCartasP(id) {
+  const nom = nombreDe(id), p = id, ex = x => D.cartas.some(c => c.id === x), ids = [id + "_favor", id + "_decision", id + "_campana"];
+  if (ids.some(ex) && !confirm("Ya existen cartas con estos ids. ¿Sobrescribir?")) return;
+  D.cartas = D.cartas.filter(c => !ids.includes(c.id));
+  const op = (t, e, extra) => Object.assign({ t, e }, extra || {});
+  D.cartas.push(
+    { id: ids[0], pj: p, texto: "[EDITAR] " + nom + " te pide un favor. Describe qué quiere y por qué es un dilema.", izq: op("Ayudarle", [0, 0, -2, 0], { af: { [p]: 1 } }), der: op("Negarte", [0, 0, 1, 0], { af: { [p]: -1 } }), unica: true },
+    { id: ids[1], pj: p, texto: "[EDITAR] Con tu confianza, " + nom + " te propone algo importante para la Unidad. Escribe la propuesta.", izq: op("Aceptar", [3, 3, -3, 0], { af: { [p]: 1 }, set: [p + "_propuesta"] }), der: op("Rechazar", [-2, -2, 2, 0], { af: { [p]: -1 } }), afmin: { [p]: 2 }, unica: true },
+    { id: ids[2], pj: p, texto: "[EDITAR] En plena campaña por tu reelección, " + nom + " ofrece sumarse. Escribe cómo.", izq: op("Aceptar su apoyo", [0, 0, 0, 1], { fe: 1, voto: { prof: 2, est: 2 }, af: { [p]: 1 } }), der: op("Pedirle que se mantenga al margen", [0, 0, 0, 0], { af: { [p]: -1 } }), campana: true, afmin: { [p]: 1 }, unica: true });
+  cambioP(); pintarTodoP(); alert("Creadas 3 cartas: " + ids.join(", ") + ".\nBúscalas en la pestaña Cartas y reescribe los textos marcados [EDITAR].");
+}
+function borrarP(id) {
+  const u = usoCartas(id).length, c = usoCine(id).length;
+  if (u || c) return alert("No se puede borrar: lo usan " + u + " cartas y " + c + " cinemáticas.");
+  if (!confirm("¿Borrar a " + nombreDe(id) + " (" + id + ") de personajes, menú, candidatos y fichas?")) return;
+  delete (D.personajes || {})[id]; delete menuPj()[id]; delete (D.fichas || {})[id]; D.candidatos = (D.candidatos || []).filter(c => c.pj !== id);
+  selP = null; cambioP(); pintarTodoP();
+}
+function pintarVistaP() {
+  const v = $("#pVista"); v.innerHTML = ""; if (!selP || !todosIds().includes(selP)) return;
+  const id = selP, mp = menuPj()[id], nom = nombreDe(id);
+  v.append(h("h3", { style: "margin-top:0" }, "Cómo se ve en el menú"));
+  if (!mp) v.append(h("div", { class: "vacio" }, "No sale en el menú."));
+  else {
+    v.append(h("img", { src: retratoUrl(id), style: "width:160px;height:160px;object-fit:contain;display:block;margin:0 auto" }));
+    (mp.frases || []).slice(0, 4).forEach(t => v.append(h("div", { class: "cajad" }, h("span", { class: "placa" }, nom), t)));
+    (mp.raras || []).slice(0, 2).forEach(t => v.append(h("div", { class: "cajad rara" }, h("span", { class: "placa" }, nom + " · rara"), t)));
+  }
+}
+function pintarTodoP() { pintarListaP(); pintarFormP(); }
+$("#pBuscar").addEventListener("input", pintarListaP);
+$("#pFiltros").addEventListener("click", e => { const c = e.target.closest(".chip"); if (!c) return; c.classList.toggle("on"); c.classList.contains("on") ? filtrosP.add(c.dataset.f) : filtrosP.delete(c.dataset.f); pintarListaP(); });
+$("#pNuevo").onclick = () => {
+  const id = (prompt("Id del personaje (minúsculas, números y _ ; sirve de nombre de archivo del retrato):") || "").trim().toLowerCase();
+  if (!id) return; if (!/^[a-z0-9_]+$/.test(id)) return alert("Id inválido."); if (todosIds().includes(id)) { selP = id; return pintarTodoP(); }
+  const n = (prompt("Nombre en pantalla:", id[0].toUpperCase() + id.slice(1)) || id).trim();
+  (D.personajes = D.personajes || {})[id] = n; fichaDe(id); selP = id; cambioP(); pintarTodoP();
+};
+$("#pArreglar").onclick = () => {
+  const rep = repetidos(), ids = Object.keys(rep); if (!ids.length) return alert("No hay nombres repetidos.");
+  const hechos = [], vistos = new Set();
+  ids.forEach(id => { const grupo = [id, ...rep[id]].sort(); if (vistos.has(grupo.join())) return; vistos.add(grupo.join()); grupo.slice(1).forEach(x => hechos.push([x, nombreDe(x), sugerirNombre(x)])); });
+  if (!confirm("Se cambiarán " + hechos.length + " nombres:\n\n" + hechos.map(([i, a, b]) => i + ": " + a + " → " + b).join("\n"))) return;
+  hechos.forEach(([i, , b]) => setNombre(i, b)); cambioP(); pintarTodoP();
+};
+
 // ======================= arranque =======================
 (async () => {
   const d = await api("/api/datos");
   D = d.cartas; CI = d.cinematicas; LAY = d.layout; COL = LAY.col; AUD = d.audio; AS = d.assets; BAL = d.balance;
   Object.keys(D.personajes).forEach(p => $("#cPj").append(h("option", { value: p }, p)));
+  window.__sprites = d.sprites || []; D.uan = D.uan || {};
+  CONDS.push(...d.condiciones); D.cadenas = D.cadenas || {};
+  Object.keys(D.cadenas).forEach(k => $("#cTipo").append(h("option", { value: "c:" + k }, "Cadena: " + k)));
   selN = Object.keys(CI.cinematicas)[0] || null;
   await document.fonts.ready;
   estado(); pintarTodoC(); pintarTodoN(); await correrLint();

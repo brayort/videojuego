@@ -1,0 +1,124 @@
+{
+ "_comentario": "Cinematicas: introduccion (menu / historia_inicio), final (destino) y especiales (campo \"cine\" en una carta u opcion de cartas.json). Formato en src/ESQUEMA.md. Tras editar: npm run build.",
+ "disparos": {
+  "menu": "bienvenida",
+  "historia_inicio": "historia",
+  "destino:quiebra": "destino_quiebra",
+  "destino:renacimiento": "destino_renacimiento",
+  "destino": "destino"
+ },
+ "cinematicas": {
+  "bienvenida": {
+   "una_vez": true,
+   "fondo": "menu",
+   "musica": "oficina",
+   "tinte": 120,
+   "lineas": [
+    {
+     "titulo": "TEPIC, NAYARIT",
+     "sub": "Septiembre de 2025",
+     "fundido": true,
+     "espera": 2.2
+    },
+    {
+     "narra": "La Unidad Académica de Economía lleva meses sin director. Las cuentas no cuadran y los pasillos hablan más que las actas."
+    },
+    {
+     "pj": "secretaria",
+     "nombre": "Lupita Navarro",
+     "lado": "der",
+     "texto": "¿Usted es {jugador}? Pase, pase. Le dejé los expedientes en el escritorio… todos."
+    },
+    {
+     "pj": "secretaria",
+     "nombre": "Lupita Navarro",
+     "lado": "der",
+     "texto": "Arrastre cada asunto a la izquierda o a la derecha. Y cuide las cuatro barras de arriba: si una se vacía o se desborda, se acaba su gestión."
+    }
+   ]
+  },
+  "historia": {
+   "fondo": "carta",
+   "musica": "oficina",
+   "tinte": 90,
+   "lineas": [
+    {
+     "titulo": "UNA NUEVA HISTORIA",
+     "sub": "Ocho directores. Una universidad. Un estado que observa.",
+     "fundido": true,
+     "espera": 2.5
+    },
+    {
+     "pj": "rector",
+     "nombre": "Rector Bañuelos",
+     "lado": "izq",
+     "texto": "{dir}. Bienvenido. La UAN no necesita héroes; necesita a alguien que no la deje caer."
+    },
+    {
+     "pj": "lider_sindical",
+     "nombre": "Leonel Ibarra",
+     "lado": "der",
+     "texto": "El sindicato le da cien días. Después de eso, hablamos en la explanada."
+    },
+    {
+     "pj": "rector",
+     "nombre": "Rector Bañuelos",
+     "lado": "izq",
+     "texto": "Ya lo oyó. Empiece."
+    }
+   ]
+  },
+  "destino": {
+   "fondo": "destino",
+   "musica": "destino",
+   "tinte": 100,
+   "lineas": [
+    {
+     "titulo": "NAYARIT, 2040",
+     "sub": "Lo que quedó de la UAN",
+     "fundido": true,
+     "espera": 2.5
+    }
+   ]
+  },
+  "destino_quiebra": {
+   "fondo": "destino",
+   "musica": "destino",
+   "tinte": 160,
+   "lineas": [
+    {
+     "titulo": "NAYARIT, 2040",
+     "sub": "Quiebra y rescate",
+     "fundido": true,
+     "espera": 2
+    },
+    {
+     "pj": "emisario",
+     "nombre": "Lic. Ferreira",
+     "lado": "der",
+     "texto": "El Gobernador firmó el rescate. Las condiciones… las pone él."
+    }
+   ]
+  },
+  "destino_renacimiento": {
+   "fondo": "destino",
+   "musica": "destino",
+   "tinte": 60,
+   "lineas": [
+    {
+     "titulo": "NAYARIT, 2040",
+     "sub": "Renacimiento",
+     "fundido": true,
+     "espera": 2,
+     "flash": "bueno"
+    },
+    {
+     "pj": "alumna",
+     "nombre": "Regina Palomino",
+     "lado": "izq",
+     "texto": "Mi hija entra este año a Economía. Dicen que es la mejor del Pacífico."
+    }
+   ]
+  }
+ }
+}

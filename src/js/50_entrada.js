@@ -81,6 +81,7 @@ if (!S.mod_entrada) {
       if (S.modal.tick(I)) {
         const m = S.modal; S.modal = null; m.destroy();
         if (m.pausa) U.ocultar(S.pui, false);
+        if (m.alCerrar) { try { m.alCerrar(); } catch (e) { } }
         S.espera = 0.3; S.esperaSoltar = true;
       }
       return;
@@ -93,7 +94,7 @@ if (!S.mod_entrada) {
     if (I.kp[27]) { if (S.estado === "pausa") S.reanudar(); else S.pausar(); return; }
     switch (S.estado) {
       case "pausa": S.updatePausa(I); break;
-      case "fin": if (avanza) S.sucesionPantalla(); break;
+      case "fin": if (avanza) { if (S.finTipo === "historia") S.destinoPantalla(); else S.sucesionPantalla(); } break;   // un final de la historia no tiene sucesion
       case "sucesion": if (avanza) S.epilogoPantalla(); break;
       case "epilogo": if (avanza) { if (S.destinoPend) S.destinoPantalla(); else S.nuevaPartida(); } break;
       case "destino": if (avanza) S.destinoCerrar(); break;

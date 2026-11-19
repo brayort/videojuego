@@ -1,0 +1,627 @@
+{
+  "id": "quintana",
+  "titulo": "El Quinto",
+  "resumen": "Acto III. Cuando los cuatro ya te ofrecieron su ayuda, Mónica vuelve con el pendiente 7: alguien más daba las órdenes, el Quinto. Aurelio Quintana, ex director y consejero, mandó quemar el edificio de Finanzas y tiene a los cuatro bajo su control. Lo que decidiste antes define quién te ayuda al final. La historia termina con un destino (campo destino).",
+  "cartas": [
+    {
+      "id": "r1",
+      "pj": "monica",
+      "texto": "Mónica aparece sin avisar, empapada de lluvia. «Ya sé lo que encontré. Los cuatro salen en los papeles de las juntas del edificio que se quemó, pero ninguno firmó. Alguien más daba las órdenes. Lo llamaban “el Quinto”».",
+      "izq": {
+        "t": "Escucharla completa",
+        "e": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "int": 4,
+        "luego": {
+          "semanas": 1,
+          "carta": "r2"
+        },
+        "set": [
+          "acto_quinto"
+        ]
+      },
+      "der": {
+        "t": "Pedirle pruebas primero",
+        "e": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "luego": {
+          "semanas": 1,
+          "carta": "r2"
+        },
+        "set": [
+          "acto_quinto"
+        ]
+      },
+      "req": [
+        "oscar_fin",
+        "jose_fin",
+        "juan_fin",
+        "norma_fin",
+        "cap_quinto"
+      ],
+      "peso": 6,
+      "unica": true,
+      "cadena": "quintana"
+    },
+    {
+      "id": "r2",
+      "pj": "monica",
+      "texto": "Mónica por fin te da el pendiente 7, el sellado. Trae un nombre: Aurelio Quintana, el quinto director de la Unidad. «Me obligó a renunciar. Yo sabía del incendio y me callé por miedo. Sé que me lo quieres reclamar».",
+      "izq": {
+        "t": "Perdonarla, pero pedir toda la verdad",
+        "e": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "int": 3,
+        "af": {
+          "monica": 1
+        },
+        "set": [
+          "mon_perdon"
+        ],
+        "luego": {
+          "semanas": 3,
+          "carta": "q1"
+        }
+      },
+      "der": {
+        "t": "Reclamarle que se calló",
+        "e": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "int": 2,
+        "af": {
+          "monica": -1
+        },
+        "set": [
+          "mon_reproche"
+        ],
+        "luego": {
+          "semanas": 3,
+          "carta": "q1"
+        }
+      },
+      "solo_luego": true,
+      "unica": true,
+      "cadena": "quintana"
+    },
+    {
+      "id": "q1",
+      "pj": "quintana",
+      "texto": "Un hombre de saco azul entra a tu oficina con dos cafés. «Soy Aurelio Quintana. Fui el quinto director de esta Unidad; me dicen “el Quinto”. Mónica te habló de mí, me imagino. No creas todo lo que se cuenta en los pasillos».",
+      "izq": {
+        "t": "Aceptar el café y escucharlo",
+        "e": [
+          0,
+          0,
+          0,
+          3
+        ],
+        "int": -3,
+        "set": [
+          "q_cafe"
+        ],
+        "luego": {
+          "semanas": 3,
+          "carta": "q2"
+        }
+      },
+      "der": {
+        "t": "Decirle que sabes lo que hizo",
+        "e": [
+          0,
+          0,
+          0,
+          -6
+        ],
+        "int": 4,
+        "set": [
+          "q_enfrentas"
+        ],
+        "luego": {
+          "semanas": 3,
+          "carta": "q2"
+        }
+      },
+      "cadena": "quintana",
+      "unica": true,
+      "solo_luego": true
+    },
+    {
+      "id": "q2",
+      "pj": "norma",
+      "texto": "Los cuatro entran juntos y se sientan sin que nadie los invite. Nadie niega nada. Norma habla con calma: «Quintana nos pidió ayudarte... y vigilarte. Si hablamos, ¿quién nos protege de él?».",
+      "izq": {
+        "t": "Pedirles que lo cuenten todo",
+        "e": [
+          -3,
+          -3,
+          -3,
+          -5
+        ],
+        "int": 6,
+        "set": [
+          "cuatro_testifican"
+        ],
+        "luego": {
+          "semanas": 4,
+          "carta": "q3"
+        }
+      },
+      "der": {
+        "t": "Dejarlos como tus ojos adentro",
+        "e": [
+          3,
+          3,
+          3,
+          3
+        ],
+        "int": -3,
+        "set": [
+          "cuatro_ojos"
+        ],
+        "luego": {
+          "semanas": 4,
+          "carta": "q3"
+        }
+      },
+      "cadena": "quintana",
+      "unica": true,
+      "solo_luego": true
+    },
+    {
+      "id": "q3",
+      "pj": "quintana",
+      "texto": "Llega al Consejo una auditoría (revisión de cuentas) con tu firma en los recibos del edificio quemado. Quintana pasa por tu oficina: «Qué pena. Yo puedo hacerla desaparecer, con una sola condición: que dejes de buscar». Te da una semana.",
+      "izq": {
+        "t": "Rechazar y pedir auditoría de fuera",
+        "e": [
+          0,
+          0,
+          -4,
+          -6
+        ],
+        "int": 6,
+        "set": [
+          "q_ultimatum",
+          "q_audit"
+        ],
+        "luego": {
+          "semanas": 8,
+          "carta": "f1"
+        }
+      },
+      "der": {
+        "t": "Pedir tiempo y negociar",
+        "e": [
+          0,
+          0,
+          4,
+          4
+        ],
+        "int": -6,
+        "set": [
+          "q_ultimatum",
+          "q_negocias"
+        ],
+        "luego": {
+          "semanas": 8,
+          "carta": "f1"
+        }
+      },
+      "cadena": "quintana",
+      "unica": true,
+      "solo_luego": true
+    },
+    {
+      "id": "t_juan",
+      "pj": "juan",
+      "texto": "Juan llega con la carpeta que le guardaste. «Faltaba la hoja que Quintana arrancó. La guardé porque nadie la pidió». Es la prueba de que las órdenes del edificio no salieron de ti.",
+      "izq": {
+        "t": "Guardarla para el momento justo",
+        "e": [
+          0,
+          0,
+          2,
+          0
+        ],
+        "int": 4,
+        "set": [
+          "prueba_juan"
+        ]
+      },
+      "der": {
+        "t": "Entregarla ya a la auditoría",
+        "e": [
+          0,
+          0,
+          -3,
+          3
+        ],
+        "int": 6,
+        "set": [
+          "prueba_juan"
+        ]
+      },
+      "cadena": "quintana",
+      "unica": true,
+      "req": [
+        "q_ultimatum",
+        "juan_pistas"
+      ],
+      "noreq": [],
+      "peso": 8
+    },
+    {
+      "id": "t_oscar",
+      "pj": "oscar_alumno",
+      "texto": "Oscar vuelve a juntar a todos en el patio, pero ahora a tu favor: «El director nos dijo que el dinero no alcanzaba. Fue el único que no nos mintió». Piden una auditoría pública y firman por ti.",
+      "izq": {
+        "t": "Aceptar su apoyo",
+        "e": [
+          0,
+          10,
+          0,
+          -3
+        ],
+        "int": 3,
+        "set": [
+          "prueba_oscar"
+        ]
+      },
+      "der": {
+        "t": "Pedirles que no se arriesguen",
+        "e": [
+          0,
+          -3,
+          0,
+          3
+        ],
+        "int": 4,
+        "set": [
+          "prueba_oscar"
+        ]
+      },
+      "cadena": "quintana",
+      "unica": true,
+      "req": [
+        "q_ultimatum",
+        "oscar_verdad"
+      ],
+      "noreq": [],
+      "peso": 8
+    },
+    {
+      "id": "t_jose",
+      "pj": "jose",
+      "texto": "José, sin alzar la voz, te pasa una carta con cuarenta firmas de profesores: «No es política. Es que ya vimos quién mueve los hilos». Solo falta decidir cuándo usarla.",
+      "izq": {
+        "t": "Usarla ahora",
+        "e": [
+          8,
+          0,
+          0,
+          -4
+        ],
+        "int": 3,
+        "set": [
+          "prueba_jose"
+        ]
+      },
+      "der": {
+        "t": "Guardarla por si acaso",
+        "e": [
+          3,
+          0,
+          0,
+          0
+        ],
+        "int": 3,
+        "set": [
+          "prueba_jose"
+        ]
+      },
+      "cadena": "quintana",
+      "unica": true,
+      "req": [
+        "q_ultimatum",
+        "jose_negocia"
+      ],
+      "noreq": [],
+      "peso": 8
+    },
+    {
+      "id": "t_norma",
+      "pj": "norma",
+      "texto": "Norma te llama de noche. Su voz ya no es dulce: «Quintana me prometió ser rectora y me dejó con las manos sucias. Te daré los papeles del Consejo si me prometes dejarme fuera».",
+      "izq": {
+        "t": "Aceptar su trato",
+        "e": [
+          0,
+          0,
+          0,
+          6
+        ],
+        "int": -3,
+        "set": [
+          "prueba_norma"
+        ]
+      },
+      "der": {
+        "t": "No prometer nada: pedir los papeles",
+        "e": [
+          0,
+          0,
+          -2,
+          -4
+        ],
+        "int": 5,
+        "set": [
+          "prueba_norma"
+        ]
+      },
+      "cadena": "quintana",
+      "unica": true,
+      "req": [
+        "q_ultimatum",
+        "norma_fin"
+      ],
+      "noreq": [
+        "norma_gano"
+      ],
+      "peso": 8
+    },
+    {
+      "id": "q_cobro",
+      "pj": "quintana",
+      "texto": "Quintana repasa lo que aceptaste: «Veo que ya entendiste cómo funciona esto, director. Nada personal: me haces un favor cuando llegue el momento, y la auditoría se olvida».",
+      "izq": {
+        "t": "Darle lo que pide",
+        "e": [
+          0,
+          0,
+          8,
+          8
+        ],
+        "int": -8,
+        "set": [
+          "q_debes"
+        ]
+      },
+      "der": {
+        "t": "Pararte firme, aunque sea tarde",
+        "e": [
+          0,
+          0,
+          -6,
+          -6
+        ],
+        "int": 6,
+        "set": [
+          "q_firme"
+        ]
+      },
+      "cadena": "quintana",
+      "unica": true,
+      "req": [
+        "q_ultimatum",
+        "q_negocias"
+      ],
+      "noreq": [],
+      "peso": 8
+    },
+    {
+      "id": "f1",
+      "pj": "quintana",
+      "texto": "Quintana ya no sonríe del todo. «Siempre ha habido un Quinto. Antes de mí hubo otro, y habrá otro después. Quiero que seas tú: dinero, la rectoría de tu lado y los cuatro obedeciéndote. Solo tienes que dejar de preguntar».",
+      "izq": {
+        "t": "Aceptar su lugar",
+        "e": [
+          6,
+          6,
+          10,
+          10
+        ],
+        "int": -20,
+        "set": [
+          "final_quinto"
+        ],
+        "destino": "nuevo_quinto"
+      },
+      "der": {
+        "t": "Rechazarlo",
+        "e": [
+          0,
+          0,
+          0,
+          -4
+        ],
+        "int": 4,
+        "luego": {
+          "semanas": 1,
+          "carta": "f2"
+        }
+      },
+      "cadena": "quintana",
+      "unica": true,
+      "solo_luego": true
+    },
+    {
+      "id": "f2",
+      "pj": "monica",
+      "texto": "Mónica sabe que lo rechazaste. «Hoy se reúne el Consejo. Puedes acusarlo con lo que tengas, o contarlo todo a la prensa y renunciar: él cae, pero la Unidad se sacude y tú te vas. ¿Cómo lo derribas?».",
+      "izq": {
+        "t": "Acusarlo ante el Consejo",
+        "e": [
+          0,
+          0,
+          0,
+          -4
+        ],
+        "set": [
+          "q_expone"
+        ]
+      },
+      "der": {
+        "t": "Contarlo todo a la prensa y renunciar",
+        "e": [
+          -6,
+          -6,
+          -6,
+          -6
+        ],
+        "int": 5,
+        "destino": "sin_ti"
+      },
+      "cadena": "quintana",
+      "unica": true,
+      "solo_luego": true
+    },
+    {
+      "id": "f_ok",
+      "pj": "quintana",
+      "texto": "El Consejo escucha. Con las pruebas de los tuyos, Quintana no encuentra salida, pero aún sonríe: «Te va a pesar, director». Ahora decides cuánta verdad sale de esta sala.",
+      "izq": {
+        "t": "Decirlo todo, también los errores de la Unidad",
+        "e": [
+          0,
+          0,
+          -6,
+          -6
+        ],
+        "int": 10,
+        "destino": "integro"
+      },
+      "der": {
+        "t": "Acusar solo a Quintana y proteger a los tuyos",
+        "e": [
+          4,
+          4,
+          4,
+          0
+        ],
+        "int": -4,
+        "destino": "unidad_primero"
+      },
+      "cadena": "quintana",
+      "unica": true,
+      "req": [
+        "q_expone"
+      ],
+      "si": {
+        "int": ">=60"
+      },
+      "peso": 99
+    },
+    {
+      "id": "f_mal",
+      "pj": "quintana",
+      "texto": "Sin pruebas suficientes, el Consejo duda de ti. Quintana muestra tu firma en los recibos, tranquilo: «Lo siento, director». Aún puedes pelear hasta el final... o tomar su mano.",
+      "izq": {
+        "t": "Defenderte hasta el final",
+        "e": [
+          0,
+          0,
+          0,
+          -8
+        ],
+        "int": 8,
+        "destino": "heroica"
+      },
+      "der": {
+        "t": "Tomar su mano",
+        "e": [
+          4,
+          4,
+          6,
+          6
+        ],
+        "int": -15,
+        "set": [
+          "final_quinto"
+        ],
+        "destino": "nuevo_quinto"
+      },
+      "cadena": "quintana",
+      "unica": true,
+      "req": [
+        "q_expone"
+      ],
+      "si": {
+        "int": "<60"
+      },
+      "peso": 99
+    },
+    {
+      "id": "foto_a",
+      "pj": "alejandro",
+      "texto": "Alejandro colgó la foto del equipo con tres tornillos, un clavo de repuesto y un plan C por si se cae. Todos pasan a verla antes de entrar. «Aquí estamos todos», dice alguien.",
+      "izq": {
+        "t": "Invitar a todos a un brindis",
+        "e": [
+          4,
+          3,
+          -4,
+          0
+        ]
+      },
+      "der": {
+        "t": "Cuidar que nadie la maltrate",
+        "e": [
+          0,
+          0,
+          0,
+          2
+        ],
+        "int": 2
+      },
+      "cadena": "quintana",
+      "solo_luego": true,
+      "unica": true
+    },
+    {
+      "id": "foto_b",
+      "pj": "sergio",
+      "texto": "Sergio abre el cajón donde guardaste la foto: «Qué lugar tan discreto». Junto a la libreta de Mónica hay otra foto, vieja: el edificio de Finanzas antes del incendio, con la fecha tachada.",
+      "izq": {
+        "t": "Guardar también esa foto",
+        "e": [
+          0,
+          0,
+          0,
+          -2
+        ],
+        "int": 3
+      },
+      "der": {
+        "t": "Preguntarle a Mónica por ella",
+        "e": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "af": {
+          "monica": 1
+        }
+      },
+      "cadena": "quintana",
+      "solo_luego": true,
+      "unica": true
+    }
+  ]
+}

@@ -12,7 +12,7 @@ if (!S.u) {
   U.W = 720; U.H = 1280;   // resolucion logica fija (igual que LAYOUT.W/H); GDevelop escala con letterbox
   U.PRE = "directorUAN_";
   // 13 Enter, 27 Esc, 32 Espacio, 37-40 flechas, 49-51 teclas 1-3, 113 F2
-  U.KEYS = [13, 27, 32, 37, 38, 39, 40, 49, 50, 51, 113];   // 113 = F2 (panel de depuracion)
+  U.KEYS = [8, 13, 27, 32, 37, 38, 39, 40, 49, 50, 51, 113].concat(Array.from({ length: 26 }, (_, i) => 65 + i));   // 113 = F2 (panel de depuracion); 8 = borrar y 65-90 = letras (nombre del director)
 
   // ---- texto, objetos, animaciones ----
   U.setTxt = function (o, s) { if (!o) return; s = String(s); o.__s = s; if (o.setText) o.setText(s); else o.setString(s); };
@@ -94,11 +94,13 @@ if (!S.u) {
     "plagio": {"x": 50, "w": 620, "h": 112, "vel": 170, "fin": 1090}
   },
   "menu": {
-    "titulo": {"y": 40, "size": 80},
-    "sub": {"y": 148, "size": 52},
-    "metros": {"x": 24, "y": 240, "w": 672, "h": 196},
-    "btn": {"x": 80, "y": 468, "w": 560, "h": 96, "pitch": 108},
-    "info": {"y": 1128, "size": 22}
+    "titulo": {"y": 60, "size": 72},
+    "sub": {"y": 156, "size": 44},
+    "regla": {"y": 218, "w": 240},
+    "hero": {"y": 236, "size": 360},
+    "dialogo": {"x": 60, "y": 598, "w": 600, "h": 100},
+    "col": {"x": 80, "w": 560, "y0": 716, "gap": 12},
+    "h": {"pri": 100, "ctx": 28, "sec": 76, "filaA": 68, "filaB": 60, "pie": 48}
   },
   "logros": {
     "titulo": {"y": 36, "size": 60},
@@ -225,7 +227,7 @@ if (!S.u) {
   U.BTN = {
     normal: ["guinda", "dorado", "crema"], hover: ["vino", "dorado_claro", "crema"], down: ["guinda_osc", "crema", "dorado_claro"],
     ok: ["verde", "dorado_claro", "crema"], mal: ["rojo", "crema", "crema"], medio: ["dorado", "crema", "tinta"],
-    off: ["guinda_osc", "gris", "gris"], peligro: ["rojo", "dorado_claro", "crema"],
+    off: ["guinda_osc", "gris", "gris"], peligro: ["rojo", "dorado_claro", "crema"], suave: ["azul", "azul_cl", "crema"],
   };
   U.mkBtn = function (lista, x, y, w, h, label, z, opt) {
     z = z || 50;
@@ -257,7 +259,7 @@ if (!S.u) {
     let fire = false;
     if (!I.pulsado) { fire = b.down && dentro; b.down = false; }
     const abajo = b.down && I.pulsado && dentro;
-    U.btnVer(b, b.off ? "off" : b.fijo ? b.fijo : abajo ? "down" : (dentro || sel) ? "hover" : "normal");
+    U.btnVer(b, b.off ? "off" : b.fijo ? b.fijo : abajo ? "down" : (dentro || sel) ? "hover" : (b.base || "normal"));
     if (fire && !b.off && U.ev) U.ev("boton");
     return fire && !b.off;
   };
@@ -377,10 +379,10 @@ if (!S.u) {
     } catch (e) { S.saliendo = false; }
   };
 
-  // ---- calendario: la semana 0 es el lunes 1 de septiembre de 2025 ----
+  // ---- calendario: la semana 0 es el lunes 16 de noviembre de 2026 (un mes despues del fallo de la Corte) ----
   const MESES = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
   U.fecha = function (sem) {
-    const d = new Date(Date.UTC(2025, 8, 1 + 7 * Math.max(0, sem | 0)));
+    const d = new Date(Date.UTC(2026, 10, 16 + 7 * Math.max(0, sem | 0)));
     const y = d.getUTCFullYear(), m = d.getUTCMonth();
     return { y, m: m + 1, ym: y + "-" + (m < 9 ? "0" : "") + (m + 1), txt: MESES[m] + " " + y };
   };
@@ -440,7 +442,7 @@ if (!S.u) {
   // Meta-estado persistente: 4 medidores de la UAN (solv, paz, aut, pre) y 2 de Nayarit (des, seg).
   U.UAN0 = () => ({ solv: 50, paz: 50, aut: 50, pre: 50 });
   U.NAY0 = () => ({ des: 50, seg: 50 });
-  U.dynNueva = () => ({ n: 1, legado: {}, hist: [], cand: {}, afh: {}, dirId: "", ex: null, uan: U.UAN0(), nay: U.NAY0() });
+  U.dynNueva = () => ({ n: 1, legado: {}, hist: [], cand: {}, afh: {}, hflags: {}, husadas: {}, hfuturo: [], sbase: 0, dirId: "", ex: null, uan: U.UAN0(), nay: U.NAY0() });
   U.normDyn = function (d) {
     d.uan = Object.assign(U.UAN0(), d.uan || {}); d.nay = Object.assign(U.NAY0(), d.nay || {});
     Object.keys(d.uan).concat(Object.keys(d.nay)).forEach(k => { const o = k in d.uan ? d.uan : d.nay; o[k] = Math.max(0, Math.min(100, +o[k] || 0)); });

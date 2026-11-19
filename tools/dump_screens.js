@@ -1,10 +1,10 @@
 // Ejecuta el MOTOR REAL (los eventos JavaScript de game.json) con objetos simulados que registran
 // posicion, tamano, texto, animacion, color y opacidad, y escribe una "foto" JSON por pantalla.
 // tools/preview_layout.py las compone con Pillow en assets/preview/*.png.
-// Uso: node tools/dump_screens.js [salida.json]      (correr despues de build.js y tools/build/assets.js)
+// Uso: node tools/dump_screens.js [salida.json]   (DUMP_SOLO_MENU=1 para omitir las pantallas de partida)      (correr despues de build.js y tools/build/assets.js)
 const fs = require("fs"), path = require("path");
 const RAIZ = path.join(__dirname, "..");
-const g = JSON.parse(fs.readFileSync(path.join(RAIZ, "game.json"), "utf8"));
+const g = JSON.parse(fs.readFileSync(process.env.DUMP_GAME || path.join(RAIZ, "game.json"), "utf8"));   // DUMP_GAME: otro game.json (lo usa tools/ver_cine.py)
 const salida = process.argv[2] || path.join(RAIZ, "assets", "preview", "_dump.json");
 const W = 720, H = 1280;
 
@@ -87,14 +87,84 @@ const tocar = (x, y, abajo) => { ctx.cx = x; ctx.cy = y; ctx.mouse = !!abajo; };
 const cartas = () => ctx.scene.__reigns.data.cartas;
 function forzarCarta(S, c) { S.c = c; S.mostrarCarta(); }
 
+// DUMP_CINE_ID=<id>: reproduce esa cinematica en la escena Juego y toma una foto por linea (cine_<id>_<n>), cuando termina de escribirse.
+// Uso: DUMP_CINE_ID=inter_cafe node tools/dump_screens.js salida.json   (despues: python tools/ver_cine.py salida.json)
+function cineModo() {
+  const id = process.env.DUMP_CINE_ID, S = iniciar("Juego"), c = S.u.cine; frames(10);
+  if (S.modal) { S.modal.destroy(); S.modal = null; }   // la pantalla de nueva partida (nombre y modo) no forma parte de la cinematica
+  if (!c.existe(id)) { console.error("no existe la cinematica '" + id + "'"); process.exit(1); }
+  c.reproducir(id, Object.assign({ caido: "director", sucesor: "perla", suc: "Perla", sem: 3, fecha: "Oct 2027" }, JSON.parse(process.env.DUMP_CINE_CTX || "{}"))); frames(2);   // DUMP_CINE_CTX: contexto (@caido, @sucesor, {suc}...)
+  let guard = 0, ult = -2;
+  while (c.activo && guard++ < 400) {
+    const i = c.linea();
+    if (i !== ult) { ult = i; if (process.env.DUMP_CINE_FR) frames(+process.env.DUMP_CINE_FR); else { frames(30); for (let k = 0; k < 120 && !c.completo(); k++) frames(3); frames(15); } if (c.activo && c.linea() === i) foto("cine_" + id + "_" + String(i + 1).padStart(2, "0")); }
+    ctx.cx = 360; ctx.cy = 940; ctx.mouse = true; frames(2); ctx.mouse = false; frames(3);   // clic: completa el texto, pasa a la linea siguiente o elige la 1.a opcion de una decision
+  }
+  fs.mkdirSync(path.dirname(salida), { recursive: true });
+  fs.writeFileSync(salida, JSON.stringify({ W, H, snaps }, null, 0));
+  console.log("fotos:", Object.keys(snaps).length, "->", salida);
+}
+// DUMP_MODO=nueva: pantalla de nueva partida (nombre y modo) y la vista previa de efectos en modo facil y dificil.
+function nuevaModo() {
+  const S = iniciar("Juego");
+  frames(6); foto("nueva_partida");
+  [72, 69, 67, 84, 79, 82].forEach(k => { ctx.keys = { [k]: true }; frames(2); ctx.keys = {}; frames(2); });   // H E C T O R
+  tocar(500, 416, true); frames(2); tocar(500, 416, false); frames(3); foto("nueva_partida_dificil");
+  tocar(200, 416, true); frames(2); tocar(200, 416, false); frames(3);
+  tocar(360, 1166, true); frames(2); tocar(360, 1166, false); frames(6);                                       // Empezar
+  const c = S.data.cartas.find(x => x.izq && x.der && x.izq.e && x.izq.e.some(v => v > 0) && x.izq.e.some(v => v < 0)) || S.data.cartas.find(x => x.izq && x.izq.e);
+  S.c = c; S.mostrarCarta(); frames(30);
+  tocar(360, 800, true); frames(2); tocar(250, 800, true); frames(3); foto("modo_facil_flechas");
+  S.u.aj.dificultad = "dificil"; frames(3); foto("modo_dificil_sin_pistas");
+  fs.mkdirSync(path.dirname(salida), { recursive: true });
+  fs.writeFileSync(salida, JSON.stringify({ W, H, snaps }, null, 0));
+  console.log("fotos:", Object.keys(snaps).length, "->", salida);
+}
+// DUMP_MODO=semestres: juega ~150 semanas eligiendo siempre la opcion izquierda y cuenta cartas, cartas extra, cinematicas y repeticiones por semestre.
+function semestresModo() {
+  const S = iniciar("Juego"), c = S.u.cine; frames(5);
+  if (S.modal) { S.modal.destroy(); S.modal = null; }
+  const vistas = {}, rep = [], porSem = {}, cines = [], cierres = [];
+  let ult = null, pasos = 0;
+  while (pasos++ < 6000 && S.estado !== "destino") {
+    if (c.activo) { if (!cines.some(x => x.indexOf(c.id + "@") === 0)) cines.push(c.id + "@" + S.semG()); ctx.cx = 360; ctx.cy = 940; ctx.mouse = true; frames(2); ctx.mouse = false; frames(2); continue; }
+    if (S.estado === "carta" && S.c) {
+      if (S.c !== ult) { ult = S.c; const k = Math.floor(S.semG() / 16) + 1; const r = porSem[k] || (porSem[k] = { cartas: 0, extra: 0 }); r.cartas++; if (S.c.extra) r.extra++;
+        if (vistas[S.c.id] && S.c.unica !== false) rep.push(S.c.id); vistas[S.c.id] = true; }
+      S.espera = 0; S.esperaSoltar = false; S.elegir(S.c.izq); frames(3); continue;
+    }
+    // fin de gestion, informe, eleccion, etc.: pasar con clic o la tecla Enter
+    S.espera = 0; ctx.keys = { 13: true }; frames(2); ctx.keys = {}; frames(2);
+    if (S.estado === "eleccion" && S.elec) { S.elec.t = 99; }
+  }
+  console.log("estado final:", S.estado, "semana global:", S.semG(), "directores:", S.dyn.n);
+  console.log("cartas por semestre (cartas / extra):", Object.keys(porSem).map(k => k + ":" + porSem[k].cartas + "/" + porSem[k].extra).join("  "));
+  console.log("cinematicas:", cines.filter(x => /^(inter_|diario_)/.test(x)).join(" "));
+  console.log("cartas unicas repetidas:", rep.length ? rep.join(",") : "ninguna");
+}
 (function main() {
-  let S = iniciar("Juego");
+  if (process.env.DUMP_MODO === "semestres") return semestresModo();
+  if (process.env.DUMP_CINE_ID) return cineModo();
+  if (process.env.DUMP_MODO === "nueva") return nuevaModo();
+  let S;
+  if (!process.env.DUMP_SOLO_MENU) {   // DUMP_SOLO_MENU=1: solo Menu y Logros (las pantallas de partida usan cartas concretas de la historia)
+  S = iniciar("Juego");
+  // Pantalla de nueva partida (nombre + modo): se captura vacia y escrita, y se cierra con "Empezar".
+  if (S.modal) {
+    frames(6); foto("nueva_partida");
+    [72, 69, 67, 84, 79, 82].forEach(k => { ctx.keys = { [k]: true }; frames(2); ctx.keys = {}; frames(2); });   // H E C T O R
+    tocar(500, 416, true); frames(2); tocar(500, 416, false); frames(3);                                              // modo Dificil
+    foto("nueva_partida_escrita");
+    tocar(200, 416, true); frames(2); tocar(200, 416, false); frames(3);                                              // vuelve a Facil
+    tocar(360, 1166, true); frames(2); tocar(360, 1166, false); frames(6);                                            // Empezar
+  }
   frames(40); foto("juego_carta");
   // arrastre a la derecha / izquierda (con vista previa de efectos)
   let c = cartas().find(x => x.izq && x.der && x.izq.e && x.der.e && x.izq.e.some(v => Math.abs(v) >= 15) && !x.izq.azar);
   forzarCarta(S, c); frames(30);
   tocar(360, 800, true); frames(2); tocar(430, 800, true); frames(2); foto("juego_arrastre_der_parcial");
   tocar(470, 800, true); frames(3); foto("juego_arrastre_der");
+  S.u.aj.dificultad = "dificil"; frames(2); foto("juego_dificil_arrastre"); S.u.aj.dificultad = "facil"; frames(2);   // modo dificil: ninguna pista de efectos
   tocar(250, 800, true); frames(3); foto("juego_arrastre_izq");
   tocar(610, 800, true); frames(3); foto("juego_sombra_rot_p15");
   tocar(110, 800, true); frames(3); foto("juego_sombra_rot_m15");
@@ -162,19 +232,27 @@ function forzarCarta(S, c) { S.c = c; S.mostrarCarta(); }
   S.finMini(true, "Tu reparto: Nómina 30, Becas 20, Infraestructura 25, Investigación 25.\nLo que pedía la comunidad: Nómina 25, Becas 25, Infraestructura 30, Investigación 20.\nDesviación total: 20 millones."); frames(40); foto("mini_resultado_bien");
   S.m = null; S.iniciarMini("prensa"); S.finMini(false, "Puntos de la rueda de prensa: 2 de 6 (necesitas 4)."); frames(40); foto("mini_resultado_mal");
 
-  // ---- Menu ----
-  S = iniciar("Menu"); frames(60); foto("menu");
-  S.kb = true; S.sel = 2; frames(2); foto("menu_seleccion");
-  tocar(360, 620, false); frames(2); foto("menu_hover");
-  tocar(360, 620, true); frames(2); foto("menu_presionado"); tocar(360, 620, false); frames(2);
+  }
+  // ---- Menu (sin partida): entrada, reposo, apuntado, pulsado, subvistas y modales ----
+  S = iniciar("Menu"); frames(12); foto("menu_entrada_a"); frames(18); foto("menu_entrada_b"); frames(80); foto("menu");
+  S.kb = true; S.sel = { f: 1, c: 0 }; frames(2); foto("menu_seleccion");
+  tocar(360, 766, false); frames(30); foto("menu_hover");
+  tocar(360, 766, true); frames(10); foto("menu_presionado"); tocar(360, 766, false); frames(2);
+  S.saliendo = false; S.sale = null; ctx.cambio = null;   // el clic anterior arranco la partida: se cancela
+  tocar(360, 400, true); frames(2); tocar(360, 400, false); frames(10); foto("menu_toca_personaje");
   S.abrirCronica(); frames(3); foto("menu_cronica_vacia"); S.cierraSub();
   const lista = []; for (let i = 0; i < 6; i++) lista.push({ id: "x", titulo: ["Sobrevivió", "Renacimiento", "Quiebra y rescate"][i % 3], directores: 8, anio: 2038 + i, lista: ["Dr. Rubén Alcántar (la quiebra financiera)", "Mtra. Georgina Peñuelas (el colapso académico)", "Dr. Ignacio Cárdenas (perder la elección de director)", "Dra. Teresa Zepeda (un retiro digno)"] });
   store.directorUAN_cronica = JSON.stringify(lista);
   S.abrirCronica(); frames(3); foto("menu_cronica"); S.cierraSub();
   S.abrirCreditos(); frames(3); foto("menu_creditos"); S.cierraSub();
-  S.saliendo = false; ctx.cambio = null;   // los clics de las pruebas anteriores pudieron activar un boton
-  S.activar(6); frames(4); foto("menu_opciones"); ctx.keys = { 27: true }; frames(2); ctx.keys = {}; frames(3);
-  S.activar(3); frames(4); foto("menu_ranking"); ctx.keys = { 27: true }; frames(2); ctx.keys = {}; frames(3);
+  S.saliendo = false; S.sale = null; ctx.cambio = null;
+  S.activar("opciones"); frames(4); foto("menu_opciones"); ctx.keys = { 27: true }; frames(2); ctx.keys = {}; frames(3);
+  S.activar("ranking"); frames(4); foto("menu_ranking"); ctx.keys = { 27: true }; frames(2); ctx.keys = {}; frames(3);
+  // ---- Menu (con partida guardada y progreso): Continuar, Nueva partida, Cronica, Empezar historia nueva ----
+  store.directorUAN_partida = JSON.stringify({ ver: 1, v: [50, 50, 50, 50], int: 50, items: {}, flags: {}, af: {}, estados: [], futuro: [], usadas: {}, ult: {}, semana: 12, bitacora: [], cid: "base_1", pjUlt: "", cand: {}, conspira: {}, dirId: "", reel: 0, mandato: 45, eleccionEn: 45, fe: 0 });
+  store.directorUAN_dinastia = JSON.stringify({ n: 2, legado: {}, hist: [{ n: 1, nombre: "X", causa: "y", sem: 30, k: "z" }], cand: {}, afh: {}, dirId: "", ex: null, uan: {}, nay: {} });
+  S = iniciar("Menu"); frames(100); foto("menu_con_partida");
+  S.activar("nueva"); frames(4); foto("menu_confirmar");
   // ---- Logros ----
   store.directorUAN_logros = JSON.stringify({ semestre1: true, tres_semestres: true, integro: true, coleccionista: true, final_secreto: true, brutus: true });
   S = iniciar("Logros"); frames(40); foto("logros_p1"); S.pag = 4; S.pagina(); frames(3); foto("logros_p5");

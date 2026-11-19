@@ -10,18 +10,20 @@ if (!S.mod_estado) {
   S.mod_estado = true;
   const U = S.u, anim = U.anim, setTxt = U.setTxt, clamp = U.clamp;
 
-  S.STATS = ["Académico", "Estudiantes", "Finanzas", "Política"];
+  S.STATS = ["Profesores", "Alumnos", "Finanzas", "Rectoría"];   // claves internas: acad, est, fin, pol
   S.STAT_ANIM = ["academico", "estudiantes", "finanzas", "politica"];
   S.STAT_KEY = { acad: 0, est: 1, fin: 2, pol: 3 };
   const FIN_KEYS = [["acad0", "acad100"], ["est0", "est100"], ["fin0", "fin100"], ["pol0", "pol100"]];
   const CAUSAS = {
-    acad0: "el colapso académico", acad100: "una obsesión académica que ignoró a todos los demás",
-    est0: "el abandono y la rebelión estudiantil", est100: "ceder a todo lo que pedían los alumnos",
-    fin0: "la quiebra financiera", fin100: "acumular caja mientras la comunidad carecía de todo",
-    pol0: "el aislamiento político", pol100: "someter la Unidad al poder político",
+    acad0: "el paro y las renuncias de los profesores", acad100: "una planta docente que lo bloqueó todo",
+    est0: "la toma del edificio y la deserción estudiantil", est100: "ceder a todo lo que pedían los alumnos",
+    fin0: "la quiebra de la Unidad", fin100: "acumular caja mientras la comunidad carecía de todo",
+    pol0: "perder el respaldo de rectoría", pol100: "someter la Unidad a rectoría",
     derrota: "perder la elección de director", retiro: "un retiro digno", limite: "el límite de reelecciones",
   };
-  const NOMBRES_DIR = ["Dr. Rubén Alcántar", "Mtra. Georgina Peñuelas", "Dr. Ignacio Cárdenas", "Dra. Teresa Zepeda", "Mtro. Armando Haro", "Dra. Ximena Lozoya"];
+  // El director del jugador: nombre y retrato configurables (mundo.json > uan.nombre_director / retrato_director). Si el jugador escribio su nombre (ranking), se usa ese.
+  S.nombreJugador = () => (S.u.aj && S.u.aj.nombre) || (S.data.uan || {}).nombre_director || "Director";
+  S.retratoJugador = () => (S.data.uan || {}).retrato_director || "director";
   // Elecciones
   S.MANDATO_MIN = 40; S.MANDATO_MAX = 50; S.CAMPANA = 8; S.MAX_REEL = 2;
   // [id, nombre, peso en %, personaje cuya afinidad cuenta]
@@ -41,6 +43,12 @@ if (!S.mod_estado) {
   S.record = U.record();
   S.dyn = U.cargarDyn();
   S.dyn.cand = S.dyn.cand || {}; S.dyn.afh = S.dyn.afh || {}; S.dyn.dirId = S.dyn.dirId || ""; S.dyn.ex = S.dyn.ex || null;
+  // Ex director de arranque (uan.ex_inicial en cartas.json): solo en el primer director de una historia.
+  S.exInicial = function () {
+    const x = (S.data.uan || {}).ex_inicial;
+    if (x && !S.dyn.ex && !S.dyn.hist.length) S.dyn.ex = { id: x.id, nombre: x.nombre, tono: x.tono || "aliado" };
+  };
+  S.exInicial();
   S.senal = { carta: 0, eleccion: 0, fin: 0, azar: 0, voto: 0 };
   S.estado = "carta";
 
@@ -61,9 +69,17 @@ if (!S.mod_estado) {
     return String(s).replace(/\{n\}/g, S.dyn.n).replace(/\{ant\}/g, a.nombre).replace(/\{causa\}/g, a.causa).replace(/\{antsem\}/g, a.sem)
       .replace(/\{dir\}/g, S.dirNombre || "").replace(/\{ex\}/g, ex ? ex.nombre : a.nombre);
   };
-  S.causaTxt = k => CAUSAS[k] || (S.data.finales_raros[k] || {}).causa || (S.data.caidas[k] || {}).causa || k;
+  S.causaTxt = k => CAUSAS[k] || (k.indexOf("hist_") === 0 && ((S.data.destinos || []).find(d => "hist_" + d.id === k) || {}).titulo) || (S.data.finales_raros[k] || {}).causa || (S.data.caidas[k] || {}).causa || k;
   S.dar = U.dar;
-  S.fecha = () => U.fecha(S.semana);
+  // Semana GLOBAL de la historia (suma las gestiones anteriores): el calendario y semmin/semmax no se reinician con cada director.
+  // Actos de la historia (mundo.json > uan.actos): gana el ultimo cuya condicion (req/noreq/semmin...) se cumple. Al cambiar de acto sale su cinematica.
+  S.actoActual = () => { const A = (S.data.uan || {}).actos || []; let k = -1; A.forEach((a, i) => { if (S.cumpleCond(a)) k = i; }); return k >= 0 ? A[k] : null; };
+  S.revisarActo = function () {
+    const a = S.actoActual();
+    if (a && a.id !== S.dyn.acto) { const antes = S.dyn.acto; S.dyn.acto = a.id; S.guardarDyn(); if (antes) U.cine.disparar("acto:" + a.id, "acto"); }
+  };
+  S.semG = () => S.semana + ((S.dyn && S.dyn.sbase) || 0);
+  S.fecha = () => U.fecha(S.semG());
   S.checkLogros = function () {
     if (S.semana >= 16) S.dar("semestre1");
     if (S.semana >= 48) S.dar("tres_semestres");
@@ -119,6 +135,7 @@ if (!S.mod_estado) {
     S.metroMover(UK.map(g), NK.map(g));
   };
   S.extremoMetro = function () {
+    if ((S.data.uan || {}).metros === false) return null;     // historia sin medidores globales: no hay limites que cierren la historia
     const m = S.metros(), ks = UK.concat(NK);
     for (let i = 0; i < ks.length; i++) { if (m[ks[i]] <= 0) return ks[i] + "0"; if (m[ks[i]] >= 100) return ks[i] + "100"; }
     return null;
@@ -127,9 +144,12 @@ if (!S.mod_estado) {
   S.destinoCheck = function () {
     const D = S.data.destinos || [], ext = S.extremoMetro();
     if (!D.length) return null;
+    if (S.dyn.destinoForz) { const f = D.find(x => x.id === S.dyn.destinoForz); if (f) return f; }
     if (ext) { const d = D.find(x => (x.ext || []).indexOf(ext) >= 0); if (d) return d; }
     if (S.dyn.hist.length >= (S.uanDatos().n_directores || 8)) {
-      return D.find(x => !x.cond || [].concat(x.cond).some(c => S.cumpleUan(c))) || D[D.length - 1];
+      // cond: medidores (uansi) y/o banderas de la historia (req / noreq)
+      const ok = c => S.cumpleUan(c) && !(c.req || []).some(f => !(S.dyn.hflags || {})[f] && !S.flags[f]) && !(c.noreq || []).some(f => (S.dyn.hflags || {})[f] || S.flags[f]);
+      return D.find(x => !x.solo && (!x.cond || [].concat(x.cond).some(ok))) || D[D.length - 1];   // solo:true = unicamente por decision (campo destino)
     }
     return null;
   };
@@ -138,12 +158,12 @@ if (!S.mod_estado) {
   S.cerrarHistoria = function () {
     const d = S.destinoPend;
     if (d) {
-      U.addCronica({ id: d.id, titulo: d.titulo, directores: S.dyn.hist.length, anio: 2025 + Math.round(S.dyn.hist.reduce((a, h) => a + h.sem, 0) / 52),
+      U.addCronica({ id: d.id, titulo: d.titulo, directores: S.dyn.hist.length, anio: 2026 + Math.round(S.dyn.hist.reduce((a, h) => a + h.sem, 0) / 52),
         lista: S.dyn.hist.map(h => h.nombre + " (" + h.causa + ")").slice(-10) });
       S.dar("fin_historia"); S.dar("destino_" + d.id);
       if (U.cronica().length >= 3) S.dar("tres_historias");
     }
-    S.dyn = U.dynNueva(); S.destinoPend = null; S.guardarDyn();
+    S.dyn = U.dynNueva(); S.exInicial(); S.destinoPend = null; S.guardarDyn();
   };
 
   // ---- efectos ----
@@ -203,6 +223,7 @@ if (!S.mod_estado) {
     if (o[pre + "uan"] || o[pre + "nay"]) S.metroMover(o[pre + "uan"], o[pre + "nay"]);
     if (o[pre + "retiro"]) S.retiro = true;
     if (o[pre + "final"]) S.finalPend = o[pre + "final"];
+    if (o[pre + "destino"]) { S.dyn.destinoForz = o[pre + "destino"]; S.guardarDyn(); }   // cierra la historia con ese destino (de data.destinos)
   };
   // Ruido oculto: a cada stat que la opcion ya afecta (e[i] != 0) se le suma un entero
   // uniforme en [-n, n]. n = op.ruido, o S.RUIDO por defecto. No se ve en la vista previa.
@@ -257,12 +278,36 @@ if (!S.mod_estado) {
     S.modOn = false;
     if (op.usa) { delete S.items[op.usa]; S.dar("expediente_util"); }
     if (op.cine) U.cine.reproducir(op.cine);          // opcion con cinematica (cartas.json: "cine": "id")
-    S.semana++;
-    S.tickEstados();
+    // Las cartas "extra" (noticias del periodico) no gastan semana: el semestre se expande con ellas.
+    S.ultExtra = !!(S.c && S.c.extra);
+    if (!S.ultExtra) { S.semana++; S.tickEstados(); }
     S.senal.eleccion++;
-    if (op.set || op.mini || op.item || op.usa || op.final || op.azar || op.retiro) S.bitacora.push("Sem " + S.semana + ": " + op.t);
+    if (op.set || op.mini || op.item || op.usa || op.final || op.destino || op.azar || op.retiro) S.bitacora.push("Sem " + S.semana + ": " + op.t);
     S.checkLogros();
     if (op.mini && !S.finalPend) S.iniciarMini(op.mini); else S.postEleccion();
+  };
+  // Opcion elegida dentro de una cinematica (linea "elige"): efectos, banderas y cartas futuras (luego), sin pasar de semana.
+  S.aplicarOpcionCine = function (op, id) {
+    if (!op) return;
+    S.ctxPj = ""; S.modOn = true;
+    S.aplicarE(S.conRuido(op));
+    S.aplicarExtras(op, "");
+    S.modOn = false;
+    if (id) S.flags["elig_" + id] = true;
+    S.bitacora.push("Sem " + S.semana + ": " + op.t);
+  };
+  // Semestres: cada 16 semanas de la historia pasa un semestre. Sale el interludio (cine), la edicion del periodico y se programan
+  // sus cartas de noticias (extra, no gastan semana: de 16 a 20 cartas por semestre). mundo.json > uan.semestres = [{cine, diario, set, noticias}].
+  S.revisarSemestre = function () {
+    const lista = (S.data.uan || {}).semestres || [], k = Math.floor(S.semG() / 16);
+    if (k < 1 || (S.dyn.semCine | 0) >= k) return;
+    S.dyn.semCine = k; S.guardarDyn();
+    const e = lista[k - 1]; if (!e) return;
+    (e.set || []).forEach(f => { S.flags[f] = true; });
+    const ctx = { sem: k, fecha: S.fecha().txt };
+    if (e.cine) U.cine.reproducir(e.cine, ctx);
+    if (e.diario) U.cine.reproducir(e.diario, ctx);
+    (e.noticias || []).forEach((id, i) => { if (S.porId[id]) S.futuro.push({ sem: S.semana + [1, 5, 9, 13][i % 4], id }); });
   };
   S.revisarRaros = function () {
     if (S.finalPend) { const k = S.finalPend; S.finalPend = null; return k; }
@@ -270,12 +315,14 @@ if (!S.mod_estado) {
     return Object.keys(R).find(k => S.cumpleCond(R[k])) || null;
   };
   S.postEleccion = function () {
+    if (S.dyn.destinoForz) return S.terminar("historia", S.dyn.destinoForz);
     const raro = S.revisarRaros();
     if (raro) return S.terminar("raro", raro);
     const i = S.v.findIndex(x => x <= 0 || x >= 100);
     if (i >= 0) return S.terminar("stat", i);
     const ex = S.extremoMetro();
     if (ex) return S.terminar("uan", ex);
+    if (S.ultExtra) return S.siguiente();               // carta extra: no cambia la semana, ni hay eleccion ni informe
     if (S.semana >= S.eleccionEn) return S.eleccionPantalla();
     if (S.semana > 0 && S.semana % 16 === 0) return S.informe();
     S.siguiente();
@@ -388,7 +435,6 @@ if (!S.mod_estado) {
     S.setEstado("fin");
     S.senal.fin++;
     U.ev("caida");
-    U.cine.disparar("caida:" + tipo + (dato !== undefined && typeof dato !== "object" ? ":" + dato : ""), "caida:" + tipo, "caida");
     let texto, causaKey, titulo, forzado = null;
     if (tipo === "raro") {
       const R = S.data.finales_raros[dato] || {};
@@ -396,6 +442,9 @@ if (!S.mod_estado) {
       titulo = R.titulo ? "CAÍDA ESPECIAL · " + R.titulo : "CAÍDA ESPECIAL";
       U.logros["final_" + dato] = true; U.lsSet("logros", U.logros);
       S.dar("final_secreto");
+    } else if (tipo === "historia") {
+      const d = (S.data.destinos || []).find(x => x.id === dato) || {};
+      causaKey = "hist_" + dato; titulo = "EL FINAL DE TU CAMINO"; texto = d.cierre || "Tu decisión cierra la historia de la Unidad.";
     } else if (tipo === "stat") {
       const baja = S.v[dato] <= 0;
       causaKey = FIN_KEYS[dato][baja ? 0 : 1];
@@ -420,6 +469,11 @@ if (!S.mod_estado) {
     S.dyn.hist.push({ n: S.dyn.n, nombre: S.dirNombre, causa: S.causaTxt(causaKey), sem: S.semana, k: causaKey });
     if (S.dyn.hist.length > 20) S.dyn.hist.shift();
     S.dyn.n++;
+    // La historia continua con el siguiente director: se conservan banderas, cartas unicas ya vistas, cartas en cola y la semana global.
+    S.dyn.sbase = (S.dyn.sbase || 0) + S.semana;
+    S.dyn.hflags = {}; Object.keys(S.flags).forEach(f => { if (f.indexOf("ex_") !== 0 && f !== "sucesor") S.dyn.hflags[f] = true; });
+    S.dyn.husadas = {}; Object.keys(S.usadas).forEach(id => { const x = S.porId[id]; if (x && (x.cadena || x.unica !== false)) S.dyn.husadas[id] = true; });   // ninguna carta unica se repite en toda la historia
+    S.dyn.hfuturo = S.futuro.map(f => ({ rest: Math.max(1, f.sem - S.semana), id: f.id }));
     const ep = tipo === "retiro" ? "epi_retiro" : S.int <= 35 ? "epi_corrupto" : S.int >= 65 ? "epi_integro" : "epi_gris";
     // Consecuencia institucional de la caida + epilogo por integridad + deriva de Nayarit.
     const caida = S.data.caidas[causaKey] || {}, epi = (S.uanDatos().epilogo || {})[ep] || {};
@@ -438,6 +492,20 @@ if (!S.mod_estado) {
     setTxt(S.o.texto, S.fmt(texto) + (caida.t ? "\n\nPara la UAN: " + S.fmt(caida.t) : "") +
       "\n\nDuraste " + S.semana + " semanas (" + semestres + " semestres) hasta " + S.fecha().txt + ". Récord: " + S.record + ".");
     setTxt(S.o.opcion, "");
+    S.cineCaida(tipo, dato);
+  };
+  // Cinematicas de la caida (cinematicas.json > disparos): primero la de la CAUSA y luego la del RELEVO (quien sube como director).
+  // Claves de causa, de la mas especifica a la mas general: caida:stat:<i>:bajo|alto, caida:stat:<i>, caida:<tipo>:<dato>, caida:<tipo>, caida.
+  // Relevo: relevo:<id del candidato> o relevo. Contexto para los guiones: "@caido" (retrato del director que cae), "@sucesor", {suc}, {n}.
+  S.cineCaida = function (tipo, dato) {
+    const claves = [];
+    if (tipo === "stat") claves.push("caida:stat:" + dato + ":" + (S.v[dato] <= 0 ? "bajo" : "alto"), "caida:stat:" + dato);
+    else if (dato !== undefined && typeof dato !== "object") claves.push("caida:" + tipo + ":" + dato);
+    claves.push("caida:" + tipo, "caida");
+    const g = S.suc && tipo !== "historia" ? S.suc.ganador : null;
+    const ctx = { caido: (S.cd && S.cd.pj) || "director", sucesor: g ? (g.pj || g.id) : "", suc: g ? g.nombre : "" };
+    U.cine.dispararCon.apply(null, [ctx].concat(claves));
+    if (g) U.cine.dispararCon(ctx, "relevo:" + g.id, "relevo");
   };
   S.morir = (i, raro) => (raro ? S.terminar("raro", raro) : S.terminar("stat", i));   // compatibilidad
 
@@ -520,18 +588,21 @@ if (!S.mod_estado) {
   // ---- partida nueva ----
   S.reiniciarEstado = function () {
     const cd = (S.data.candidatos || []).find(c => c.id === S.dyn.dirId) || null;
-    S.cd = cd; S.dirId = cd ? cd.id : ""; S.rasgo = cd ? cd.rasgo : ""; S.dirNombre = cd ? cd.nombre : NOMBRES_DIR[0];
+    S.cd = cd; S.dirId = cd ? cd.id : ""; S.rasgo = cd ? cd.rasgo : ""; S.dirNombre = cd ? cd.nombre : S.nombreJugador();
     S.v = [0, 1, 2, 3].map(i => clamp(50 + (cd && cd.bonos ? cd.bonos[i] || 0 : 0), 8, 92));
     // La UAN heredada ajusta levemente los stats iniciales: Prestigio->Academico, Paz->Estudiantes, Solvencia->Finanzas, Autonomia->Politica.
     { const m = S.metros(), aj = x => clamp(Math.round((x - 50) / 10), -5, 5); [m.pre, m.paz, m.solv, m.aut].forEach((x, i) => { S.v[i] = clamp(S.v[i] + aj(x), 8, 92); }); }
     S.int = clamp(50 + (S.rasgo === "idealista" ? 15 : 0), 0, 100); S.items = {};
     S.flags = {}; Object.keys(S.dyn.legado).forEach(f => { S.flags[f] = true; });
+    Object.keys(S.dyn.hflags || {}).forEach(f => { S.flags[f] = true; });
     if (S.dyn.ex) S.flags["ex_" + S.dyn.ex.tono] = true;
     S.af = {}; Object.keys(S.dyn.afh).forEach(k => { S.af[k] = clamp(S.dyn.afh[k], -5, 5); });
     if (S.rasgo === "hijo_exdirector") S.af.rector = clamp((S.af.rector || 0) + 2, -5, 5);
     S.cand = Object.assign({}, S.dyn.cand); S.conspira = {}; S.modOn = false; S.ctxPj = "";
     S.estados = []; S.futuro = []; S.finalPend = null; S.elec = null; S.suc = null; S.reel = 0;
-    S.usadas = {}; S.ult = {}; S.bitacora = []; S.semana = 0; S.pjUlt = ""; S.m = null; S.c = null;
+    S.usadas = Object.assign({}, S.dyn.husadas || {}); S.ult = {}; S.bitacora = [];
+    S.futuro = (S.dyn.hfuturo || []).map(f => ({ sem: f.rest, id: f.id }));
+    S.dyn.hflags = S.dyn.hflags || {}; S.semana = 0; S.pjUlt = ""; S.m = null; S.c = null;
     S.iniciarMandato();
   };
   S.nuevaPartida = function () {
@@ -543,7 +614,11 @@ if (!S.mod_estado) {
     U.limpiar(S.ui);
     S.siguiente();
     // Cinematicas: inicio de historia (primer director) y relevo (cada director nuevo).
-    if (S.dyn.n === 1 && !S.dyn.cineIntro) { S.dyn.cineIntro = true; S.guardarDyn(); U.cine.disparar("historia_inicio"); }   // una vez por historia
+    if (S.dyn.n === 1 && !S.dyn.cineIntro) {   // una vez por historia: primero nombre y modo de juego, luego la introduccion
+      S.dyn.cineIntro = true; S.guardarDyn();
+      const arrancar = () => { S.dirNombre = S.nombreJugador(); U.cine.disparar("historia_inicio"); };
+      try { S.modal = U.modalNuevaPartida(920); S.modal.alCerrar = arrancar; } catch (e) { S.modal = null; arrancar(); }
+    }
     U.cine.disparar("director_" + S.dyn.n, "director_inicio");
   };
 

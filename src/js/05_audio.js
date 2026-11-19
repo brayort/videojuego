@@ -23,8 +23,9 @@ if (!S.u.audioListo) {
   const propios = () => { try { const v = runtimeScene.getVariables().get("SonidosPropios"); return !!(v && typeof v.getAsNumber === "function" && v.getAsNumber() === 1); } catch (e) { return false; } };
 
   // ---------------- ajustes persistentes ----------------
-  const aj = U.aj = Object.assign({ musica: num(AC.volumen_musica, 0.5), efectos: num(AC.volumen_efectos, 0.8), mudo: false, vibracion: true, nombre: "", nombrePedido: false, enviada: "" }, U.lsGet("ajustes", {}) || {});
+  const aj = U.aj = Object.assign({ musica: num(AC.volumen_musica, 0.5), efectos: num(AC.volumen_efectos, 0.8), mudo: false, vibracion: true, nombre: "", nombrePedido: false, enviada: "", dificultad: "facil" }, U.lsGet("ajustes", {}) || {});
   aj.musica = U.clamp(num(+aj.musica, 0.5), 0, 1); aj.efectos = U.clamp(num(+aj.efectos, 0.8), 0, 1);
+  aj.dificultad = aj.dificultad === "dificil" ? "dificil" : "facil";   // facil: las cartas anuncian que sube y que baja; dificil: sin pistas
   aj.mudo = !!aj.mudo; aj.vibracion = aj.vibracion !== false; aj.nombre = typeof aj.nombre === "string" ? aj.nombre : "";
   U.guardarAj = () => { U.lsSet("ajustes", aj); U.pub("NombreJugador", aj.nombre); };
 
@@ -204,7 +205,9 @@ if (!S.u.audioListo) {
     const bVib = U.mkBtn(A, 80, 540, 560, 84, "", z0 + 10, { size: 32 });
     const tNom = U.mkTxt(A, "TxtTexto", 40, 664, 26, W - 80, { al: "center", col: "crema", z: z0 + 10 });
     const bNom = U.mkBtn(A, 80, 710, 560, 84, "Cambiar nombre", z0 + 10, { size: 32 });
-    const tAy = U.mkTxt(A, "TxtTexto", 40, 830, 22, W - 80, { al: "center", col: "crema_osc", z: z0 + 10 });
+    const bDif = U.mkBtn(A, 80, 820, 560, 84, "", z0 + 10, { size: 32 });
+    const tDif = U.mkTxt(A, "TxtTexto", 40, 912, 22, W - 80, { al: "center", col: "crema_osc", z: z0 + 10 });
+    const tAy = U.mkTxt(A, "TxtTexto", 40, 990, 22, W - 80, { al: "center", col: "crema_osc", z: z0 + 10 });
     setTxt(tAy, "Los cambios se guardan solos.\nLa música empieza tras tu primer toque (regla del navegador).");
     const bVol = U.mkBtn(A, 80, 1118, 560, 96, "Volver", z0 + 10);
     M.tick = function (I) {
@@ -228,7 +231,64 @@ if (!S.u.audioListo) {
       if (U.btnTick(bMudo, I)) { aj.mudo = !aj.mudo; U.guardarAj(); U.aplicarVol(); }
       if (U.btnTick(bVib, I)) { aj.vibracion = !aj.vibracion; U.guardarAj(); if (aj.vibracion) U.vibrar(40); }
       if (U.btnTick(bNom, I)) U.pedirNombre(true);
+      const dif = aj.dificultad === "dificil";
+      U.btnTxt(bDif, "Modo: " + (dif ? "DIFÍCIL" : "FÁCIL"));
+      const dt = dif ? "Sin pistas: decides a ciegas." : "Las cartas muestran qué sube y qué baja.";
+      if (tDif.__s !== dt) setTxt(tDif, dt);
+      if (U.btnTick(bDif, I)) { aj.dificultad = dif ? "facil" : "dificil"; U.guardarAj(); }
       return !!(U.btnTick(bVol, I) || cierra(I));
+    };
+    M.destroy = () => U.limpiar(A);
+    return M;
+  };
+  // Nueva partida (primer director de una historia): pregunta el nombre (teclado en pantalla o fisico) y el modo de juego.
+  // Devuelve {lista, tick(I) -> true al empezar, destroy(), alCerrar}. Guarda aj.nombre y aj.dificultad.
+  U.modalNuevaPartida = function (z0) {
+    const A = [], M = { lista: A, alCerrar: null }, MAXN = 14;
+    let nombre = /^Director\d+$/.test(aj.nombre || "") ? "" : (aj.nombre || ""), dif = aj.dificultad, t = 0;
+    U.pnl(A, "guinda_osc", 0, 0, W, H, z0);
+    setTxt(U.mkTxt(A, "TxtTitulo", 40, 36, 56, W - 80, { al: "center", col: "dorado_claro", z: z0 + 10 }), "NUEVA PARTIDA");
+    setTxt(U.mkTxt(A, "TxtTexto", 40, 124, 28, W - 80, { al: "center", col: "crema", z: z0 + 10 }), "Llegas a una dirección vacía.\n¿Cómo te llamas, director?");
+    U.pnl(A, "dorado", 80, 214, 560, 92, z0 + 5); U.pnl(A, "azul", 84, 218, 552, 84, z0 + 6);
+    const tNom = U.mkTxt(A, "TxtPersonaje", 84, 232, 44, 552, { al: "center", col: "crema", z: z0 + 10 });
+    setTxt(U.mkTxt(A, "TxtTexto", 40, 336, 26, W - 80, { al: "center", col: "dorado_claro", z: z0 + 10 }), "Modo de juego");
+    const bF = U.mkBtn(A, 80, 376, 270, 80, "Fácil", z0 + 10, { size: 34 }), bD = U.mkBtn(A, 370, 376, 270, 80, "Difícil", z0 + 10, { size: 34 });
+    const tDes = U.mkTxt(A, "TxtTexto", 40, 472, 24, W - 80, { al: "center", col: "crema_osc", z: z0 + 10 });
+    // teclado en pantalla
+    const filas = ["QWERTYUIOP", "ASDFGHJKLÑ", "ZXCVBNM", "ÁÉÍÓÚÜ"], KW = 60, KH = 72, G = 6, Y0 = 570, teclas = [];
+    filas.forEach((fila, r) => {
+      const extra = r === 2 ? 130 + G : r === 3 ? 240 + G : 0, tot = fila.length * KW + (fila.length - 1) * G + extra;
+      let x = (W - tot) / 2; const y = Y0 + r * (KH + G + 8);
+      fila.split("").forEach(ch => { teclas.push({ b: U.mkBtn(A, x, y, KW, KH, ch, z0 + 10, { size: 34 }), ch }); x += KW + G; });
+      if (r === 2) teclas.push({ b: U.mkBtn(A, x, y, 130, KH, "Borrar", z0 + 10, { size: 26, obj: "TxtTexto" }), ch: "<" });
+      if (r === 3) teclas.push({ b: U.mkBtn(A, x, y, 240, KH, "Espacio", z0 + 10, { size: 26, obj: "TxtTexto" }), ch: " " });
+    });
+    setTxt(U.mkTxt(A, "TxtTexto", 40, Y0 + 4 * (KH + G + 8) + 6, 22, W - 80, { al: "center", col: "crema_osc", z: z0 + 10 }), "También puedes escribir con el teclado.");
+    const bOk = U.mkBtn(A, 80, 1118, 560, 96, "Empezar", z0 + 10);
+    const mete = ch => {
+      if (ch === "<") { nombre = nombre.slice(0, -1); return; }
+      if (nombre.length >= MAXN) return;
+      if (ch === " ") { if (nombre && !nombre.endsWith(" ")) nombre += " "; return; }
+      nombre += (nombre === "" || nombre.endsWith(" ")) ? ch.toUpperCase() : ch.toLowerCase();
+    };
+    M.tick = function (I) {
+      t += I.dt;
+      for (let k = 65; k <= 90; k++) if (I.kp[k]) mete(String.fromCharCode(k));
+      if (I.kp[8]) mete("<");
+      if (I.kp[32]) mete(" ");
+      teclas.forEach(k => { if (U.btnTick(k.b, I)) mete(k.ch); });
+      if (U.btnTick(bF, I)) dif = "facil";
+      if (U.btnTick(bD, I)) dif = "dificil";
+      bF.fijo = dif === "facil" ? "ok" : ""; bD.fijo = dif === "dificil" ? "ok" : "";
+      const v = (nombre || "") + (Math.floor(t * 2) % 2 === 0 && nombre.length < MAXN ? "_" : "");
+      if (tNom.__s !== v) setTxt(tNom, v || " ");
+      const d = dif === "dificil" ? "Sin pistas: decides a ciegas y descubres las consecuencias al vivirlas." : "Las cartas te muestran qué va a subir y qué va a bajar.";
+      if (tDes.__s !== d) setTxt(tDes, d);
+      if (U.btnTick(bOk, I) || I.kp[13]) {
+        aj.nombre = nombre.trim(); aj.nombrePedido = true; aj.dificultad = dif; U.guardarAj();
+        return true;
+      }
+      return false;
     };
     M.destroy = () => U.limpiar(A);
     return M;

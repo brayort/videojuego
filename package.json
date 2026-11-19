@@ -12,6 +12,11 @@
     "preview": "python tools/preview_layout.py",
     "check": "node tools/lint.js && node tools/build/build.js --destino=game.check.json && node tools/sim/sim.js 7 20000 game.check.json && node -e \"require('fs').unlinkSync('game.check.json')\"",
     "lint": "node tools/lint.js",
-    "editor": "node tools/editor/server.js"
+    "editor": "node tools/editor/server.js",
+    "play": "node tools/play/server.js",
+    "cine": "python tools/ver_cine.py"
+  },
+  "devDependencies": {
+    "docx": "^9.15.2"
   }
 }

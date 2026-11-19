@@ -1,0 +1,248 @@
+{
+  "id": "norma",
+  "titulo": "La madrina",
+  "resumen": "Norma llega con pastel, ofrece dinero y condiciones discretas: cada favor de rectoría es un hilo más que te ata.",
+  "cartas": [
+    {
+      "id": "n1",
+      "pj": "norma",
+      "texto": "La rectora Norma llega sin cita y con pastel: «Para los directores nuevos, siempre algo dulce». Pregunta por tus acuerdos, tus pendientes, tus decisiones. Sonríe tanto que no sabes cuánto ya sabe.",
+      "izq": {
+        "t": "Compartirle tus planes",
+        "e": [
+          0,
+          0,
+          4,
+          6
+        ],
+        "set": [
+          "norma_confias"
+        ],
+        "luego": {
+          "semanas": 2,
+          "carta": "n2"
+        }
+      },
+      "der": {
+        "t": "Agradecer y guardar silencio",
+        "e": [
+          0,
+          0,
+          0,
+          -5
+        ],
+        "luego": {
+          "semanas": 2,
+          "carta": "n2"
+        }
+      },
+      "peso": 3,
+      "unica": true,
+      "cadena": "norma",
+      "req": [
+        "cap_norma"
+      ]
+    },
+    {
+      "id": "n2",
+      "pj": "norma",
+      "texto": "Norma te ofrece dinero extra «para que la Unidad respire». Viene con una condición discreta: un nombre en tu comité de compras. «Alguien de mi confianza».",
+      "izq": {
+        "t": "Aceptar el dinero y el nombre",
+        "e": [
+          0,
+          0,
+          12,
+          8
+        ],
+        "int": -8,
+        "set": [
+          "norma_cedes"
+        ],
+        "luego": {
+          "semanas": 2,
+          "carta": "n3"
+        }
+      },
+      "der": {
+        "t": "Aceptar el dinero sin el nombre",
+        "e": [
+          0,
+          0,
+          3,
+          -8
+        ],
+        "int": 3,
+        "set": [
+          "norma_resistes"
+        ],
+        "luego": {
+          "semanas": 2,
+          "carta": "n3"
+        }
+      },
+      "solo_luego": true,
+      "unica": true,
+      "cadena": "norma"
+    },
+    {
+      "id": "n3",
+      "pj": "norma",
+      "texto": "Sin aviso, rectoría cambia las reglas del dinero que da a la Unidad. Norma, la rectora, te llama con voz dulce: «Lo decidí yo, cariño, y me duele. Pero tú y yo podemos arreglar esto, ¿verdad?».",
+      "izq": {
+        "t": "Buscar un acuerdo con ella",
+        "e": [
+          0,
+          0,
+          4,
+          6
+        ],
+        "luego": {
+          "semanas": 2,
+          "carta": "n4a"
+        }
+      },
+      "der": {
+        "t": "Ir al Consejo con las pruebas",
+        "e": [
+          3,
+          0,
+          -5,
+          -8
+        ],
+        "luego": {
+          "semanas": 2,
+          "carta": "n4b"
+        }
+      },
+      "solo_luego": true,
+      "unica": true,
+      "cadena": "norma"
+    },
+    {
+      "id": "n4a",
+      "pj": "norma",
+      "texto": "El acuerdo llega con un precio: una carta pública de apoyo a su trabajo. Te la dan ya escrita, con tu firma pendiente. «Un detalle sin importancia».",
+      "izq": {
+        "t": "Firmar la carta",
+        "e": [
+          0,
+          0,
+          8,
+          10
+        ],
+        "int": -12,
+        "set": [
+          "norma_fin",
+          "norma_gano"
+        ]
+      },
+      "der": {
+        "t": "Reescribirla con tus palabras",
+        "e": [
+          0,
+          0,
+          -2,
+          -6
+        ],
+        "int": 5,
+        "set": [
+          "norma_fin"
+        ]
+      },
+      "solo_luego": true,
+      "unica": true,
+      "cadena": "norma"
+    },
+    {
+      "id": "n4b",
+      "pj": "norma",
+      "texto": "Frente al Consejo, todo se hace público. Norma no se defiende: sonríe y toma nota. Al salir te dice: «Me gusta la gente con carácter. Aunque a veces se rompe».",
+      "izq": {
+        "t": "Mantenerte firme",
+        "e": [
+          4,
+          3,
+          -4,
+          -12
+        ],
+        "int": 8,
+        "set": [
+          "norma_fin",
+          "norma_enemiga"
+        ]
+      },
+      "der": {
+        "t": "Bajar el tono",
+        "e": [
+          0,
+          0,
+          2,
+          2
+        ],
+        "int": -4,
+        "set": [
+          "norma_fin"
+        ]
+      },
+      "solo_luego": true,
+      "unica": true,
+      "cadena": "norma"
+    },
+    {
+      "id": "pastel_a",
+      "pj": "maria",
+      "texto": "El pastel de María desapareció en cuatro minutos. Dejó una nota: «Para el director: quien reparte siempre se queda con la última rebanada». Y una rebanada, claro.",
+      "izq": {
+        "t": "Guardarla para la próxima junta",
+        "e": [
+          2,
+          0,
+          0,
+          0
+        ]
+      },
+      "der": {
+        "t": "Repartirla entre los que no alcanzaron",
+        "e": [
+          3,
+          2,
+          -1,
+          0
+        ],
+        "int": 2
+      },
+      "cadena": "norma",
+      "solo_luego": true,
+      "unica": true
+    },
+    {
+      "id": "pastel_b",
+      "pj": "victor",
+      "texto": "Víctor te felicita: «El pastel era de rectoría. Qué detalle, ¿verdad? Seguro te lo agradecieron mucho». Nadie te lo agradeció. Víctor ya mandó una nota de agradecimiento a tu nombre.",
+      "izq": {
+        "t": "Aceptar el agradecimiento",
+        "e": [
+          0,
+          0,
+          2,
+          3
+        ],
+        "int": -3
+      },
+      "der": {
+        "t": "Aclarar que no lo pediste",
+        "e": [
+          0,
+          0,
+          -2,
+          -3
+        ],
+        "int": 3
+      },
+      "cadena": "norma",
+      "solo_luego": true,
+      "unica": true
+    }
+  ]
+}

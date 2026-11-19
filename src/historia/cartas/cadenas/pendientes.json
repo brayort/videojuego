@@ -1,0 +1,390 @@
+{
+  "id": "pendientes",
+  "titulo": "Los pendientes de Mónica",
+  "resumen": "Siete pendientes que Mónica dejó anotados: sueldos, alumnos, maestros, cuentas, los papeles del edificio quemado, rectoría y uno sellado. Cada uno abre el siguiente.",
+  "cartas": [
+    {
+      "id": "pend_1",
+      "pj": "monica",
+      "texto": "En la libreta de Mónica, pendiente 1: «El pago de diciembre». Tras el fallo de la Corte falta dinero para pagar los sueldos. Puedes pedir un adelanto a rectoría... o recortar gastos en la Unidad.",
+      "izq": {
+        "t": "Pedir un adelanto a rectoría",
+        "e": [
+          0,
+          0,
+          8,
+          -10
+        ],
+        "set": [
+          "debe_a_rectoria"
+        ],
+        "luego": {
+          "semanas": 7,
+          "carta": "pend_2"
+        }
+      },
+      "der": {
+        "t": "Recortar gastos de la Unidad",
+        "e": [
+          -8,
+          -3,
+          10,
+          0
+        ],
+        "set": [
+          "recorte_inicial"
+        ],
+        "luego": {
+          "semanas": 7,
+          "carta": "pend_2"
+        }
+      },
+      "cadena": "pendientes",
+      "semana": 0,
+      "unica": true
+    },
+    {
+      "id": "pend_2",
+      "pj": "sonia",
+      "texto": "En la libreta de Mónica, pendiente 2: «Los alumnos». Se supo del hueco en el dinero y exigen una asamblea. Sonia se ofrece a calmar las cosas, pero alguien tiene que dar la cara.",
+      "izq": {
+        "t": "Dar la cara en la asamblea",
+        "e": [
+          0,
+          9,
+          -2,
+          -4
+        ],
+        "int": 3,
+        "luego": {
+          "semanas": 7,
+          "carta": "pend_3"
+        }
+      },
+      "der": {
+        "t": "Que Sonia lo maneje",
+        "e": [
+          0,
+          -4,
+          0,
+          3
+        ],
+        "luego": {
+          "semanas": 7,
+          "carta": "pend_3"
+        }
+      },
+      "cadena": "pendientes",
+      "solo_luego": true,
+      "unica": true
+    },
+    {
+      "id": "pend_3",
+      "pj": "perla",
+      "texto": "En la libreta de Mónica, pendiente 3: «Los maestros». Perla, líder de los profesores, pide que les asegures su trabajo por escrito antes de aceptar un solo recorte más. Si no lo firmas, habla de paro.",
+      "izq": {
+        "t": "Firmar el compromiso",
+        "e": [
+          10,
+          0,
+          -8,
+          -3
+        ],
+        "set": [
+          "garantias_firmadas"
+        ],
+        "luego": {
+          "semanas": 7,
+          "carta": "pend_4"
+        }
+      },
+      "der": {
+        "t": "Prometer sin firmar",
+        "e": [
+          4,
+          0,
+          0,
+          0
+        ],
+        "int": -6,
+        "set": [
+          "promesa_vacia"
+        ],
+        "luego": {
+          "semanas": 7,
+          "carta": "pend_4"
+        }
+      },
+      "cadena": "pendientes",
+      "solo_luego": true,
+      "unica": true
+    },
+    {
+      "id": "pend_4",
+      "pj": "ana",
+      "texto": "En la libreta de Mónica, pendiente 4: «Las cuentas». Ana revisó las cuentas del año pasado y hay un error enorme: gastos sin papeles, cifras que no cuadran. Nadie en el edificio quiere hablar de eso.",
+      "izq": {
+        "t": "Seguir revisando, en silencio",
+        "e": [
+          0,
+          0,
+          -3,
+          0
+        ],
+        "int": 4,
+        "set": [
+          "hallazgo_cuentas"
+        ],
+        "luego": {
+          "semanas": 7,
+          "carta": "pend_5"
+        }
+      },
+      "der": {
+        "t": "Guardarlo: hay cosas más urgentes",
+        "e": [
+          0,
+          0,
+          3,
+          4
+        ],
+        "int": -8,
+        "set": [
+          "archivo_cerrado"
+        ],
+        "luego": {
+          "semanas": 7,
+          "carta": "pend_5"
+        }
+      },
+      "cadena": "pendientes",
+      "solo_luego": true,
+      "unica": true
+    },
+    {
+      "id": "pend_5",
+      "pj": "edel",
+      "texto": "En la libreta de Mónica, pendiente 5: «Los papeles viejos». Edel llegó temprano y encontró la bodega del edificio de Finanzas, el que se quemó, abierta a la fuerza. Faltan cajas con papeles.",
+      "izq": {
+        "t": "Avisar a rectoría",
+        "e": [
+          0,
+          0,
+          0,
+          -6
+        ],
+        "int": 5,
+        "set": [
+          "denuncia_archivo"
+        ],
+        "luego": {
+          "semanas": 7,
+          "carta": "pend_6"
+        }
+      },
+      "der": {
+        "t": "Investigarlo tú mismo",
+        "e": [
+          0,
+          0,
+          -4,
+          0
+        ],
+        "set": [
+          "investigas_archivo"
+        ],
+        "luego": {
+          "semanas": 7,
+          "carta": "pend_6"
+        }
+      },
+      "cadena": "pendientes",
+      "solo_luego": true,
+      "unica": true
+    },
+    {
+      "id": "pend_6",
+      "pj": "victor",
+      "texto": "En la libreta de Mónica, pendiente 6: «Rectoría». Víctor llega sonriendo con una carta: rectoría te apoyará con todo... con una condición. Tu firma en un acuerdo que no te dejaron leer completo.",
+      "izq": {
+        "t": "Firmar: necesitas el dinero",
+        "e": [
+          0,
+          0,
+          12,
+          8
+        ],
+        "int": -10,
+        "set": [
+          "firmaste_convenio"
+        ],
+        "luego": {
+          "semanas": 7,
+          "carta": "pend_7"
+        }
+      },
+      "der": {
+        "t": "Pedir tiempo para leerlo",
+        "e": [
+          0,
+          0,
+          -4,
+          -8
+        ],
+        "int": 4,
+        "set": [
+          "leiste_convenio"
+        ],
+        "luego": {
+          "semanas": 7,
+          "carta": "pend_7"
+        }
+      },
+      "cadena": "pendientes",
+      "solo_luego": true,
+      "unica": true
+    },
+    {
+      "id": "pend_7",
+      "pj": "monica",
+      "texto": "El pendiente 7 está sellado. Mónica llama justo ahora: «No lo abras todavía. Cuando cuatro personas te hayan ofrecido ayuda, vas a entender por qué me fui. Aprende a desconfiar de la ayuda».",
+      "izq": {
+        "t": "Abrirlo ahora",
+        "e": [
+          0,
+          0,
+          0,
+          -4
+        ],
+        "int": 2,
+        "set": [
+          "abriste_pendiente_7"
+        ]
+      },
+      "der": {
+        "t": "Esperar a estar listo",
+        "e": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "set": [
+          "esperas_pendiente_7"
+        ]
+      },
+      "cadena": "pendientes",
+      "solo_luego": true,
+      "unica": true
+    },
+    {
+      "id": "cafe_a",
+      "pj": "fernando",
+      "texto": "Fernando estrena la cafetera nueva con un letrero: «Obsequio del director». Ya hay fila hasta el pasillo y todos te saludan con una sonrisa de oreja a oreja. Falta decidir quién pone el café.",
+      "izq": {
+        "t": "Que cada quien traiga su café",
+        "e": [
+          3,
+          0,
+          0,
+          0
+        ]
+      },
+      "der": {
+        "t": "Invitar el café esta semana",
+        "e": [
+          6,
+          0,
+          -3,
+          0
+        ],
+        "int": 2
+      },
+      "cadena": "pendientes",
+      "solo_luego": true,
+      "unica": true
+    },
+    {
+      "id": "cafe_b",
+      "pj": "roberto",
+      "texto": "Roberto entrega el informe de la cooperación: 47 páginas con anexos y una nota al pie sobre 1998. Conclusión: faltan 340 pesos y alguien se llevó la azucarera.",
+      "izq": {
+        "t": "Pagar la diferencia con dinero de la Unidad",
+        "e": [
+          3,
+          0,
+          -5,
+          0
+        ]
+      },
+      "der": {
+        "t": "Pedir que cada quien ponga lo suyo",
+        "e": [
+          -3,
+          0,
+          2,
+          0
+        ],
+        "int": 2
+      },
+      "cadena": "pendientes",
+      "solo_luego": true,
+      "unica": true
+    },
+    {
+      "id": "pasillo_a",
+      "pj": "edel",
+      "texto": "Edel puso el letrero oficial de «piso mojado». Ángel quiere que sea más grande y Raudel, que no estorbe. Aprovecha para pedirte dinero para darle mantenimiento a todo el edificio.",
+      "izq": {
+        "t": "Aprobar el mantenimiento",
+        "e": [
+          0,
+          0,
+          -5,
+          3
+        ]
+      },
+      "der": {
+        "t": "Dejarlo para el próximo semestre",
+        "e": [
+          0,
+          0,
+          3,
+          -3
+        ],
+        "int": -2
+      },
+      "cadena": "pendientes",
+      "solo_luego": true,
+      "unica": true
+    },
+    {
+      "id": "pasillo_b",
+      "pj": "angel",
+      "texto": "Ángel y Raudel firmaron su «Reglamento del Pasillo»: 43 artículos. El primero dice que el pasillo es de Ángel. El segundo, que Raudel tiene derecho a veto. Te piden tu firma.",
+      "izq": {
+        "t": "Firmarlo tal cual: así hay paz",
+        "e": [
+          3,
+          0,
+          0,
+          -3
+        ],
+        "int": -2
+      },
+      "der": {
+        "t": "Pedir que lo recorten a cinco artículos",
+        "e": [
+          -2,
+          0,
+          0,
+          3
+        ],
+        "int": 2
+      },
+      "cadena": "pendientes",
+      "solo_luego": true,
+      "unica": true
+    }
+  ]
+}

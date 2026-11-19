@@ -1,0 +1,425 @@
+{
+  "personajes": {
+    "predecesor": "Predecesor",
+    "candidato": "Candidato",
+    "monica": "Mónica",
+    "janoe": "Janoe",
+    "sonia": "Sonia",
+    "perla": "Perla",
+    "ana": "Ana",
+    "edel": "Edel",
+    "victor": "Víctor",
+    "nayeli": "Nayeli",
+    "alfonso": "Alfonso",
+    "oscar": "Oscar Vizcaíno",
+    "sergio": "Sergio Olivares",
+    "martinez": "Martínez",
+    "gabriel": "Gabriel",
+    "beatriz": "Beatriz",
+    "roberto": "Roberto",
+    "norma": "Norma",
+    "juan": "Juan",
+    "oscar_alumno": "Oscar",
+    "jose": "José",
+    "director": "{dir}",
+    "quintana": "Aurelio Quintana",
+    "fernando": "Fernando",
+    "angel": "Ángel",
+    "maria": "María",
+    "jose_25": "José Olivo",
+    "jose_27": "José Camelo",
+    "alejandro": "Alejandro",
+    "omar": "Omar",
+    "jose_19": "José Luna",
+    "raudel": "Raudel",
+    "ricardo": "Ricardo",
+    "reyna": "Reyna",
+    "pedro": "Pedro",
+    "carlos": "Carlos",
+    "eligardo": "Eligardo",
+    "oliver": "Oliver",
+    "lugo": "Alberto Lugo"
+  },
+  "candidatos": [
+    {
+      "id": "cand_perla",
+      "pj": "perla",
+      "nombre": "Perla",
+      "rasgo": "tecnocrata",
+      "faccion": "investigadores",
+      "bonos": [
+        6,
+        0,
+        2,
+        -2
+      ],
+      "fuerza": 10,
+      "favorece": {}
+    },
+    {
+      "id": "cand_victor",
+      "pj": "victor",
+      "nombre": "Víctor",
+      "rasgo": "operador",
+      "faccion": "enlace con rectoría",
+      "bonos": [
+        -2,
+        0,
+        0,
+        6
+      ],
+      "fuerza": 10,
+      "favorece": {}
+    },
+    {
+      "id": "cand_nayeli",
+      "pj": "nayeli",
+      "nombre": "Nayeli",
+      "rasgo": "idealista",
+      "faccion": "nueva generación",
+      "bonos": [
+        0,
+        6,
+        -2,
+        0
+      ],
+      "fuerza": 10,
+      "favorece": {}
+    }
+  ],
+  "fichas": {
+    "alejandro": {
+      "rol": "aliado",
+      "nombre_completo": "Alejandro Granados Magaña",
+      "unidad": "Informática",
+      "cargo": "",
+      "personalidad": "Tranquilo y metódico; nunca se le ve con prisa y siempre tiene el plan B listo. Habla poco, pero cuando lo hace todos escuchan.",
+      "medidor": "",
+      "notas": ""
+    },
+    "beatriz": {
+      "rol": "aliado",
+      "nombre_completo": "Beatriz Angélica Toscano de la Torre",
+      "unidad": "Informática",
+      "cargo": "",
+      "personalidad": "Difícil de tratar y de lengua suelta: no se queda callada con nadie y se mete en más de un lío. Estricta al extremo, los alumnos le tienen miedo.",
+      "medidor": "",
+      "notas": ""
+    },
+    "fernando": {
+      "rol": "aliado",
+      "nombre_completo": "Fernando Oregel Rosales",
+      "unidad": "Informática",
+      "cargo": "",
+      "personalidad": "Bromista de pasillo con corazón de oro. Convierte cualquier reunión aburrida en anécdota, pero entrega todo a tiempo.",
+      "medidor": "",
+      "notas": ""
+    },
+    "janoe": {
+      "rol": "aliado",
+      "nombre_completo": "Janoe Antonio González Reyes",
+      "unidad": "Informática",
+      "cargo": "Coordinador de Sistemas",
+      "personalidad": "Coordinador de Sistemas. Responsable y con carácter de líder; siempre anda resolviendo algo y nunca le falta una reunión pendiente.",
+      "medidor": "",
+      "notas": ""
+    },
+    "monica": {
+      "rol": "anfitriona",
+      "nombre_completo": "Mónica Salcedo Rosales",
+      "unidad": "Informática",
+      "cargo": "Ex directora de la Unidad",
+      "personalidad": "Organizada hasta el último detalle y con una calma que contagia. Es quien recuerda la fecha de entrega que todos olvidaron.",
+      "medidor": "",
+      "notas": ""
+    },
+    "nayeli": {
+      "rol": "aliado",
+      "nombre_completo": "Nayeli Yaremi Borrayo González",
+      "unidad": "Informática",
+      "cargo": "",
+      "personalidad": "Entusiasta y expresiva; se emociona con cada pequeño logro del grupo. Es la porrista oficial del equipo.",
+      "medidor": "",
+      "notas": ""
+    },
+    "sergio": {
+      "rol": "aliado",
+      "nombre_completo": "Sergio Agustín Olivares Granados",
+      "unidad": "Informática",
+      "cargo": "",
+      "personalidad": "Serio por fuera, sarcástico por dentro. Su humor seco llega siempre cuando menos lo esperas.",
+      "medidor": "",
+      "notas": ""
+    },
+    "sonia": {
+      "rol": "aliado",
+      "nombre_completo": "Sonia Yadira Tapia Ponce",
+      "unidad": "Informática",
+      "cargo": "Coordinadora de Informática",
+      "personalidad": "Coordinadora de Informática. Sociable y conciliadora; logra que dos personas en desacuerdo terminen tomando café juntas.",
+      "medidor": "",
+      "notas": ""
+    },
+    "victor": {
+      "rol": "aliado",
+      "nombre_completo": "Víctor Javier Torres Covarrubias",
+      "unidad": "Informática",
+      "cargo": "",
+      "personalidad": "Político nato: sabe a quién saludar, cuándo sonreír y cómo salir bien parado de cualquier discusión.",
+      "medidor": "",
+      "notas": ""
+    },
+    "alfonso": {
+      "rol": "aliado",
+      "nombre_completo": "Alfonso Junior Rodríguez Ayón",
+      "unidad": "Sistemas Computacionales",
+      "cargo": "",
+      "personalidad": "Buena onda de principio a fin. Llega con una sonrisa, se lleva bien con todos y siempre echa la mano.",
+      "medidor": "",
+      "notas": ""
+    },
+    "angel": {
+      "rol": "aliado",
+      "nombre_completo": "Ángel Armando Benítez Carrazco",
+      "unidad": "Sistemas Computacionales",
+      "cargo": "",
+      "personalidad": "Muy estricto y de aires de superioridad; no perdona un error ni una tarea tarde. Se cree el rey del pasillo, aunque en el fondo todos lo respetan.",
+      "medidor": "",
+      "notas": ""
+    },
+    "carlos": {
+      "rol": "aliado",
+      "nombre_completo": "Carlos David Ortiz Hernández",
+      "unidad": "Sistemas Computacionales",
+      "cargo": "",
+      "personalidad": "Serio y misterioso: nadie sabe bien qué piensa ni qué trae entre manos. Pero en cuanto agarra confianza se vuelve un vacilón de primera.",
+      "medidor": "",
+      "notas": ""
+    },
+    "eligardo": {
+      "rol": "aliado",
+      "nombre_completo": "Eligardo Cruz Sánchez",
+      "unidad": "Sistemas Computacionales",
+      "cargo": "",
+      "personalidad": "Jovial y despreocupado; para él todo problema tiene arreglo después de una buena comida. Nunca pierde la sonrisa.",
+      "medidor": "",
+      "notas": ""
+    },
+    "gabriel": {
+      "rol": "aliado",
+      "nombre_completo": "Gabriel Zepeda Martínez",
+      "unidad": "Sistemas Computacionales",
+      "cargo": "",
+      "personalidad": "El que más sabe de hardware: arma, repara y revive equipos que ya nadie quería. Habla de tarjetas madre con pasión.",
+      "medidor": "",
+      "notas": ""
+    },
+    "perla": {
+      "rol": "aliado",
+      "nombre_completo": "Perla Aguilar Navarrete",
+      "unidad": "Sistemas Computacionales",
+      "cargo": "",
+      "personalidad": "Líder nata, de las que organizan al grupo sin pedir permiso. Muy buena investigadora, con reconocimiento CNI.",
+      "medidor": "",
+      "notas": ""
+    },
+    "jose_19": {
+      "rol": "aliado",
+      "nombre_completo": "José Pedro Luna Mayorquin",
+      "unidad": "Sistemas Computacionales",
+      "cargo": "",
+      "personalidad": "Sabio y pausado, de los que hablan con refranes. Le gusta aconsejar a los nuevos con una taza de té en la mano.",
+      "medidor": "",
+      "notas": ""
+    },
+    "raudel": {
+      "rol": "aliado",
+      "nombre_completo": "Raudel López Espinoza",
+      "unidad": "Sistemas Computacionales",
+      "cargo": "",
+      "personalidad": "Chico rudo de buen porte y poca paciencia. Habla fuerte, no se deja de nadie y tiene un corazón noble debajo de la fachada.",
+      "medidor": "",
+      "notas": ""
+    },
+    "roberto": {
+      "rol": "aliado",
+      "nombre_completo": "Roberto Arturo Herrera Cruz",
+      "unidad": "Sistemas Computacionales",
+      "cargo": "",
+      "personalidad": "Platicador incansable: una pregunta suya se convierte en media hora de historias, con digresiones incluidas.",
+      "medidor": "",
+      "notas": ""
+    },
+    "oscar": {
+      "rol": "aliado",
+      "nombre_completo": "Oscar Gabriel Vizcaíno Monroy",
+      "unidad": "Sistemas Computacionales",
+      "cargo": "",
+      "personalidad": "Medio loco, impredecible y siempre con una idea descabellada que a veces, sorprendentemente, funciona.",
+      "medidor": "",
+      "notas": ""
+    },
+    "martinez": {
+      "rol": "aliado",
+      "nombre_completo": "",
+      "unidad": "Sistemas Computacionales",
+      "cargo": "",
+      "personalidad": "Programador de pocas palabras y algo tímido. Se siente más cómodo hablando con el código que con la gente.",
+      "medidor": "",
+      "notas": ""
+    },
+    "oliver": {
+      "rol": "aliado",
+      "nombre_completo": "",
+      "unidad": "Sistemas Computacionales",
+      "cargo": "",
+      "personalidad": "Bohemio y buen conversador: le gusta el trago y la fiesta, pero nunca en horario de clases; dentro del aula es profesional.",
+      "medidor": "",
+      "notas": ""
+    },
+    "lugo": {
+      "rol": "aliado",
+      "nombre_completo": "Alberto Lugo González",
+      "unidad": "Sistemas Computacionales",
+      "cargo": "",
+      "personalidad": "Profe amable al que nadie respeta por su falta de autoridad: el grupo se le sube a las barbas y él sigue sonriendo.",
+      "medidor": "",
+      "notas": ""
+    },
+    "jose_25": {
+      "rol": "aliado",
+      "nombre_completo": "José Ramón Olivo Estrada",
+      "unidad": "Economía",
+      "cargo": "",
+      "personalidad": "Estratega silencioso que piensa dos jugadas por delante. Calcula todo, hasta el momento ideal para contar un chiste.",
+      "medidor": "",
+      "notas": ""
+    },
+    "ricardo": {
+      "rol": "aliado",
+      "nombre_completo": "Ricardo Becerra Perez",
+      "unidad": "Economía",
+      "cargo": "",
+      "personalidad": "Muy vacilón y bromista, pero con buena conciencia indígena: orgulloso de sus raíces y siempre listo para defenderlas.",
+      "medidor": "",
+      "notas": ""
+    },
+    "jose_27": {
+      "rol": "aliado",
+      "nombre_completo": "Jose Octavio Camelo Avedoy",
+      "unidad": "Economía",
+      "cargo": "",
+      "personalidad": "Carismático y conversador; conoce a todo el mundo y todos le deben un favor o una buena historia.",
+      "medidor": "",
+      "notas": ""
+    },
+    "ana": {
+      "rol": "aliado",
+      "nombre_completo": "Ana Cecilia Lopez Mondragon",
+      "unidad": "Economía",
+      "cargo": "",
+      "personalidad": "Analítica y de ojo agudo. Detecta el error más pequeño y lo señala con tanta amabilidad que nadie se ofende.",
+      "medidor": "",
+      "notas": ""
+    },
+    "pedro": {
+      "rol": "aliado",
+      "nombre_completo": "Pedro Luna Jimenez",
+      "unidad": "Economía",
+      "cargo": "",
+      "personalidad": "Historiador de corazón. Ama la universidad, las leyes y la protección cultural, y puede hablar de patrimonio durante horas.",
+      "medidor": "",
+      "notas": ""
+    },
+    "maria": {
+      "rol": "aliado",
+      "nombre_completo": "Maria de Lourdes Montes Torres",
+      "unidad": "Economía",
+      "cargo": "",
+      "personalidad": "Maternal y protectora con quien la necesita. Tiene remedio, consejo o galleta para cada situación.",
+      "medidor": "",
+      "notas": ""
+    },
+    "reyna": {
+      "rol": "aliado",
+      "nombre_completo": "Reyna Myrna Paredes Medina",
+      "unidad": "Economía",
+      "cargo": "",
+      "personalidad": "Enérgica y decidida; cuando se propone algo, nadie la detiene. Habla rápido, piensa más rápido todavía.",
+      "medidor": "",
+      "notas": ""
+    },
+    "edel": {
+      "rol": "aliado",
+      "nombre_completo": "Edel Soto Ceja",
+      "unidad": "Economía",
+      "cargo": "",
+      "personalidad": "Discreto, trabajador y de pocas palabras. Prefiere demostrar con hechos y siempre llega primero.",
+      "medidor": "",
+      "notas": ""
+    },
+    "omar": {
+      "rol": "aliado",
+      "nombre_completo": "Omar Wicab Gutierrez",
+      "unidad": "Economía",
+      "cargo": "",
+      "personalidad": "Buena onda de pies a cabeza: sonríe a todos, saluda hasta al conserje y siempre tiene tiempo para platicar un rato.",
+      "medidor": "",
+      "notas": ""
+    },
+    "oscar_alumno": {
+      "rol": "antagonista",
+      "nombre_completo": "",
+      "unidad": "Alumnos",
+      "cargo": "Líder estudiantil",
+      "personalidad": "Joven, carismático y muy escuchado en el patio. Convierte la asamblea en poder: promete lo imposible y espera a que el director falle.",
+      "medidor": "Alumnos",
+      "notas": "Antagonista de Alumnos (cadena «El agitador»)."
+    },
+    "jose": {
+      "rol": "antagonista",
+      "nombre_completo": "",
+      "unidad": "Profesores",
+      "cargo": "Dirigente sindical",
+      "personalidad": "Nunca alza la voz. Estratega paciente: arma listas, comités y calendarios, y deja que otros convoquen el paro por él.",
+      "medidor": "Profesores",
+      "notas": "Antagonista de Profesores (cadena «El estratega»)."
+    },
+    "juan": {
+      "rol": "antagonista",
+      "nombre_completo": "",
+      "unidad": "Finanzas",
+      "cargo": "Contador",
+      "personalidad": "Amable y ordenado. Ofrece 'arreglar los libros' con balances demasiado limpios; sabe qué ardió y qué se salvó.",
+      "medidor": "Finanzas",
+      "notas": "Antagonista de Finanzas (cadena «El contador»)."
+    },
+    "norma": {
+      "rol": "antagonista",
+      "nombre_completo": "",
+      "unidad": "Rectoría",
+      "cargo": "Rectoría",
+      "personalidad": "Cálida y dulce, siempre con algo para compartir. Cada favor de rectoría trae una condición discreta.",
+      "medidor": "Rectoría",
+      "notas": "Antagonista de Rectoría (cadena «La madrina»)."
+    },
+    "director": {
+      "rol": "jugador",
+      "nombre_completo": "",
+      "unidad": "Economía",
+      "cargo": "Director de la Unidad",
+      "personalidad": "Tú. Llegaste a una dirección vacía y a un hueco enorme. Tus decisiones lo definen.",
+      "medidor": "",
+      "notas": "Personaje del jugador: su nombre y retrato se configuran en mundo.json > uan (o en el editor de personajes). Puede reelegirse."
+    },
+    "quintana": {
+      "rol": "antagonista",
+      "nombre_completo": "Aurelio Quintana",
+      "unidad": "Rectoría",
+      "cargo": "Consejero y ex director",
+      "personalidad": "Cálido, paternal y siempre sonriente. Nunca amenaza: ofrece. Cree de verdad que alguien tiene que manejar los hilos y que mejor sea alguien que lo haga con elegancia.",
+      "medidor": "",
+      "notas": "PERSONAJE FICTICIO. Quinto director de la Unidad y cerebro detrás del incendio del edificio de Finanzas. Antagonista final."
+    }
+  }
+}

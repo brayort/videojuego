@@ -97,6 +97,31 @@ def retrato(i, pid):
     out("retratos", pid, im)
 
 
+# Marcos de carta (uno por tipo de personaje). El sprite del personaje se dibuja UNA vez encima (objeto Retrato).
+ROL_COL = {"marco": ("dorado", "dorado_claro"), "marco_anfitriona": ("dorado_claro", "dorado"), "marco_aliado": ("azul_cl", "dorado"),
+           "marco_antagonista": ("rojo", "ambar"), "marco_jugador": ("verde", "dorado_claro")}
+def marco(n):
+    borde, acento = (PAL[x] for x in ROL_COL[n]); w = h = 560
+    def f(d, k):
+        r = 46 * k
+        for y in range(h * k):                                   # fondo: degradado azul profundo
+            t = y / (h * k - 1); c = lerp((24, 58, 118), (9, 24, 58), t)
+            d.line((10*k, y, (w-10)*k, y), fill=c + (255,))
+        # recorte redondeado: se compone abajo con una mascara
+    base = ss(w, h, f)
+    m = Image.new("L", (w * 4, h * 4), 0); ImageDraw.Draw(m).rounded_rectangle((10*4, 10*4, (w-10)*4, (h-10)*4), 46*4, fill=255)
+    base.putalpha(m.resize((w, h), Image.LANCZOS))
+    ov = ss(w, h, lambda d, k: (
+        d.rounded_rectangle((10*k, 10*k, (w-10)*k, (h-10)*k), 46*k, outline=borde, width=10*k),
+        d.rounded_rectangle((26*k, 26*k, (w-26)*k, (h-26)*k), 34*k, outline=acento + (150,), width=3*k),
+        [d.ellipse(((cx-6)*k, (cy-6)*k, (cx+6)*k, (cy+6)*k), fill=acento) for cx, cy in ((40, 40), (w-40, 40), (40, h-40), (w-40, h-40))]))
+    glow = Image.new("RGBA", (w, h), (0, 0, 0, 0)); gd = ImageDraw.Draw(glow)
+    gd.ellipse((60, 40, w-60, h+120), fill=borde + (46,)); glow = glow.filter(ImageFilter.GaussianBlur(40))
+    gm = Image.new("L", (w, h), 0); ImageDraw.Draw(gm).rounded_rectangle((12, 12, w-12, h-12), 44, fill=255)
+    glow.putalpha(Image.composite(glow.getchannel("A"), Image.new("L", (w, h), 0), gm))
+    im = Image.alpha_composite(Image.alpha_composite(base, glow), ov)
+    out("cartas", n, im)
+
 def carta(i, pid):
     c = color(i) if pid != "carta" else (150,150,150)
     w = h = 560
@@ -129,8 +154,7 @@ def fondo(n):
     od.rounded_rectangle((14,14,706,1266), 30, outline=PAL["dorado"]+(70,), width=3)
     od.rounded_rectangle((24,24,696,1256), 24, outline=PAL["dorado"]+(30,), width=2)
     for k in range(-1280, 720, 64): od.line((k,1280,k+1280,0), fill=(255,255,255,7), width=2)
-    ctext(od, (360, 640), t, F(56), (255,255,255,26))
-    ctext(od, (360, 700), "(fondo provisional)", F(26, False), (255,255,255,22))
+    # sin marca de agua "(fondo provisional)": los fondos se ven limpios detras de los personajes
     out("fondos", n, Image.alpha_composite(im, ov))
 
 def icono(n):
@@ -152,13 +176,13 @@ def icono(n):
     elif n=="bajar":
         d.polygon(P((24,45),(44,22),(32,22),(32,3),(16,3),(16,22),(4,22)), fill=Wt)
     m = m.resize((s, s), Image.LANCZOS)
-    col = {"subir":(70,210,100),"bajar":(235,70,60),"finanzas":(240,200,40)}.get(n, (255,255,255))
+    col = {"subir":(70,210,100),"bajar":(235,70,60)}.get(n, (255,255,255))
     halo = m.filter(ImageFilter.MaxFilter(5)).filter(ImageFilter.GaussianBlur(.6))
     im = Image.new("RGBA", (s, s), (0,0,0,0))
     im.paste(Image.new("RGBA", (s, s), PAL["negro"]+(255,)), (0,0), halo)
     im.paste(Image.new("RGBA", (s, s), col+(255,)), (0,0), m)
     if n == "finanzas":
-        d2 = ImageDraw.Draw(im); ctext(d2, (24,24), "$", F(30), (120,80,0))
+        d2 = ImageDraw.Draw(im); d2.ellipse((8, 8, 40, 40), outline=PAL["tinta"], width=2); ctext(d2, (24,24), "$", F(28), PAL["tinta"])   # misma silueta blanca que los demas; el $ va recortado en oscuro
     out("iconos", n, im)
 
 # ---- UI: paneles de color plano, iconos y puntos ----
@@ -186,10 +210,16 @@ def iconoui(n):
         elif n == "punto_dorado": d.ellipse((2*k,2*k,46*k,46*k), fill=PAL["dorado"], outline=PAL["guinda_osc"], width=3*k)
     out("ui", "icono_" + n, ss(s, s, f))
 
-SOLO = sys.argv[1:]   # "particulas": regenera solo las particulas
+SOLO = sys.argv[1:]   # "particulas": regenera solo las particulas; "marcos" y "fondos" tambien
+if "marcos" in SOLO:
+    for n in ROL_COL: marco(n)
+if "fondos" in SOLO:
+    for n in FON: fondo(n)
+if "iconos" in SOLO:
+    for n in ("academico","estudiantes","finanzas","politica","subir","bajar"): icono(n)
 if not SOLO:
-    for i, pid in enumerate(ids): retrato(i, pid); carta(i, pid)
-    carta(0, "carta")
+    for i, pid in enumerate(ids): retrato(i, pid)
+    for n in ROL_COL: marco(n)
     for n in FON: fondo(n)
     for n in ("academico","estudiantes","finanzas","politica","subir","bajar"): icono(n)
     for n, c in PAL.items(): panel(n, c)
@@ -215,6 +245,27 @@ def sombra():
     def f(d, k): d.rounded_rectangle((6*k, 6*k, 554*k, 554*k), 40*k, fill=(0, 0, 0, 110))
     out("ui", "sombra_carta", ss(560, 560, f))
 sombra()
+
+# ---- halos (brillo y sombra suaves, escalables: objeto "Halo" del Menu) ----
+def _halo(nombre, rgb, pico, curva):
+    g = Image.radial_gradient("L").resize((256, 256), Image.BICUBIC)        # 0 en el centro, 255 en el borde
+    a = g.point(lambda v: int(pico * max(0.0, 1 - min(1.0, v / 180.3)) ** curva))   # 180 = borde (la esquina vale 255)
+    im = Image.new("RGBA", (256, 256), rgb + (0,)); im.putalpha(a); out("ui", nombre, im)
+_halo("halo_dorado", PAL["dorado_claro"], 255, 1.6)
+_halo("halo_sombra", (0, 0, 0), 200, 1.3)
+
+# ---- avatar neutro del director del jugador (retratos/director.png) ----
+def avatar_director():
+    import math
+    for sub, lado in (("retratos", 480),):      # solo retrato: la "carta" es un marco comun (ver marco())
+        k = 4; S = lado * k; im = Image.new("RGBA", (S, S), (0, 0, 0, 0)); d = ImageDraw.Draw(im); u = S / 480
+        d.rounded_rectangle((70*u, 300*u, 410*u, 520*u), 90*u, fill=PAL["azul_cl"], outline=PAL["dorado"], width=int(7*u))
+        d.polygon([(205*u, 300*u), (240*u, 360*u), (275*u, 300*u)], fill=PAL["crema"])
+        d.ellipse((165*u, 95*u, 315*u, 265*u), fill=PAL["crema"], outline=PAL["dorado"], width=int(7*u))
+        cx, cy, r = 240*u, 385*u, 26*u
+        d.polygon([(cx + (r if i % 2 == 0 else r*.45) * math.sin(i*math.pi/5), cy - (r if i % 2 == 0 else r*.45) * math.cos(i*math.pi/5)) for i in range(10)], fill=PAL["dorado"])
+        out(sub, "director", im.resize((lado, lado), Image.LANCZOS))
+avatar_director()
 
 # ---- particulas del pool propio (objeto "Particula"; una animacion por forma) ----
 def particula(n, w, h, fn):

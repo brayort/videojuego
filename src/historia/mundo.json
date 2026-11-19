@@ -1,0 +1,211 @@
+{
+  "items": {},
+  "mini": {},
+  "uan": {
+    "n_directores": 8,
+    "regresion": 0.11,
+    "nombres": {
+      "solv": "Medidor 1",
+      "paz": "Medidor 2",
+      "aut": "Medidor 3",
+      "pre": "Medidor 4",
+      "des": "Medidor 5",
+      "seg": "Medidor 6"
+    },
+    "reeleccion": {
+      "uan": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "nay": [
+        0,
+        0
+      ]
+    },
+    "epilogo": {
+      "epi_integro": {
+        "uan": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "nay": [
+          0,
+          0
+        ]
+      },
+      "epi_gris": {
+        "uan": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "nay": [
+          0,
+          0
+        ]
+      },
+      "epi_corrupto": {
+        "uan": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "nay": [
+          0,
+          0
+        ]
+      },
+      "epi_retiro": {
+        "uan": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "nay": [
+          0,
+          0
+        ]
+      }
+    },
+    "deriva": {
+      "des": {
+        "pre": 0.1,
+        "solv": 0.06,
+        "aut": 0.04
+      },
+      "seg": {
+        "paz": 0.12,
+        "aut": 0.04
+      }
+    },
+    "ex_inicial": {
+      "id": "monica",
+      "nombre": "Mónica Salcedo",
+      "tono": "aliado"
+    },
+    "nombre_director": "Director",
+    "retrato_director": "director",
+    "metros": false,
+    "actos": [
+      {
+        "id": "acto1",
+        "nombre": "Acto I · El hueco"
+      },
+      {
+        "id": "acto2",
+        "nombre": "Acto II · Las manos",
+        "semmin": 48
+      },
+      {
+        "id": "acto3",
+        "nombre": "Acto III · El Quinto",
+        "req": [
+          "acto_quinto"
+        ]
+      }
+    ],
+    "semestres": [
+      {
+        "cine": "inter_cafe",
+        "diario": "diario_1",
+        "noticias": [
+          "nt1_a",
+          "nt1_b",
+          "nt1_c",
+          "nt1_d"
+        ]
+      },
+      {
+        "cine": "inter_pasillo",
+        "diario": "diario_2",
+        "noticias": [
+          "nt2_a",
+          "nt2_b",
+          "nt2_c",
+          "nt2_d"
+        ]
+      },
+      {
+        "cine": "inter_porra",
+        "diario": "diario_3",
+        "set": [
+          "cap_oscar"
+        ],
+        "noticias": [
+          "nt3_a",
+          "nt3_b",
+          "nt3_c",
+          "nt3_d"
+        ]
+      },
+      {
+        "cine": "inter_josefes",
+        "diario": "diario_4",
+        "set": [
+          "cap_jose"
+        ],
+        "noticias": [
+          "nt4_a",
+          "nt4_b",
+          "nt4_c",
+          "nt4_d"
+        ]
+      },
+      {
+        "cine": "inter_coma",
+        "diario": "diario_5",
+        "set": [
+          "cap_juan"
+        ],
+        "noticias": [
+          "nt5_a",
+          "nt5_b",
+          "nt5_c",
+          "nt5_d"
+        ]
+      },
+      {
+        "cine": "inter_pastel",
+        "diario": "diario_6",
+        "set": [
+          "cap_norma"
+        ],
+        "noticias": [
+          "nt6_a",
+          "nt6_b",
+          "nt6_c",
+          "nt6_d"
+        ]
+      },
+      {
+        "cine": "inter_foto",
+        "diario": "diario_7",
+        "set": [
+          "cap_quinto"
+        ],
+        "noticias": [
+          "nt7_a",
+          "nt7_b",
+          "nt7_c",
+          "nt7_d"
+        ]
+      },
+      {
+        "diario": "diario_8",
+        "noticias": [
+          "nt8_a",
+          "nt8_b",
+          "nt8_c",
+          "nt8_d"
+        ]
+      }
+    ]
+  }
+}

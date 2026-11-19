@@ -9,5 +9,9 @@
     "volumen_efectos": 0.8,
     "musica_ganancia": 0.45
   },
-  "debug": false
+  "debug": false,
+  "juego": {
+    "titulo": "DIRECTOR UAN",
+    "subtitulo": "ECONOMÍA"
+  }
 }

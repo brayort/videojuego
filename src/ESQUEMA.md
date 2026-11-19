@@ -1,6 +1,20 @@
 # Esquema de `cartas.json` y mecánicas del motor
 
-Todo el contenido vive en `src/cartas.json`. Tras editarlo: `node tools/build/build.js` (ver `README.md`).
+Todo el contenido vive en `src/historia/`, dividido en módulos. Tras editarlo: `node tools/build/build.js` (ver `README.md`). Las herramientas (build, lint, balance, editor) lo leen unido en UN solo objeto con las claves de la tabla de abajo; lo carga y guarda `tools/historia.js`.
+
+## Módulos de `src/historia/`
+
+| archivo | contenido |
+|---|---|
+| `personajes.json` | `personajes`, `candidatos` |
+| `finales.json` | `finales`, `finales_raros`, `caidas`, `destinos` |
+| `mundo.json` | `uan` (incluye `ex_inicial`), `items`, `mini` |
+| `cartas/genericas.json` | **Genéricas**: sin condiciones, salen al azar en cualquier momento (el "relleno" del mazo). |
+| `cartas/especiales.json` | **Especiales**: tienen alguna condición (`semana`, `sem16`, `desde/hasta`, `semmin/semmax`, `req/noreq/reqitem`, `si`, `uansi`, `afmin/afmax`, `de`, `rasgo`, `reelmin/reelmax`, `campana`, `cine`, `fx`): calendario, eras, campaña, eventos por estado. |
+| `cartas/consecuencias.json` | **Consecuencias**: `solo_luego: true`; solo salen encoladas por una opción con `luego`. |
+| `cartas/cadenas/<id>.json` | **Cadenas / mini historias**: `{id, titulo, resumen, cartas:[...]}`. Cada carta lleva `"cadena":"<id>"`. Una carta de entrada (genérica o especial) y el resto `solo_luego`, encadenadas con `luego`; la cadena se cierra sobre sí misma. |
+
+El **tipo se deduce de la propia carta** (prioridad: `cadena` → `solo_luego` → condiciones → genérica), así que al guardar cada carta se reparte sola en su archivo; si cambias una carta de tipo, se mueve en el siguiente guardado. `tools/historia.js --info` cuenta cartas por tipo, `--normalizar` reescribe los archivos y `--migrar <cartas.json>` divide un archivo monolítico (la historia anterior está en `src/historias/uan_original/`). El lint avisa de cadenas de una sola carta, sin entrada, que encolan cartas de otra cadena o sin título, y de consecuencias que solo usa una cadena.
 
 ## Estructura raíz
 
@@ -17,7 +31,7 @@ Todo el contenido vive en `src/cartas.json`. Tras editarlo: `node tools/build/bu
 | `items` | `id -> nombre` de expedientes. |
 | `mini` | datos de los minijuegos (`presupuesto`, `prensa`, `plagio`, `consejo`). |
 
-Stats: `e` es `[Académico, Estudiantes, Finanzas, Política]`, rango 0..100. Llegar a 0 o a 100 = destitución.
+Stats: `e` es `[Profesores, Alumnos, Finanzas, Rectoría]` (claves internas `acad`, `est`, `fin`, `pol`), rango 0..100. Llegar a 0 o a 100 = destitución.
 `int` = Integridad (0..100, oculta). Los textos admiten `{n}` (número de director), `{ant}`, `{causa}`, `{antsem}` (director anterior), `{dir}` (director actual) y `{ex}` (ex director).
 
 ## Carta
@@ -41,7 +55,7 @@ Stats: `e` es `[Académico, Estudiantes, Finanzas, Política]`, rango 0..100. Ll
 | `semmin` / `semmax` | rango de semana de la partida. |
 | `si` | umbral de stat: `{"fin":"<20","est":">=60","int":"<=25"}`. Claves `acad est fin pol int`; operadores `< <= > >= = !=`. |
 | `afmin` / `afmax` | afinidad: `{"rector":3}` exige afinidad >= 3 (afmin) o <= valor (afmax). Pesan x3 en la elección; con \|afinidad\| >= 4 hay 25 % de forzar una de estas cartas ("aliado"/"enemigo"). |
-| `desde` / `hasta` | era, `"AAAA-MM"` inclusive. La semana 0 es **septiembre 2025**, 1 carta = 1 semana. Cartas con `desde` pesan x3 mientras la época está activa. Ej.: Mundial `"2026-05".."2026-07"`, intermedias `"2027-05".."2027-06"`. |
+| `desde` / `hasta` | era, `"AAAA-MM"` inclusive. La semana 0 es el **16 de noviembre de 2026**, 1 carta = 1 semana. Cartas con `desde` pesan x3 mientras la época está activa. Ej.: Mundial `"2026-05".."2026-07"`, intermedias `"2027-05".."2027-06"`. |
 | `de` | id de candidato: la carta se omite cuando ese profesor es el director (ya no es un personaje). |
 | `rasgo` | solo sale si el director tiene ese rasgo. |
 | `reelmin` / `reelmax` | solo con ese número de reelecciones. |
@@ -87,8 +101,34 @@ Los únicos **FINALES** del juego son los **destinos** (`destinos`), que cierran
 * se disparan tras `uan.n_directores` directores (8 por defecto), o en cuanto algún medidor (UAN o Nayarit) llega a 0 o 100 (cae el director en curso con "LA UAN LLEGA A UN LÍMITE" y se muestra el destino);
 * cada destino: `{id,titulo,ext:["solv0",...],cond,texto,detalle}`. `ext` lista los extremos que lo disparan; `cond` (objeto o lista = O, mismas claves que `uansi`) se evalúa en orden tras N directores y gana el primero; el último (`gris`) no tiene `cond`. `texto` narra 2040 y `detalle` menciona a la Unidad de Economía y a `{ant}` (el último director);
 * la pantalla del destino añade la **crónica de la dinastía**: lista de directores con la causa de su caída;
-* los 9 destinos: Renacimiento, Motor del desarrollo regional, Último refugio (violencia), Quiebra y rescate (Nayarit expulsor), Huelga indefinida, Intervención estatal, Captura total, Torre de marfil y Sobrevivió (gris, el más común);
+* **Destinos por decisión (historia actual):** una opción con `"destino":"<id>"` cierra la historia en ese momento (pantalla «EL FINAL DE TU CAMINO», sin sucesión). Un destino con `"solo":true` nunca sale como final por defecto (solo lo elige una decisión); `"cierre"` es el texto corto de esa pantalla. Su `cond` también admite `req`/`noreq` (banderas de la historia). El destino sin `solo` y sin `cond` (`gris`) es el final por defecto tras `n_directores`.
+* Destinos de «El Quinto»: Director íntegro, La Unidad primero, Caída con la frente en alto, La Unidad sin ti, El nuevo Quinto y Sobrevivió (por defecto);
+* `mundo.json > uan.metros:false` oculta los 6 medidores globales (paneles de informe/fin/sucesión) y desactiva los finales por extremo de medidor;
 * al cerrar el destino la historia se archiva en la **Crónica** (`directorUAN_cronica`, visible en el Menú) y se reinician la dinastía y los medidores. Los logros se conservan. El Menú ofrece **Nueva historia** (pide confirmación) para reiniciar en cualquier momento.
+
+### Actos y marcos de carta (UI de la partida)
+* `mundo.json > uan.actos`: lista de `{id, nombre, req?, noreq?, semmin?}`. Gana el **último** cuya condición se cumple. El acto actual sale como chip en el encabezado y, al cambiar, se dispara la cinemática del evento `acto:<id>` (`cinematicas.json > disparos`). El acto I no tiene cinemática (la intro ya cubre el inicio).
+* La carta es un **marco** (`assets/placeholder/cartas/marco*.png`, generados por `python tools/gen_placeholders.py marcos`) y el personaje se dibuja **una sola vez** encima (objeto `Retrato`). El marco depende del `rol` de la ficha (`anfitriona` dorado claro, `aliado` azul, `antagonista` rojo, `jugador` verde, otro dorado). Bajo el nombre sale el `cargo` de la ficha (o su `unidad`). Ambos viajan al juego como `roles` y `cargos` (los genera build.js desde `fichas`).
+* Las pantallas de fin/epílogo/destino muestran el retrato enmarcado de quien las protagoniza (el director que cae, o `destinos[].pj`).
+
+### La historia continúa entre directores
+Al caer un director, el siguiente hereda: **todas las banderas** (salvo `ex_*` y `sucesor`), las **cartas únicas de cadena ya vistas**, las **cartas en cola** (`luego`) y la **semana global** (`S.semG()`: `semmin`/`semmax` y el calendario no se reinician; `semana` y `sem16` siguen siendo de la gestión). Así una cadena puede empezar con un director y terminar con otro.
+
+### Semestres, periódico y cartas extra
+Cada **16 semanas de la historia** (`S.semG()`) pasa un semestre (`mundo.json > uan.semestres`, una entrada por semestre: `{cine, diario, set, noticias}`):
+1. sale el **interludio** `cine` («FIN DEL SEMESTRE n», con una decisión);
+2. sale el **periódico** `diario` (cinemática con una línea `periodico`: `{nombre, fecha, notas:[{h, t}]}`; las notas aparecen una por una, toque para seguir): *El Pregonero Nayarita*, con noticias inventadas de Nayarit (recortes, violencia, malestar social) que escalan semestre a semestre;
+3. se programan las cartas de **noticias** (`noticias`, 4 por semestre, `solo_luego` + `"extra": true`), una a las +1, +5, +9 y +13 semanas.
+Las cartas `extra` **no gastan semana** (no mueven el calendario, ni la elección, ni el informe): el semestre pasa de 16 a **20 cartas**.
+`set` pone las banderas que abren el siguiente capítulo: `cap_oscar`, `cap_jose`, `cap_juan`, `cap_norma`, `cap_quinto` (las cartas de entrada de cada cadena las llevan en `req`). Los pendientes de Mónica van espaciados 7 semanas.
+Las cartas únicas (`unica` por defecto) **no se repiten en toda la historia**, ni siquiera al cambiar de director; solo se reciclan si el mazo se agota.
+Las cartas de villanos (rol `antagonista`) **tiemblan** al arrastrarlas sin decidir.
+
+### Nombre y modo de juego
+Al empezar una historia (primer director) sale la pantalla **Nueva partida**: pide el nombre (teclado en pantalla o físico, máx. 14 letras; se guarda en `ajustes.nombre`, el mismo del ranking) y el **modo**:
+* **Fácil** (por defecto): al arrastrar una carta, cada medidor que cambia muestra una **flecha** (verde sube, roja baja; grande = cambio fuerte) y un «?» si hay azar. En las decisiones de las cinemáticas se lee «Sube: … · Baja: …».
+* **Difícil**: sin pistas de efectos (ni flechas, ni puntos, ni resaltado, ni «Sube/Baja»).
+El modo se puede cambiar cuando quieras en **Opciones** (`ajustes.dificultad`: `facil` | `dificil`). Vista previa: `npm run cine -- @nueva`.
 
 ### Afinidad (-5..5)
 `"af":{"rector":1}` suma afinidad con ese personaje (se muestra en pantalla, corazones/cruces). Cuenta además en las elecciones (un sector vota según su personaje) y en la sucesión (x2).
@@ -179,5 +219,47 @@ Uso pensado: **introducción**, **final** y **especiales**.
   * narración: `{ "narra": "..." }` (caja sin nombre, texto centrado `crema_osc`)
   * título: `{ "titulo": "...", "sub": "..." }` (Fredoka grande, sin caja)
 * Comandos opcionales en cualquier línea: `fondo`, `tinte`, `musica`, `sfx`, `flash` (`blanco|bueno|malo`), `sacudir` (s), `vibrar` (patrón), `fundido` (entra desde negro), `espera` (avanza sola tras N s), `salir` (`izq|der|centro|todos`), `col` / `colNombre` (colores de la paleta).
+* Línea **gag**: `{ "gag": 1.4, ...comandos }`: solo acción (sin caja ni texto); los sprites quedan a plena luz y avanza sola tras N segundos (un toque la salta). Sirve para caídas, sustos, carreras, destellos...
+* **Animaciones de sprites** (`anima`: string = el que habla, u objeto por lado `{"izq":"salto","der":"risa"}`; `"nada"` la cancela): `salto` (2 saltitos), `brinco` (uno alto), `temblor`, `giro`, `gigante`, `latido`, `balanceo`, `cabeceo` (asiente), `no` (niega), `huir` (sale corriendo y desaparece), `susto`, `desmayo` (se cae y se queda hasta `levanta`), `levanta`, `baile`, `saludo`, `risa`, `aplauso`, `furia`, `pensar`.
+* **Entradas** (`entra`, solo al aparecer el sprite; si también lleva `anima`, esta empieza al acabar la entrada): `lado` (desliza desde el borde), `caer` (cae y rebota), `pop` (aparece con rebote). Sin `entra`, sube suave.
+* **Globos** (`emote`: string o por lado): burbuja corta sobre la cabeza del sprite durante ~2 s: `"!"`, `"?"`, `"..."`, `"¡Ñam!"` (máx. 8 letras).
+* **Partículas** (`parte`: string o lista; solo en la escena Juego): `confeti`, `papeles`, `chispas` (sobre el que habla), `polvo`, `lluvia` (continua hasta `"parte":"nada"`).
+* `cinematicas.json > nombres`: `id -> placa` para sprites que no son personajes de cartas (Fernando, Ángel, María...). Un `pj` de una cinemática puede ser un personaje de `personajes.json` o uno de `nombres`; el `id` debe existir como retrato.
+* **Interludios «Entre capítulos»**: 7 escenas cómicas (`inter_*`) que se ven *antes* de una carta (campo `cine` de la carta, `una_vez:false`): `inter_cafe` (pendiente 3), `inter_pasillo` (pendiente 5), `inter_porra` (El agitador), `inter_josefes` (El estratega), `inter_coma` (El contador), `inter_pastel` (La madrina) e `inter_foto` (El Quinto). Cada una usa a los profes según su ficha de personalidad y anticipa al siguiente capítulo.
+* **Caídas y relevo de director** (`disparos`): al terminar una gestión se ven dos escenas seguidas, la de la **causa** y la del **relevo** (quién sube). Claves de causa (la más específica que exista): `caida:stat:<i>:bajo|alto` (i = 0 Profesores, 1 Alumnos, 2 Finanzas, 3 Rectoría), `caida:derrota`, `caida:retiro`, `caida:limite`, `caida:<tipo>:<dato>`, `caida:<tipo>`, `caida`. Relevo: `relevo:<id del candidato>` (p. ej. `relevo:cand_perla`) o `relevo`. En sus líneas, `"pj": "@caido"` es el retrato del director que cae (el jugador o un candidato) y `"pj": "@sucesor"` el de quien sube; los textos admiten `{suc}` (nombre del sucesor), `{dir}` (el que cae), `{n}` (número del nuevo director). No hay relevo en los finales de historia (`caida:historia`).
+* **Decisiones dentro de una cinemática** (línea `elige`): `{ "elige": { "id": "cafe", "texto": "pregunta (máx. ~95 letras)", "izq": OPCION, "der": OPCION } }`. Muestra la pregunta y dos botones (toque, 1/2 o ←/→). Las opciones son opciones normales de carta (`t`, `e`, `int`, `af`, `set`, `estado`, `luego`...): se aplican sin pasar de semana, y `luego` encola una carta especial (`solo_luego`, en la cadena del capítulo). Se marca `elig_<id>` para no repetir la decisión. Los 7 interludios traen una cada uno (`cafe`, `pasillo`, `porra`, `josefes`, `coma`, `pastel`, `foto`) y 14 cartas de consecuencia (`cafe_a/b`, `pasillo_a/b`, `porra_a/b`, `josefes_a/b`, `coma_a/b`, `pastel_a/b`, `foto_a/b`).
+* **Animaciones de caída y subida**: `derrumbe` (el sprite se tambalea, cae por abajo y desaparece) y `asciende` (sube desde abajo hasta su lugar); las usan las escenas `caida_*` y `relevo_*` junto con papeles, polvo, chispas y confeti. Una línea `gag` puede llevar `pj`/`lado` para presentar al sprite.
+* El que habla va **al frente** (z-index mayor) y los demás se atenúan y quedan **hasta atrás**.
+* Vista previa de una cinemática (una captura por línea + hoja de contacto en `assets/preview/`): `npm run cine -- <id>`.
 * Texto: `{jugador}`, `{dir}`, `{n}`, `{ant}`, `{causa}`, `{ex}`.
 * Variables de escena: `CineActivo`, `CineId`, `SenalCine`. Las vistas con `una_vez` se guardan en `localStorage` (`directorUAN_cine_vistas`).
+
+## Menú (`src/js/menu.js`)
+
+Pantalla de inicio animada: fondo vivo (franjas de luz, papeles, chispas), personaje que saluda y se puede tocar (salta y cambia de frase), recuadro de diálogo con máquina de escribir, entrada escalonada de botones, botones que crecen al apuntarlos y fundido a negro al cambiar de escena. Solo muestra lo que corresponde: sin partida `Jugar · Logros · Opciones · Créditos`; con partida `Continuar` (con "Semana N · Director #n") y `Nueva partida`; con progreso aparecen `Crónica` y `Empezar historia nueva`; `Ranking` solo si hay tablas de GDevelop configuradas. Lo destructivo (nueva partida, historia nueva) pide un segundo toque.
+
+### Personajes del menú (`src/historia/menu.json`)
+
+La portada la reciben los personajes de `sprites/`: cada visita sale uno distinto (la anfitriona `anfitrion` pesa más y la primera vez siempre es ella). Cada personaje da `mensajes_por_personaje` mensajes (3) —al tocarlo, o solos cada pocos segundos— y luego entra otro.
+
+```json
+"menu": { "anfitrion": "monica", "mensajes_por_personaje": 3, "prob_rara": 0.07, "prob_especial": 0.02,
+  "personajes": { "<id del retrato>": { "nombre": "Placa", "peso": 1, "frases": ["...", "..."], "raras": ["..."] } },
+  "especiales": [ { "texto": "...", "efecto": "giro|gigante|fantasma|glitch|temblor" } ] }
+```
+
+* `frases`: mensajes normales según la personalidad del sprite (salen por turnos, sin repetirse; máx. ~84 letras: el recuadro cabe en 2 líneas).
+* `raras`: frases extrañas, con probabilidad `prob_rara` por mensaje; salen en color dorado.
+* `especiales`: eventos muy poco probables (`prob_especial`) que dice cualquier personaje y mueven al sprite (giro, crece, parpadea, tiembla...) con un sonido.
+* El `id` es el de `assets/placeholder/retratos/<id>.png`. `python tools/importar_sprites.py --todos --solo-retrato --optimizar` importa los 31 de `sprites/` (ids por nombre de archivo: `alejandro`, `jose_19`...). El lint avisa de retratos que faltan, frases vacías o largas y efectos desconocidos.
+* **Anti-repetición:** nadie vuelve a salir hasta que pasen `ventana` apariciones (global, 12; cada personaje puede definir la suya) y quien lleva mucho sin salir gana hasta +100 % de peso, así que rotan todos. Cada personaje dice primero las frases que aún no ha dicho. El historial se guarda en el navegador (`menu_hist`, `menu_vistas`).
+* `peso` (por defecto 1) pondera quién sale; `garantia: N` (opcional) fuerza que salga si pasaron N cambios de personaje sin verlo. Son sesgos invisibles para el jugador (no cambia nada en pantalla): sirven para que un personaje aparezca algo más que los demás.
+* Seguros del toque: solo cuenta si el botón se soltó antes, hay una pausa de 0.7 s entre toques y el salto dura como máximo 1.4 s.
+
+Título y subtítulo en `src/config.json` > `juego` (`titulo`, `subtitulo`). Medidas en `LAYOUT.menu` (`00_comun.js`). Vista previa de todas las pantallas del menú sin partida: `DUMP_SOLO_MENU=1 python tools/preview_layout.py` (con `PYTHONIOENCODING=utf-8` en Windows).
+
+## Personajes y el director del jugador
+
+* `personajes` (id → nombre en pantalla), `candidatos` y `fichas` viven en `src/historia/personajes.json`. Las **fichas** (`rol`, `nombre_completo`, `unidad`, `cargo`, `personalidad`, `medidor`, `notas`) son solo para el editor: el motor no las usa. Cada personaje debe tener un **nombre único en pantalla** (el lint lo exige).
+* **El director del jugador** es un personaje más: `personajes.director = "{dir}"` y `mundo.json > uan.nombre_director / retrato_director`. Las cartas con `"pj":"director"` se muestran con el retrato de quien dirige en ese momento (el jugador o un sucesor) y su nombre. Si el jugador escribió su nombre (ranking), ese nombre se usa.
+* Cualquier personaje puede ser **candidato** (y por tanto director): se reelige igual que el jugador (hasta 2 veces); sus cartas de campaña usan `fe` y `voto`. La cadena `tu_camino` (cartas `yo_*`) es el ejemplo: el director decide quién quiere ser, si busca un segundo periodo, su lema de campaña y cómo gobierna tras reelegirse.

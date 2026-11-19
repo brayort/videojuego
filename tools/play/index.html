@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Director UAN · Reproductor</title>
+<style>
+  :root { --fondo: #101820; --panel: #1b2733; --texto: #e8eef5; --suave: #8fa3b8; --ok: #5bd18b; --mal: #ff6b6b; --acento: #ffd24a; }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; background: var(--fondo); color: var(--texto); font: 14px/1.4 system-ui, "Segoe UI", sans-serif; }
+  #barra { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; height: 48px; padding: 6px 12px; background: var(--panel); border-bottom: 1px solid #2a3a4b; overflow: hidden; }
+  #barra button { background: #26384a; color: var(--texto); border: 1px solid #36506b; border-radius: 6px; padding: 5px 10px; cursor: pointer; font: inherit; }
+  #barra button:hover { background: #31506e; }
+  #barra label { color: var(--suave); display: flex; align-items: center; gap: 4px; white-space: nowrap; }
+  #punto { width: 10px; height: 10px; border-radius: 50%; background: var(--suave); flex: none; }
+  #punto.bien { background: var(--ok); } #punto.mal { background: var(--mal); }
+  #estado, #info { color: var(--suave); white-space: nowrap; }
+  #lintResumen.mal { color: var(--mal); }
+  .esp { flex: 1; }
+  #cuerpo { display: flex; height: calc(100% - 48px); }
+  #escenario { flex: 1; min-width: 0; display: flex; align-items: center; justify-content: center; padding: 8px; position: relative; }
+  #lienzo { height: 100%; max-width: 100%; aspect-ratio: 720 / 1280; background: #000; touch-action: none; border-radius: 6px; box-shadow: 0 6px 30px #0008; }
+  #lint { width: 380px; max-width: 45%; background: var(--panel); border-left: 1px solid #2a3a4b; padding: 10px 12px; overflow: auto; }
+  #lint h2 { margin: 0 0 8px; font-size: 14px; color: var(--acento); }
+  #lintLista, #error { margin: 0; white-space: pre-wrap; word-break: break-word; font: 12px/1.45 ui-monospace, Consolas, monospace; }
+  #error { position: absolute; left: 16px; right: 16px; bottom: 16px; max-height: 45%; overflow: auto; background: #3b1218ee; border: 1px solid var(--mal); border-radius: 8px; padding: 10px 12px; color: #ffd7d7; }
+  @media (max-width: 700px) { #lint { display: none; } }
+</style>
+</head>
+<body>
+<div id="barra">
+  <span id="punto"></span><span id="estado">Conectando…</span>
+  <button id="bMenu" title="Volver al menú principal">Menú</button>
+  <button id="bNueva" title="Empezar una partida nueva">Nueva partida</button>
+  <button id="bBorrar" title="Borra partida, dinastía, crónica y logros guardados en este navegador">Borrar guardado</button>
+  <label title="Al recargar por un cambio, vuelve a la partida guardada en vez de empezar de cero"><input type="checkbox" id="oCont"> continuar al recargar</label>
+  <label title="Activa el panel de depuración del juego (tecla F2): saltar a una carta, mover stats, forzar finales"><input type="checkbox" id="oDebug"> depuración (F2)</label>
+  <span id="info"></span>
+  <span class="esp"></span>
+  <button id="bLint" title="Mostrar u ocultar la revisión del contenido"><span id="lintResumen">lint</span></button>
+</div>
+<div id="cuerpo">
+  <div id="escenario">
+    <canvas id="lienzo" width="720" height="1280" tabindex="0"></canvas>
+    <pre id="error" hidden></pre>
+  </div>
+  <aside id="lint" hidden><h2>Revisión del contenido (lint)</h2><pre id="lintLista">Esperando el primer build…</pre></aside>
+</div>
+<script src="/player.js"></script>
+</body>
+</html>

@@ -1,0 +1,737 @@
+{
+  "menu": {
+    "anfitrion": "monica",
+    "mensajes_por_personaje": 3,
+    "prob_rara": 0.07,
+    "prob_especial": 0.02,
+    "personajes": {
+      "monica": {
+        "nombre": "Mónica",
+        "peso": 3,
+        "frases": [
+          "¡Bienvenido! Qué bueno verte por aquí.",
+          "Cuando quieras, empezamos con los pendientes.",
+          "Todo está en orden. Lo demás depende de ti.",
+          "Ah, y recuerda: la entrega es el viernes. Siempre es el viernes.",
+          "Buen día, director. Ya te dejé la agenda de hoy ordenada.",
+          "Consejo del día: revisa las fechas antes de prometer algo.",
+          "Dirigir es como llevar una agenda: lo importante va primero.",
+          "Respira, ordena y avanza. Así se dirige una unidad.",
+          "Yo ya fui directora. Te confirmo que el café ayuda.",
+          "Hoy es buen día para cerrar pendientes. Todos los días lo son."
+        ],
+        "raras": [
+          "Tengo una lista de lo que olvidarás hoy. Va en orden alfabético.",
+          "Soñé que la agenda me agendaba a mí. Me puso reunión a las tres.",
+          "Si oyes un calendario susurrar, es el viernes. Ya viene."
+        ],
+        "ventana": 5
+      },
+      "alejandro": {
+        "nombre": "Alejandro",
+        "peso": 1,
+        "frases": [
+          "Sin prisa. Ya tengo un plan B... y un plan C.",
+          "Hablo poco, pero hoy te doy un consejo: respira.",
+          "Antes de empezar, ¿ya respaldaste todo?",
+          "Bienvenido. Revisa el plan B antes de que lo necesites.",
+          "Un buen director duerme tranquilo: tiene respaldo de todo.",
+          "Consejo: antes de decidir, cuenta hasta diez. Yo cuento hasta once.",
+          "No hay prisa. Lo urgente casi siempre puede esperar un café.",
+          "En la universidad todo se resuelve. Solo hay que mirar con calma.",
+          "Hoy el plan A va bien. Aun así, tengo el B en el bolsillo."
+        ],
+        "raras": [
+          "Anoche soñé que el plan B tenía su propio plan B. Era hermoso.",
+          "Mi plan C se aburrió y fundó su propio departamento.",
+          "Anoche el respaldo me respaldó a mí. Fue emotivo."
+        ]
+      },
+      "beatriz": {
+        "nombre": "Beatriz",
+        "peso": 1,
+        "frases": [
+          "¿Llegas tarde otra vez? Aquí la puntualidad no es opcional.",
+          "No me vengas con excusas. Ya las escuché todas.",
+          "Dicen que doy miedo. Yo solo exijo que quede bien hecho.",
+          "Bienvenido, director. Puntual, como debe ser. Muy bien.",
+          "Consejo: haz las cosas bien a la primera. Ahorra mucho regaño.",
+          "Si algo sale mal, dilo de frente. Aquí valoramos la verdad.",
+          "Dicen que doy miedo, pero a ti te estimo. No lo repitas.",
+          "Un director firme se gana respeto. Uno justo, también cariño.",
+          "Revisa dos veces. Yo ya revisé tres. Por si acaso."
+        ],
+        "raras": [
+          "Una vez califiqué un examen con la mirada. Se corrigió solo.",
+          "Hasta mi sombra entrega a tiempo. La felicité ayer.",
+          "Una vez un reloj se adelantó solo para no quedar mal conmigo."
+        ]
+      },
+      "fernando": {
+        "nombre": "Fernando",
+        "peso": 1,
+        "frases": [
+          "¿Junta aburrida? Dame cinco minutos y la vuelvo anécdota.",
+          "¿El colmo de un profe? Que le dejen tarea. Ya me voy.",
+          "Bromas aparte: todo saldrá a tiempo. Siempre sale.",
+          "¡Director! Pase usted, que la junta no empieza sin mí.",
+          "Consejo: toda mala noticia cae mejor con una buena broma.",
+          "¿Qué le dice un bit a otro? 'Nos vemos en un byte'.",
+          "Hoy hay tres juntas. Yo ya preparé los chistes de cada una.",
+          "Dirigir es fácil: sonríes, firmas y escondes el cansancio.",
+          "Si la junta se alarga, avísame. Tengo anécdotas de repuesto."
+        ],
+        "raras": [
+          "Si desaparezco de una junta, mira al techo. Larga historia.",
+          "Anoche soñé que me hacía una junta a mí mismo. Quedé en que sí.",
+          "Mi risa tiene eco en el edificio. Nadie sabe de quién es."
+        ]
+      },
+      "janoe": {
+        "nombre": "Janoe",
+        "peso": 1,
+        "frases": [
+          "Perdona, ando resolviendo tres cosas. ¿Cuál es la tuya?",
+          "Tengo una reunión en cinco minutos. Y otra después de esa.",
+          "Dame un problema y te devuelvo un plan.",
+          "Bienvenido, director. Ya resolví dos cosas. Quedan cuatro.",
+          "Consejo: delega lo que puedas. Yo delego y luego reviso.",
+          "Los servidores y yo ya hicimos las paces esta mañana.",
+          "Si algo falla en sistemas, primero respira. Luego me llamas.",
+          "Un buen líder escucha, decide y se mueve. Vamos, vamos.",
+          "Hoy el sistema está estable. Toco madera, por si acaso."
+        ],
+        "raras": [
+          "Mi agenda ya tiene reuniones para organizar otras reuniones.",
+          "Ayer mi agenda pidió vacaciones. Se las negué con cariño.",
+          "Reinicié mi día y todo mejoró. Pruébalo con el tuyo."
+        ]
+      },
+      "nayeli": {
+        "nombre": "Nayeli",
+        "peso": 1,
+        "frases": [
+          "¡Lo estás haciendo increíble! ¡Y ni has empezado!",
+          "¡Todo logro cuenta, hasta el más chiquito! ¡Vamos!",
+          "¡Dame una J, dame una U, dame una... bueno, ya sabes!",
+          "¡Bienvenido, director! ¡Hoy va a salir increíble!",
+          "¡Consejo del día: celebra cada avance, aunque sea chiquito!",
+          "¡Tú puedes dirigir esta unidad! ¡Yo traigo los pompones!",
+          "¡Si hoy sale mal, mañana sale mejor! ¡Esa es la regla!",
+          "¡Un aplauso para ti por abrir el juego! ¡Clap, clap, clap!",
+          "¡Ánimo, equipo! ¡Esto es un ganar-ganar con galletas!"
+        ],
+        "raras": [
+          "¡Rah, rah! ...Perdón, en las juntas de academia no me dejan.",
+          "¡Anoche soñé que los pompones eran de verdad! ¡Fue un caos hermoso!",
+          "Le grité '¡tú puedes!' a la fotocopiadora. Sacó cuarenta copias."
+        ]
+      },
+      "sergio": {
+        "nombre": "Sergio Olivares",
+        "peso": 1.3,
+        "garantia": 30,
+        "frases": [
+          "Qué ánimo tan contagioso. Casi me río.",
+          "Cuando quieras. Yo aquí, conteniendo mi entusiasmo.",
+          "Tira iniciativa. Y no, el dado cargado no cuenta.",
+          "En mi clase la capa es opcional. El sombrero de mago suma puntos.",
+          "Yo encargué este juego. Tiré el dado y salió un crítico.",
+          "Toda gran campaña empieza con alguien que dice: 'es solo una idea'.",
+          "Un buen disfraz no es un castigo: es inmersión. Y tiene bonus de carisma.",
+          "Bienvenido, director. Hoy la mazmorra es la burocracia.",
+          "Consejo: toda gran decisión merece una tirada de dados.",
+          "Dirigir es como un juego de rol: siempre hay un jefe final.",
+          "Te recomiendo guardar partida antes de cada junta importante.",
+          "Mi entusiasmo está al máximo. Se nota poco, pero está.",
+          "Si te sale una pifia, cuéntale a todos que fue un plan."
+        ],
+        "raras": [
+          "Una vez califiqué con un dado de veinte caras. Fue un semestre... crítico.",
+          "Anoche mi personaje era un hobbit con tesis. Sobrevivió a la defensa.",
+          "Cuentan que un alumno llegó con armadura a un examen. Pasó por impacto.",
+          "Anoche lancé iniciativa contra mi despertador. Perdí por uno.",
+          "En otra vida fui un mago. Ya renuncié: muy mal servicio de café."
+        ],
+        "ventana": 9
+      },
+      "sonia": {
+        "nombre": "Sonia",
+        "peso": 1,
+        "frases": [
+          "¿Se pelearon otra vez? Siéntense, ya traje café para los dos.",
+          "Casi todo se arregla con una buena plática.",
+          "Aquí nadie sale enojado. Es mi regla.",
+          "Bienvenido, director. Hoy hay café y ánimo de sobra.",
+          "Consejo: antes de decidir, escucha a las dos partes.",
+          "Un director que escucha vale por tres que mandan.",
+          "Si hoy hay tensión, aquí tengo una plática que lo arregla.",
+          "Las buenas relaciones también son parte del trabajo. Cuídalas.",
+          "Hoy desayuné con paz mental. Te guardé un poquito."
+        ],
+        "raras": [
+          "Una vez reconcilié a dos impresoras que no se hablaban.",
+          "Anoche mediné entre mi almohada y mi cobija. Hubo acuerdo.",
+          "Las plantas de mi oficina ya no se pelean. Mérito mío."
+        ]
+      },
+      "victor": {
+        "nombre": "Víctor",
+        "peso": 1,
+        "frases": [
+          "Qué gusto saludarte. Siempre es un honor. De verdad.",
+          "Una sonrisa a tiempo vale más que mil memorándums.",
+          "Yo no discuto. Yo... llego a acuerdos favorables.",
+          "Director, qué honor verlo. Lo digo con total sinceridad.",
+          "Consejo: saluda siempre primero. Abre más puertas que una llave.",
+          "En política universitaria, una sonrisa es medio acuerdo.",
+          "Me da gusto que usted dirija. Yo ya conocía su buen carácter.",
+          "Hoy hay cuatro pasillos amables y uno incómodo. Evítalo con gracia.",
+          "Si hay duda sobre algo, recuerda: todo se puede conversar."
+        ],
+        "raras": [
+          "Conozco a todos. Hasta al que aún no conoces. Sobre todo a ese.",
+          "Saludé a un fantasma por cortesía. Quedamos en vernos el martes.",
+          "Tengo un contacto en cada piso. Incluso en el que no existe."
+        ]
+      },
+      "alfonso": {
+        "nombre": "Alfonso",
+        "peso": 1,
+        "frases": [
+          "¡Qué onda! ¿En qué te echo la mano?",
+          "Con buena actitud todo se acomoda. ¡Pásale!",
+          "¡Goya, goya, cachún, cachún, ra, ra! Perdón, ¿ya viste el partido?",
+          "Si necesitas ayuda, aquí ando. Siempre. Y si ganan los Pumas, doble.",
+          "¡Director! ¿Cómo amaneciste? ¿Viste los Pumas el sábado?",
+          "Consejo: échale ganas, que lo demás se acomoda solo.",
+          "Hoy juegan los Pumas. Mi ánimo ya está listo para cualquier cosa.",
+          "Si te cansas, ponte la camiseta. Yo siempre traigo una extra.",
+          "¡Dirigir es como un partido: hay que correr, correr y correr!",
+          "Cuando algo sale mal, yo digo: ¡aún queda el segundo tiempo!"
+        ],
+        "raras": [
+          "Ayudé tanto hoy que le ayudé a mi propia sombra a cruzar la calle.",
+          "Ser de los Pumas es una lección de fe. ¡CUUUUUU!",
+          "Soñé que los Pumas ganaban y yo salía a bailar con el rector.",
+          "El menú está vibrando. No sé si es un temblor o es mi corazón de Puma."
+        ]
+      },
+      "angel": {
+        "nombre": "Ángel",
+        "peso": 1,
+        "frases": [
+          "Ni un error, ni una tarea tarde. Así funciono.",
+          "El pasillo es mío. Puedes pasar, pero con respeto.",
+          "No lo digo para presumir. Bueno, un poquito.",
+          "Bienvenido, director. Hoy el pasillo está impecable. Por mí.",
+          "Consejo: la excelencia no se negocia. Pero sí se agradece.",
+          "Un director puntual manda sin gritar. Imita mi ejemplo.",
+          "Revisé tu agenda. Muy bien, aunque yo la habría hecho mejor.",
+          "Aquí se trabaja bien o se repite. Así de sencillo.",
+          "Para ser director hay que tener carácter. Tú ya vas bien."
+        ],
+        "raras": [
+          "Dicen que mi sombra también llega temprano. Es cierto.",
+          "El otro día un reloj me pidió la hora. Le contesté con exactitud.",
+          "Mi reflejo me saludó primero. Tuve que corregirle la postura."
+        ]
+      },
+      "carlos": {
+        "nombre": "Carlos",
+        "peso": 1,
+        "frases": [
+          "... ... ...",
+          "No pregunto, observo. Tú tampoco preguntes.",
+          "Ya que estamos en confianza: ¿quieres oír algo gracioso?",
+          "Mmm. Bienvenido, director. Observo todo, ya sabes.",
+          "Consejo: no cuentes todo lo que sabes. A veces, ni la mitad.",
+          "Hoy sé algo que tú no sabes. Y no te lo voy a decir.",
+          "Ya cuando agarremos confianza, te cuento un chiste malísimo.",
+          "Un director silencioso a veces escucha más que uno que habla.",
+          "Hay misterios en esta unidad. Algunos son míos. Otros, de la cafetera."
+        ],
+        "raras": [
+          "Sé qué trae cada quien entre manos. Excepto yo. Qué misterio.",
+          "Ayer me seguí a mí mismo por el pasillo. Perdí el rastro.",
+          "Llevo semanas intentando adivinar qué pienso. Aún no me convenzo."
+        ]
+      },
+      "eligardo": {
+        "nombre": "Eligardo",
+        "peso": 1,
+        "frases": [
+          "No hay problema que no se arregle después de comer.",
+          "¿Ya comiste? Pregunto porque todo se ve mejor así.",
+          "Sonríe, que la tarea no muerde. La torta sí.",
+          "¡Director! ¿Ya almorzaste? Todo se decide mejor con el estómago feliz.",
+          "Consejo: una junta con tamales dura la mitad y rinde el doble.",
+          "Hoy hay torta en la cafetería. Eso mejora cualquier lunes.",
+          "No dirijas con hambre. Es una regla de oro, anótala.",
+          "Un buen plan siempre incluye una pausa para comer algo rico.",
+          "Si la tarea se complica, pide una torta. Lo juro, funciona."
+        ],
+        "raras": [
+          "Una vez resolví un conflicto de presupuesto con unos tacos. Hay actas.",
+          "Anoche soñé que una torta me daba un discurso. Estuvo bellísimo.",
+          "La cafetería me reconoce por el aroma, no por la cara."
+        ]
+      },
+      "gabriel": {
+        "nombre": "Gabriel",
+        "peso": 1,
+        "frases": [
+          "¿Esa computadora está muerta? Yo le digo 'en pausa'.",
+          "Una buena tarjeta madre me emociona más que cualquier junta.",
+          "Dame un equipo olvidado y te devuelvo uno como nuevo.",
+          "Bienvenido, director. Revisé los equipos: todos vivos... casi.",
+          "Consejo: dale mantenimiento a todo. Equipos, planes y personas.",
+          "Si algo no prende, primero revisa el cable. En serio, casi siempre.",
+          "Hoy me llegó una máquina de hace veinte años. Ya ronronea.",
+          "Un buen director cuida el hardware... y también al que lo arregla.",
+          "Un equipo viejo es un tesoro que aún no ha sido entendido."
+        ],
+        "raras": [
+          "Escucho a las computadoras. La del fondo dice que ya la dejen descansar.",
+          "La impresora del tercer piso me dijo 'gracias'. Con tóner y todo.",
+          "Anoche una tarjeta madre me soñó. Quedamos en reparar el mundo."
+        ]
+      },
+      "perla": {
+        "nombre": "Perla",
+        "peso": 1,
+        "frases": [
+          "Ya organicé al grupo. No pregunté, pero quedaron contentos.",
+          "Investigación primero; luego, el resto del plan.",
+          "Si vas a dirigir, hazlo con datos... y con ganas.",
+          "Bienvenido, director. Ya reuní al equipo. Estamos listos.",
+          "Consejo: un buen líder escucha primero y organiza después.",
+          "Si necesitas datos para decidir, yo ya los tengo ordenados.",
+          "Hoy habrá reconocimiento para quien lo merezca. Revisé la lista.",
+          "Dirigir es dar rumbo, no solo órdenes. Y yo pongo el rumbo.",
+          "Investiga primero, opina después. Esa es mi regla de oro."
+        ],
+        "raras": [
+          "Llevo tantos años liderando que el grupo se forma solo cuando me ve.",
+          "Anoche investigué el sueño. Conclusión: yo dirigía hasta dormida.",
+          "Mi bibliografía ya tiene bibliografía. Ya van tres niveles."
+        ]
+      },
+      "jose_19": {
+        "nombre": "José Luna",
+        "peso": 1,
+        "frases": [
+          "Camina despacio, que a donde vas llegarás igual.",
+          "Siéntate, tómate un té. Los problemas esperan.",
+          "Quien mucho abarca, poco aprieta. Lo dice mi abuela.",
+          "Bienvenido, director. Siéntate, hay té para ti.",
+          "Dice mi abuela: el que madruga, descubre que el café ya se acabó.",
+          "Consejo: las decisiones importantes se toman con la cabeza fría.",
+          "No hay mal que dure cien años, ni director que lo aguante todos.",
+          "Camina con paso firme y corazón tranquilo. Lo demás llegará.",
+          "Más vale paso lento que reunión urgente. Respira, director."
+        ],
+        "raras": [
+          "Se me acabaron los refranes... no, espera: a buen entendedor, mi té.",
+          "Hablé con una tetera. Me dijo que todo estaba por hervir.",
+          "Mi té y yo tenemos conversaciones profundas. Hoy fue sobre el tiempo."
+        ]
+      },
+      "raudel": {
+        "nombre": "Raudel",
+        "peso": 1,
+        "frases": [
+          "¡Pásale ya! No tengo todo el día.",
+          "Hablo fuerte porque me importa. Ni modo.",
+          "Nadie me gana... pero si necesitas algo, aquí estoy.",
+          "¡Director! Aquí estoy. Cuando quieras, dime y le entro.",
+          "Consejo: mejor decir las cosas claro y de frente. Sin vueltas.",
+          "Yo hablo fuerte, pero ya sabes que te echo la mano.",
+          "Hoy el pasillo está tranquilo. Yo me encargo de que siga así.",
+          "Si alguien te da lata, avísame. Con respeto, pero con firmeza.",
+          "Dirigir no es fácil. Aguanta, que aquí tienes con quién contar."
+        ],
+        "raras": [
+          "Una vez le grité a un proyector y se encendió del susto.",
+          "Anoche le grité a mi almohada. Me contestó con un sueño.",
+          "Mi voz ya tiene fama. Un micrófono se apagó por respeto."
+        ]
+      },
+      "roberto": {
+        "nombre": "Roberto",
+        "peso": 1,
+        "frases": [
+          "Te cuento algo rápido. Bueno, empieza en 1998, así que...",
+          "Una pregunta mía puede durar media hora. ¿Ya lo sabías?",
+          "Y ahí me acordé de otra historia, pero esa mejor otro día.",
+          "¡Director! Pasa, que te cuento algo rápido... bueno, no tanto.",
+          "Consejo: toda historia tiene su moraleja. La mía casi siempre llega tarde.",
+          "Esto me recuerda a una anécdota de 1997. O fue en 1998...",
+          "Hoy me dieron un minuto para hablar. Voy a necesitar dos.",
+          "Dirigir es como contar historias: hay que saber cuándo parar.",
+          "Si te cuento algo y me desvío, tranquilo. Siempre regreso. A veces."
+        ],
+        "raras": [
+          "Llevo tres historias abiertas. Perdí el hilo, no las ganas.",
+          "Anoche me quedé dormido en medio de un cuento. Sigo debiendo el final.",
+          "Mi historia sobre una historia ya tiene su propio capítulo cinco."
+        ]
+      },
+      "oscar": {
+        "nombre": "Oscar Vizcaíno",
+        "peso": 1,
+        "frases": [
+          "Tengo una idea descabellada. Va a funcionar. Creo.",
+          "¿Y si probamos algo que nadie ha intentado? ¿Por qué no?",
+          "Mi plan: caos creativo. Resultado: sorpresa.",
+          "¡Director! Hoy tengo tres ideas. Dos son malas y una es genial.",
+          "Consejo: si nadie lo ha intentado, quizá vale la pena probarlo.",
+          "Hoy desayuné caos creativo. Con un poquito de orden.",
+          "Dirigir es como improvisar: sales y ves qué pasa.",
+          "Propongo clases en la azotea. Con vistas. Y sin techo.",
+          "Si algo sale raro, di que fue experimental. Funciona casi siempre."
+        ],
+        "raras": [
+          "¿Y si el pizarrón fuera el alumno? Estoy casi seguro de que es genial.",
+          "¿Y si el edificio fuera un programa? Ya me dieron ganas de depurarlo.",
+          "Esta mañana mi idea tuvo otra idea. Ya no sé cuál es la original."
+        ]
+      },
+      "martinez": {
+        "nombre": "Martínez",
+        "peso": 1,
+        "frases": [
+          "Eh... hola.",
+          "Si me dejas, mejor te lo explico en código.",
+          "Ya compilé. Digo... bienvenido.",
+          "Hola, director. Bienvenido. Perdón, estaba compilando.",
+          "Consejo: comenta tu código. Y también tus decisiones.",
+          "Todo funciona. Creo. Hasta donde he probado.",
+          "Hoy no hubo errores. Todavía. Digo, buenos días.",
+          "Si algo falla, reinicia. Si sigue fallando, avísame.",
+          "Prefiero que hable el código. Pero hoy hablo un poco, por ti."
+        ],
+        "raras": [
+          "01001000 01101111 01101100 01100001",
+          "01100101 01110010 01110010 01101111 01110010 00100000 01101110 01101111",
+          "Soñé con un bucle infinito. No me quejo: ahí se estaba bien."
+        ]
+      },
+      "oliver": {
+        "nombre": "Oliver",
+        "peso": 1,
+        "frases": [
+          "Una buena conversación vale más que un buen examen.",
+          "Todo a su hora: en clase, profesional; después, a platicar.",
+          "Si algún día quieres charlar, yo pongo los temas.",
+          "Bienvenido, director. Hoy el aula, a su hora. Lo demás, luego.",
+          "Consejo: ten un buen tema de plática. Abre más puertas que una firma.",
+          "Para todo hay tiempo: primero la clase, luego la charla.",
+          "Un director que sabe escuchar tiene media universidad ganada.",
+          "Una charla sincera tras el trabajo vale más que un informe.",
+          "Hoy hay un tema nuevo para platicar. Lo guardo para después."
+        ],
+        "raras": [
+          "Brindo por los pendientes. Después de las ocho de la noche, claro.",
+          "Soñé que brindaba con el pizarrón. Hizo un buen comentario.",
+          "Mi mejor conversación fue con el eco del auditorio. Muy atento."
+        ]
+      },
+      "lugo": {
+        "nombre": "Alberto Lugo",
+        "peso": 1,
+        "frases": [
+          "¡Buenas! Aquí se aprende con buena onda. Y con puntualidad, ¿eh?",
+          "Mi secreto: sonreír primero. Casi siempre funciona.",
+          "Mi salón es como una familia: ruidoso, pero con cariño.",
+          "¡Buenas, director! Pasa, que hoy el ambiente está de lo mejor.",
+          "Consejo: una buena sonrisa abre más puertas que cualquier regla.",
+          "Con buen trato todo se logra. Y con puntualidad, más todavía.",
+          "Mis alumnos me enseñan más que yo a ellos. Es un buen trato.",
+          "Qué bueno que seas director. Te va a ir muy bien, ya verás.",
+          "Hoy me levanté de buenas. Contagia, ¿eh? Pruébalo."
+        ],
+        "raras": [
+          "Mi sonrisa lleva años de servicio sin una sola falla técnica.",
+          "Mi sonrisa y yo tenemos contrato indefinido. Sin cláusulas.",
+          "Anoche soñé que el salón aplaudía. Era un sueño muy ruidoso."
+        ]
+      },
+      "jose_25": {
+        "nombre": "José Olivo",
+        "peso": 1,
+        "frases": [
+          "Pienso dos jugadas adelante. Tú ya vas en la tercera.",
+          "Todo se calcula. Incluso este saludo.",
+          "Hay un momento ideal para cada chiste. Este no. El siguiente, sí.",
+          "Bienvenido, director. Ya calculé cómo saldrá tu día.",
+          "Consejo: piensa dos pasos adelante, pero muévete uno a la vez.",
+          "Todo gasto es una apuesta. Hay que elegir bien la jugada.",
+          "Hoy hay una oportunidad en la agenda. Aún no te digo cuál.",
+          "El mejor momento para decidir es justo antes de que sea urgente.",
+          "Una buena estrategia incluye saber cuándo no hacer nada."
+        ],
+        "raras": [
+          "Calculé que dirías 'hola' ahora. Perdona, me adelanté.",
+          "Hice un modelo de mi propio futuro. Salió que este saludo ya estaba previsto.",
+          "Anoche jugué ajedrez conmigo mismo. Gané. Y perdí. Un empate perfecto."
+        ]
+      },
+      "ricardo": {
+        "nombre": "Ricardo",
+        "peso": 1,
+        "frases": [
+          "¡Qué onda! Si me ves reír, no lo dudes: es de verdad.",
+          "Mis raíces me sostienen. Hay que cuidarlas y presumirlas.",
+          "Vengo de gente fuerte y con buen humor, que es lo más difícil.",
+          "¡Qué onda, director! Qué gusto que estés al frente.",
+          "Consejo: ten presente de dónde vienes. Te mantiene firme.",
+          "Mi gente dice: el que ríe de corazón, no pierde nunca.",
+          "Hoy el día está bonito. Ojalá se contagie a toda la unidad.",
+          "Dirigir con respeto a las raíces es dirigir con fuerza.",
+          "Si algo se pone difícil, échale un chiste. Y luego una solución."
+        ],
+        "raras": [
+          "Mi abuelo decía que las bromas también son semilla. Hoy ya sembré cinco.",
+          "Las bromas que sembré ayer ya florecieron. Huelen a risa.",
+          "Mi abuelo me visitó en un sueño y se rio de mis chistes. Qué honor."
+        ]
+      },
+      "jose_27": {
+        "nombre": "José Camelo",
+        "peso": 1,
+        "frases": [
+          "¿Tú conoces a...? ¡Claro que sí! Todos lo conocemos.",
+          "Conozco a medio mundo. La otra mitad es cuestión de tiempo.",
+          "Me deben una historia. Y yo, un favor. Estamos a mano.",
+          "¡Director! Todo el mundo habla bien de ti. Yo me encargué.",
+          "Consejo: conoce a todos. Nunca sabes quién tiene la llave.",
+          "Si necesitas a alguien, seguro lo conozco. O conozco a su primo.",
+          "Hoy me encontré a tres viejos amigos. Dos ya son del equipo.",
+          "Una buena red de contactos vale más que cualquier manual.",
+          "Dirigir es hacer amigos. Yo ya tengo cuatrocientos."
+        ],
+        "raras": [
+          "Hasta el conserje me debe un favor. Y yo a él una historia.",
+          "Conozco hasta a los fantasmas del edificio. Son buena gente.",
+          "Ayer me presentaron a alguien que ya conocía. Qué vergüenza. Para él."
+        ]
+      },
+      "ana": {
+        "nombre": "Ana",
+        "peso": 1,
+        "frases": [
+          "Encontré un detallito. Es chiquito, te lo muestro con cariño.",
+          "Los errores pequeños son los más tímidos. Hay que buscarlos.",
+          "Todo está bien. Casi. Hay una coma que...",
+          "Bienvenido, director. Hoy encontré solo tres errores. ¡Un récord!",
+          "Consejo: relee todo antes de firmar. Yo lo hago con cariño.",
+          "Los errores no son malos. Solo andan perdidos y hay que guiarlos.",
+          "Hoy el informe quedó casi perfecto. Casi. Revisa la página dos.",
+          "Dirigir es cuidar los detalles. Y yo cuido hasta los puntos.",
+          "Si ves un error, no te preocupes: yo ya lo vi y lo perdoné."
+        ],
+        "raras": [
+          "Hay una errata en el universo. La estoy buscando con mucho respeto.",
+          "Anoche soñé con una coma gigante. Me perseguía con mucha educación.",
+          "Hay una tilde que me mira desde el techo. Ya somos amigas."
+        ]
+      },
+      "pedro": {
+        "nombre": "Pedro",
+        "peso": 1,
+        "frases": [
+          "Esta universidad tiene historia. Y yo, tiempo para contártela.",
+          "El patrimonio cultural no se cuida solo. ¡Hay que protegerlo!",
+          "Toda ley fue, alguna vez, una buena idea. O un mal día.",
+          "Bienvenido, director. Esta universidad ya te recibió con historia.",
+          "Consejo: conoce el reglamento. Es aburrido, pero salva vidas.",
+          "Dirigir también es cuidar lo que otros construyeron antes.",
+          "Hoy me encontré una placa vieja. Tenía una historia buenísima.",
+          "Cada pasillo tiene su anécdota. Pregúntame por el del segundo piso.",
+          "Todo director deja huella. Procura que sea una buena."
+        ],
+        "raras": [
+          "Si oyes pasos en el archivo, no te asustes: soy yo, hace veinte años.",
+          "Un cuadro del pasillo me guiñó el ojo. Ya me cayó muy bien.",
+          "Si el archivo ruge, es que una ley antigua se despertó. Tranquilo."
+        ]
+      },
+      "maria": {
+        "nombre": "María",
+        "peso": 1,
+        "frases": [
+          "¿Ya comiste? Toma una galleta. Y escucha mi consejo.",
+          "Si estás cansado, hay té. Si estás triste, hay galletas.",
+          "Para cada problema, un remedio. Para cada remedio, una galleta.",
+          "Bienvenido, director. Pasa, que ya te guardé una galleta.",
+          "Consejo: no trabajes con el estómago vacío. Toma, come algo.",
+          "Si te sientes abrumado, aquí hay té y un buen oído.",
+          "Cuidar a la gente es parte de dirigir. Y yo cuido a todos.",
+          "Hoy te veo con buena cara. Eso me alegra el día.",
+          "Si algo te preocupa, platícamelo. Siempre hay solución."
+        ],
+        "raras": [
+          "Tengo una galleta para cada crisis. La de hoy es de las grandes.",
+          "Hoy horneé una galleta tan grande que le dimos aula propia.",
+          "Una galleta me contó un secreto. Prometí no repetirlo. Estaba rica."
+        ]
+      },
+      "reyna": {
+        "nombre": "Reyna",
+        "peso": 1,
+        "frases": [
+          "¡Vamos, vamos, vamos! ¿Qué esperamos? ¡Empecemos!",
+          "Lo pensé, lo decidí y ya lo hice. Te estaba esperando.",
+          "Hablo rápido porque pienso más rápido. Intenta seguirme.",
+          "¡Director! Ya llegué, ya trabajé y ya voy por el siguiente.",
+          "Consejo: decide rápido, corrige rápido. Así se avanza.",
+          "Hoy tengo cinco metas. Tres ya van palomeadas. Y ni son las nueve.",
+          "Dirigir es moverse. Si te quedas quieto, el pendiente te alcanza.",
+          "¡Vamos, vamos! Que el día no se hace solito.",
+          "Hablo rápido porque hay mucho por hacer. Tú sígueme, director."
+        ],
+        "raras": [
+          "Terminé esta frase antes de decirla. Ya voy en la siguiente.",
+          "Hoy terminé mañana. Qué bonito se ve desde allá.",
+          "Corrí tanto que me alcancé. Fue un encuentro muy productivo."
+        ]
+      },
+      "edel": {
+        "nombre": "Edel",
+        "peso": 1,
+        "frases": [
+          "Buenos días. Ya llegué hace rato.",
+          "Prefiero demostrarlo con hechos.",
+          "Listo. Todo hecho. Cuando quieras.",
+          "Buen día, director. Ya revisé todo. Está en orden.",
+          "Consejo: haz lo que dices. Con eso basta.",
+          "Llegué temprano. Ya dejé listo lo de hoy.",
+          "Pocas palabras, buen trabajo. Así me gusta hacerlo.",
+          "Si necesitas algo, solo avísame. Ya casi lo tengo.",
+          "Un buen director se ve en los hechos. Tú ya vas bien."
+        ],
+        "raras": [
+          "Llegué tan temprano que ayer todavía no abrían.",
+          "Hoy llegué tan temprano que el sol me saludó primero.",
+          "Soñé que ya había terminado. Desperté y era cierto."
+        ]
+      },
+      "omar": {
+        "nombre": "Omar",
+        "peso": 1,
+        "frases": [
+          "¡Hola, hola! ¡Buen día! ¡Qué gusto verte por aquí!",
+          "Siempre hay tiempo para platicar un ratito.",
+          "Hasta al conserje le doy los buenos días. Y siempre me contesta.",
+          "¡Director! ¡Qué alegría verte! ¿Cómo va todo?",
+          "Consejo: saluda a todos, desde el rector hasta el conserje.",
+          "Un buen día empieza con una sonrisa y un 'buenos días'.",
+          "Hoy ya saludé a cuarenta personas. ¡Voy por otras cuarenta!",
+          "Dirigir con buena onda hace que todo sea más fácil.",
+          "Siempre hay tiempo para platicar. ¡Pásale, siéntate un ratito!"
+        ],
+        "raras": [
+          "Saludé a una puerta. Me abrió. Creo que ya somos amigos.",
+          "Hoy saludé al elevador. Me devolvió el saludo con un 'ding'.",
+          "Mi sonrisa tiene seguidores. Y no son personas."
+        ]
+      }
+    },
+    "especiales": [
+      {
+        "texto": "Hoy me siento... giratorio.",
+        "efecto": "giro"
+      },
+      {
+        "texto": "Amanecí con más presencia de lo normal.",
+        "efecto": "gigante"
+      },
+      {
+        "texto": "¿Me ves? Yo creo que no. Ay, sí me ves.",
+        "efecto": "fantasma"
+      },
+      {
+        "texto": "ERROR 404: frase graciosa no encontrada.",
+        "efecto": "glitch"
+      },
+      {
+        "texto": "¿Sentiste eso? Creo que el menú tembló. O fui yo.",
+        "efecto": "temblor"
+      },
+      {
+        "texto": "Psst. Estás dentro de un videojuego. No se lo digas a nadie.",
+        "efecto": "fantasma"
+      },
+      {
+        "texto": "Si tocas a todos los personajes seguidos, no pasa nada. Pero inténtalo.",
+        "efecto": "giro"
+      },
+      {
+        "texto": "Tirada de dados... ¡un 20 natural!",
+        "efecto": "gigante"
+      },
+      {
+        "texto": "¡Pifia! Sacaste un 1. Mejor no digamos nada.",
+        "efecto": "temblor"
+      },
+      {
+        "texto": "Una cosa rara pasó: el menú se movió un poquito a la izquierda.",
+        "efecto": "temblor"
+      },
+      {
+        "texto": "¿Escuchaste eso? Creo que alguien programó este diálogo.",
+        "efecto": "glitch"
+      },
+      {
+        "texto": "Atención: soy un personaje con sprite. Esto no es un simulacro.",
+        "efecto": "gigante"
+      },
+      {
+        "texto": "Si lees esto, ya estás en el menú más raro del semestre.",
+        "efecto": "giro"
+      },
+      {
+        "texto": "Yo estaba por aquí y de pronto... ya no. Ya volví.",
+        "efecto": "fantasma"
+      },
+      {
+        "texto": "Se me cruzaron los cables. O los píxeles. No sé cuál.",
+        "efecto": "glitch"
+      },
+      {
+        "texto": "Dicen que el director del juego también tiene jefe. Ya me callo.",
+        "efecto": "fantasma"
+      },
+      {
+        "texto": "Sentí un movimiento. Fue mi estómago. O fue el menú.",
+        "efecto": "temblor"
+      },
+      {
+        "texto": "Hoy me estiré tanto que ya no cabía en la pantalla.",
+        "efecto": "gigante"
+      },
+      {
+        "texto": "Mareo gratis: pulsa aquí para ver el menú girar.",
+        "efecto": "giro"
+      },
+      {
+        "texto": "¡Misión secundaria desbloqueada: sonríele a un compañero!",
+        "efecto": "gigante"
+      },
+      {
+        "texto": "Cargando personalidad... 99%... 99%... 99%...",
+        "efecto": "glitch"
+      },
+      {
+        "texto": "Algo me atravesó. Creo que era un bug con buenas intenciones.",
+        "efecto": "fantasma"
+      },
+      {
+        "texto": "Alguien le subió el volumen a la realidad. Todo tiembla.",
+        "efecto": "temblor"
+      }
+    ],
+    "ventana": 12
+  }
+}

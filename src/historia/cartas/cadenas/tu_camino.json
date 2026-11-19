@@ -1,0 +1,145 @@
+{
+  "id": "tu_camino",
+  "titulo": "Tu camino",
+  "resumen": "Tú, como director, también decides quién quieres ser: salvar la Unidad o sobrevivir a ella, y si buscarás un segundo periodo. Incluye cartas de campaña y de reelección.",
+  "cartas": [
+    {
+      "id": "yo_1",
+      "pj": "director",
+      "texto": "Te quedas solo en la oficina. La libreta de Mónica sigue abierta sobre el escritorio. Te preguntas quién serás en esta historia: quien salva la Unidad o quien logra sobrevivirla.",
+      "izq": {
+        "t": "Salvarla, cueste lo que cueste",
+        "e": [
+          0,
+          0,
+          -3,
+          0
+        ],
+        "set": [
+          "perfil_salvador"
+        ],
+        "luego": {
+          "semanas": 6,
+          "carta": "yo_2"
+        }
+      },
+      "der": {
+        "t": "Sobrevivir primero",
+        "e": [
+          0,
+          0,
+          3,
+          3
+        ],
+        "set": [
+          "perfil_superviviente"
+        ],
+        "luego": {
+          "semanas": 6,
+          "carta": "yo_2"
+        }
+      },
+      "cadena": "tu_camino",
+      "semmin": 8,
+      "peso": 3,
+      "unica": true
+    },
+    {
+      "id": "yo_2",
+      "pj": "director",
+      "texto": "Tu nombre empieza a sonar en los pasillos. Algunos dicen que lo estás haciendo bien; otros, que te falta carácter. ¿Buscarás un segundo periodo cuando llegue la elección?",
+      "izq": {
+        "t": "Sí, quiero otro periodo",
+        "e": [
+          0,
+          0,
+          0,
+          -2
+        ],
+        "fe": 2,
+        "set": [
+          "quieres_reeleccion"
+        ]
+      },
+      "der": {
+        "t": "Aún no lo sé",
+        "e": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "set": [
+          "indeciso_reeleccion"
+        ]
+      },
+      "cadena": "tu_camino",
+      "solo_luego": true,
+      "unica": true
+    },
+    {
+      "id": "yo_campana",
+      "pj": "director",
+      "texto": "Tu equipo te pide un lema para la campaña. Dos ideas se pelean sobre la mesa: «Sigamos» o «Hagámoslo distinto».",
+      "izq": {
+        "t": "Seguir igual: «Sigamos»",
+        "e": [
+          0,
+          0,
+          0,
+          2
+        ],
+        "fe": 1,
+        "voto": {
+          "prof": 3,
+          "cons": 2
+        }
+      },
+      "der": {
+        "t": "Cambio: «Hagámoslo distinto»",
+        "e": [
+          0,
+          0,
+          0,
+          -1
+        ],
+        "fe": 1,
+        "voto": {
+          "est": 3,
+          "trab": 2
+        }
+      },
+      "cadena": "tu_camino",
+      "campana": true,
+      "unica": true
+    },
+    {
+      "id": "yo_reelecto",
+      "pj": "director",
+      "texto": "Ganaste el segundo periodo. Los que dudaban de ti ahora te miran distinto, y los que te apoyaron esperan que cumplas. Ya no eres la persona que recibió las llaves de Mónica.",
+      "izq": {
+        "t": "Mandar con más firmeza",
+        "e": [
+          0,
+          0,
+          0,
+          4
+        ],
+        "int": -2
+      },
+      "der": {
+        "t": "Acercarte a los críticos",
+        "e": [
+          2,
+          2,
+          0,
+          -2
+        ],
+        "int": 3
+      },
+      "cadena": "tu_camino",
+      "reelmin": 1,
+      "unica": true
+    }
+  ]
+}

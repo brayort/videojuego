@@ -29,7 +29,7 @@ if (!S.mod_render) {
       const dir = op === S.c.izq ? -1 : op === S.c.der ? 1 : 0;
       const g = { dir, t: 0, x: CX + S.dx, y: CD.y + Math.abs(S.dx) * 0.1, ang: S.dx * 0.06 };
       g.c = runtimeScene.createObject("Carta"); g.r = runtimeScene.createObject("Retrato"); g.s = runtimeScene.createObject("SombraCarta"); anim(g.s, "sombra"); g.s.setZOrder(29); g.s.setWidth(CD.w); g.s.setHeight(CD.h);
-      anim(g.c, S.c.pj); anim(g.r, S.c.pj);
+      anim(g.c, S.marcoDe(S.c)); anim(g.r, S.retratoDe(S.c));
       g.c.setZOrder(30); g.r.setZOrder(31);
       [g.c, g.r].forEach((o, k) => { o.setWidth(k ? CD.ret : CD.w); o.setHeight(k ? CD.ret : CD.h); });
       S.fant.push(g);
@@ -72,6 +72,7 @@ if (!S.mod_render) {
       o.ic.setPosition(cx - I.icono / 2, y + (I.s - I.icono) / 2); o.ic.setZOrder(15); hud.push(o.ic);
       o.lab = T(hud, "TxtTexto", cx - I.celda / 2, I.etY, 22, I.celda, "crema", "center", 20); setTxt(o.lab, n);
       o.dot = U.ico(S.cond, "punto_crema", cx - 7, HL.punto.cy - 7, HL.punto.chico, 20); o.dot.hide(true); o.dot.__v = false;
+      o.fl = runtimeScene.createObject("IconoStat"); S.cond.push(o.fl); anim(o.fl, "subir"); o.fl.setZOrder(20); o.fl.hide(true); o.fl.__v = false;   // flecha sube/baja (modo facil)
       o.q = T(S.cond, "TxtTexto", cx - 20, HL.punto.cy - 18, 28, 40, "dorado_claro", "center", 20); setTxt(o.q, "?"); o.q.hide(true); o.q.__v = false;
       o.vis = S.v ? S.v[i] : 50; o.fillCol = "dorado"; o.bdCol = "vino";
       return o;
@@ -142,10 +143,14 @@ if (!S.mod_render) {
     if (S.flipT < L.ease.voltear) S.flipT += dt;
     const fp = clamp(S.flipT / L.ease.voltear, 0, 1), sx = Math.max(0.02, E.back(fp));
     const dyv = S.arribaDisp() ? Math.min(0, S.dy || 0) * 0.4 : 0;
-    const cx = CX + S.dx, cy = CD.y + Math.abs(S.dx) * 0.1 + dyv, cw = CD.w * sx, rw = CD.ret * sx;
-    S.o.carta.setPosition(cx - cw / 2, cy); S.o.carta.setWidth(cw); S.o.carta.setHeight(CD.h); S.o.carta.setAngle(S.dx * 0.06);
-    S.o.retrato.setPosition(cx - rw / 2, cy + CD.retDy); S.o.retrato.setWidth(rw); S.o.retrato.setHeight(CD.ret); S.o.retrato.setAngle(S.dx * 0.06);
-    S.sombra.setPosition(cx - cw / 2 + CD.sombra * 0.8, cy + CD.sombra * 1.2); S.sombra.setWidth(cw); S.sombra.setHeight(CD.h); S.sombra.setAngle(S.dx * 0.06);
+    // Las cartas de los villanos TIEMBLAN mientras las mueves sin decidir (mas fuerte cuanto mas las arrastras).
+    S.tembT = (S.tembT || 0) + dt;
+    const mal = (S.data.roles || {})[S.retratoDe(c)] === "antagonista", tm = mal && fp >= 1 ? Math.min(1, Math.abs(S.dx) / 90) : 0;
+    const jx = tm * (Math.sin(S.tembT * 71) * 1.8 + Math.sin(S.tembT * 43) * 1.0), jy = tm * Math.sin(S.tembT * 57) * 1.0, jr = tm * Math.sin(S.tembT * 61) * 0.6;
+    const cx = CX + S.dx + jx, cy = CD.y + Math.abs(S.dx) * 0.1 + dyv + jy, cw = CD.w * sx, rw = CD.ret * sx, ang = S.dx * 0.06 + jr;
+    S.o.carta.setPosition(cx - cw / 2, cy); S.o.carta.setWidth(cw); S.o.carta.setHeight(CD.h); S.o.carta.setAngle(ang);
+    S.o.retrato.setPosition(cx - rw / 2, cy + CD.retDy); S.o.retrato.setWidth(rw); S.o.retrato.setHeight(CD.ret); S.o.retrato.setAngle(ang);
+    S.sombra.setPosition(cx - cw / 2 + CD.sombra * 0.8, cy + CD.sombra * 1.2); S.sombra.setWidth(cw); S.sombra.setHeight(CD.h); S.sombra.setAngle(ang);
     [S.o.texto, S.o.pj].forEach(o => o.setOpacity(255 * fp)); S.sombra.setOpacity(255 * fp); S.o.carta.setOpacity(255 * fp); S.o.retrato.setOpacity(255 * fp);
 
     // --- texto de la carta y nombre ---
@@ -183,6 +188,8 @@ if (!S.mod_render) {
       const ex = clamp(tipo === "izq" ? cx - cw / 2 + et.margen : tipo === "der" ? cx + cw / 2 - et.margen - S.etW : cx - S.etW / 2, 10, W - 10 - S.etW), ey = cy + et.margen;
       U.pset(S.etBd, ex - 3, ey - 3, S.etW + 6, S.etH + 6); U.pset(S.etFill, ex, ey, S.etW, S.etH);
       S.o.opcion.setPosition(ex + 12, ey + 10);
+      const bcol = tipo === "izq" ? "azul_cl" : tipo === "der" ? "dorado" : "verde";      // borde segun el lado: izquierda azul, derecha dorado, arriba verde
+      if (S.etCol !== bcol) { S.etCol = bcol; anim(S.etBd, bcol); }
       [S.etBd, S.etFill, S.o.opcion].forEach(o => o.setOpacity(255 * a));
     }
     // --- indicadores: relleno vertical suave, resaltado y puntos de vista previa ---
@@ -191,15 +198,23 @@ if (!S.mod_render) {
       o.vis = U.suave(o.vis, S.v[i], dt);
       const fh = inner * clamp(o.vis / 100, 0, 1);
       U.pset(o.fill, o.cx - IN.s / 2 + IN.borde, IN.y + IN.s - IN.borde - fh, inner, fh);
-      const peligro = S.v[i] <= 15 || S.v[i] >= 85, toca = !!(op && afecta(op, i));
+      // Modo facil: se anuncia que stats cambian y en que sentido (flecha verde sube / roja baja; grande = cambio fuerte). Modo dificil: ninguna pista.
+      const facil = U.aj.dificultad !== "dificil";
+      const peligro = S.v[i] <= 15 || S.v[i] >= 85, toca = facil && !!(op && afecta(op, i));
       const fc = peligro ? "rojo" : "dorado", bc = toca ? "dorado_claro" : "vino";
       if (o.fillCol !== fc) { o.fillCol = fc; anim(o.fill, fc); }
       if (o.bdCol !== bc) { o.bdCol = bc; anim(o.bd, bc); }
       const azar = !!(op && op.azar && toca), grande = !!(op && op.e && Math.abs(op.e[i]) >= 15);
-      vis(o.dot, toca && !azar); vis(o.q, azar);
-      if (toca && !azar) {
+      const dir = toca && !azar && op.e ? Math.sign(op.e[i] || 0) : 0;
+      vis(o.dot, toca && !azar && !dir); vis(o.fl, !!dir); vis(o.q, azar);
+      if (toca && !azar && !dir) {
         const s = grande ? HL.punto.grande : HL.punto.chico;
         o.dot.setPosition(o.cx - s / 2, HL.punto.cy - s / 2); o.dot.setWidth(s); o.dot.setHeight(s); o.dot.setOpacity(255 * Math.min(1, a * 2));
+      }
+      if (dir) {
+        const s = grande ? 40 : 30;
+        anim(o.fl, dir > 0 ? "subir" : "bajar");
+        o.fl.setPosition(o.cx - s / 2, HL.punto.cy - s / 2 + 2); o.fl.setWidth(s); o.fl.setHeight(s); o.fl.setOpacity(255 * Math.min(1, a * 2));
       }
       if (azar) o.q.setOpacity(255 * Math.min(1, a * 2));
       if (S.iconT[i] > 0) { S.iconT[i] -= dt; if (S.iconT[i] <= 0) anim(o.ic, S.STAT_ANIM[i]); }
@@ -210,6 +225,7 @@ if (!S.mod_render) {
     const chips = [[f.txt, "guinda", "crema"],
       ["Elección en " + rest + (rest === 1 ? " semana" : " semanas"), rest <= 4 ? "rojo" : "azul", "crema"]];
     if (S.enCampana()) chips.push(["CAMPAÑA · fuerza " + S.fe, "dorado", "tinta"]);
+    { const ac = S.actoActual(); if (ac && ac.nombre) chips.push([ac.nombre, "azul", "dorado_claro"]); }
     chips.push(["Director #" + S.dyn.n + " · Reelecc. " + S.reel + "/" + S.MAX_REEL + (S.flags.reforma ? "+" : ""), "vino", "crema"]);
     S.estados.forEach(s => chips.push([s.nombre + " (" + s.rest + " sem)", (s.cada || []).reduce((x, y) => x + y, 0) < 0 || (s.int || 0) < 0 ? "rojo" : "verde", "crema"]));
     pool("chips", S.chipsL, chips.map(x => x[0]).join("|"), l => {
@@ -218,11 +234,12 @@ if (!S.mod_render) {
     });
     // --- afinidad ---
     const af = S.af[c.pj] || 0;
-    pool("afin", S.afL, c.pj + ":" + af, l => {
-      const lab = af === 0 ? "Afinidad: neutral" : "Afinidad", lw = U.ancho(lab, 22, "cuerpo"), n = Math.abs(af), ic = HL.afin.icono;
+    const cargo = (S.data.cargos || {})[S.retratoDe(c)] || "";
+    pool("afin", S.afL, c.pj + ":" + af + ":" + cargo, l => {
+      const lab = cargo ? cargo + (af ? " · Afinidad" : "") : af === 0 ? "" : "Afinidad", lw = lab ? U.ancho(lab, 22, "cuerpo") : 0, n = Math.abs(af), ic = HL.afin.icono;
       const tw = lw + (n ? 10 + n * (ic + 4) : 0); let x = (W - tw) / 2;
-      const t = T(l, "TxtAfinidad", x, HL.afin.y + 2, 22, 0, "crema_osc", "left", 20); setTxt(t, lab);
-      x += lw + 10;
+      if (lab) { const t = T(l, "TxtAfinidad", x, HL.afin.y + 2, 22, 0, "crema_osc", "left", 20); setTxt(t, lab); }
+      x += lw + (lab ? 10 : 0);
       for (let k = 0; k < n; k++) { U.ico(l, af > 0 ? "corazon" : "cruz", x, HL.afin.y, ic, 20); x += ic + 4; }
     });
     // --- sugerencia de deslizar hacia arriba ---
@@ -305,13 +322,23 @@ if (!S.mod_render) {
     U.btnTxt(bt, P.i < P.n - 1 ? "Siguiente" : ultima);
   };
   const ETQ = { informe: "Continuar", fin: "Ver sucesión", sucesion: "Ver epílogo", destino: "Cerrar esta historia" };
-  const etiqueta = e => (e === "epilogo" ? (S.destinoPend ? "Ver el destino" : "Siguiente director") : ETQ[e] || "Continuar");
+  const etiqueta = e => (e === "fin" && S.finTipo === "historia" ? "Ver el destino" : e === "epilogo" ? (S.destinoPend ? "Ver el destino" : "Siguiente director") : ETQ[e] || "Continuar");
 
   // pantallas de texto: fin de gestion, epilogo, destino y resultado de minijuego
-  const pantallaTexto = function (estado, conMetros, banner) {
+  const metrosOn = () => (S.data.uan || {}).metros !== false;     // mundo.json > uan.metros:false oculta los 6 medidores globales
+  const pantallaTexto = function (estado, conMetros0, banner) {
     return function (A) {
+      const conMetros = conMetros0 && metrosOn();
       const hd = cabecera(A, S.o.pj, banner && banner());
       const R = Object.assign({}, L.pant.cuerpo); if (!conMetros) R.h += L.pant.metros.h + 8;
+      // retrato enmarcado de quien protagoniza la pantalla: el destino (d.pj) o el director que cae
+      const pj = estado === "destino" ? (S.destinoPend && S.destinoPend.pj) : S.cd && S.cd.pj ? S.cd.pj : S.retratoJugador();
+      if (pj) {
+        const fz = 232, fx = (W - fz) / 2, fy = R.y - 6, rz = Math.round(fz * 480 / 560), ro = (fz - rz) / 2;
+        const mc = runtimeScene.createObject("Carta"); anim(mc, S.marcoPj(pj)); mc.setPosition(fx, fy); mc.setWidth(fz); mc.setHeight(fz); mc.setZOrder(12); A.push(mc);
+        const mr = runtimeScene.createObject("Retrato"); anim(mr, pj); mr.setPosition(fx + ro, fy + ro); mr.setWidth(rz); mr.setHeight(rz); mr.setZOrder(13); A.push(mr);
+        R.y += fz + 8; R.h -= fz + 8;
+      }
       const P = cuerpo(A, R, S.o.texto), mp = conMetros ? U.metrosPanel(A, L.pant.metros, 10) : null, bt = pie(A, etiqueta(estado), estado);
       return function (dt, I) {
         hd(); P.upd(); if (mp) mp.set(S.dyn, dt);
@@ -335,10 +362,10 @@ if (!S.mod_render) {
       const br = U.barra(A, B.x + 230, y + 8, 330, 28, "dorado", 10), v = T(A, "TxtTexto", B.x + 580, y + 6, 26, 80, "crema_osc", "left", 20);
       return { br, v, cur: 0, i };
     });
-    const R = { x: 24, y: L.informe.cuerpo.y, w: 672, h: L.informe.cuerpo.h, pad: 20, size: 26 };
-    const P = cuerpo(A, R, S.o.texto), mp = U.metrosPanel(A, L.pant.metros, 10), bt = pie(A, ETQ.informe);
+    const R = { x: 24, y: L.informe.cuerpo.y, w: 672, h: L.informe.cuerpo.h + (metrosOn() ? 0 : L.pant.metros.h + 8), pad: 20, size: 26 };
+    const P = cuerpo(A, R, S.o.texto), mp = metrosOn() ? U.metrosPanel(A, L.pant.metros, 10) : null, bt = pie(A, ETQ.informe);
     return function (dt, I) {
-      hd(); P.upd(); mp.set(S.dyn, dt);
+      hd(); P.upd(); if (mp) mp.set(S.dyn, dt);
       filas.forEach(f => {
         f.cur = U.suave(f.cur, S.v[f.i], dt);
         f.br.set(f.cur / 100); f.br.col(S.v[f.i] <= 15 || S.v[f.i] >= 85 ? "rojo" : "dorado");
@@ -357,7 +384,7 @@ if (!S.mod_render) {
       const r = runtimeScene.createObject("Retrato"); anim(r, pj); r.setPosition(x + 8, SG.y + 8); r.setWidth(R); r.setHeight(R); r.setZOrder(12); A.push(r);
     };
     const xl = 60, xr = W - 60 - (R + 16);
-    retr(xl, S.cd && S.cd.pj ? S.cd.pj : "default"); retr(xr, s.ganador.pj || "default");
+    retr(xl, S.cd && S.cd.pj ? S.cd.pj : S.retratoJugador()); retr(xr, s.ganador.pj || "default");
     U.ico(A, "flecha_der", W / 2 - 32, SG.y + (R + 16) / 2 - 32, 64, 12);
     const cap = (x, rol, nombre) => {
       const c0 = x + (R + 16) / 2 - 150;
@@ -379,9 +406,9 @@ if (!S.mod_render) {
       const m = T(A, "TxtTexto", 40, y + 56, 22, 640, "crema_osc", "left", 20); setTxt(m, motivo(x));
     });
     if (s.brutus) U.chip(A, W / 2 - 150, SG.y + R + 16 - 6, "¡Conspiró contra ti!", "rojo", "crema", 14);
-    const mp = U.metrosPanel(A, { x: 24, y: SG.metros.y, w: 672, h: SG.metros.h }, 10), bt = pie(A, ETQ.sucesion);
+    const mp = metrosOn() ? U.metrosPanel(A, { x: 24, y: SG.metros.y, w: 672, h: SG.metros.h }, 10) : null, bt = pie(A, ETQ.sucesion);
     S.pag = null;
-    return function (dt, I) { hd(); mp.set(S.dyn, dt); U.btnTick(bt, I); };
+    return function (dt, I) { hd(); if (mp) mp.set(S.dyn, dt); U.btnTick(bt, I); };
   };
 
   SCR.eleccion = function (A) {

@@ -30,8 +30,8 @@ if (!S.mod_cartas) {
     if (c.uansi && !S.cumpleUan(c.uansi)) return false;
     if (c.afmin && Object.keys(c.afmin).some(k => (S.af[k] || 0) < c.afmin[k])) return false;
     if (c.afmax && Object.keys(c.afmax).some(k => (S.af[k] || 0) > c.afmax[k])) return false;
-    if (c.semmin !== undefined && S.semana < c.semmin) return false;
-    if (c.semmax !== undefined && S.semana > c.semmax) return false;
+    if (c.semmin !== undefined && S.semG() < c.semmin) return false;
+    if (c.semmax !== undefined && S.semG() > c.semmax) return false;
     if (c.desde || c.hasta) {
       const ym = S.fecha().ym;
       if (c.desde && ym < c.desde) return false;
@@ -71,6 +71,7 @@ if (!S.mod_cartas) {
   };
   S.siguiente = function () {
     S.setEstado("carta");
+    S.revisarActo();
     const todas = S.data.cartas;
     let c = null;
     // 1) consecuencias retardadas
@@ -110,13 +111,18 @@ if (!S.mod_cartas) {
     S.mostrarCarta();
     S.senal.carta++;
     S.guardar();
+    S.revisarSemestre();       // fin de semestre: interludio + periodico + cartas de noticias
   };
+  // Retrato (sprite) y marco de la carta. pj "director" = quien dirige ahora (el jugador o un sucesor). El marco depende del rol del personaje.
+  S.retratoDe = c => (c.pj === "director" ? (S.cd && S.cd.pj) || S.retratoJugador() : c.pj);
+  S.marcoPj = pj => { const r = (S.data.roles || {})[pj]; return r === "aliado" || r === "antagonista" || r === "anfitriona" || r === "jugador" ? "marco_" + r : "marco"; };
+  S.marcoDe = c => S.marcoPj(S.retratoDe(c));
   S.mostrarCarta = function () {
     const c = S.c;
     S.pjUlt = c.pj;
     setTxt(S.o.texto, S.fmt(c.texto));
     setTxt(S.o.pj, S.fmt(S.data.personajes[c.pj] || c.pj));
-    anim(S.o.retrato, c.pj); anim(S.o.carta, c.pj);
+    anim(S.o.retrato, S.retratoDe(c)); anim(S.o.carta, S.marcoDe(c));
     if (c.cine && S.cineCarta !== c) { S.cineCarta = c; U.cine.reproducir(c.cine); }   // carta con cinematica previa
   };
 }
