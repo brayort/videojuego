@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Fin de la Gestión — Tráiler vertical 1080 x 1920</title>
+<style>
+  /* Escenario fijo de 1080 x 1920 px. Toda la animación la calcula render(t) (abajo), con t en segundos de la canción.
+     Vista previa: abre este archivo y haz clic. Exportar a MP4: node render.js */
+  @font-face { font-family: "Fredoka"; src: url("../assets/fonts/Fredoka-SemiBold.ttf"); font-weight: 600; }
+  @font-face { font-family: "Nunito";  src: url("../assets/fonts/Nunito-SemiBold.ttf");  font-weight: 600; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; background: #000; overflow: hidden; }
+  body { font-family: "Nunito", sans-serif; font-weight: 600; color: #fff; }
+
+  #stage { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: hidden; background: #060f26; transform-origin: 0 0; }
+  #shake { position: absolute; inset: 0; }
+  #shake > * { position: absolute; }
+
+  /* ---- Fondos (ilustraciones de assets, oscurecidas y teñidas de azul) ---- */
+  .bg { inset: -60px; background-size: cover; background-position: 50% 50%; filter: saturate(.7) contrast(1.05); visibility: hidden; }
+  /* las capas se salen 80 px del cuadro para que la sacudida no deje ver los bordes */
+  #tinte { inset: -80px; background: #3d78d6; mix-blend-mode: multiply; }
+  #velo  { inset: -80px; background: linear-gradient(180deg, rgba(6,15,38,.82) 0%, rgba(6,15,38,.30) 30%, rgba(6,15,38,.30) 62%, rgba(6,15,38,.88) 100%); }
+  #oscuro { inset: -80px; background: #060f26; }
+  #rojo  { inset: -80px; background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(210,69,58,.25), rgba(150,20,20,.95)); }
+  #glow  { inset: 0; background:
+             radial-gradient(ellipse 760px 620px at 50% 800px, rgba(244,196,48,.30), rgba(244,196,48,0) 70%),
+             repeating-linear-gradient(135deg, rgba(255,255,255,.035) 0 5px, rgba(255,255,255,0) 5px 70px),
+             linear-gradient(180deg, #060f26 0%, #0c2152 38%, #143c86 72%, #1c52a8 100%); }
+  #flash { inset: -80px; background: #fff; }
+  #negro { inset: 0; background: #000; }
+
+  .txt { left: 0; width: 1080px; text-align: center; }
+  #lugar { top: 1380px; font-size: 50px; line-height: 1; letter-spacing: 3px; color: #fff; text-shadow: 0 4px 18px rgba(0,0,0,.7); }
+  #tu { top: 330px; font-family: "Fredoka"; font-size: 84px; line-height: 1.05; color: #ffe58a; text-shadow: 0 6px 0 #0a1c46, 0 14px 30px rgba(0,0,0,.6); }
+  #plantilla { top: 1400px; font-family: "Fredoka"; font-size: 76px; line-height: 1; color: #ffe58a; text-shadow: 0 6px 0 #0a1c46, 0 14px 30px rgba(0,0,0,.6); }
+  .word { left: 0; width: 1080px; top: 1380px; text-align: center; font-family: "Fredoka"; font-size: 160px; line-height: 1; letter-spacing: 4px; color: #fff;
+          text-shadow: 0 7px 0 #1e4fa0, 0 16px 0 #0a1c46, 0 28px 40px rgba(0,0,0,.6); }
+  #w3 { color: #f4c430; text-shadow: 0 7px 0 #c68a00, 0 16px 0 #6a4600, 0 28px 40px rgba(0,0,0,.6); }
+  .aviso { top: 300px; font-family: "Fredoka"; font-size: 80px; line-height: 1.05; color: #fff; text-shadow: 0 6px 0 #0a1c46, 0 14px 30px rgba(0,0,0,.6); }
+  #av3 { color: #f4c430; }
+
+  /* ---- Cartas ---- */
+  .carta { left: 190px; top: 560px; width: 700px; height: 760px; border-radius: 64px; background: #1e4fa0; padding: 18px;
+           box-shadow: 0 22px 0 #0a1c46, 0 40px 60px rgba(0,0,0,.55); visibility: hidden; }
+  .carta .panel { position: relative; width: 100%; height: 100%; background: #fff; border-radius: 48px; overflow: hidden; }
+  .carta .panel::before { content: ""; position: absolute; inset: 11px; border: 4px solid #f4c430; border-radius: 38px; z-index: 3; pointer-events: none; }
+  .carta .panel > svg.escena { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .carta.cara .panel { background: radial-gradient(circle at 50% 35%, #ffffff 0%, #cfe0f8 100%); }
+  .carta.cara img { position: absolute; left: 0; bottom: 0; width: 100%; }
+  .carta.q .panel { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 44px; padding: 60px 56px; color: #0b1a33; }
+  .carta.q svg { width: 420px; height: 110px; flex: none; }
+  .qtexto { font-size: 56px; line-height: 1.2; text-align: center; }
+  .qdecide { font-family: "Fredoka"; font-size: 62px; line-height: 1; color: #1e4fa3; }
+  /* carta de decisión con el personaje que se asoma por la esquina (va detrás de la carta y se mueve con ella) */
+  .env { left: 190px; top: 560px; width: 700px; height: 760px; visibility: hidden; }
+  .env .carta { position: absolute; left: 0; top: 0; visibility: inherit; }
+  /* solo se ve la cabeza y el arranque de los hombros: el cuerpo se desvanece para que no asome como una raya junto a la carta */
+  .asoma { position: absolute; width: 520px; transform-origin: 50% 85%;
+           -webkit-mask-image: linear-gradient(to bottom, #000 0, #000 43%, transparent 57%); mask-image: linear-gradient(to bottom, #000 0, #000 43%, transparent 57%); }
+  .asoma.der { left: 273px; top: -192px; }
+  .asoma.izq { left: -80px; top: -200px; }
+  .op { left: 0; width: 1080px; top: 1392px; display: flex; justify-content: center; visibility: hidden; }
+  .op span { background: #f4c430; color: #0b1a33; border-radius: 60px; padding: 16px 52px 20px; font-family: "Fredoka"; font-size: 70px; line-height: 1; box-shadow: 0 8px 0 #0a1c46; }
+
+  /* ---- Medidores pequeños (arriba) ---- */
+  #hud { left: 0; top: 232px; width: 1080px; display: flex; justify-content: center; gap: 44px; }
+  .m { position: relative; width: 190px; text-align: center; }
+  .caja { position: relative; width: 140px; height: 140px; margin: 0 auto 12px; background: #0b1b44; border: 6px solid #2f6fd0; box-shadow: 0 8px 0 #081532; overflow: hidden; }
+  .caja .nivel { position: absolute; left: 0; right: 0; bottom: 0; background: #f4c430; }
+  .caja svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .m b { display: block; font-weight: 600; font-size: 31px; line-height: 1; text-shadow: 0 3px 10px rgba(0,0,0,.7); }
+  .tri { position: absolute; left: 50%; margin-left: -20px; top: -40px; width: 0; height: 0; border-left: 20px solid transparent; border-right: 20px solid transparent; visibility: hidden; }
+  .tri.sube { border-bottom: 28px solid #ffe58a; }
+  .tri.baja { border-top: 28px solid #ffe58a; }
+
+  /* ---- Medidores gigantes (tensión) ---- */
+  #barras { left: 110px; top: 520px; width: 860px; display: flex; gap: 60px; }
+  .barra { width: 170px; text-align: center; }
+  .pista { position: relative; width: 170px; height: 860px; border: 7px solid #2f6fd0; border-radius: 30px; overflow: hidden; box-shadow: 0 9px 0 #081532;
+           background: repeating-linear-gradient(180deg, rgba(255,255,255,0) 0 209px, rgba(255,255,255,.28) 209px 211.5px), #0b1b44; }
+  .pista .nivel { position: absolute; left: 0; right: 0; bottom: 0; background: #f4c430; }
+  .pista .roja { position: absolute; left: 0; right: 0; height: 8%; z-index: 2;
+                 background: repeating-linear-gradient(45deg, rgba(210,69,58,.95) 0 9px, rgba(210,69,58,.55) 9px 18px); }
+  .pista .roja.arriba { top: 0; }
+  .pista .roja.abajo { bottom: 0; }
+  .barra .caja { width: 120px; height: 120px; margin: 26px auto 12px; }
+  .barra b { display: block; font-weight: 600; font-size: 31px; line-height: 1; }
+
+  /* ---- Título final ---- */
+  #titulo { inset: 0; }
+  #titulo > * { position: absolute; left: 0; width: 1080px; text-align: center; }
+  #t1 { top: 500px; font-family: "Fredoka"; font-size: 132px; line-height: 1; letter-spacing: 6px; padding-left: 6px; color: #fff;
+        text-shadow: 0 5px 0 #1e4fa0, 0 12px 0 #0a1c46, 0 22px 34px rgba(0,0,0,.55); }
+  #t2 { top: 640px; font-family: "Fredoka"; font-size: 212px; line-height: 1; letter-spacing: 6px; padding-left: 6px; color: #f4c430;
+        text-shadow: 0 6px 0 #c68a00, 0 15px 0 #6a4600, 0 28px 40px rgba(0,0,0,.6); }
+  #lema { top: 960px; font-family: "Fredoka"; font-size: 84px; line-height: 1; color: #ffe58a; }
+  #sub  { top: 1085px; font-size: 42px; line-height: 1; color: #d6e2f5; }
+  #pie { top: 1250px; font-family: "Fredoka"; font-size: 48px; line-height: 1; letter-spacing: 6px; padding-left: 6px; color: #fff; }
+  #pie span { color: #f4c430; }
+
+  /* ---- Créditos (pantalla negra final) ---- */
+  #creditos { inset: 0; background: #000; }
+  #creditos > * { position: absolute; left: 0; width: 1080px; text-align: center; }
+  #cr0 { top: 690px; font-size: 40px; line-height: 1; letter-spacing: 8px; padding-left: 8px; text-transform: uppercase; color: #9db7e0; }
+  .cr { font-family: "Fredoka"; font-size: 58px; line-height: 1; color: #fff; }
+  #cr1 { top: 810px; } #cr2 { top: 920px; } #cr3 { top: 1030px; } #cr4 { top: 1140px; }
+
+  /* ---- Vista previa ---- */
+  #play { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,.6);
+          font-family: "Fredoka", sans-serif; font-size: 5vmin; color: #fff; cursor: pointer; z-index: 10; }
+</style>
+</head>
+<body>
+<div id="stage"><div id="shake">
+
+  <div class="bg" id="bg-catedral"></div>
+  <div class="bg" id="bg-economia"></div>
+  <div class="bg" id="bg-rectoria"></div>
+  <div class="bg" id="bg-biblioteca"></div>
+  <div class="bg" id="bg-piida"></div>
+  <div class="bg" id="bg-spauan"></div>
+  <div class="bg" id="bg-palacio"></div>
+  <div class="bg" id="bg-economia2"></div>
+  <div id="tinte"></div>
+  <div id="velo"></div>
+  <div id="oscuro"></div>
+  <div id="rojo"></div>
+  <div id="glow"></div>
+
+  <div id="lugar" class="txt">Tepic, Nayarit</div>
+  <div id="tu" class="txt">Hoy el director<br>eres tú.</div>
+
+  <!-- Medidores pequeños -->
+  <div id="hud">
+    <div class="m"><div class="tri"></div><div class="caja"><div class="nivel"></div>
+      <svg viewBox="0 0 100 100"><g fill="#fff" stroke="#10204a" stroke-width="3" stroke-linejoin="round"><path d="M50 22 L86 40 L50 58 L14 40 Z"/><path d="M28 51 V66 Q50 80 72 66 V51 L50 62 Z"/><path d="M82 43 V68" stroke-linecap="round" fill="none"/></g></svg></div><b>Docentes</b></div>
+    <div class="m"><div class="tri"></div><div class="caja"><div class="nivel"></div>
+      <svg viewBox="0 0 100 100"><g fill="#fff" stroke="#10204a" stroke-width="3"><circle cx="50" cy="34" r="11"/><path d="M30 70 Q30 49 50 49 Q70 49 70 70 Z"/><circle cx="24" cy="42" r="8"/><path d="M8 68 Q8 52 24 52 Q30 52 33 55 Q27 62 28 68 Z"/><circle cx="76" cy="42" r="8"/><path d="M92 68 Q92 52 76 52 Q70 52 67 55 Q73 62 72 68 Z"/></g></svg></div><b>Estudiantes</b></div>
+    <div class="m"><div class="tri"></div><div class="caja"><div class="nivel"></div>
+      <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="28" fill="#f4c430" stroke="#10204a" stroke-width="4"/><text x="50" y="63" text-anchor="middle" font-family="Fredoka" font-size="40" fill="#10204a">$</text></svg></div><b>Finanzas</b></div>
+    <div class="m"><div class="tri"></div><div class="caja"><div class="nivel"></div>
+      <svg viewBox="0 0 100 100"><g fill="#fff" stroke="#10204a" stroke-width="3" stroke-linejoin="round"><path d="M50 16 L88 36 H12 Z"/><rect x="16" y="39" width="68" height="6"/><rect x="22" y="48" width="9" height="26"/><rect x="45.5" y="48" width="9" height="26"/><rect x="69" y="48" width="9" height="26"/><rect x="14" y="77" width="72" height="8"/></g></svg></div><b>Política</b></div>
+  </div>
+
+  <!-- Carta: la silla vacía -->
+  <div class="carta" id="silla"><div class="panel">
+    <svg class="escena" viewBox="0 0 418 448" preserveAspectRatio="xMidYMid slice">
+      <defs><radialGradient id="luz" cx="50%" cy="34%" r="72%"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#bfd5f6"/></radialGradient></defs>
+      <rect width="418" height="448" fill="url(#luz)"/>
+      <g transform="translate(46 78)"><rect width="74" height="56" rx="4" fill="#fff" stroke="#f2c230" stroke-width="6"/><path d="M14 19h46M14 31h30" stroke="#9db7e0" stroke-width="5" stroke-linecap="round"/><circle cx="56" cy="40" r="6" fill="#d2453a"/></g>
+      <g transform="translate(338 106)"><circle r="32" fill="#fff" stroke="#1e4fa3" stroke-width="7"/><path d="M0 0V-19M0 0L13 9" stroke="#0e2550" stroke-width="6" stroke-linecap="round" fill="none"/></g>
+      <rect x="108" y="236" width="34" height="80" rx="13" fill="#0e2550"/><rect x="276" y="236" width="34" height="80" rx="13" fill="#0e2550"/>
+      <path d="M137 312 V138 Q137 72 209 72 Q281 72 281 138 V312 Z" fill="#1e4fa3" stroke="#0e2550" stroke-width="8" stroke-linejoin="round"/>
+      <path d="M162 126 Q162 98 209 98 Q256 98 256 126" fill="none" stroke="#5b9bea" stroke-width="9" stroke-linecap="round"/>
+      <path d="M166 168H252M166 212H252M166 256H252" stroke="#12407f" stroke-width="7" stroke-linecap="round"/>
+      <rect x="0" y="300" width="418" height="148" fill="#0e2550"/><rect x="0" y="300" width="418" height="15" fill="#2f6fd0"/>
+      <g stroke="#0e2550" stroke-width="4" fill="#fff" stroke-linejoin="round"><rect x="30" y="292" width="66" height="10" rx="2"/><rect x="36" y="284" width="62" height="10" rx="2"/><rect x="32" y="276" width="64" height="10" rx="2"/></g>
+      <g stroke="#0e2550" stroke-width="5" stroke-linejoin="round"><path d="M376 281 q17 0 17 11 t-17 11" fill="none"/><rect x="342" y="270" width="36" height="36" rx="6" fill="#fff"/></g>
+      <path d="M352 258 q-6 -8 0 -16 t0 -16 M368 258 q-6 -8 0 -16 t0 -16" fill="none" stroke="#9db7e0" stroke-width="4" stroke-linecap="round"/>
+      <path d="M66 412 L78 332 H340 L352 412 Z" fill="#c68a00"/>
+      <rect x="70" y="322" width="278" height="84" rx="9" fill="#f2c230" stroke="#0b1a33" stroke-width="6"/>
+      <text x="209" y="352" text-anchor="middle" font-family="Fredoka" font-weight="600" font-size="22" letter-spacing="4" fill="#0b1a33">DIRECCIÓN</text>
+      <text x="209" y="384" text-anchor="middle" font-family="Nunito" font-weight="600" font-size="25" fill="#0b1a33" opacity=".72">tu nombre aquí</text>
+      <path d="M104 394H314" stroke="#0b1a33" stroke-width="3" stroke-dasharray="1 8" stroke-linecap="round"/>
+    </svg></div></div>
+
+  <!-- Cartas de ejemplo (adaptadas de cartas reales, sin nombres) -->
+  <div class="env" id="qa"><img class="asoma der" src="../sprites/09-nayeli.png" alt=""><div class="carta q"><div class="panel">
+    <svg viewBox="0 0 250 66"><path d="M6 10 Q125 40 244 10" fill="none" stroke="#0e2550" stroke-width="3" stroke-linecap="round"/>
+      <g stroke="#0e2550" stroke-width="2.5" stroke-linejoin="round"><path d="M22 15 L46 19 L32 46 Z" fill="#f4c430"/><path d="M62 23 L86 26 L73 52 Z" fill="#2f6fd0"/><path d="M103 28 L127 29 L115 56 Z" fill="#d2453a"/><path d="M147 29 L171 27 L160 54 Z" fill="#f4c430"/><path d="M188 25 L212 21 L202 49 Z" fill="#2f6fd0"/></g></svg>
+    <div class="qtexto">Los alumnos piden el auditorio para organizar una kermés.</div>
+    <div class="qdecide">¿Qué decides?</div></div></div></div>
+  <div class="env" id="qb"><img class="asoma izq" src="../sprites/05-janoe.png" alt=""><div class="carta q"><div class="panel">
+    <svg viewBox="0 0 250 66"><g stroke="#0e2550" stroke-width="3" stroke-linejoin="round"><rect x="85" y="6" width="80" height="44" rx="5" fill="#cfe0f8"/><path d="M110 50 L104 60 H146 L140 50 Z" fill="#fff"/><path d="M94 61 H156" stroke-linecap="round"/></g><path d="M98 20 h34 M98 30 h54" stroke="#2f6fd0" stroke-width="4" stroke-linecap="round"/></svg>
+    <div class="qtexto">Solo alcanza para un equipo de cómputo nuevo.</div>
+    <div class="qdecide">¿Ahora o después?</div></div></div></div>
+  <div class="op" id="opa"><span>← Autorizar</span></div>
+  <div class="op" id="opb"><span>Esperar →</span></div>
+
+  <!-- Las cartas de la plantilla se crean por código (ver CARAS) -->
+  <div id="caras" style="inset:0"></div>
+  <div id="plantilla" class="txt">Conoce a tu plantilla</div>
+  <div class="word" id="w1">DESLIZA</div>
+  <div class="word" id="w2">DECIDE</div>
+  <div class="word" id="w3">SOBREVIVE</div>
+
+  <!-- Medidores gigantes -->
+  <div id="barras">
+    <div class="barra"><div class="pista"><div class="roja arriba"></div><div class="nivel"></div><div class="roja abajo"></div></div><div class="caja">
+      <svg viewBox="0 0 100 100"><g fill="#fff" stroke="#10204a" stroke-width="3" stroke-linejoin="round"><path d="M50 22 L86 40 L50 58 L14 40 Z"/><path d="M28 51 V66 Q50 80 72 66 V51 L50 62 Z"/><path d="M82 43 V68" stroke-linecap="round" fill="none"/></g></svg></div><b>Docentes</b></div>
+    <div class="barra"><div class="pista"><div class="roja arriba"></div><div class="nivel"></div><div class="roja abajo"></div></div><div class="caja">
+      <svg viewBox="0 0 100 100"><g fill="#fff" stroke="#10204a" stroke-width="3"><circle cx="50" cy="34" r="11"/><path d="M30 70 Q30 49 50 49 Q70 49 70 70 Z"/><circle cx="24" cy="42" r="8"/><path d="M8 68 Q8 52 24 52 Q30 52 33 55 Q27 62 28 68 Z"/><circle cx="76" cy="42" r="8"/><path d="M92 68 Q92 52 76 52 Q70 52 67 55 Q73 62 72 68 Z"/></g></svg></div><b>Estudiantes</b></div>
+    <div class="barra"><div class="pista"><div class="roja arriba"></div><div class="nivel"></div><div class="roja abajo"></div></div><div class="caja">
+      <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="28" fill="#f4c430" stroke="#10204a" stroke-width="4"/><text x="50" y="63" text-anchor="middle" font-family="Fredoka" font-size="40" fill="#10204a">$</text></svg></div><b>Finanzas</b></div>
+    <div class="barra"><div class="pista"><div class="roja arriba"></div><div class="nivel"></div><div class="roja abajo"></div></div><div class="caja">
+      <svg viewBox="0 0 100 100"><g fill="#fff" stroke="#10204a" stroke-width="3" stroke-linejoin="round"><path d="M50 16 L88 36 H12 Z"/><rect x="16" y="39" width="68" height="6"/><rect x="22" y="48" width="9" height="26"/><rect x="45.5" y="48" width="9" height="26"/><rect x="69" y="48" width="9" height="26"/><rect x="14" y="77" width="72" height="8"/></g></svg></div><b>Política</b></div>
+  </div>
+  <div class="txt aviso" id="av1">Si un medidor<br>se vacía…</div>
+  <div class="txt aviso" id="av2">…o se desborda…</div>
+  <div class="txt aviso" id="av3">se acaba<br>tu gestión.</div>
+  <div id="flash"></div>
+
+  <!-- Título final -->
+  <div id="titulo">
+    <div id="t1">FIN DE LA</div>
+    <div id="t2">GESTIÓN</div>
+    <div id="lema">¿Cuánto dura la tuya?</div>
+    <div id="sub">El juego de cartas donde el director eres tú</div>
+    <div id="pie">DESLIZA · DECIDE · <span>SOBREVIVE</span></div>
+  </div>
+
+  <!-- Créditos -->
+  <div id="creditos">
+    <div id="cr0">Creado por</div>
+    <div class="cr" id="cr1">Jazmín Antonia Rojano Mejía</div>
+    <div class="cr" id="cr2">Héctor Yair Medrano Coronel</div>
+    <div class="cr" id="cr3">Sergio Iván Pérez Maldonado</div>
+    <div class="cr" id="cr4">Brayan Ortiz Ramírez</div>
+  </div>
+
+  <div id="negro"></div>
+</div></div>
+
+<div id="play">▶ Clic para reproducir</div>
+<audio id="au" src="WhatsApp Audio 2026-11-17 at 00.34.10.mp3" preload="auto"></audio>
+
+<script>
+/* ============ Datos ============ */
+// Tiempos fuertes (inicio de cada compás) y pulsos de la canción, medidos con librosa (89 BPM).
+const D = [0.09,2.76,5.43,8.08,10.77,13.44,16.09,18.78,21.43,24.10,26.77,29.44,32.11,34.76,37.43,40.10,42.77,45.42,48.09];
+const B = [0.09,0.77,1.44,2.09,2.76,3.44,4.09,4.78,5.43,6.11,6.76,7.41,8.08,8.78,9.43,10.10,10.77,11.42,12.07,12.77,13.44,14.09,14.77,15.42,16.09,16.76,17.44,18.09,18.78,19.41,20.11,20.76,21.43,22.11,22.78,23.43,24.10,24.78,25.43,26.10,26.77,27.45,28.10,28.77,29.44,30.09,30.77,31.44,32.11,32.76,33.44,34.09,34.76,35.43,36.11,36.76,37.43,38.10,38.78,39.43,40.10,40.77,41.45,42.10,42.77,43.44,44.12,44.79,45.42,46.09,46.76];
+const FIN = 51.2;   // duración del tráiler en segundos (el título termina en D[17]; luego van los créditos)
+
+const FONDOS = {
+  catedral:   "../assets/Catedral Tepic.png",
+  economia:   "../assets/Unidad Academica de Economia.png",
+  rectoria:   "../assets/Rectoria.png",
+  biblioteca: "../assets/Biblioteca Magna UAN.png",
+  piida:      "../assets/Edificio PiiDA de Secretaría Académica.png",
+  spauan:     "../assets/Edificio Spauan.png",
+  palacio:    "../assets/Palacio de gobierno Nayarit.png",
+  economia2:  "../assets/Unidad Academica de Economia.png"
+};
+// [fondo, inicio, fin, paneo horizontal % (de, a), zoom (de, a), duración del fundido]
+const PLAN_FONDOS = [
+  ["catedral",   0.00,  D[1], 50, 50, 1.14, 1.04, .30],
+  ["economia",   D[1],  D[8], 50, 50, 1.02, 1.20, .30],
+  // montaje: un lugar cada dos pulsos, solo como paisaje (sin texto que los señale)
+  ["rectoria",   B[32], B[34],34, 50, 1.06, 1.10, .07],
+  ["piida",      B[34], B[36],58, 44, 1.06, 1.10, .07],
+  ["spauan",     B[36], B[38],40, 56, 1.06, 1.10, .07],
+  ["palacio",    B[38], B[40],56, 44, 1.06, 1.10, .07],
+  ["biblioteca", D[10], D[11],66, 38, 1.06, 1.12, .07],
+  // el final ocurre en tu propia unidad
+  ["economia2",  D[11], D[15],50, 50, 1.20, 1.04, .12]
+];
+// Retratos del montaje (un pulso cada uno). Solo docentes de la plantilla, sin personajes de la trama.
+const CARAS = ["08-monica","01-alejandro","02-beatriz","04-fernando","05-janoe","09-nayeli","11-sonia","12-victor",
+               "13-alfonso","10-sergio","14-angel","15-carlos","16-eligardo","17-gabriel","18-perla","19-jose"];
+
+// Niveles de los medidores: [tiempo, valor]. Orden: Docentes, Estudiantes, Finanzas, Política.
+const HUD = [
+  [[0,62],[B[30],52],[B[32],58],[B[36],50],[B[40],61],[B[44],55]],
+  [[0,48],[B[22],66],[B[33],58],[B[37],67],[B[41],60],[B[45],70]],
+  [[0,60],[B[30],72],[B[34],63],[B[38],70],[B[42],58],[B[46],64]],
+  [[0,55],[B[22],45],[B[35],53],[B[39],44],[B[43],52],[B[47],47]]
+];
+const GRANDES = [
+  [[0,55],[B[49],62],[B[51],70],[B[52],78],[B[54],86],[B[55],93]],
+  [[0,50],[B[50],46],[B[53],52]],
+  [[0,48],[B[49],40],[B[50],33],[B[51],26],[B[52],20],[B[53],14],[B[54],9],[B[56],0]],
+  [[0,52],[B[51],57],[B[54],50]]
+];
+
+/* ============ Utilidades ============ */
+const $ = id => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const lerp = (a, b, x) => a + (b - a) * x;
+const eo = x => 1 - Math.pow(1 - x, 3);
+const eio = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const back = x => { const c = 1.70158; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+const fade = (t, a, b, c, d) => Math.min(prog(t, a, b), 1 - prog(t, c, d));
+
+function put(el, o) {
+  const op = o.o === undefined ? 1 : o.o;
+  if (op <= 0.002) { el.style.visibility = "hidden"; return; }
+  el.style.visibility = "visible";
+  el.style.opacity = op;
+  el.style.transform = "translate(" + (o.x || 0) + "px," + (o.y || 0) + "px) rotate(" + (o.r || 0) + "deg) scale(" + (o.s === undefined ? 1 : o.s) + ")";
+  if (o.z !== undefined) el.style.zIndex = o.z;
+}
+// aparece con rebote en a; desaparece entre c y d
+function pop(el, t, a, c, d, extra) {
+  const o = Math.min(prog(t, a, a + .12), 1 - prog(t, c, d));
+  put(el, Object.assign({ o: o, s: lerp(.6, 1, back(prog(t, a, a + .32))) }, extra || {}));
+}
+function nivel(keys, t) {
+  let v = keys[0][1];
+  for (let i = 1; i < keys.length; i++) if (t >= keys[i][0]) v = lerp(keys[i - 1][1], keys[i][1], eo(prog(t, keys[i][0], keys[i][0] + .45)));
+  return v;
+}
+function cambio(keys, t) {   // +1 / -1 mientras el medidor acaba de moverse
+  for (let i = 1; i < keys.length; i++) if (t >= keys[i][0] && t < keys[i][0] + .62) return Math.sign(keys[i][1] - keys[i - 1][1]);
+  return 0;
+}
+
+/* ============ Preparación ============ */
+const fondos = {};
+const pend = [document.fonts.ready];
+for (const k in FONDOS) {
+  const el = $("bg-" + k); el.style.backgroundImage = 'url("' + encodeURI(FONDOS[k]) + '")'; fondos[k] = el;
+  const im = new Image(); im.src = encodeURI(FONDOS[k]); pend.push(im.decode().catch(() => {}));
+}
+const caras = CARAS.map((n, j) => {
+  const c = document.createElement("div"); c.className = "carta cara"; c.style.position = "absolute";
+  const p = document.createElement("div"); p.className = "panel";
+  const im = document.createElement("img"); im.src = "../sprites/" + n + ".png"; pend.push(im.decode().catch(() => {}));
+  p.appendChild(im); c.appendChild(p); $("caras").appendChild(c); return c;
+});
+document.querySelectorAll(".asoma").forEach(im => pend.push(im.decode().catch(() => {})));
+const hudN = [...document.querySelectorAll("#hud .nivel")], hudT = [...document.querySelectorAll("#hud .tri")], hudM = [...document.querySelectorAll("#hud .m")];
+const barN = [...document.querySelectorAll("#barras .nivel")], barP = [...document.querySelectorAll("#barras .pista")];
+window.listo = Promise.all(pend).then(() => { render(0); return true; });
+
+/* ============ La animación: todo depende de t ============ */
+function render(t) {
+  /* --- fondos --- */
+  for (const [k, a, b, p0, p1, z0, z1, f] of PLAN_FONDOS) {
+    const o = fade(t, a - f, a + f, b - f, b + f), el = fondos[k];
+    if (o <= 0.002) { el.style.visibility = "hidden"; continue; }
+    const p = prog(t, a, b);
+    el.style.visibility = "visible"; el.style.opacity = o;
+    el.style.backgroundPosition = lerp(p0, p1, p) + "% 50%";
+    el.style.transform = "scale(" + lerp(z0, z1, p) + ")";
+  }
+  const conFondo = t < D[15];
+  $("tinte").style.visibility = $("velo").style.visibility = conFondo ? "visible" : "hidden";
+  // oscurecimiento extra según la escena
+  let osc = 0;
+  if (t < D[2]) osc = 0;
+  else if (t < D[4]) osc = lerp(0, .38, prog(t, D[2], D[2] + .6));
+  else if (t < D[8]) osc = lerp(.38, .55, prog(t, D[4], D[4] + .5));
+  else if (t < D[12]) osc = .12;
+  else osc = lerp(.25, .5, prog(t, D[12], D[14]));
+  put($("oscuro"), { o: conFondo ? osc : 0 });
+  let rj = 0;
+  if (t >= D[12] && t < D[15]) rj = t < D[14] ? lerp(0, .32, prog(t, D[12], D[14])) : lerp(.8, .5, prog(t, D[14], D[14] + .9));
+  put($("rojo"), { o: rj });
+  put($("glow"), { o: t >= D[15] ? 1 : 0 });
+
+  /* --- escena 0: Tepic y la Unidad --- */
+  put($("lugar"), { o: fade(t, 0.9, 1.5, D[1] - .35, D[1] - .05), y: lerp(20, 0, eo(prog(t, 0.9, 1.6))) });
+
+  /* --- escena 1: la silla vacía --- */
+  {
+    const inn = eo(prog(t, D[2], D[2] + .8)), out = eio(prog(t, D[4] - .45, D[4]));
+    const vis = t >= D[2] && t < D[4];
+    put($("silla"), { o: vis ? 1 : 0, y: lerp(1500, 0, inn) + Math.sin(t * 1.3) * 8 - out * 1700, r: lerp(7, 0, inn) - out * 6 });
+    pop($("tu"), t, D[3], D[4] - .5, D[4] - .2);
+  }
+
+  /* --- escena 2: dos decisiones --- */
+  put($("hud"), { o: fade(t, D[4], D[4] + .4, D[12] - .25, D[12]), y: lerp(-50, 0, eo(prog(t, D[4], D[4] + .5))) });
+  for (let i = 0; i < 4; i++) {
+    hudN[i].style.height = nivel(HUD[i], t) + "%";
+    const c = cambio(HUD[i], t);
+    hudT[i].className = "tri " + (c > 0 ? "sube" : "baja");
+    hudT[i].style.visibility = c !== 0 && t >= D[4] && t < D[12] ? "visible" : "hidden";
+    hudM[i].style.transform = "scale(" + (c !== 0 ? 1.08 : 1) + ")";
+  }
+  carta($("qa"), $("opa"), t, D[4], D[5], B[22], -1, +1);
+  carta($("qb"), $("opb"), t, D[6], D[7], B[30], +1, -1);
+
+  /* --- escena 3: la plantilla, un retrato por pulso --- */
+  for (let j = 0; j < caras.length; j++) {
+    const t0 = B[32 + j], t1 = B[33 + j], el = caras[j], lado = j % 2 ? 1 : -1;
+    if (t < t0 || t > t1 + .4) { el.style.visibility = "hidden"; continue; }
+    const p = prog(t, t0, t0 + .25);
+    let o = { o: 1, s: lerp(.72, 1, back(p)), r: lado * lerp(7, 2.5, eo(p)), z: j < 8 ? 100 + j : 200 - j };
+    if (t >= t1) {
+      const q = prog(t, t1, t1 + .34);
+      if (j < 8) { o.o = 1 - prog(t, t1, t1 + .12); o.s = lerp(1, .94, q); }
+      else { o.x = lado * 1350 * eio(q); o.r = lado * lerp(2.5, 30, q); }
+    }
+    put(el, o);
+  }
+  pop($("plantilla"), t, D[8], D[10] - .3, D[10] - .05);
+  pop($("w1"), t, B[40], B[42] - .1, B[42] - .02);
+  pop($("w2"), t, B[42], B[44] - .1, B[44] - .02);
+  pop($("w3"), t, B[44], D[12] - .3, D[12] - .05, { s: lerp(.6, 1, back(prog(t, B[44], B[44] + .32))) * lerp(1, 1.1, prog(t, B[44], D[12])) });
+
+  /* --- escena 4: un medidor se desborda, otro se vacía --- */
+  put($("barras"), { o: fade(t, D[12], D[12] + .4, D[15] - .9, D[15] - .45), y: lerp(60, 0, eo(prog(t, D[12], D[12] + .5))) });
+  for (let i = 0; i < 4; i++) {
+    const v = nivel(GRANDES[i], t);
+    barN[i].style.height = v + "%";
+    const peligro = v <= 8 || v >= 92;
+    barP[i].style.borderColor = peligro && Math.floor(t * 6) % 2 === 0 ? "#ff6a5c" : (peligro ? "#d2453a" : "#2f6fd0");
+  }
+  pop($("av1"), t, D[12] + .2, D[13] - .2, D[13] - .04);
+  pop($("av2"), t, D[13], D[14] - .2, D[14] - .04);
+  pop($("av3"), t, D[14] + .15, D[15] - .9, D[15] - .45);
+  // golpe: destello y sacudida cuando Finanzas llega a cero
+  let fl = 0, sx = 0, sy = 0;
+  if (t >= D[14] && t < D[14] + 1) {
+    fl = .6 * (1 - prog(t, D[14], D[14] + .35));
+    const a = 30 * Math.exp(-(t - D[14]) * 4.2); sx = a * Math.sin(t * 71); sy = a * Math.cos(t * 53);
+  }
+  if (t >= D[15] && t < D[15] + .5) fl = .7 * (1 - prog(t, D[15], D[15] + .45));
+  put($("flash"), { o: fl });
+  $("shake").style.transform = "translate(" + sx + "px," + sy + "px)";
+
+  /* --- escena 5: título --- */
+  {
+    const T = D[15], vis = t >= T;
+    $("titulo").style.display = vis ? "block" : "none";
+    if (vis) {
+      $("titulo").style.transform = "scale(" + lerp(1, 1.035, prog(t, T, FIN)) + ")";
+      put($("t1"), { o: prog(t, T, T + .15), y: lerp(-90, 0, back(prog(t, T, T + .4))) });
+      put($("t2"), { o: prog(t, T, T + .1), s: lerp(1.7, 1, back(prog(t, T, T + .5))) });
+      pop($("lema"), t, B[62], 99, 100);
+      put($("sub"), { o: prog(t, B[63], B[63] + .5), y: lerp(20, 0, eo(prog(t, B[63], B[63] + .5))) });
+      put($("pie"), { o: prog(t, D[16], D[16] + .5), y: lerp(20, 0, eo(prog(t, D[16], D[16] + .5))) });
+    }
+  }
+
+  /* --- créditos: fundido a negro en D[17] y un nombre por pulso --- */
+  {
+    const C = D[17], vis = t >= C - .4;
+    $("creditos").style.display = vis ? "block" : "none";
+    put($("creditos"), { o: vis ? prog(t, C - .4, C + .15) : 0 });
+    if (vis) {
+      const entra = (id, a) => put($(id), { o: prog(t, a, a + .4), y: lerp(26, 0, eo(prog(t, a, a + .5))) });
+      entra("cr0", C + .25);
+      for (let i = 1; i <= 4; i++) entra("cr" + i, C + i * .6735);
+    }
+  }
+
+  /* --- negros: entrada, corte antes del título y salida --- */
+  let ng = 1 - prog(t, 0.1, 1.3);
+  if (t >= D[15] - .9 && t < D[15]) ng = prog(t, D[15] - .9, D[15] - .4);
+  if (t >= FIN - .9) ng = prog(t, FIN - .9, FIN - .1);
+  put($("negro"), { o: ng });
+}
+
+// carta de decisión: entra en t0, se inclina en t1 hacia `lado` (-1 izq, +1 der) y sale volando en t2
+// `esquina`: por cuál esquina superior se asoma el personaje (+1 derecha, -1 izquierda)
+function carta(el, op, t, t0, t1, t2, lado, esquina) {
+  if (t < t0 || t > t2 + .7) { el.style.visibility = "hidden"; op.style.visibility = "hidden"; return; }
+  const inn = prog(t, t0, t0 + .6), tilt = eio(prog(t, t1, t1 + .7)), fly = eio(prog(t, t2, t2 + .55));
+  put(el, { o: 1, y: lerp(1500, 0, eo(inn)), x: lado * (90 * tilt + 1300 * fly), r: lerp(8, 0, eo(inn)) + lado * (10 * tilt + 26 * fly) });
+  pop(op, t, t1 + .2, t2 + .1, t2 + .3);
+  // el personaje sale un pulso después de la carta, con rebote, y luego se mece al ritmo (un vaivén por pulso)
+  const sale = back(prog(t, t0 + .67, t0 + 1.07)), mece = Math.sin((t - t0) * 2 * Math.PI / .6735);
+  const d = lerp(-275, 0, sale) + mece * 7;   // avance a lo largo de su propio eje (38° de inclinación)
+  const sp = el.querySelector(".asoma");
+  sp.style.opacity = prog(t, t0 + .62, t0 + .74);   // oculto hasta que le toca salir
+  sp.style.transform = "translate(" + (esquina * .616 * d) + "px," + (-.788 * d) + "px) rotate(" + (esquina * (38 + mece * 2.5)) + "deg)";
+}
+
+window.seek = t => { render(t); return true; };
+
+/* ============ Vista previa en el navegador ============ */
+const stage = $("stage"), au = $("au"), play = $("play");
+function fit() {
+  const s = Math.min(innerWidth / 1080, innerHeight / 1920);
+  stage.style.transform = "scale(" + s + ")";
+  stage.style.left = ((innerWidth - 1080 * s) / 2) + "px";
+  stage.style.top = ((innerHeight - 1920 * s) / 2) + "px";
+}
+addEventListener("resize", fit); fit();
+if (/render/.test(location.search)) { play.style.display = "none"; }
+else {
+  const q = new URLSearchParams(location.search);
+  if (q.has("t")) { play.style.display = "none"; window.listo.then(() => render(parseFloat(q.get("t")))); }
+  function loop() {
+    const t = au.currentTime;
+    au.volume = clamp(Math.min(1, (FIN - t) / 2.2));
+    render(Math.min(t, FIN));
+    if (t >= FIN) { au.pause(); play.style.display = "flex"; play.textContent = "▶ Ver otra vez"; return; }
+    requestAnimationFrame(loop);
+  }
+  play.addEventListener("click", () => { window.listo.then(() => { play.style.display = "none"; au.currentTime = 0; au.volume = 1; au.play(); requestAnimationFrame(loop); }); });
+}
+</script>
+</body>
+</html>

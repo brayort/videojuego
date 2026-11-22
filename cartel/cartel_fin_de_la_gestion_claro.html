@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Fin de la Gestión — Cartel fondo claro 80 x 180 cm</title>
+<style>
+  /* Todo el cartel está medido en milímetros: 800 x 1800 mm (80 x 180 cm) */
+  @font-face { font-family: "Fredoka"; src: url("../assets/fonts/Fredoka-SemiBold.ttf"); font-weight: 600; }
+  @font-face { font-family: "Nunito";  src: url("../assets/fonts/Nunito-SemiBold.ttf");  font-weight: 600; }
+  @page { size: 800mm 1800mm; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 800mm; height: 1800mm; background: #07122b; }
+  body { font-family: "Nunito", sans-serif; font-weight: 600; color: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  .cartel {
+    position: relative; width: 800mm; height: 1800mm; overflow: hidden;
+    background:
+      radial-gradient(ellipse 520mm 420mm at 50% 820mm, rgba(244,196,48,.26), rgba(244,196,48,0) 70%),
+      repeating-linear-gradient(135deg, rgba(255,255,255,.035) 0 3mm, rgba(255,255,255,0) 3mm 46mm),
+      linear-gradient(180deg, #060f26 0%, #0c2152 38%, #143c86 72%, #1c52a8 100%);
+  }
+  .marco { position: absolute; inset: 20mm; border: 3mm solid #f4c430; border-radius: 44mm; opacity: .85; }
+
+  .abs { position: absolute; left: 0; width: 800mm; text-align: center; }
+
+  /* ---- Cabecera: logos + unidad ---- */
+  .logo { position: absolute; top: 50mm; width: 62mm; height: 62mm; object-fit: contain; }
+  .logo-izq { left: 58mm; }
+  .logo-der { right: 58mm; }
+  .chip { top: 62mm; display: flex; justify-content: center; }
+  .chip span {
+    background: #2f6fd0; border: 1.5mm solid #f4c430; border-radius: 30mm;
+    padding: 5mm 18mm; font-size: 20mm; line-height: 1.1; letter-spacing: 1.2mm; text-transform: uppercase;
+  }
+
+  /* ---- Título ---- */
+  .t1 { top: 116mm; font-family: "Fredoka"; font-size: 96mm; line-height: 1; letter-spacing: 4mm; padding-left: 4mm; color: #fff;
+        text-shadow: 0 3mm 0 #1e4fa0, 0 8mm 0 #0a1c46, 0 14mm 22mm rgba(0,0,0,.55); }
+  .t2 { top: 224mm; font-family: "Fredoka"; font-size: 160mm; line-height: 1; letter-spacing: 4mm; padding-left: 4mm; color: #f4c430;
+        text-shadow: 0 4mm 0 #c68a00, 0 10mm 0 #6a4600, 0 18mm 26mm rgba(0,0,0,.6); }
+
+  /* ---- Lema ---- */
+  .lema  { top: 414mm; font-size: 38mm; line-height: 1; color: #fff; }
+  .lema2 { top: 460mm; font-family: "Fredoka"; font-size: 54mm; line-height: 1; color: #ffe58a; }
+  .sub   { top: 533mm; font-size: 27mm; line-height: 1; color: #d6e2f5; }
+
+  /* ---- Pila de cartas ---- */
+  .pila { position: absolute; left: 0; top: 596mm; width: 800mm; height: 540mm; }
+  .carta { position: absolute; border-radius: 40mm; background: #1e4fa0; padding: 11mm; box-shadow: 0 14mm 0 #0a1c46, 0 24mm 40mm rgba(0,0,0,.55); }
+  .carta .panel { position: relative; width: 100%; height: 100%; background: #fff; border-radius: 30mm; overflow: hidden; }
+  .carta .panel::before { content: ""; position: absolute; inset: 7mm; border: 2.2mm solid #f4c430; border-radius: 24mm; z-index: 3; pointer-events: none; }
+  .carta .panel svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .punto { position: absolute; width: 9mm; height: 9mm; border-radius: 50%; background: #f4c430; z-index: 4; }
+
+  /* cartas laterales: dorso de la baraja (sin personajes) */
+  .c-izq { width: 340mm; height: 400mm; left: 36mm;  top: 40mm; transform: rotate(-8deg); }
+  .c-der { width: 340mm; height: 400mm; left: 424mm; top: 40mm; transform: rotate(8deg); }
+  .dorso .panel {
+    background:
+      repeating-linear-gradient(45deg, rgba(47,111,208,.55) 0 5mm, rgba(47,111,208,0) 5mm 22mm),
+      repeating-linear-gradient(-45deg, rgba(47,111,208,.55) 0 5mm, rgba(47,111,208,0) 5mm 22mm),
+      #0e2550;
+  }
+  .c-prin { width: 440mm; height: 470mm; left: 180mm; top: 0; z-index: 5; }
+  .c-prin .panel::after { content: ""; position: absolute; inset: 11mm; border: 1mm solid #6fcfa0; border-radius: 20mm; z-index: 3; pointer-events: none; }
+
+  .desliza { position: absolute; left: 0; width: 800mm; top: 500mm; text-align: center; z-index: 6;
+             font-size: 26mm; line-height: 1; color: #cfe0ff; }
+
+  /* ---- Carta de ejemplo ---- */
+  .pregunta { top: 1150mm; left: 70mm; width: 660mm; padding: 14mm 24mm; background: rgba(8,21,50,.78);
+              border-top: 1.5mm solid #f4c430; border-bottom: 1.5mm solid #f4c430;
+              font-size: 30mm; line-height: 1.2; }
+  .opciones { top: 1300mm; display: flex; justify-content: center; gap: 18mm; }
+  .opciones span { background: #fff; color: #0b1a33; border-radius: 30mm; padding: 6mm 18mm 7mm;
+                   font-size: 24mm; line-height: 1.1; box-shadow: 0 3mm 0 #0a1c46; }
+
+  /* ---- Medidores ---- */
+  .medidores { top: 1372mm; display: flex; justify-content: center; gap: 42mm; }
+  .medidor { width: 120mm; text-align: center; }
+  .caja { position: relative; width: 80mm; height: 80mm; margin: 0 auto 7mm; background: #0b1b44;
+          border: 3.2mm solid #2f6fd0; box-shadow: 0 4.5mm 0 #081532; overflow: hidden; }
+  .caja .nivel { position: absolute; left: 0; right: 0; bottom: 0; background: #f4c430; }
+  .caja svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .medidor b { display: block; font-weight: 600; font-size: 22mm; line-height: 1; }
+  .regla { top: 1500mm; font-size: 25mm; line-height: 1; color: #ffe58a; }
+
+  /* ---- Plantilla ---- */
+  .plantilla-titulo { top: 1546mm; font-size: 20mm; line-height: 1; letter-spacing: 5mm; color: #ffe58a; text-transform: uppercase; padding-left: 5mm; }
+  .plantilla { position: absolute; top: 1576mm; left: 0; width: 800mm; display: flex; justify-content: center; gap: 10mm; }
+  .cara { position: relative; width: 66mm; height: 66mm; border-radius: 50%; background: #fff; border: 2.8mm solid #f4c430;
+          overflow: hidden; box-shadow: 0 3mm 0 #0a1c46; }
+  .cara img { position: absolute; width: 200%; left: -50%; top: -2%; }
+
+  /* ---- Pie ---- */
+  .pie { top: 1668mm; font-family: "Fredoka"; font-size: 30mm; line-height: 1; letter-spacing: 4mm; padding-left: 4mm; color: #fff; }
+  .pie span { color: #f4c430; }
+  .nota { top: 1716mm; font-size: 15mm; line-height: 1; color: #cfe0ff; }
+
+  /* ---- Variante de fondo claro: se activa con <div class="cartel claro"> ---- */
+  .claro {
+    color: #0b1a33;
+    background:
+      radial-gradient(ellipse 520mm 420mm at 50% 820mm, rgba(242,194,48,.5), rgba(242,194,48,0) 70%),
+      linear-gradient(rgba(30,79,163,.11) .7mm, rgba(30,79,163,0) .7mm) 0 0 / 20mm 20mm,
+      linear-gradient(90deg, rgba(30,79,163,.11) .7mm, rgba(30,79,163,0) .7mm) 0 0 / 20mm 20mm,
+      linear-gradient(180deg, #ffffff 0%, #eef4ff 45%, #cfe0f8 100%);
+  }
+  .claro .marco { border-color: #1e4fa3; opacity: 1; }
+  .claro .logo { width: 74mm; height: 74mm; top: 44mm; padding: 11mm; background: #0e2550; border-radius: 50%; }
+  .claro .logo-izq { left: 52mm; }
+  .claro .logo-der { right: 52mm; }
+  .claro .t1 { color: #0e2550; text-shadow: 0 3mm 0 #f4c430, 0 9mm 18mm rgba(14,37,80,.25); }
+  .claro .t2 { color: #1e4fa3; text-shadow: 0 4mm 0 #0e2550, 0 10mm 0 #f4c430, 0 20mm 26mm rgba(14,37,80,.3); }
+  .claro .lema { color: #0b1a33; }
+  .claro .lema2 { color: #1e4fa3; }
+  .claro .sub, .claro .desliza, .claro .nota { color: #33466b; }
+  .claro .pregunta { background: #0e2550; color: #fff; }
+  .claro .opciones span { background: #f4c430; }
+  .claro .regla, .claro .plantilla-titulo { color: #1e4fa3; }
+  .claro .pie { color: #0e2550; }
+  .claro .pie span { color: #2f6fd0; }
+</style>
+</head>
+<body>
+<div class="cartel claro">
+  <div class="marco"></div>
+
+  <!-- Cabecera -->
+  <!-- Ojo: los archivos están nombrados al revés ("logo uae.png" es el escudo de la UAN) -->
+  <img class="logo logo-izq" src="logo uae.png" alt="Universidad Autónoma de Nayarit">
+  <img class="logo logo-der" src="logo uan.png" alt="Unidad Académica de Economía">
+  <div class="abs chip"><span>Unidad Académica de Economía · UAN</span></div>
+
+  <!-- Título -->
+  <div class="abs t1">FIN DE LA</div>
+  <div class="abs t2">GESTIÓN</div>
+
+  <!-- Lema: deja claro que la gestión es la de quien juega -->
+  <div class="abs lema">Toda gestión termina.</div>
+  <div class="abs lema2">¿Cuánto dura la tuya?</div>
+  <div class="abs sub">El juego de cartas donde el director eres tú</div>
+
+  <!-- Pila de cartas: la silla vacía te espera -->
+  <div class="pila">
+    <div class="carta dorso c-izq"><div class="panel"></div></div>
+    <div class="carta dorso c-der"><div class="panel"></div></div>
+    <div class="carta c-prin"><div class="panel">
+      <svg viewBox="0 0 418 448" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <radialGradient id="luz" cx="50%" cy="34%" r="72%">
+            <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#bfd5f6"/>
+          </radialGradient>
+        </defs>
+        <rect width="418" height="448" fill="url(#luz)"/>
+        <!-- diploma -->
+        <g transform="translate(46 78)">
+          <rect width="74" height="56" rx="4" fill="#fff" stroke="#f2c230" stroke-width="6"/>
+          <path d="M14 19h46M14 31h30" stroke="#9db7e0" stroke-width="5" stroke-linecap="round"/>
+          <circle cx="56" cy="40" r="6" fill="#d2453a"/>
+        </g>
+        <!-- reloj -->
+        <g transform="translate(338 106)">
+          <circle r="32" fill="#fff" stroke="#1e4fa3" stroke-width="7"/>
+          <path d="M0 0V-19M0 0L13 9" stroke="#0e2550" stroke-width="6" stroke-linecap="round" fill="none"/>
+        </g>
+        <!-- silla vacía -->
+        <rect x="108" y="236" width="34" height="80" rx="13" fill="#0e2550"/>
+        <rect x="276" y="236" width="34" height="80" rx="13" fill="#0e2550"/>
+        <path d="M137 312 V138 Q137 72 209 72 Q281 72 281 138 V312 Z" fill="#1e4fa3" stroke="#0e2550" stroke-width="8" stroke-linejoin="round"/>
+        <path d="M162 126 Q162 98 209 98 Q256 98 256 126" fill="none" stroke="#5b9bea" stroke-width="9" stroke-linecap="round"/>
+        <path d="M166 168H252M166 212H252M166 256H252" stroke="#12407f" stroke-width="7" stroke-linecap="round"/>
+        <!-- escritorio -->
+        <rect x="0" y="300" width="418" height="148" fill="#0e2550"/>
+        <rect x="0" y="300" width="418" height="15" fill="#2f6fd0"/>
+        <!-- papeles -->
+        <g stroke="#0e2550" stroke-width="4" fill="#fff" stroke-linejoin="round">
+          <rect x="30" y="292" width="66" height="10" rx="2"/>
+          <rect x="36" y="284" width="62" height="10" rx="2"/>
+          <rect x="32" y="276" width="64" height="10" rx="2"/>
+        </g>
+        <!-- taza de café -->
+        <g stroke="#0e2550" stroke-width="5" stroke-linejoin="round">
+          <path d="M376 281 q17 0 17 11 t-17 11" fill="none"/>
+          <rect x="342" y="270" width="36" height="36" rx="6" fill="#fff"/>
+        </g>
+        <path d="M352 258 q-6 -8 0 -16 t0 -16 M368 258 q-6 -8 0 -16 t0 -16" fill="none" stroke="#9db7e0" stroke-width="4" stroke-linecap="round"/>
+        <!-- placa del escritorio -->
+        <path d="M66 412 L78 332 H340 L352 412 Z" fill="#c68a00"/>
+        <rect x="70" y="322" width="278" height="84" rx="9" fill="#f2c230" stroke="#0b1a33" stroke-width="6"/>
+        <text x="209" y="352" text-anchor="middle" font-family="Fredoka" font-weight="600" font-size="22" letter-spacing="4" fill="#0b1a33">DIRECCIÓN</text>
+        <text x="209" y="384" text-anchor="middle" font-family="Nunito" font-weight="600" font-size="25" fill="#0b1a33" opacity=".72">tu nombre aquí</text>
+        <path d="M104 394H314" stroke="#0b1a33" stroke-width="3" stroke-dasharray="1 8" stroke-linecap="round"/>
+      </svg>
+      <div class="punto" style="left:15mm;top:15mm"></div><div class="punto" style="right:15mm;top:15mm"></div>
+      <div class="punto" style="left:15mm;bottom:15mm"></div><div class="punto" style="right:15mm;bottom:15mm"></div></div></div>
+    <div class="desliza">← Desliza la carta y decide →</div>
+  </div>
+
+  <!-- Carta de ejemplo (adaptada de una carta real, sin nombres) -->
+  <div class="abs pregunta">Los alumnos organizan una kermés para juntar dinero. Piden permiso y, de paso, el auditorio.</div>
+  <div class="abs opciones"><span>← Autorizarla</span><span>Negarla por el riesgo →</span></div>
+
+  <!-- Medidores (iconos del juego) -->
+  <div class="abs medidores">
+    <div class="medidor">
+      <div class="caja"><div class="nivel" style="height:62%"></div>
+        <svg viewBox="0 0 100 100"><g fill="#fff" stroke="#10204a" stroke-width="3" stroke-linejoin="round">
+          <path d="M50 22 L86 40 L50 58 L14 40 Z"/><path d="M28 51 V66 Q50 80 72 66 V51 L50 62 Z"/><path d="M82 43 V68" stroke-linecap="round" fill="none"/></g></svg></div>
+      <b>Docentes</b></div>
+    <div class="medidor">
+      <div class="caja"><div class="nivel" style="height:48%"></div>
+        <svg viewBox="0 0 100 100"><g fill="#fff" stroke="#10204a" stroke-width="3">
+          <circle cx="50" cy="34" r="11"/><path d="M30 70 Q30 49 50 49 Q70 49 70 70 Z"/>
+          <circle cx="24" cy="42" r="8"/><path d="M8 68 Q8 52 24 52 Q30 52 33 55 Q27 62 28 68 Z"/>
+          <circle cx="76" cy="42" r="8"/><path d="M92 68 Q92 52 76 52 Q70 52 67 55 Q73 62 72 68 Z"/></g></svg></div>
+      <b>Estudiantes</b></div>
+    <div class="medidor">
+      <div class="caja"><div class="nivel" style="height:70%"></div>
+        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="28" fill="#f4c430" stroke="#10204a" stroke-width="4"/>
+          <text x="50" y="63" text-anchor="middle" font-family="Fredoka" font-size="40" fill="#10204a">$</text></svg></div>
+      <b>Finanzas</b></div>
+    <div class="medidor">
+      <div class="caja"><div class="nivel" style="height:55%"></div>
+        <svg viewBox="0 0 100 100"><g fill="#fff" stroke="#10204a" stroke-width="3" stroke-linejoin="round">
+          <path d="M50 16 L88 36 H12 Z"/><rect x="16" y="39" width="68" height="6"/>
+          <rect x="22" y="48" width="9" height="26"/><rect x="45.5" y="48" width="9" height="26"/><rect x="69" y="48" width="9" height="26"/>
+          <rect x="14" y="77" width="72" height="8"/></g></svg></div>
+      <b>Política</b></div>
+  </div>
+  <div class="abs regla">Si uno se vacía o se desborda, se acaba tu gestión.</div>
+
+  <!-- Plantilla -->
+  <div class="abs plantilla-titulo">Conoce a tu plantilla</div>
+  <div class="plantilla">
+    <div class="cara"><img src="../sprites/08-monica.png" alt=""></div>
+    <div class="cara"><img src="../sprites/01-alejandro.png" alt=""></div>
+    <div class="cara"><img src="../sprites/02-beatriz.png" alt=""></div>
+    <div class="cara"><img src="../sprites/04-fernando.png" alt=""></div>
+    <div class="cara"><img src="../sprites/05-janoe.png" alt=""></div>
+    <div class="cara"><img src="../sprites/09-nayeli.png" alt=""></div>
+    <div class="cara"><img src="../sprites/11-sonia.png" alt=""></div>
+    <div class="cara"><img src="../sprites/12-victor.png" alt=""></div>
+    <div class="cara"><img src="../sprites/13-alfonso.png" alt=""></div>
+  </div>
+
+  <div class="abs pie">DESLIZA · DECIDE · <span>SOBREVIVE</span></div>
+  <div class="abs nota">Juego de ficción y humor: las situaciones son inventadas.</div>
+</div>
+</body>
+</html>
