@@ -40,15 +40,14 @@
   .frase { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0.05in 0.14in; font-size: 8.8pt; line-height: 1.28; border-top: 0.03in solid var(--ama); }
   .marca { flex: none; text-align: center; font-family: "Fredoka"; font-size: 6.2pt; letter-spacing: 0.03in; color: var(--gris); padding: 0.035in 0 0.05in; border-top: 0.01in solid var(--linea); }
 
-  /* ---- reverso (esquinas rectas) ---- */
-  .fondo-reverso { position: absolute; left: 0.53in; top: 0.28in; width: 7.44in; height: 10.44in; background: var(--marino); }
+  /* ---- reverso (esquinas rectas, ahorro de tinta: fondo blanco, solo un marco fino y el logo) ---- */
+  .fondo-reverso { display: none; }
   .dorso { width: 2.4in; height: 3.4in; padding: 0.15in; }
-  .dorso div.marco { height: 100%; border: 0.025in solid var(--ama); display: flex; flex-direction: column; align-items: center; justify-content: center;
-           background: repeating-linear-gradient(45deg, rgba(47,111,208,.55) 0 0.04in, rgba(47,111,208,0) 0.04in 0.18in),
-                       repeating-linear-gradient(-45deg, rgba(47,111,208,.55) 0 0.04in, rgba(47,111,208,0) 0.04in 0.18in), #0e2550; }
-  .logo { background: var(--marino); border: 0.02in solid var(--ama); padding: 0.13in 0.15in 0.15in; text-align: center; }
-  .logo .l1 { font-family: "Fredoka"; font-size: 12.5pt; line-height: 1; letter-spacing: 0.02in; color: #fff; text-shadow: 0 0.015in 0 #1e4fa0; }
-  .logo .l2 { font-family: "Fredoka"; font-size: 24pt; line-height: 1; letter-spacing: 0.015in; color: var(--ama); margin-top: 0.035in; text-shadow: 0 0.02in 0 #c68a00, 0 0.045in 0 #6a4600; }
+  .dorso div.marco { height: 100%; border: 0.012in solid var(--azul); display: flex; flex-direction: column; align-items: center; justify-content: center; background: #fff; }
+  .logo { text-align: center; }
+  .logo .l1 { font-family: "Fredoka"; font-size: 12.5pt; line-height: 1; letter-spacing: 0.02in; color: var(--marino); }
+  .logo .l2 { font-family: "Fredoka"; font-size: 24pt; line-height: 1; letter-spacing: 0.015in; color: var(--azul); margin-top: 0.035in; }
+  .logo::after { content: ""; display: block; width: 0.9in; height: 0.025in; background: var(--ama); margin: 0.09in auto 0; }
 </style>
 </head>
 <body>
