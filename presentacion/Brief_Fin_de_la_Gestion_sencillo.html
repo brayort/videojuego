@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Fin de la Gestión — Brief en lenguaje sencillo</title>
+<style>
+  /* Versión en lenguaje sencillo del brief ampliado (8 páginas tamaño carta): mismas secciones y mismo orden que "Plantilla Brief DiseñoUX", con preguntas y palabras más simples.
+     La versión corta de 3 páginas sigue en Brief_Fin_de_la_Gestion.html (no se modificó).
+     Para regenerar el PDF: abrir en Chrome e imprimir a PDF sin márgenes, con gráficos de fondo. */
+  @font-face { font-family: "Fredoka"; src: url("../assets/fonts/Fredoka-SemiBold.ttf"); font-weight: 600; }
+  @font-face { font-family: "Nunito";  src: url("../assets/fonts/Nunito-SemiBold.ttf");  font-weight: 600; }
+  @page { size: 8.5in 11in; margin: 0; }
+  :root { --marino: #0e2550; --azul: #1e4fa3; --vivo: #2f6fd0; --ama: #f2c230; --ama-cl: #ffe58a; --tinta: #0b1a33; --gris: #55688a;
+          --fondo: #f4f8ff; --linea: #c9d8f0; --palido: #e6effc; --rojo: #d2453a; --verde: #2e8b57; --ambar: #e58a1f; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: "Nunito", sans-serif; font-weight: 600; color: var(--tinta); font-size: 10pt; line-height: 1.4; }
+  .pagina { position: relative; width: 8.5in; height: 11in; overflow: hidden; background: var(--fondo); page-break-after: always; }
+  .pagina:last-child { page-break-after: auto; }
+  .cuerpo { position: absolute; left: 0.6in; right: 0.6in; top: 0.98in; bottom: 0.62in; }
+  h1 { font-family: "Fredoka"; font-weight: 600; font-size: 19pt; line-height: 1.05; color: var(--marino); margin: 0.24in 0 0.14in; }
+  h1:first-child { margin-top: 0; }
+  h1 small { font-family: "Nunito"; font-size: 9.5pt; color: var(--gris); margin-left: 0.08in; }
+  b, .f { font-family: "Fredoka"; font-weight: 600; color: var(--azul); }
+  p + p { margin-top: 0.07in; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0 0.3in; align-items: start; }
+  .tres { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.13in; }
+  /* pregunta de la plantilla + respuesta */
+  .q { font-family: "Fredoka"; font-size: 10.5pt; line-height: 1.18; color: var(--azul); margin-bottom: 0.055in; }
+  .q::before { content: ""; display: block; width: 0.34in; height: 0.045in; border-radius: 0.03in; background: var(--ama); margin-bottom: 0.055in; }
+  .sub { font-family: "Fredoka"; font-size: 9.4pt; letter-spacing: 0.015in; text-transform: uppercase; color: var(--gris); margin: 0.02in 0 0.05in; }
+  .bloque { margin-bottom: 0.2in; }
+  .bloque:last-child { margin-bottom: 0; }
+  ul.lista { list-style: none; }
+  ul.lista li { position: relative; padding-left: 0.18in; margin-bottom: 0.04in; }
+  ul.lista li::before { content: ""; position: absolute; left: 0.02in; top: 0.065in; width: 0.07in; height: 0.07in; border-radius: 50%; background: var(--vivo); }
+  .tarjeta { background: #fff; border: 0.012in solid var(--linea); border-radius: 0.13in; padding: 0.12in 0.14in; }
+  .tarjeta small.et { display: block; font-family: "Fredoka"; font-size: 9pt; letter-spacing: 0.02in; text-transform: uppercase; color: var(--vivo); margin-bottom: 0.03in; }
+  .ambar { background: var(--ama); border-radius: 0.13in; padding: 0.11in 0.15in 0.13in; color: var(--marino); box-shadow: 0 0.045in 0 #c68a00; }
+  .ambar small { display: block; font-family: "Fredoka"; font-size: 8.8pt; letter-spacing: 0.02in; text-transform: uppercase; margin-bottom: 0.02in; }
+  .oscura { background: var(--marino); color: #fff; border-radius: 0.13in; padding: 0.12in 0.15in 0.14in; }
+  .oscura b { color: var(--ama-cl); }
+  .oscura small { display: block; font-family: "Fredoka"; font-size: 10pt; color: var(--ama-cl); margin-bottom: 0.02in; }
+  .pastilla { display: inline-block; font-family: "Fredoka"; font-size: 9.6pt; line-height: 1; color: var(--marino); background: var(--palido); border: 0.012in solid var(--vivo); border-radius: 0.2in; padding: 0.045in 0.11in 0.055in; margin: 0 0.04in 0.05in 0; }
+  .nota { font-size: 9pt; color: var(--gris); margin-top: 0.08in; }
+
+  .pie { position: absolute; left: 0.6in; right: 0.6in; bottom: 0.3in; display: flex; justify-content: space-between; font-size: 8.3pt; color: var(--gris); }
+  .cab { position: absolute; left: 0.6in; right: 0.6in; top: 0.42in; display: flex; justify-content: space-between; align-items: center;
+         padding-bottom: 0.1in; border-bottom: 0.03in solid var(--ama); font-size: 9.2pt; color: var(--gris); }
+  .cab .marca { font-family: "Fredoka"; font-size: 12pt; color: var(--azul); letter-spacing: 0.01in; }
+  .cab .num { font-family: "Fredoka"; font-size: 10pt; color: var(--marino); background: var(--ama); border-radius: 0.2in; padding: 0.02in 0.14in; }
+
+  /* tablas */
+  table.tabla { width: 100%; border-collapse: separate; border-spacing: 0; background: #fff; border: 0.012in solid var(--linea); border-radius: 0.12in; overflow: hidden; font-size: 9.4pt; line-height: 1.3; }
+  .tabla th { font-family: "Fredoka"; font-weight: 600; font-size: 9.2pt; text-align: left; color: var(--marino); background: var(--palido); padding: 0.06in 0.11in; }
+  .tabla td { padding: 0.07in 0.11in; border-top: 0.01in solid var(--palido); vertical-align: top; }
+  .tabla td:first-child { font-family: "Fredoka"; color: var(--azul); }
+
+  /* ---- página 1 ---- */
+  .hero { position: absolute; left: 0; top: 0; width: 8.5in; height: 3.5in; color: #fff;
+          background:
+            radial-gradient(ellipse 3.2in 2.6in at 6.9in 2.0in, rgba(244,196,48,.32), rgba(244,196,48,0) 70%),
+            repeating-linear-gradient(135deg, rgba(255,255,255,.04) 0 0.03in, rgba(255,255,255,0) 0.03in 0.5in),
+            linear-gradient(180deg, #060f26 0%, #0c2152 42%, #143c86 78%, #1c52a8 100%); }
+  .chip { position: absolute; left: 0.6in; top: 0.45in; border: 0.02in solid var(--ama); border-radius: 0.3in; padding: 0.045in 0.18in;
+          font-family: "Fredoka"; font-size: 9.2pt; letter-spacing: 0.015in; color: var(--ama-cl); }
+  .t1 { position: absolute; left: 0.6in; top: 0.87in; font-family: "Fredoka"; font-size: 35pt; line-height: 1; letter-spacing: 0.02in; color: #fff;
+        text-shadow: 0 0.025in 0 #1e4fa0, 0 0.06in 0 #0a1c46; }
+  .t2 { position: absolute; left: 0.575in; top: 1.32in; font-family: "Fredoka"; font-size: 63pt; line-height: 1; letter-spacing: 0.02in; color: var(--ama);
+        text-shadow: 0 0.035in 0 #c68a00, 0 0.075in 0 #6a4600, 0 0.14in 0.22in rgba(0,0,0,.5); }
+  .antes { position: absolute; left: 0.62in; top: 2.4in; font-size: 9pt; color: #b8cbee; }
+  .pitch { position: absolute; left: 0.6in; top: 2.66in; width: 4.7in; font-size: 11.5pt; line-height: 1.3; color: #fff; }
+  .dorso { position: absolute; width: 1.55in; height: 2.35in; border-radius: 0.2in; background: var(--azul); border: 0.06in solid #2f6fd0; box-shadow: 0 0.07in 0 #0a1c46; }
+  .dorso::after { content: ""; position: absolute; inset: 0.08in; border-radius: 0.12in; border: 0.02in solid var(--ama);
+           background: repeating-linear-gradient(45deg, rgba(47,111,208,.55) 0 0.04in, rgba(47,111,208,0) 0.04in 0.18in), repeating-linear-gradient(-45deg, rgba(47,111,208,.55) 0 0.04in, rgba(47,111,208,0) 0.04in 0.18in), #0e2550; }
+  .cel { position: absolute; border-radius: 0.18in; border: 0.055in solid #0a1c46; box-shadow: 0 0.1in 0.28in rgba(6,15,38,.55); }
+  .personas { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.113in; margin-top: 0.1in; }
+  .persona { height: 1.0in; background: #fff; border: 0.012in solid var(--linea); border-radius: 0.13in; overflow: hidden; }
+  .persona small { display: block; background: var(--azul); color: #fff; font-family: "Fredoka"; font-size: 9.2pt; padding: 0.04in 0.12in 0.05in; }
+  .persona strong { display: block; font-family: "Fredoka"; font-weight: 600; font-size: 10pt; line-height: 1.15; color: var(--marino); padding: 0.07in 0.12in 0.03in; height: 0.42in; }
+  .persona span { display: block; font-size: 7.7pt; color: var(--azul); padding: 0 0.12in; white-space: nowrap; }
+  .ficha div { display: flex; justify-content: space-between; gap: 0.1in; padding: 0.052in 0; border-bottom: 0.01in solid var(--palido); font-size: 9.4pt; }
+  .ficha div:last-child { border-bottom: 0; }
+  .ficha span:first-child { font-family: "Fredoka"; color: var(--azul); flex: none; }
+  .ficha span:last-child { text-align: right; }
+  .ciclo { display: grid; grid-template-columns: 1fr 1fr; gap: 0.07in; margin-top: 0.02in; }
+  .ciclo div { background: #fff; border: 0.012in solid var(--linea); border-radius: 0.1in; padding: 0.06in 0.1in; font-size: 9.2pt; line-height: 1.2; }
+  .ciclo i { font-style: normal; font-family: "Fredoka"; color: var(--marino); background: var(--ama); border-radius: 50%; display: inline-block; width: 0.19in; height: 0.19in; line-height: 0.19in; text-align: center; font-size: 8.6pt; margin-right: 0.06in; }
+  .cifras { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.08in; }
+  .cifras.seis { grid-template-columns: repeat(6, 1fr); }
+  .cifra { background: var(--palido); border-radius: 0.1in; text-align: center; padding: 0.08in 0.02in 0.09in; }
+  .cifra strong { display: block; font-family: "Fredoka"; font-weight: 600; font-size: 17pt; line-height: 1; color: var(--marino); }
+  .cifra span { font-size: 8.4pt; color: var(--gris); line-height: 1.15; display: block; margin-top: 0.02in; }
+
+  /* ---- éxito ---- */
+  .criterios { display: grid; grid-template-columns: 1fr 1fr; gap: 0.1in 0.2in; }
+  .criterio { display: grid; grid-template-columns: 1fr 0.86in; gap: 0.08in; align-items: center; background: #fff; border: 0.012in solid var(--linea); border-radius: 0.12in; padding: 0.085in 0.12in; font-size: 9.4pt; line-height: 1.25; }
+  .criterio em { font-style: normal; color: var(--gris); display: block; font-size: 8.6pt; }
+  .estado { font-family: "Fredoka"; font-size: 8.8pt; text-align: center; border-radius: 0.2in; padding: 0.03in 0.03in 0.04in; color: #fff; }
+  .estado.si { background: var(--verde); } .estado.falta { background: var(--ambar); }
+  .prio { display: inline-block; font-family: "Fredoka"; font-size: 8.8pt; color: #fff; border-radius: 0.2in; padding: 0.02in 0.1in 0.03in; margin-right: 0.05in; }
+  .prio.p1 { background: var(--rojo); } .prio.p2 { background: var(--ambar); } .prio.p3 { background: var(--gris); }
+  .cita { font-size: 11.5pt; line-height: 1.28; }
+  .cita + span { display: block; font-size: 8.6pt; margin-top: 0.02in; }
+  .edad { float: left; width: 0.98in; margin: 0.01in 0.13in 0.03in 0; background: var(--palido); border-radius: 0.1in; text-align: center; padding: 0.07in 0 0.08in; }
+  .edad strong { display: block; font-family: "Fredoka"; font-weight: 600; font-size: 17pt; line-height: 1; color: var(--marino); }
+  .edad span { font-size: 8.4pt; color: var(--gris); }
+
+  /* ---- recorrido ---- */
+  .viaje { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.09in; }
+  .etapa { background: #fff; border: 0.012in solid var(--linea); border-radius: 0.12in; padding: 0.09in 0.1in 0.1in; font-size: 9pt; line-height: 1.26; }
+  .etapa i { font-style: normal; font-family: "Fredoka"; color: var(--marino); background: var(--ama); border-radius: 50%; display: block; width: 0.24in; height: 0.24in; line-height: 0.24in; text-align: center; font-size: 10pt; margin-bottom: 0.04in; }
+  .etapa strong { display: block; font-family: "Fredoka"; font-weight: 600; font-size: 10pt; color: var(--marino); margin-bottom: 0.02in; }
+  .etapa em { font-style: normal; display: block; color: var(--rojo); font-size: 8.6pt; margin-top: 0.04in; }
+
+  /* ---- contenidos ---- */
+  .muestras { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.06in 0.1in; margin: 0.03in 0 0.08in; }
+  .muestra { display: flex; align-items: center; gap: 0.07in; font-size: 8.6pt; line-height: 1.15; }
+  .muestra i { flex: none; width: 0.3in; height: 0.3in; border-radius: 0.06in; border: 0.012in solid var(--linea); }
+  .muestra span { color: var(--gris); display: block; }
+  .mapa { display: flex; flex-wrap: wrap; align-items: center; gap: 0.04in; }
+  .mapa span { font-family: "Fredoka"; font-size: 9.2pt; line-height: 1; color: #fff; background: var(--azul); border-radius: 0.08in; padding: 0.055in 0.09in 0.065in; }
+  .mapa span.sec { background: var(--palido); color: var(--marino); border: 0.012in solid var(--vivo); }
+  .mapa u { text-decoration: none; color: var(--gris); font-family: "Fredoka"; }
+  ul.ok { list-style: none; }
+  ul.ok li { position: relative; padding-left: 0.25in; margin-bottom: 0.05in; line-height: 1.28; }
+  ul.ok li::before { content: "✓"; position: absolute; left: 0; top: 0.015in; width: 0.17in; height: 0.17in; border-radius: 50%; background: var(--verde); color: #fff;
+                     font-family: "Segoe UI Symbol", sans-serif; font-size: 7.5pt; line-height: 0.17in; text-align: center; }
+  ul.ok li.pend::before { content: "!"; background: var(--ambar); font-family: "Fredoka"; font-size: 9pt; }
+
+  /* ---- cronograma ---- */
+  .gantt { position: relative; width: 100%; height: 1.76in; background: #fff; border: 0.012in solid var(--linea); border-radius: 0.13in; }
+  .gantt .zona { position: absolute; left: 1.9in; right: 0.22in; top: 0.1in; bottom: 0.08in; }
+  .gantt .mes { position: absolute; top: 0; bottom: 0.5in; border-left: 0.012in dashed var(--linea); font-family: "Fredoka"; font-size: 8.4pt; color: var(--gris); padding-left: 0.05in; }
+  .gantt .fila { position: absolute; left: 0.18in; width: 1.7in; font-size: 8.6pt; line-height: 1; display: flex; align-items: center; height: 0.17in; }
+  .gantt .barra { position: absolute; height: 0.13in; border-radius: 0.07in; background: var(--vivo); }
+  .gantt .barra.b2 { background: var(--azul); } .gantt .barra.b3 { background: var(--ama); }
+  .gantt .eje { position: absolute; left: 0; right: 0; bottom: 0.43in; height: 0.018in; background: var(--marino); }
+  .gantt .hito { position: absolute; bottom: 0.38in; width: 0.11in; height: 0.11in; margin-left: -0.055in; background: var(--ama); border: 0.015in solid var(--marino); transform: rotate(45deg); }
+  .gantt .hito.fin { background: var(--rojo); }
+  .gantt .eth { position: absolute; font-size: 7.8pt; line-height: 1.12; color: var(--marino); white-space: nowrap; }
+  .gantt .eth b { color: var(--marino); }
+  .fases { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.1in; }
+  .fase { background: #fff; border: 0.012in solid var(--linea); border-top: 0.06in solid var(--vivo); border-radius: 0.12in; padding: 0.08in 0.11in 0.1in; font-size: 9.2pt; line-height: 1.28; }
+  .fase.curso { border-top-color: var(--ambar); }
+  .fase strong { display: block; font-family: "Fredoka"; font-weight: 600; font-size: 10.2pt; color: var(--marino); }
+  .fase small { display: block; font-family: "Fredoka"; font-size: 8.6pt; color: var(--vivo); margin-bottom: 0.03in; }
+  .riesgo { background: var(--marino); color: #fff; border-radius: 0.13in; padding: 0.1in 0.13in 0.12in; font-size: 9.1pt; line-height: 1.3; }
+  .riesgo small { display: block; font-family: "Fredoka"; font-size: 10pt; color: var(--ama-cl); margin-bottom: 0.02in; }
+</style>
+</head>
+<body>
+
+<!-- ============================ PÁGINA 1 ============================ -->
+<div class="pagina">
+  <div class="hero">
+    <div class="chip">BRIEF</div>
+    <div class="t1">FIN DE LA</div>
+    <div class="t2">GESTIÓN</div>
+    <div class="antes">Antes «Director UAN: Economía»</div>
+    <p class="pitch">Un juego de cartas de decisiones: diriges una unidad académica y cada elección tiene un costo para profesores, alumnos, finanzas o rectoría.</p>
+  </div>
+  <div class="dorso" style="left:6.72in; top:0.78in; transform:rotate(14deg)"></div>
+  <div class="dorso" style="left:5.72in; top:0.9in; transform:rotate(-8deg)"></div>
+  <img class="cel" src="brief_captura.png" alt="" style="left:5.98in; top:0.4in; width:1.86in; transform:rotate(3deg)">
+
+  <div class="cuerpo" style="top:3.74in">
+    <h1>Quiénes somos</h1>
+    <p><b>Equipo:</b> Fin de la Gestión, proyecto de la materia Diseño de Interfaces Basado en Estándares. Nosotros mismos pedimos, diseñamos y programamos el juego.</p>
+    <div class="personas">
+      <div class="persona"><small>Diseño de pantallas</small><strong>Jazmín Antonia Rojano Mejía</strong><span>mejiajazmin37@gmail.com</span></div>
+      <div class="persona"><small>Programación</small><strong>Héctor Yair Medrano Coronel</strong><span>hectorcnto@gmail.com</span></div>
+      <div class="persona"><small>Investigar y probar</small><strong>Sergio Iván Pérez Maldonado</strong><span>seirezdoperez@gmail.com</span></div>
+      <div class="persona"><small>Diseño del juego</small><strong>Brayan Ortiz Ramírez</strong><span>brayanortiz1245@gmail.com</span></div>
+    </div>
+
+    <h1>El juego</h1>
+    <div class="cols">
+      <div>
+        <div class="bloque"><div class="q">¿Qué es?</div>
+          <p>Un juego de cartas para el celular en el que diriges una escuela de la universidad. Cada carta es un problema de la semana: la deslizas a un lado o al otro para decidir, y tu decisión sube o baja cuatro barras (Profesores, Alumnos, Finanzas y Rectoría). Si una barra llega a 0 o a 100, pierdes el cargo y la historia sigue con quien te reemplaza.</p>
+          <p>Antes se llamaba «Director UAN: Economía». Hoy es una versión de prueba casi terminada (18 de noviembre), ya corregida con lo que vimos al revisarla y al probarla con estudiantes.</p></div>
+        <div class="bloque"><div class="sub">Cómo se juega</div>
+          <div class="ciclo">
+            <div><i>1</i>Leer la carta</div><div><i>2</i>Moverla y ver opciones</div>
+            <div><i>3</i>Soltarla para decidir</div><div><i>4</i>Ver qué pasó</div>
+          </div></div>
+      </div>
+      <div>
+        <div class="bloque"><div class="q">¿Qué tipo de proyecto es?</div>
+          <p>Un videojuego para aprender, de cartas y decisiones. Se juega con el celular en vertical y funciona en navegador, Android y computadora. Lo hacemos nosotros de principio a fin: diseño, programación y pruebas con jugadores.</p></div>
+        <div class="tarjeta ficha" style="padding:0.05in 0.14in">
+          <div><span>Tipo de juego</span><span>Cartas y decisiones</span></div>
+          <div><span>Dónde se juega</span><span>Navegador · Android · PC</span></div>
+          <div><span>Pantalla</span><span>Vertical, como celular</span></div>
+          <div><span>Cómo se maneja</span><span>Dedo, ratón o teclado</span></div>
+          <div><span>Niveles</span><span>Fácil (con pistas) · Difícil</span></div>
+          <div><span>Hecho con</span><span>GDevelop 5</span></div>
+          <div><span>Avance</span><span>Versión de prueba · nov. 2026</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pie"><span><b>Fin de la Gestión</b></span><span>1 / 8</span></div>
+</div>
+
+<!-- ============================ PÁGINA 2 ============================ -->
+<div class="pagina">
+  <div class="cab"><span><span class="marca">FIN DE LA GESTIÓN</span></span><span class="num">2 / 8</span></div>
+  <div class="cuerpo">
+    <h1>El juego <small>qué resuelve y qué buscamos</small></h1>
+
+    <div class="bloque"><div class="q">¿Qué problemas resuelve?</div>
+      <div class="tres">
+        <div class="tarjeta"><small class="et">Para aprender</small>Cuando el dinero y el tiempo no alcanzan para todos, hay que elegir. Eso se entiende poco leyéndolo: se entiende cuando te toca decidir y ves a quién le quedaste mal.</div>
+        <div class="tarjeta"><small class="et">Lo que falta</small>No hay un juego de este tipo que ocurra en una universidad. Los tres juegos parecidos que revisamos tratan otros temas; ninguno pasa en un lugar que sus jugadores conozcan.</div>
+        <div class="tarjeta"><small class="et">Lo que no se entendía</small>En la primera versión no se sabía si una barra iba a subir o a bajar: un punto avisaba cuál iba a cambiar, pero no hacia dónde ni cuánto.</div>
+      </div></div>
+
+    <div class="bloque"><div class="q">¿Qué queremos lograr?</div>
+      <div class="cols">
+        <div>
+          <div class="ambar" style="margin-bottom:0.13in"><small>Lo que se aprende</small>Quien juega reconoce a quién afecta cada decisión, entiende que elegir una cosa es renunciar a otra y sabe explicar por qué eligió así.</div>
+          <div class="sub">Al usarlo</div>
+          <ul class="lista"><li>Que se entienda cómo mover la carta sin que nadie lo explique.</li><li>Que las cuatro barras se entiendan de un vistazo.</li><li>Que se sepa qué va a pasar antes de soltar la carta.</li><li>Partidas cortas, para ratos libres en el celular.</li></ul>
+        </div>
+        <div class="oscura">
+          <small>Lo que haces</small><p>Deslizas la carta. Pierdes el cargo si una barra llega a 0 o a 100.</p>
+          <small style="margin-top:0.08in">Lo que descubres</small><p>Darle siempre gusto al mismo grupo también te tumba: hay que equilibrar.</p>
+          <small style="margin-top:0.08in">Lo que sientes</small><p>Tensión y humor: el juego se burla un poco de la política de la universidad.</p>
+        </div>
+      </div></div>
+
+    <div class="bloque"><div class="q">¿Cómo sabremos que funcionó?</div>
+      <div class="criterios">
+        <div class="criterio"><span>Quien juega con cuidado llega a su primera votación<em>Meta: más del 60 % · hoy 99 %</em></span><span class="estado si">cumplido</span></div>
+        <div class="criterio"><span>Quien juega sin pensar dura de 30 a 45 semanas<em>Hoy: 26 semanas</em></span><span class="estado falta">por ajustar</span></div>
+        <div class="criterio"><span>Se gana más o menos la mitad de las votaciones<em>Meta: 45 a 65 % · hoy 90 %, aún es fácil</em></span><span class="estado falta">por ajustar</span></div>
+        <div class="criterio"><span>Se sabe qué va a pasar antes de decidir<em>Agregamos flechas después de la prueba</em></span><span class="estado falta">por probar</span></div>
+      </div>
+      <p class="nota">Estos números salen de 15 000 partidas que la computadora jugó sola (el detalle está en la página 4). Con personas hicimos una prueba con 5 estudiantes y un cuestionario; falta anotar la calificación que le dieron y cuántos terminan la partida.</p>
+    </div>
+  </div>
+  <div class="pie"><span><b>Fin de la Gestión</b></span><span>2 / 8</span></div>
+</div>
+
+<!-- ============================ PÁGINA 3 ============================ -->
+<div class="pagina">
+  <div class="cab"><span><span class="marca">FIN DE LA GESTIÓN</span></span><span class="num">3 / 8</span></div>
+  <div class="cuerpo">
+    <h1>El juego <small>juegos parecidos y pruebas</small></h1>
+
+    <div class="bloque"><div class="q">¿Ya existe algo parecido?</div>
+      <p style="margin-bottom:0.08in">Sí. El más parecido es <b>Reigns</b> (Nerial, 2016). Revisamos tres juegos de este tipo:</p>
+      <table class="tabla">
+        <tr><th style="width:1.75in">Juego</th><th>Qué hace</th><th style="width:1.9in">Qué hicimos con eso</th></tr>
+        <tr><td>Reigns</td><td>Decides deslizando cartas con dos opciones y cuidas cuatro barras.</td><td>Lo usamos igual.</td></tr>
+        <tr><td>Lapse: A Forgotten Future</td><td>La misma idea con otro tema.</td><td>Nos confirma que la idea funciona.</td></tr>
+        <tr><td>Sort the Court!</td><td>Se gana diciendo siempre que sí.</td><td>Lo evitamos.</td></tr>
+      </table></div>
+
+    <div class="bloque"><div class="q">¿Qué hicimos distinto?</div>
+      <div class="oscura">De Reigns tomamos la idea de deslizar la carta y las cuatro barras. <b>Cambiamos tres cosas:</b> pasa en una universidad que los jugadores conocen; una barra en 100 también te tumba (en Sort the Court se gana diciendo siempre que sí); y al perder el cargo no se acaba el juego: sigue quien te reemplaza.</div></div>
+
+    <div class="bloque"><div class="q">¿Lo probamos con gente?</div>
+      <p style="margin-bottom:0.08in">Sí, de tres maneras:</p>
+      <div class="tres">
+        <div class="tarjeta"><small class="et">Revisión del equipo</small>Revisamos la primera versión con una lista de reglas de buen diseño. Encontramos tres fallas: no se sabía si una barra subía o bajaba, los nombres «Académico» y «Política» confundían y el menú tenía ocho opciones juntas.</div>
+        <div class="tarjeta"><small class="et">Prueba con estudiantes</small>5 estudiantes de 20 a 25 años jugaron sin ayuda: empezar una partida, jugar 10 semanas y explicar por qué perdieron. Los observamos, los grabamos y contestaron un cuestionario.</div>
+        <div class="tarjeta"><small class="et">Partidas automáticas</small>La computadora jugó sola 15 000 partidas con tres formas de jugar (sin pensar, buscando solo lo que más sube y con cuidado), para medir cuánto dura una partida y qué tan difícil es.</div>
+      </div></div>
+
+    <div class="bloque"><div class="q">¿Qué encontramos?</div>
+      <div class="cols">
+        <ul class="lista">
+          <li><span class="prio p1">1 · Grave</span><b>4 de 5</b> no sabían si una barra iba a subir o a bajar.</li>
+          <li style="margin-top:0.07in"><span class="prio p2">2 · Medio</span><b>3 de 5</b> no entendían «Académico» y «Política»; el menú tenía demasiadas opciones.</li>
+          <li style="margin-top:0.07in"><span class="prio p3">3 · Leve</span>Dibujos de personajes sin terminar; la partida empezaba sin pedir nombre ni nivel.</li>
+        </ul>
+        <div class="ambar"><span class="cita">«Veía que algo se movía, pero no sabía si era bueno o malo.»</span><span>— Participante 3, 22 años</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="pie"><span><b>Fin de la Gestión</b></span><span>3 / 8</span></div>
+</div>
+
+<!-- ============================ PÁGINA 4 (resultados) ============================ -->
+<div class="pagina">
+  <div class="cab"><span><span class="marca">FIN DE LA GESTIÓN</span></span><span class="num">4 / 8</span></div>
+  <div class="cuerpo">
+    <h1>El juego <small>resultados y cambios</small></h1>
+
+    <div class="bloque"><div class="q">¿Qué encontramos? <span style="color:var(--gris)">(continuación)</span></div>
+      <div class="sub">Partidas automáticas: tres formas de jugar</div>
+      <table class="tabla">
+        <tr><th style="width:1.6in">Forma de jugar</th><th style="width:1.1in">Cuánto dura</th><th>Cómo le va</th></tr>
+        <tr><td>Sin pensar</td><td>26 semanas</td><td>Casi siempre pierde el cargo porque una barra llega a 0 o a 100.</td></tr>
+        <tr><td>Solo lo que más sube</td><td>15 semanas</td><td>Nunca llega a una votación. En 85 de cada 100 partidas pierde por llenar la barra de Alumnos.</td></tr>
+        <tr><td>Con cuidado</td><td>116 semanas</td><td>Casi todos (99 %) llegan a su primera votación y ganan 9 de cada 10. Dura 4.5 veces más que quien juega sin pensar (en la primera versión: 2.8 veces).</td></tr>
+      </table>
+      <p class="nota">En pocas palabras: jugar bien sí se nota, pero las votaciones todavía son fáciles y quien juega sin pensar pierde más rápido de lo que queremos.</p></div>
+
+    <div class="bloque"><div class="sub">Qué cambió en la pantalla (versión del 2 de noviembre › versión del 18 de noviembre)</div>
+      <table class="tabla">
+        <tr><th>Antes</th><th>Después</th><th style="width:2.2in">Para qué</th></tr>
+        <tr><td style="font-family:Nunito; color:var(--tinta)">Un punto avisa qué cambia, pero no hacia dónde.</td><td>Flecha verde si sube y roja si baja.</td><td>Que se vea lo que está pasando</td></tr>
+        <tr><td style="font-family:Nunito; color:var(--tinta)">Nombres confusos: Académico, Política.</td><td>Nombres de personas: Profesores, Alumnos, Rectoría.</td><td>Hablar como habla el jugador</td></tr>
+        <tr><td style="font-family:Nunito; color:var(--tinta)">Dibujo sin terminar.</td><td>Dibujo final, y se ve en qué parte de la historia vas.</td><td>Que no haya que acordarse de nada</td></tr>
+      </table></div>
+
+    <div class="bloque"><div class="sub">Qué cambió al jugar</div>
+      <div class="tres">
+        <div class="tarjeta"><small class="et">Al empezar</small>Pantalla nueva para poner tu nombre y elegir el nivel antes de la primera carta. Un personaje te da la bienvenida la primera vez.</div>
+        <div class="tarjeta"><small class="et">Qué tan difícil es</small>Fácil: flechas que avisan qué sube y qué baja, y un «?» si depende de la suerte. Difícil: sin pistas. Perder el cargo no termina la historia: sigue quien te reemplaza.</div>
+        <div class="tarjeta"><small class="et">Avisos</small>La barra se pone roja cuando está en peligro. Al perder, un texto final te explica por qué.</div>
+      </div></div>
+
+    <div class="bloque"><div class="sub">Para que cualquiera pueda jugarlo</div>
+      <div class="cifras">
+        <div class="cifra"><strong>15:1</strong><span>de contraste: el texto se lee bien</span></div>
+        <div class="cifra"><strong>0</strong><span>textos cortados</span></div>
+        <div class="cifra"><strong>3</strong><span>formas de jugar: dedo, ratón y teclado</span></div>
+        <div class="cifra"><strong>2</strong><span>ajustes: sonido y vibración</span></div>
+      </div></div>
+  </div>
+  <div class="pie"><span><b>Fin de la Gestión</b></span><span>4 / 8</span></div>
+</div>
+
+<!-- ============================ PÁGINA 4 ============================ -->
+<div class="pagina">
+  <div class="cab"><span><span class="marca">FIN DE LA GESTIÓN</span></span><span class="num">5 / 8</span></div>
+  <div class="cuerpo">
+    <h1>Para quién es</h1>
+    <div class="cols">
+      <div>
+        <div class="bloque"><div class="q">¿Quién lo va a jugar?</div>
+          <div class="edad"><strong>18–50</strong><span>años</span></div>
+          <p>Estudiantes y maestros de universidad que juegan ratos cortos en el celular. Les gusta reconocer su universidad en el juego.</p>
+          <div class="tarjeta" style="clear:both; margin-top:0.12in"><small class="et">Jugador de ejemplo</small><b>Dani, 20 años.</b> Estudia Economía y juega ratos cortos en el celular. Le motiva ver a su universidad reconocida. Le frustran los juegos educativos que parecen examen.</div></div>
+      </div>
+      <div>
+        <div class="bloque"><div class="q">¿Qué sabemos de ellos?</div>
+          <p>Lo que vimos en la prueba con 5 estudiantes de 20 a 25 años. Todavía no hay una encuesta más grande ni hemos probado con maestros, así que no sabemos si a ellos también les funciona.</p></div>
+        <div class="bloque"><div class="q">¿Qué debe poder hacer quien lo juega?</div>
+          <div><span class="pastilla">Leer</span><span class="pastilla">Deslizar</span><span class="pastilla">Decidir</span><span class="pastilla">Equilibrar</span><span class="pastilla">Prever</span><span class="pastilla">Explicar</span></div>
+          <p>Al final, sabe explicar por qué perdió el cargo y qué habría decidido distinto.</p></div>
+      </div>
+    </div>
+
+    <div class="bloque" style="margin-top:0.2in"><div class="q">¿Qué necesita quien lo juega?</div>
+      <table class="tabla">
+        <tr><th style="width:2.5in">Lo que necesita</th><th>Cómo lo resolvemos</th></tr>
+        <tr><td>Reconocer su universidad en el juego.</td><td>Los problemas, los personajes y las cuatro barras (Profesores, Alumnos, Finanzas, Rectoría) salen de la vida en la universidad.</td></tr>
+        <tr><td>Partidas cortas que quepan en un rato libre.</td><td>Una carta es una decisión. El juego se guarda solo en cada carta y con «Continuar» sigues donde te quedaste.</td></tr>
+        <tr><td>Saber qué va a pasar antes de decidir.</td><td>En nivel Fácil hay flechas (verde sube, roja baja) y un «?» si depende de la suerte. La barra se pone roja cuando está en peligro.</td></tr>
+        <tr><td>Aprender sin sentir que presenta un examen.</td><td>No hay preguntas ni calificación: al perder, un texto final explica por qué, y la historia sigue con quien te reemplaza.</td></tr>
+      </table></div>
+
+    <div class="bloque"><div class="sub">Paso a paso, y dónde se puede atorar el jugador</div>
+      <div class="viaje">
+        <div class="etapa"><i>1</i><strong>Bienvenida</strong>Un personaje recibe al jugador la primera vez.</div>
+        <div class="etapa"><i>2</i><strong>Nombre y nivel</strong>Pantalla nueva, antes de la primera carta.</div>
+        <div class="etapa"><i>3</i><strong>Primeras cartas</strong>Aprende a mover la carta y a leer las barras.<em>Riesgo: no ver las barras, no saber qué va a pasar, textos largos.</em></div>
+        <div class="etapa"><i>4</i><strong>Votación</strong>Busca los votos para seguir en el cargo.</div>
+        <div class="etapa"><i>5</i><strong>Fin del cargo</strong>Un texto final explica por qué perdiste y sigue otro director.</div>
+      </div></div>
+  </div>
+  <div class="pie"><span><b>Fin de la Gestión</b></span><span>5 / 8</span></div>
+</div>
+
+<!-- ============================ PÁGINA 5 ============================ -->
+<div class="pagina">
+  <div class="cab"><span><span class="marca">FIN DE LA GESTIÓN</span></span><span class="num">6 / 8</span></div>
+  <div class="cuerpo">
+    <h1>Qué tiene el juego</h1>
+
+    <div class="bloque"><div class="q">¿Ya está hecho el contenido?</div>
+      <p style="margin-bottom:0.08in">Sí, todo está listo y ya dentro del juego:</p>
+      <div class="cifras seis">
+        <div class="cifra"><strong>365</strong><span>cartas</span></div>
+        <div class="cifra"><strong>39</strong><span>personajes</span></div>
+        <div class="cifra"><strong>7</strong><span>fondos ilustrados</span></div>
+        <div class="cifra"><strong>16</strong><span>efectos de sonido</span></div>
+        <div class="cifra"><strong>3</strong><span>pistas de música</span></div>
+        <div class="cifra"><strong>36</strong><span>logros</span></div>
+      </div>
+      <p class="nota">La historia tiene 3 partes y 6 finales posibles. Hay música para la oficina, la campaña y el final, y sonidos al mover la carta, al decidir y cuando hay peligro.</p></div>
+
+    <div class="cols">
+      <div>
+        <div class="bloque"><div class="q">¿Quién lo va a mantener?</div>
+          <p>Nosotros mismos. Hicimos un programa para agregar y corregir cartas sin tocar la programación del juego. Otro programa revisa solo que no haya cartas con errores ni textos que no quepan.</p></div>
+        <div class="bloque"><div class="q">¿Las imágenes se ven bien?</div>
+          <p>Sí: los dibujos de personajes, los fondos y las capturas de pantalla están en buena calidad. Los dibujos de prueba de la primera versión ya se cambiaron; falta terminar una parte de los dibujos finales.</p></div>
+        <div class="bloque"><div class="q">¿En qué idioma está?</div>
+          <span class="pastilla" style="background:var(--ama); border-color:#c68a00; font-size:11pt; margin-top:0.02in">Español</span>
+          <p>Solo en español, que es el idioma de quienes lo van a jugar.</p></div>
+      </div>
+      <div>
+        <div class="bloque"><div class="q">¿Tiene colores y letras definidos?</div>
+          <p style="margin-bottom:0.06in">Sí. Usa azul, blanco y amarillo:</p>
+          <div class="muestras">
+            <div class="muestra"><i style="background:#1e4fa3"></i><div>Azul medio<span>botones</span></div></div>
+            <div class="muestra"><i style="background:#0e2550"></i><div>Marino<span>fondos</span></div></div>
+            <div class="muestra"><i style="background:#f2c230"></i><div>Amarillo<span>detalles</span></div></div>
+            <div class="muestra"><i style="background:#fff"></i><div>Blanco<span>texto, carta</span></div></div>
+            <div class="muestra"><i style="background:#3e9e5f"></i><div>Verde<span>sube, acierto</span></div></div>
+            <div class="muestra"><i style="background:#d2453a"></i><div>Rojo<span>baja, peligro</span></div></div>
+          </div>
+          <p><span style="font-family:Fredoka; color:var(--marino); font-size:11.5pt">Fredoka</span> en títulos y botones; Nunito en el texto de las cartas. Las dos letras se pueden usar gratis.</p></div>
+        <div class="bloque"><div class="q">¿Cómo están ordenadas las pantallas?</div>
+          <div class="sub">Al jugar</div>
+          <div class="mapa" style="margin-bottom:0.08in"><span>Menú</span><u>›</u><span>Nombre y nivel</span><u>›</u><span>Carta</span><u>›</u><span>Decisión</span><u>›</u><span>Resultado</span></div>
+          <div class="sub">Desde el menú</div>
+          <div class="mapa" style="margin-bottom:0.08in"><span class="sec">Logros</span><span class="sec">Opciones</span><span class="sec">Créditos</span></div>
+          <div class="sub">Al perder el cargo</div>
+          <div class="mapa"><span class="sec">Votación</span><u>›</u><span class="sec">Reemplazo</span><u>›</u><span class="sec">Final</span></div>
+          <p class="nota">Se puede pausar la partida, y con «Continuar» sigues donde te quedaste.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="pie"><span><b>Fin de la Gestión</b></span><span>6 / 8</span></div>
+</div>
+
+<!-- ============================ PÁGINA 6 ============================ -->
+<div class="pagina">
+  <div class="cab"><span><span class="marca">FIN DE LA GESTIÓN</span></span><span class="num">7 / 8</span></div>
+  <div class="cuerpo">
+    <h1>Cómo está hecho</h1>
+
+    <div class="bloque"><div class="q">¿Quién lo programa?</div>
+      <p>Nosotros. El juego está hecho en GDevelop 5, un programa para crear videojuegos. También hicimos nuestros propios programas para armar el juego, revisar las cartas y jugar partidas automáticas. No dependemos de nadie de fuera.</p></div>
+
+    <div class="cols">
+      <div class="bloque"><div class="q">¿Qué vamos a entregar?</div>
+        <ul class="ok"><li>El videojuego funcionando en navegador, Android y PC.</li><li>La carpeta de diseño: el plan del juego y los bocetos de las pantallas.</li><li>La revisión del equipo y la prueba con estudiantes.</li><li>La presentación final, jugando en vivo.</li><li>Cartel y tráiler.</li></ul></div>
+      <div class="bloque"><div class="q">¿Con qué está programado?</div>
+        <p style="margin-bottom:0.06in"><span class="pastilla">JavaScript</span> las reglas del juego</p>
+        <p style="margin-bottom:0.06in"><span class="pastilla">JSON</span> el texto de las cartas y los personajes</p>
+        <p><span class="pastilla">Python</span><span class="pastilla">Node.js</span> nuestros programas de apoyo</p></div>
+    </div>
+
+    <div class="bloque"><div class="sub">Programas que hicimos para trabajar mejor</div>
+      <table class="tabla">
+        <tr><th style="width:1.8in">Programa</th><th>Para qué sirve</th><th style="width:2.2in">En qué ayuda al jugador</th></tr>
+        <tr><td>Editor de cartas</td><td>Agregar y corregir cartas y personajes sin tocar la programación, viendo cómo van a quedar.</td><td>Podemos agregar cartas sin descomponer el juego.</td></tr>
+        <tr><td>Revisor de cartas</td><td>Encuentra cartas repetidas o con errores, imágenes o sonidos que faltan y textos demasiado largos.</td><td>Ningún texto se corta en pantalla.</td></tr>
+        <tr><td>Partidas automáticas</td><td>La computadora juega miles de partidas y nos dice cuánto duran, por qué se pierde y qué cartas tienen una opción que siempre conviene.</td><td>El juego no es ni muy fácil ni imposible.</td></tr>
+        <tr><td>Juego de prueba</td><td>Abre el juego en el navegador y lo actualiza solo cada vez que cambiamos algo.</td><td>Cada cambio se prueba al momento.</td></tr>
+      </table></div>
+
+    <div class="cols">
+      <div class="bloque"><div class="sub">Lo que ya revisamos</div>
+        <ul class="ok"><li>15 000 partidas automáticas sin que el juego se trabe.</li><li>El juego se guarda solo en cada carta.</li><li>Ningún texto se sale de su lugar.</li><li class="pend">Falta: repartir mejor las cartas entre los personajes.</li></ul></div>
+      <div class="bloque"><div class="sub">Datos rápidos</div>
+        <div class="tarjeta ficha" style="padding:0.05in 0.14in">
+          <div><span>Pantalla</span><span>Vertical, 720 × 1280</span></div>
+          <div><span>Guardado</span><span>Automático, en cada carta</span></div>
+          <div><span>Cómo se maneja</span><span>Dedo, ratón o teclado</span></div>
+          <div><span>Respaldo</span><span>Guardamos cada cambio (Git)</span></div>
+        </div></div>
+    </div>
+  </div>
+  <div class="pie"><span><b>Fin de la Gestión</b></span><span>7 / 8</span></div>
+</div>
+
+<!-- ============================ PÁGINA 7 ============================ -->
+<div class="pagina">
+  <div class="cab"><span><span class="marca">FIN DE LA GESTIÓN</span></span><span class="num">8 / 8</span></div>
+  <div class="cuerpo">
+    <h1>Notas finales <small>calendario, riesgos y lo que sigue</small></h1>
+
+    <div class="bloque"><div class="q">Calendario</div>
+      <div class="gantt">
+        <div class="fila" style="top:0.27in">Planear</div>
+        <div class="fila" style="top:0.425in">Diseño</div>
+        <div class="fila" style="top:0.58in">Bocetos y primer modelo</div>
+        <div class="fila" style="top:0.735in">Programación</div>
+        <div class="fila" style="top:0.89in">Pruebas y ajustes</div>
+        <div class="fila" style="top:1.045in">Documentos y entrega</div>
+        <div class="zona">
+          <div class="mes" style="left:0; width:33%">Septiembre</div><div class="mes" style="left:33%; width:34%">Octubre</div><div class="mes" style="left:67%; width:33%">Noviembre</div>
+          <div class="barra" style="top:0.19in; left:0; width:15.4%"></div>
+          <div class="barra b2" style="top:0.345in; left:15.4%; width:23.1%"></div>
+          <div class="barra" style="top:0.5in; left:33%; width:15.4%"></div>
+          <div class="barra b2" style="top:0.655in; left:40.7%; width:30.7%"></div>
+          <div class="barra" style="top:0.81in; left:71.4%; width:22%"></div>
+          <div class="barra b3" style="top:0.965in; left:67%; width:33%"></div>
+          <div class="eje"></div>
+          <div class="hito" style="left:48.4%"></div><div class="hito" style="left:71.4%"></div><div class="hito" style="left:92.3%"></div><div class="hito fin" style="left:100%"></div>
+          <div class="eth" style="left:48.4%; bottom:0.1in; transform:translateX(-50%); text-align:center"><b>14 oct</b><br>bocetos</div>
+          <div class="eth" style="left:71.4%; bottom:0.1in; transform:translateX(-50%); text-align:center"><b>4 nov</b><br>juego armado</div>
+          <div class="eth" style="left:92.3%; bottom:0.1in; transform:translateX(-78%); text-align:center"><b>23 nov</b><br>presentación</div>
+          <div class="eth" style="right:-0.16in; bottom:0.1in; text-align:right"><b>30 nov</b><br>entrega</div>
+        </div>
+      </div></div>
+
+    <div class="bloque"><div class="q">Etapas</div>
+      <div class="fases">
+        <div class="fase"><strong>Preparación</strong><small>septiembre – octubre</small>Plan del juego, bocetos de pantallas y primer modelo.</div>
+        <div class="fase"><strong>Primera versión</strong><small>29 de octubre</small>Lo básico ya se podía jugar: cartas, barras, votación, reemplazo y sonido.</div>
+        <div class="fase"><strong>Versión de prueba</strong><small>2 – 18 de noviembre</small>Escenas con historia y los cambios que salieron de la revisión y de la prueba con estudiantes.</div>
+        <div class="fase curso"><strong>Detalles finales</strong><small>en curso</small>Más pruebas y dibujos finales.</div>
+      </div></div>
+
+    <div class="bloque"><div class="q">Riesgos y cuidados</div>
+      <div class="tres">
+        <div class="riesgo"><small>Personas reales</small>Aparecen nombres y dibujos de maestros reales: hay que pedirles permiso. El villano, El Quinto, es inventado.</div>
+        <div class="riesgo"><small>Textos largos</small>Si hay mucho que leer, la gente deja de jugar: cada carta es corta y un programa avisa si un texto no cabe.</div>
+        <div class="riesgo"><small>Dificultad</small>Un juego demasiado fácil no enseña: usamos 15 000 partidas automáticas para ajustarlo.</div>
+      </div></div>
+
+    <div class="cols">
+      <div class="bloque"><div class="q">Lo que sigue</div>
+        <ul class="lista">
+          <li><b>Probar con más gente,</b> también con maestros, y anotar qué calificación le dan y cuántos terminan la partida.</li>
+          <li><b>Comprobar las flechas:</b> ver si ahora sí se entiende qué barra sube y cuál baja.</li>
+          <li><b>Hacer más difíciles las votaciones:</b> hoy se ganan 9 de cada 10 y la meta es de 5 a 6.</li>
+          <li><b>Que jugar sin pensar dure más:</b> de 26 semanas a entre 30 y 45.</li>
+          <li><b>Terminar los dibujos</b> y repartir mejor las cartas entre los personajes.</li>
+        </ul></div>
+      <div class="bloque"><div class="q">Lo que aprendimos</div>
+        <div class="ambar" style="margin-bottom:0.12in"><small>Lo que creíamos y no era cierto</small>«Con un punto basta para saber qué va a pasar.» Hubo que mostrar si sube o baja, y cuánto.</div>
+        <p>Probar con personas cambió el juego: dejamos de suponer qué se entendía y empezamos a verlo.</p></div>
+    </div>
+  </div>
+  <div class="pie"><span><b>Diseño de Interfaces Basado en Estándares</b> · Dr. Sergio Agustín Olivares Granados · 23 de noviembre de 2026</span><span>8 / 8</span></div>
+</div>
+
+</body>
+</html>

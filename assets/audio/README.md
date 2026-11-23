@@ -1,4 +1,4 @@
-# Audio de Director UAN
+# Audio de Fin de la Gestión
 
 Todos los archivos de esta carpeta se generan de forma procedural con `tools/gen_audio.py`
 (sintesis propia con Python + numpy/scipy, sin muestras ni grabaciones de terceros) y se codifican a OGG Vorbis con ffmpeg

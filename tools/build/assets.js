@@ -36,8 +36,7 @@ const anim = (name, img) => ({
 });
 
 const g = JSON.parse(fs.readFileSync(GJ, "utf8"));
-const stamp = new Date().toISOString().replace(/[-:T]/g, "").slice(0, 14).replace(/^(\d{8})(\d{6})$/, "$1-$2");
-fs.copyFileSync(GJ, path.join(RAIZ, `game.backup-${stamp}.json`));
+require("./respaldo.js").respaldar(GJ);
 
 // recursos
 g.resources = g.resources || { resources: [], resourceFolders: [] };

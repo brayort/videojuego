@@ -54,7 +54,6 @@ const rutas = {
     const a = await correr(["tools/build/build.js"]);
     if (a.code) return { ok: false, out: a.out };
     const b = await correr(["tools/build/assets.js"]);
-    fs.readdirSync(RAIZ).filter(x => /^game\.backup-.*\.json$/.test(x)).sort().reverse().slice(5).forEach(x => fs.unlinkSync(path.join(RAIZ, x)));
     return { ok: !b.code, out: a.out + "\n" + b.out };
   },
   "POST /api/balance": async b => {

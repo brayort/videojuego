@@ -1,7 +1,7 @@
 {
   "name": "director-uan",
   "private": true,
-  "description": "Director UAN: juego de cartas tipo Reigns para GDevelop 5",
+  "description": "Fin de la Gestión: juego de cartas tipo Reigns para GDevelop 5",
   "scripts": {
     "build": "node tools/build/build.js && node tools/build/assets.js",
     "build:limpio": "node tools/build/build.js --limpio && node tools/build/assets.js",

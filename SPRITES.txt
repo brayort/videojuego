@@ -1,4 +1,4 @@
-DIRECTOR UAN: ECONOMIA - LISTA DE SPRITES Y ANIMACIONES
+FIN DE LA GESTION - LISTA DE SPRITES Y ANIMACIONES
 Resolucion del juego: 720 x 1280 (vertical). Origen (0,0) arriba a la izquierda.
 Nombres de animacion = exactamente los de abajo (minusculas, sin acentos, guion bajo).
 El codigo ignora en silencio cualquier animacion que no exista (hasAnimationNamed), asi que

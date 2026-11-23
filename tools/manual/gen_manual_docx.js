@@ -99,7 +99,7 @@ add(
       children: [
         new Paragraph({ children: [new TextRun({ text: "Manual", size: 26 })] }),
         new Paragraph({ children: [new TextRun({ text: "Desarrollo de videojuegos", font: FONT_T, bold: true, size: 60 })] }),
-        new Paragraph({ children: [new TextRun({ text: "Director UAN: Economía", font: FONT_T, bold: true, size: 44 })], spacing: { after: 160 } }),
+        new Paragraph({ children: [new TextRun({ text: "Fin de la Gestión", font: FONT_T, bold: true, size: 44 })], spacing: { after: 160 } }),
         new Paragraph({ children: [new TextRun({ text: "Aplicación del manual del Centro de Cultura Digital a un juego de cartas de decisiones", size: 22 })], spacing: { after: 600 } }),
         new Paragraph({ children: [new TextRun({ text: "♥    ◉    🎮", size: 64 })], spacing: { after: 900 } }),
         new Paragraph({ children: [new TextRun({ text: "Universidad Autónoma de Nayarit · Unidad Académica de Economía · Noviembre 2026", size: 20 })] }),
@@ -111,7 +111,7 @@ add(
 
 // Desarrollo de videojuegos + herramientas
 add(seccion("Desarrollo / de videojuegos", [
-  P("Este documento aplica el _Manual de desarrollo de videojuegos_ (Centro de Cultura Digital, 2017) a **Director UAN: Economía**, un juego de cartas de decisiones en el que el jugador dirige la Unidad Académica de Economía de la Universidad Autónoma de Nayarit. Cada carta es una semana: se desliza a la izquierda o a la derecha para decidir, y cada decisión mueve cuatro indicadores (Académico, Estudiantes, Finanzas y Política). Si uno llega a 0 o a 100, el director cae y la historia sigue con su sucesor."),
+  P("Este documento aplica el _Manual de desarrollo de videojuegos_ (Centro de Cultura Digital, 2017) a **Fin de la Gestión**, un juego de cartas de decisiones en el que el jugador dirige la Unidad Académica de Economía de la Universidad Autónoma de Nayarit. Cada carta es una semana: se desliza a la izquierda o a la derecha para decidir, y cada decisión mueve cuatro indicadores (Académico, Estudiantes, Finanzas y Política). Si uno llega a 0 o a 100, el director cae y la historia sigue con su sucesor."),
   P("Se sigue el mismo orden que el manual: herramientas, componentes, preparación (investigación, conceptualización, calendarización, preproducción, desarrollo y lanzamiento) y los ejercicios de cada sección, resueltos para este proyecto."),
 ]));
 add(H("Herramientas / utensilios", 24));
@@ -212,7 +212,7 @@ add(seccion("Investigación", [
 add(salto());
 
 // Lienzo
-add(new Paragraph({ children: [new TextRun({ text: "NOMBRE DEL PROYECTO: Director UAN: Economía · DISEÑADO PARA: comunidad UAN · DISEÑADO POR: HectorUwO · EN: GDevelop 5 · ITERACIÓN: 1.0 (beta)", size: 16, color: LINEA })] }));
+add(new Paragraph({ children: [new TextRun({ text: "NOMBRE DEL PROYECTO: Fin de la Gestión · DISEÑADO PARA: comunidad UAN · DISEÑADO POR: HectorUwO · EN: GDevelop 5 · ITERACIÓN: 1.0 (beta)", size: 16, color: LINEA })] }));
 add(new Paragraph({ children: [new TextRun({ text: "LIENZO DE MODELADO DE JUEGOS", font: FONT_T, bold: true, size: 32, color: LINEA })], spacing: { after: 120 } }));
 const c5 = Math.floor(CW / 5);
 const LB = { top: borde(GRIS, 6), bottom: borde(GRIS, 6), left: borde(GRIS, 6), right: borde(GRIS, 6) };
@@ -248,7 +248,7 @@ add(salto());
 add(seccion("Conceptualización", [
   P("Del lienzo salieron los puntos que el manual pide revisar:"),
   tabla([
-    ["Punto del manual", "En Director UAN: Economía"],
+    ["Punto del manual", "En Fin de la Gestión"],
     ["Objetivo general", "Dirigir la Unidad de Economía el mayor tiempo posible y dejar a la UAN y a Nayarit en el mejor destino."],
     ["Objetivos específicos", "Mantener los 4 indicadores entre 0 y 100, ganar las elecciones, conseguir expedientes y logros."],
     ["Reglas fáciles y coherentes", "Una sola acción (deslizar). Las consecuencias tienen sentido en el contexto: pagar al sindicato baja Finanzas y sube Estudiantes."],
@@ -333,7 +333,7 @@ add(salto());
 
 // Créditos
 add(seccion("Créditos", [
-  P("**Juego:** Director UAN: Economía · versión 1.0.0 (beta)", { after: 40 }),
+  P("**Juego:** Fin de la Gestión · versión 1.0.0 (beta)", { after: 40 }),
   P("**Desarrollo:** HectorUwO", { after: 40 }),
   P("**Motor:** GDevelop 5 · **Fuentes:** Nunito y Fredoka (SIL OFL) · **Audio:** generado por código (CC0)", { after: 40 }),
   P("**Repositorio:** github.com/brayort/videojuego", { after: 240 }),
@@ -342,7 +342,7 @@ add(seccion("Créditos", [
 
 // ---------- documento ----------
 const doc = new Document({
-  creator: "HectorUwO", title: "Manual de desarrollo: Director UAN: Economía",
+  creator: "HectorUwO", title: "Manual de desarrollo: Fin de la Gestión",
   styles: { default: { document: { run: { font: FONT, size: 21, color: "222222" } } } },
   numbering: { config: [{ reference: "vinetas", levels: [{ level: 0, format: LevelFormat.BULLET, text: "•", alignment: AlignmentType.LEFT,
     style: { paragraph: { indent: { left: 280, hanging: 200 } } } }] }] },
@@ -357,7 +357,7 @@ const doc = new Document({
       first: new Header({ children: [new Paragraph({})] }),
     },
     footers: {
-      default: new Footer({ children: [new Paragraph({ children: [new TextRun({ text: "Director UAN: Economía · Manual de desarrollo", size: 16, color: GRIS })] })] }),
+      default: new Footer({ children: [new Paragraph({ children: [new TextRun({ text: "Fin de la Gestión · Manual de desarrollo", size: 16, color: GRIS })] })] }),
       first: new Footer({ children: [new Paragraph({})] }),
     },
     children: hijos,

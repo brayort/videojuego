@@ -90,7 +90,7 @@ def portada(c, doc):
     c.setFont("Nunito", 13); c.drawString(200, H / 2 + 70, "Manual")
     c.setFont("Fredoka", 30)
     c.drawString(200, H / 2 + 36, "Desarrollo de videojuegos")
-    c.setFont("Fredoka", 22); c.drawString(200, H / 2 + 4, "Director UAN: Economía")
+    c.setFont("Fredoka", 22); c.drawString(200, H / 2 + 4, "Fin de la Gestión")
     c.setFont("Nunito", 11)
     c.drawString(200, H / 2 - 22, "Aplicación del manual del Centro de Cultura Digital a un juego de cartas de decisiones")
     # iconos: corazón pixel, joystick y control
@@ -115,12 +115,12 @@ def normal(c, doc):
     c.setFont("Nunito", 8); c.setFillColor(GRIS)
     c.drawCentredString(W / 2, H - 30, str(doc.page))
     c.setStrokeColor(LINEA); c.setLineWidth(0.8); c.line(M, H - 42, W - M, H - 42)
-    c.drawString(M, 22, "Director UAN: Economía · Manual de desarrollo")
+    c.drawString(M, 22, "Fin de la Gestión · Manual de desarrollo")
 
 
 def construir(salida):
     doc = BaseDocTemplate(salida, pagesize=(W, H), leftMargin=M, rightMargin=M, topMargin=58, bottomMargin=40,
-                          title="Manual de desarrollo: Director UAN: Economía", author="HectorUwO")
+                          title="Manual de desarrollo: Fin de la Gestión", author="HectorUwO")
     fr = Frame(M, 40, W - 2 * M, H - 98, id="f", leftPadding=0, rightPadding=0, topPadding=0, bottomPadding=0)
     doc.addPageTemplates([PageTemplate("portada", [Frame(0, 0, W, H)], onPage=portada),
                           PageTemplate("normal", [fr], onPage=normal)])
@@ -129,7 +129,7 @@ def construir(salida):
     # ---- 2. Desarrollo de videojuegos / herramientas ----
     S.append(seccion("Desarrollo / de videojuegos", [
         P("Este documento aplica el <i>Manual de desarrollo de videojuegos</i> (Centro de Cultura Digital, 2017) a "
-          "<b>Director UAN: Economía</b>, un juego de cartas de decisiones en el que el jugador dirige la Unidad "
+          "<b>Fin de la Gestión</b>, un juego de cartas de decisiones en el que el jugador dirige la Unidad "
           "Académica de Economía de la Universidad Autónoma de Nayarit. Cada carta es una semana: se desliza a la "
           "izquierda o a la derecha para decidir, y cada decisión mueve cuatro indicadores (Académico, Estudiantes, "
           "Finanzas y Política). Si uno llega a 0 o a 100, el director cae y la historia sigue con su sucesor."),
@@ -260,7 +260,7 @@ def construir(salida):
     S.append(PageBreak())
 
     # ---- 10. Lienzo ----
-    S.append(P("<font color='#8FB3B8'>NOMBRE DEL PROYECTO: Director UAN: Economía · DISEÑADO PARA: comunidad UAN · "
+    S.append(P("<font color='#8FB3B8'>NOMBRE DEL PROYECTO: Fin de la Gestión · DISEÑADO PARA: comunidad UAN · "
                "DISEÑADO POR: HectorUwO · EN: GDevelop 5 · ITERACIÓN: 1.0 (beta)</font>", s_tiny))
     S.append(P("<font color='#8FB3B8'>LIENZO DE MODELADO DE JUEGOS</font>", s_h))
     S.append(Spacer(1, 6))
@@ -314,7 +314,7 @@ def construir(salida):
         P("Del lienzo salieron los puntos que el manual pide revisar:"),
         Spacer(1, 4),
         tabla([
-            ["Punto del manual", "En Director UAN: Economía"],
+            ["Punto del manual", "En Fin de la Gestión"],
             ["Objetivo general", "Dirigir la Unidad de Economía el mayor tiempo posible y dejar a la UAN y a Nayarit en el mejor destino."],
             ["Objetivos específicos", "Mantener los 4 indicadores entre 0 y 100, ganar las elecciones, conseguir expedientes y logros."],
             ["Reglas fáciles y coherentes", "Una sola acción (deslizar). Las consecuencias tienen sentido en el contexto: pagar al sindicato baja Finanzas y sube Estudiantes."],
@@ -429,7 +429,7 @@ def construir(salida):
 
     # ---- Créditos ----
     S.append(seccion("Créditos", [
-        P("<b>Juego:</b> Director UAN: Economía · versión 1.0.0 (beta)"),
+        P("<b>Juego:</b> Fin de la Gestión · versión 1.0.0 (beta)"),
         P("<b>Desarrollo:</b> HectorUwO"),
         P("<b>Motor:</b> GDevelop 5 · <b>Fuentes:</b> Nunito y Fredoka (SIL OFL) · <b>Audio:</b> generado por código (CC0)"),
         P("<b>Repositorio:</b> github.com/brayort/videojuego"),

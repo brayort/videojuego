@@ -36,8 +36,8 @@ if (!S.menuListo) {
   S.barrido = crear("Particula", "chispa", 22, 30, 30);
 
   // ---- titulo ----
-  const t1 = U.mkTxt(S.ui, "TxtTitulo", 40, M.titulo.y, M.titulo.size, W - 80, { al: "center", col: "crema", z: 20 }); setTxt(t1, CF.titulo || "DIRECTOR UAN");
-  const t2 = U.mkTxt(S.ui, "TxtTitulo", 40, M.sub.y, M.sub.size, W - 80, { al: "center", col: "dorado", z: 20 }); setTxt(t2, CF.subtitulo || "ECONOMÍA");
+  const t1 = U.mkTxt(S.ui, "TxtTitulo", 40, M.titulo.y, M.titulo.size, W - 80, { al: "center", col: "crema", z: 20 }); setTxt(t1, CF.titulo || "FIN DE LA");
+  const t2 = U.mkTxt(S.ui, "TxtTitulo", 40, M.sub.y, M.sub.size, W - 80, { al: "center", col: "dorado", z: 20 }); setTxt(t2, CF.subtitulo || "GESTIÓN");
   S.titulo = [t1, t2];
   S.regla = U.pnl(S.ui, "dorado", W / 2, M.regla.y, 1, 4, 20);
 
@@ -188,7 +188,7 @@ if (!S.menuListo) {
   S.abrirCreditos = function () {
     abreSub("CRÉDITOS");
     const t = U.mkTxt(S.sub, "TxtTexto", 40, 200, 28, W - 80, { al: "center", col: "crema", z: 310 });
-    setTxt(t, (CF.titulo || "Director UAN") + "\n\nJuego de decisiones tipo cartas hecho con GDevelop 5.\n\nEncargo y buena onda: prof. Sergio Olivares.\nDiseño, texto y programación: equipo del proyecto.\n\nTipografías: Nunito y Fredoka (SIL Open Font License).");
+    setTxt(t, (CF.titulo ? CF.titulo + " " + (CF.subtitulo || "") : "Fin de la Gestión") + "\n\nJuego de decisiones tipo cartas hecho con GDevelop 5.\n\nEncargo y buena onda: prof. Sergio Olivares.\nDiseño, texto y programación: equipo del proyecto.\n\nTipografías: Nunito y Fredoka (SIL Open Font License).");
   };
   // Ventanas Opciones y Ranking (U.modalOpciones / U.modalRanking de 05_audio.js).
   const abreModal = function (fab) {

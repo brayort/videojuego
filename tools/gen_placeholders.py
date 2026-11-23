@@ -141,7 +141,7 @@ def grad(w, h, c1, c2):
 # nombre: (titulo, color arriba, color abajo)
 G, GO, AZ, NE = PAL["guinda"], PAL["guinda_osc"], PAL["azul"], PAL["negro"]
 FON = {"juego":("Oficina",GO,lerp(GO,G,.7)),"carta":("Oficina del director",GO,lerp(GO,G,.7)),
- "menu":("Director UAN",NE,lerp(GO,G,.9)),"logros":("Logros",GO,lerp(GO,AZ,.45)),
+ "menu":("Fin de la Gestión",NE,lerp(GO,G,.9)),"logros":("Logros",GO,lerp(GO,AZ,.45)),
  "informe":("Informe semestral",lerp(AZ,NE,.5),GO),"fin":("Fin de la gestión",NE,lerp(GO,G,.5)),
  "epilogo":("Epílogo",lerp(AZ,NE,.4),lerp(GO,G,.8)),"destino":("Destino de la UAN",lerp(AZ,NE,.3),lerp(G,PAL["dorado"],.35)),
  "sucesion":("Sucesión",GO,lerp(GO,AZ,.4)),"eleccion":("Día de la elección",lerp(AZ,NE,.4),lerp(AZ,GO,.5)),

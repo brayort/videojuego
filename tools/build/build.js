@@ -169,7 +169,7 @@ function proyectoNuevo() {
       adaptGameResolutionAtRuntime: false, folderProject: false, orientation: "portrait",
       packageName: "mx.uan.directoreconomia", projectFile: "", scaleMode: "linear",
       pixelsRounding: false, sizeOnStartupMode: "", templateSlug: "",
-      useExternalSourceFiles: false, version: "1.0.0", name: "Director UAN: Economía",
+      useExternalSourceFiles: false, version: "1.0.0", name: "Fin de la Gestión",
       description: "Juego de decisiones tipo cartas", author: "", windowWidth: 720, windowHeight: 1280,
       latestCompilationDirectory: "", maxFPS: 60, minFPS: 20, verticalSync: false,
       platformSpecificAssets: {}, loadingScreen: { showGDevelopSplash: true },
@@ -242,11 +242,8 @@ if (require.main === module) {
   const nuevo = proyectoNuevo();
   let salida = nuevo, info = null;
   if (fs.existsSync(destino)) {
-    const d = new Date(), p = n => String(n).padStart(2, "0");
-    const sello = d.getFullYear() + p(d.getMonth() + 1) + p(d.getDate()) + "-" + p(d.getHours()) + p(d.getMinutes()) + p(d.getSeconds());
-    const resp = path.join(path.dirname(destino), "game.backup-" + sello + ".json");
-    fs.copyFileSync(destino, resp);
-    console.log("Respaldo:", path.basename(resp));
+    const resp = require("./respaldo.js").respaldar(destino);
+    console.log("Respaldo:", path.relative(RAIZ, resp));
     if (!limpio) {
       let viejo = null;
       try { viejo = JSON.parse(fs.readFileSync(destino, "utf8")); } catch (e) { console.log("game.json existente no es JSON valido; se crea uno nuevo (queda el respaldo)."); }

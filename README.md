@@ -1,4 +1,4 @@
-# Director UAN: Economía (GDevelop 5)
+# Fin de la Gestión (GDevelop 5)
 
 Juego de cartas tipo Reigns. Lógica en eventos JavaScript de GDevelop; contenido en `src/historia/` (módulos por tema y por tipo de carta).
 
@@ -48,7 +48,7 @@ Orden completo (desde la raíz): `npm run audio` (solo si cambias el audio) → 
 * Se conservan: recursos, animaciones de cada objeto, instancias, objetos extra que hayas creado, capas, propiedades del proyecto (nombre, tamaño, icono), variables y **todos tus eventos**.
 * Solo se reemplazan los eventos generados: son los grupos cuyo nombre empieza por `[AUTO]`. No renombres ni metas tus eventos *dentro* de esos grupos (se pierden); ponlos fuera, antes o después. Si borras un grupo `[AUTO]` el siguiente build lo vuelve a crear.
 * Se agregan los objetos, variables y escenas que falten.
-* Antes de escribir se guarda `game.backup-AAAAMMDD-HHMMSS.json` junto a `game.json`.
+* Antes de escribir se guarda `game.backup-AAAAMMDD-HHMMSS.json` en la carpeta `respaldos/` (se conservan los 20 más recientes).
 * `node tools/build/build.js --limpio` ignora el `game.json` existente (también con respaldo). `--destino=ruta.json` escribe en otro archivo.
 
 ## Usar el estado desde eventos normales de GDevelop

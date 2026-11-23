@@ -1,13 +1,13 @@
-# Manual de desarrollo: Director UAN: Economía
+# Manual de desarrollo: Fin de la Gestión
 
-> 🎮 Aplicación del *Manual de desarrollo de videojuegos* (Centro de Cultura Digital, 2017) a **Director UAN: Economía**.
+> 🎮 Aplicación del *Manual de desarrollo de videojuegos* (Centro de Cultura Digital, 2017) a **Fin de la Gestión**.
 > Universidad Autónoma de Nayarit · Unidad Académica de Economía · Noviembre 2026
 
 ---
 
 ## Desarrollo de videojuegos
 
-**Director UAN: Economía** es un juego de cartas de decisiones en el que el jugador dirige la Unidad Académica de Economía de la Universidad Autónoma de Nayarit. Cada carta es una semana: se desliza a la izquierda o a la derecha para decidir, y cada decisión mueve cuatro indicadores (Académico, Estudiantes, Finanzas y Política). Si uno llega a 0 o a 100, el director cae y la historia sigue con su sucesor.
+**Fin de la Gestión** es un juego de cartas de decisiones en el que el jugador dirige la Unidad Académica de Economía de la Universidad Autónoma de Nayarit. Cada carta es una semana: se desliza a la izquierda o a la derecha para decidir, y cada decisión mueve cuatro indicadores (Académico, Estudiantes, Finanzas y Política). Si uno llega a 0 o a 100, el director cae y la historia sigue con su sucesor.
 
 Se sigue el mismo orden que el manual: herramientas, componentes, preparación (investigación, conceptualización, calendarización, preproducción, desarrollo y lanzamiento) y los ejercicios de cada sección, resueltos para este proyecto.
 
@@ -110,7 +110,7 @@ Para la investigación se usó el **Lienzo de modelado de juegos** (*Game Model 
 
 ### Lienzo de modelado de juegos
 
-**Nombre del proyecto:** Director UAN: Economía · **Diseñado para:** comunidad UAN · **Diseñado por:** HectorUwO · **En:** GDevelop 5 · **Iteración:** 1.0 (beta)
+**Nombre del proyecto:** Fin de la Gestión · **Diseñado para:** comunidad UAN · **Diseñado por:** HectorUwO · **En:** GDevelop 5 · **Iteración:** 1.0 (beta)
 
 | Casilla | Contenido |
 |---|---|
@@ -128,7 +128,7 @@ Para la investigación se usó el **Lienzo de modelado de juegos** (*Game Model 
 
 Del lienzo salieron los puntos que el manual pide revisar:
 
-| Punto del manual | En Director UAN: Economía |
+| Punto del manual | En Fin de la Gestión |
 |---|---|
 | Objetivo general | Dirigir la Unidad de Economía el mayor tiempo posible y dejar a la UAN y a Nayarit en el mejor destino. |
 | Objetivos específicos | Mantener los 4 indicadores entre 0 y 100, ganar las elecciones, conseguir expedientes y logros. |
@@ -233,7 +233,7 @@ El demo ya existe y se prueba con bots (5000 partidas). Falta presentarlo a comp
 
 ## Créditos
 
-- **Juego:** Director UAN: Economía · versión 1.0.0 (beta)
+- **Juego:** Fin de la Gestión · versión 1.0.0 (beta)
 - **Desarrollo:** HectorUwO
 - **Motor:** GDevelop 5 · **Fuentes:** Nunito y Fredoka (SIL OFL) · **Audio:** generado por código (CC0)
 - **Repositorio:** github.com/brayort/videojuego

@@ -6,3 +6,4 @@ __pycache__/
 *.pyc
 game.check.json
 tools/editor/respaldos/
+respaldos/
