@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Fin de la Gestión — Tarjetas para imprimir</title>
+<style>
+  /* 4 hojas carta a doble cara, 9 tarjetas de 2.4 x 3.4 in por hoja (32 personajes).
+     Páginas impares: frentes (sprite + frase). Páginas pares: reversos (logo del juego).
+     Imprimir a doble cara, volteando por el lado largo, a tamaño real (100 %), con gráficos de fondo.
+     La rejilla está centrada, así que frente y reverso coinciden al voltear la hoja.
+     Para cambiar personajes o frases: editar los bloques .carta. */
+  @font-face { font-family: "Fredoka"; src: url("../assets/fonts/Fredoka-SemiBold.ttf"); font-weight: 600; }
+  @font-face { font-family: "Nunito";  src: url("../assets/fonts/Nunito-SemiBold.ttf");  font-weight: 600; }
+  @page { size: 8.5in 11in; margin: 0; }
+  :root { --marino: #0e2550; --azul: #1e4fa3; --vivo: #2f6fd0; --ama: #f2c230; --ama-cl: #ffe58a; --tinta: #0b1a33; --gris: #55688a; --linea: #c9d8f0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: "Nunito", sans-serif; font-weight: 600; color: var(--tinta); }
+  .pagina { position: relative; width: 8.5in; height: 11in; overflow: hidden; background: #fff; page-break-after: always; }
+  .pagina:last-child { page-break-after: auto; }
+  /* rejilla 3 x 3 centrada: 7.2 x 10.2 in */
+  .rejilla { position: absolute; left: 0.65in; top: 0.4in; width: 7.2in; height: 10.2in; display: grid; grid-template-columns: repeat(3, 2.4in); grid-template-rows: repeat(3, 3.4in); }
+  .aviso { position: absolute; left: 0.65in; right: 0.65in; top: 0.13in; text-align: center; font-size: 7pt; color: var(--gris); }
+
+  /* guías de corte: línea delgada y tenue (solo en el frente) */
+  .corte { position: absolute; }
+  .corte.v { top: 0.4in; height: 10.2in; width: 0; border-left: 0.006in solid rgba(14, 37, 80, 0.22); }
+  .corte.h { left: 0.65in; width: 7.2in; height: 0; border-top: 0.006in solid rgba(14, 37, 80, 0.22); }
+
+  /* ---- frente (esquinas rectas) ---- */
+  .carta { width: 2.4in; height: 3.4in; padding: 0.1in; }
+  .cara { height: 100%; display: flex; flex-direction: column; background: #fff; border: 0.025in solid var(--marino); overflow: hidden; }
+  .nombre { flex: none; background: var(--azul); color: #fff; padding: 0.065in 0.13in 0.075in; border-bottom: 0.03in solid var(--ama); }
+  .nombre strong { display: block; font-family: "Fredoka"; font-weight: 600; font-size: 13pt; line-height: 1.05; }
+  .nombre span { display: block; font-family: "Fredoka"; font-size: 7.6pt; line-height: 1.15; letter-spacing: 0.01in; color: var(--ama-cl); margin-top: 0.015in; white-space: nowrap; }
+  .retrato { flex: none; height: 1.68in; background:
+               radial-gradient(ellipse 1.5in 1.1in at 50% 62%, rgba(242,194,48,.30), rgba(242,194,48,0) 70%),
+               linear-gradient(180deg, #0c2152 0%, #143c86 70%, #1c52a8 100%); }
+  .retrato img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: center bottom; }
+  .frase { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0.05in 0.14in; font-size: 8.8pt; line-height: 1.28; border-top: 0.03in solid var(--ama); }
+  .marca { flex: none; text-align: center; font-family: "Fredoka"; font-size: 6.2pt; letter-spacing: 0.03in; color: var(--gris); padding: 0.035in 0 0.05in; border-top: 0.01in solid var(--linea); }
+
+  /* ---- reverso (esquinas rectas) ---- */
+  .fondo-reverso { position: absolute; left: 0.53in; top: 0.28in; width: 7.44in; height: 10.44in; background: var(--marino); }
+  .dorso { width: 2.4in; height: 3.4in; padding: 0.15in; }
+  .dorso div.marco { height: 100%; border: 0.025in solid var(--ama); display: flex; flex-direction: column; align-items: center; justify-content: center;
+           background: repeating-linear-gradient(45deg, rgba(47,111,208,.55) 0 0.04in, rgba(47,111,208,0) 0.04in 0.18in),
+                       repeating-linear-gradient(-45deg, rgba(47,111,208,.55) 0 0.04in, rgba(47,111,208,0) 0.04in 0.18in), #0e2550; }
+  .logo { background: var(--marino); border: 0.02in solid var(--ama); padding: 0.13in 0.15in 0.15in; text-align: center; }
+  .logo .l1 { font-family: "Fredoka"; font-size: 12.5pt; line-height: 1; letter-spacing: 0.02in; color: #fff; text-shadow: 0 0.015in 0 #1e4fa0; }
+  .logo .l2 { font-family: "Fredoka"; font-size: 24pt; line-height: 1; letter-spacing: 0.015in; color: var(--ama); margin-top: 0.035in; text-shadow: 0 0.02in 0 #c68a00, 0 0.045in 0 #6a4600; }
+</style>
+</head>
+<body>
+
+<!-- ============================ HOJA 1 · FRENTE ============================ -->
+<div class="pagina frente">
+  <div class="aviso">Hoja 1 de 4 · Imprime a doble cara, volteando por el lado largo, a tamaño real (100 %). Recorta por las líneas.</div>
+  <div class="corte v" style="left:0.65in"></div><div class="corte v" style="left:3.05in"></div><div class="corte v" style="left:5.45in"></div><div class="corte v" style="left:7.85in"></div>
+  <div class="corte h" style="top:0.4in"></div><div class="corte h" style="top:3.8in"></div><div class="corte h" style="top:7.2in"></div><div class="corte h" style="top:10.6in"></div>
+  <div class="rejilla">
+    <div class="carta"><div class="cara"><div class="nombre"><strong>Alejandro</strong><span>Informática</span></div><div class="retrato"><img src="../sprites/01-alejandro.png" alt=""></div><div class="frase">«Sin prisa. Ya tengo un plan B... y un plan C.»</div><div class="marca">FIN DE LA GESTIÓN</div></div></div>
+    <div class="carta"><div class="cara"><div class="nombre"><strong>Beatriz</strong><span>Informática</span></div><div class="retrato"><img src="../sprites/02-beatriz.png" alt=""></div><div class="frase">«Dicen que doy miedo. Yo solo exijo que quede bien hecho.»</div><div class="marca">FIN DE LA GESTIÓN</div></div></div>
+    <div class="carta"><div class="cara"><div class="nombre"><strong>Fernando</strong><span>Informática</span></div><div class="retrato"><img src="../sprites/04-fernando.png" alt=""></div><div class="frase">«¿Junta aburrida? Dame cinco minutos y la vuelvo anécdota.»</div><div class="marca">FIN DE LA GESTIÓN</div></div></div>
+    <div class="carta"><div class="cara"><div class="nombre"><strong>Janoe</strong><span>Coordinador de Sistemas</span></div><div class="retrato"><img src="../sprites/05-janoe.png" alt=""></div><div class="frase">«Dame un problema y te devuelvo un plan.»</div><div class="marca">FIN DE LA GESTIÓN</div></div></div>
+    <div class="carta"><div class="cara"><div class="nombre"><strong>Mónica</strong><span>Ex directora de la Unidad</span></div><div class="retrato"><img src="../sprites/08-monica.png" alt=""></div><div class="frase">«Ah, y recuerda: la entrega es el viernes. Siempre es el viernes.»</div><div class="marca">FIN DE LA GESTIÓN</div></div></div>
+    <div class="carta"><div class="cara"><div class="nombre"><strong>Nayeli</strong><span>Informática</span></div><div class="retrato"><img src="../sprites/09-nayeli.png" alt=""></div><div class="frase">«¡Tú puedes dirigir esta unidad! ¡Yo traigo los pompones!»</div><div class="marca">FIN DE LA GESTIÓN</div></div></div>
+    <div class="carta"><div class="cara"><div class="nombre"><strong>Sergio Olivares</strong><span>Informática</span></div><div class="retrato"><img src="../sprites/10-sergio.png" alt=""></div><div class="frase">«Yo encargué este juego. Tiré el dado y salió un crítico.»</div><div class="marca">FIN DE LA GESTIÓN</div></div></div>
+    <div class="carta"><div class="cara"><div class="nombre"><strong>Sonia</strong><span>Coordinadora de Informática</span></div><div class="retrato"><img src="../sprites/11-sonia.png" alt=""></div><div class="frase">«Aquí nadie sale enojado. Es mi regla.»</div><div class="marca">FIN DE LA GESTIÓN</div></div></div>
+    <div class="carta"><div class="cara"><div class="nombre"><strong>Víctor</strong><span>Informática</span></div><div class="retrato"><img src="../sprites/12-victor.png" alt=""></div><div class="frase">«Una sonrisa a tiempo vale más que mil memorándums.»</div><div class="marca">FIN DE LA GESTIÓN</div></div></div>
+  </div>
+</div>
+<!-- reverso -->
+<div class="pagina reverso">
+  <div class="fondo-reverso"></div>
+  <div class="rejilla">
+    <div class="dorso"><div class="marco"><div class="logo"><div class="l1">FIN DE LA</div><div class="l2">GESTI&Oacute;N</div></div></div></div>
+    <div class="dorso"><div class="marco"><div class="logo"><div class="l1">FIN DE LA</div><div class="l2">GESTI&Oacute;N</div></div></div></div>
+    <div class="dorso"><div class="marco"><div class="logo"><div class="l1">FIN DE LA</div><div class="l2">GESTI&Oacute;N</div></div></div></div>
+    <div class="dorso"><div class="marco"><div class="logo"><div class="l1">FIN DE LA</div><div class="l2">GESTI&Oacute;N</div></div></div></div>
+    <div class="dorso"><div class="marco"><div class="logo"><div class="l1">FIN DE LA</div><div class="l2">GESTI&Oacute;N</div></div></div></div>
+    <div class="dorso"><div class="marco"><div class="logo"><div class="l1">FIN DE LA</div><div class="l2">GESTI&Oacute;N</div></div></div></div>
+    <div class="dorso"><div class="marco"><div class="logo"><div class="l1">FIN DE LA</div><div class="l2">GESTI&Oacute;N</div></div></div></div>
+    <div class="dorso"><div class="marco"><div class="logo"><div class="l1">FIN DE LA</div><div class="l2">GESTI&Oacute;N</div></div></div></div>
+    <div class="dorso"><div class="marco"><div class="logo"><div class="l1">FIN DE LA</div><div class="l2">GESTI&Oacute;N</div></div></div></div>
+  </div>
+</div>
+
+<!-- ============================ HOJA 2 · FRENTE ============================ -->
+<div class="pagina frente">
+  <div class="aviso">Hoja 2 de 4 · Imprime a doble cara, volteando por el lado largo, a tamaño real (100 %). Recorta por las líneas.</div>
+  <div class="corte v" style="left:0.65in"></div><div class="corte v" style="left:3.05in"></div><div class="corte v" style="left:5.45in"></div><div class="corte v" style="left:7.85in"></div>
+  <div class="corte h" style="top:0.4in"></div><div class="corte h" style="top:3.8in"></div><div class="corte h" style="top:7.2in"></div><div class="corte h" style="top:10.6in"></div>
+  <div class="rejilla">
+    <div class="carta"><div class="cara"><div class="nombre"><strong>Alfonso</strong><span>Sistemas Computacionales</span></div><div class="retrato"><img src="../sprites/13-alfonso.png" alt=""></div><div class="frase">«Con buena actitud todo se acomoda. ¡Pásale!»</div><div class="marca">FIN DE LA GESTIÓN</div></div></div>
+    <div class="carta"><div class="cara"><div class="nombre"><strong>Ángel</strong><span>Sistemas Computacionales</span></div><div class="retrato"><img src="../sprites/14-angel.png" alt=""></div><div class="frase">«Ni un error, ni una tarea tarde. Así funciono.»</div><div class="marca">FIN DE LA GESTIÓN</div></div></div>
+    <div class="carta"><div class="cara"><div class="nombre"><strong>Carlos</strong><span>Sistemas Computacionales</span></div><div class="retrato"><img src="../sprites/15-carlos.png" alt=""></div><div class="frase">«No pregunto, observo. Tú tampoco preguntes.»</div><div class="marca">FIN DE LA GESTIÓN</div></div></div>
+    <div class="carta"><div class="cara"><div class="nombre"><strong>Eligardo</strong><span>Sistemas Computacionales</span></div><div class="retrato"><img src="../sprites/16-eligardo.png" alt=""></div><div class="frase">«No hay problema que no se arregle después de comer.»</div><div class="marca">FIN DE LA GESTIÓN</div></div></div>
+    <div class="carta"><div class="cara"><div class="nombre"><strong>Gabriel</strong><span>Sistemas Computacionales</span></div><div class="retrato"><img src="../sprites/17-gabriel.png" alt=""></div><div class="frase">«¿Esa computadora está muerta? Yo le digo 'en pausa'.»</div><div class="marca">FIN DE LA GESTIÓN</div></div></div>
+    <div class="carta"><div class="cara"><div class="nombre"><strong>Perla</strong><span>Sistemas Computacionales</span></div><div class="retrato"><img src="../sprites/18-perla.png" alt=""></div><div class="frase">«Si vas a dirigir, hazlo con datos... y con ganas.»</div><div class="marca">FIN DE LA GESTIÓN</div></div></div>
+    <div class="carta"><div class="cara"><div class="nombre"><strong>José Luna</strong><span>Sistemas Computacionales</span></div><div class="retrato"><img src="../sprites/19-jose.png" alt=""></div><div class="frase">«Siéntate, tómate un té. Los problemas esperan.»</div><div class="marca">FIN DE LA GESTIÓN</div></div></div>
+    <div class="carta"><div class="cara"><div class="nombre"><strong>Raudel</strong><span>Sistemas Computacionales</span></div><div class="retrato"><img src="../sprites/20-raudel.png" alt=""></div><div class="frase">«Hablo fuerte porque me importa. Ni modo.»</div><div class="marca">FIN DE LA GESTIÓN</div></div></div>
+    <div class="carta"><div class="cara"><div class="nombre"><strong>Roberto</strong><span>Sistemas Computacionales</span></div><div class="retrato"><img src="../sprites/21-roberto.png" alt=""></div><div class="frase">«Te cuento algo rápido. Bueno, empieza en 1998, así que...»</div><div class="marca">FIN DE LA GESTIÓN</div></div></div>
+  </div>
+</div>
+<!-- reverso -->
+<div class="pagina reverso">
+  <div class="fondo-reverso"></div>
+  <div class="rejilla">
+    <div class="dorso"><div class="marco"><div class="logo"><div class="l1">FIN DE LA</div><div class="l2">GESTI&Oacute;N</div></div></div></div>
+    <div class="dorso"><div class="marco"><div class="logo"><div class="l1">FIN DE LA</div><div class="l2">GESTI&Oacute;N</div></div></div></div>
+    <div class="dorso"><div class="marco"><div class="logo"><div class="l1">FIN DE LA</div><div class="l2">GESTI&Oacute;N</div></div></div></div>
+    <div class="dorso"><div class="marco"><div class="logo"><div class="l1">FIN DE LA</div><div class="l2">GESTI&Oacute;N</div></div></div></div>
+    <div class="dorso"><div class="marco"><div class="logo"><div class="l1">FIN DE LA</div><div class="l2">GESTI&Oacute;N</div></div></div></div>
+    <div class="dorso"><div class="marco"><div class="logo"><div class="l1">FIN DE LA</div><div class="l2">GESTI&Oacute;N</div></div></div></div>
+    <div class="dorso"><div class="marco"><div class="logo"><div class="l1">FIN DE LA</div><div class="l2">GESTI&Oacute;N</div></div></div></div>
+    <div class="dorso"><div class="marco"><div class="logo"><div class="l1">FIN DE LA</div><div class="l2">GESTI&Oacute;N</div></div></div></div>
+    <div class="dorso"><div class="marco"><div class="logo"><div class="l1">FIN DE LA</div><div class="l2">GESTI&Oacute;N</div></div></div></div>
+  </div>
+</div>
+
+<!-- ============================ HOJA 3 · FRENTE ============================ -->
+<div class="pagina frente">
+  <div class="aviso">Hoja 3 de 4 · Imprime a doble cara, volteando por el lado largo, a tamaño real (100 %). Recorta por las líneas.</div>
+  <div class="corte v" style="left:0.65in"></div><div class="corte v" style="left:3.05in"></div><div class="corte v" style="left:5.45in"></div><div class="corte v" style="left:7.85in"></div>
+  <div class="corte h" style="top:0.4in"></div><div class="corte h" style="top:3.8in"></div><div class="corte h" style="top:7.2in"></div><div class="corte h" style="top:10.6in"></div>
+  <div class="rejilla">
+    <div class="carta"><div class="cara"><div class="nombre"><strong>Oscar Vizcaíno</strong><span>Sistemas Computacionales</span></div><div class="retrato"><img src="../sprites/22-oscar.png" alt=""></div><div class="frase">«Tengo una idea descabellada. Va a funcionar. Creo.»</div><div class="marca">FIN DE LA GESTIÓN</div></div></div>
+    <div class="carta"><div class="cara"><div class="nombre"><strong>Martínez</strong><span>Sistemas Computacionales</span></div><div class="retrato"><img src="../sprites/39-martinez.png" alt=""></div><div class="frase">«Si me dejas, mejor te lo explico en código.»</div><div class="marca">FIN DE LA GESTIÓN</div></div></div>
+    <div class="carta"><div class="cara"><div class="nombre"><strong>Oliver</strong><span>Sistemas Computacionales</span></div><div class="retrato"><img src="../sprites/40-oliver.png" alt=""></div><div class="frase">«Una buena conversación vale más que un buen examen.»</div><div class="marca">FIN DE LA GESTIÓN</div></div></div>
+    <div class="carta"><div class="cara"><div class="nombre"><strong>Alberto Lugo</strong><span>Sistemas Computacionales</span></div><div class="retrato"><img src="../sprites/41-lugo.png" alt=""></div><div class="frase">«Mi secreto: sonreír primero. Casi siempre funciona.»</div><div class="marca">FIN DE LA GESTIÓN</div></div></div>
+    <div class="carta"><div class="cara"><div class="nombre"><strong>José Olivo</strong><span>Economía</span></div><div class="retrato"><img src="../sprites/25-jose.png" alt=""></div><div class="frase">«Todo se calcula. Incluso este saludo.»</div><div class="marca">FIN DE LA GESTIÓN</div></div></div>
+    <div class="carta"><div class="cara"><div class="nombre"><strong>Ricardo</strong><span>Economía</span></div><div class="retrato"><img src="../sprites/26-ricardo.png" alt=""></div><div class="frase">«Mis raíces me sostienen. Hay que cuidarlas y presumirlas.»</div><div class="marca">FIN DE LA GESTIÓN</div></div></div>
+    <div class="carta"><div class="cara"><div class="nombre"><strong>José Camelo</strong><span>Economía</span></div><div class="retrato"><img src="../sprites/27-jose.png" alt=""></div><div class="frase">«Conozco a medio mundo. La otra mitad es cuestión de tiempo.»</div><div class="marca">FIN DE LA GESTIÓN</div></div></div>
+    <div class="carta"><div class="cara"><div class="nombre"><strong>Ana</strong><span>Economía</span></div><div class="retrato"><img src="../sprites/33-ana.png" alt=""></div><div class="frase">«Los errores pequeños son los más tímidos. Hay que buscarlos.»</div><div class="marca">FIN DE LA GESTIÓN</div></div></div>
+    <div class="carta"><div class="cara"><div class="nombre"><strong>Pedro</strong><span>Economía</span></div><div class="retrato"><img src="../sprites/34-pedro.png" alt=""></div><div class="frase">«Esta universidad tiene historia. Y yo, tiempo para contártela.»</div><div class="marca">FIN DE LA GESTIÓN</div></div></div>
+  </div>
+</div>
+<!-- reverso -->
+<div class="pagina reverso">
+  <div class="fondo-reverso"></div>
+  <div class="rejilla">
+    <div class="dorso"><div class="marco"><div class="logo"><div class="l1">FIN DE LA</div><div class="l2">GESTI&Oacute;N</div></div></div></div>
+    <div class="dorso"><div class="marco"><div class="logo"><div class="l1">FIN DE LA</div><div class="l2">GESTI&Oacute;N</div></div></div></div>
+    <div class="dorso"><div class="marco"><div class="logo"><div class="l1">FIN DE LA</div><div class="l2">GESTI&Oacute;N</div></div></div></div>
+    <div class="dorso"><div class="marco"><div class="logo"><div class="l1">FIN DE LA</div><div class="l2">GESTI&Oacute;N</div></div></div></div>
+    <div class="dorso"><div class="marco"><div class="logo"><div class="l1">FIN DE LA</div><div class="l2">GESTI&Oacute;N</div></div></div></div>
+    <div class="dorso"><div class="marco"><div class="logo"><div class="l1">FIN DE LA</div><div class="l2">GESTI&Oacute;N</div></div></div></div>
+    <div class="dorso"><div class="marco"><div class="logo"><div class="l1">FIN DE LA</div><div class="l2">GESTI&Oacute;N</div></div></div></div>
+    <div class="dorso"><div class="marco"><div class="logo"><div class="l1">FIN DE LA</div><div class="l2">GESTI&Oacute;N</div></div></div></div>
+    <div class="dorso"><div class="marco"><div class="logo"><div class="l1">FIN DE LA</div><div class="l2">GESTI&Oacute;N</div></div></div></div>
+  </div>
+</div>
+
+<!-- ============================ HOJA 4 · FRENTE ============================ -->
+<div class="pagina frente">
+  <div class="aviso">Hoja 4 de 4 · Imprime a doble cara, volteando por el lado largo, a tamaño real (100 %). Recorta por las líneas.</div>
+  <div class="corte v" style="left:0.65in"></div><div class="corte v" style="left:3.05in"></div><div class="corte v" style="left:5.45in"></div><div class="corte v" style="left:7.85in"></div>
+  <div class="corte h" style="top:0.4in"></div><div class="corte h" style="top:3.8in"></div><div class="corte h" style="top:7.2in"></div><div class="corte h" style="top:10.6in"></div>
+  <div class="rejilla">
+    <div class="carta"><div class="cara"><div class="nombre"><strong>María</strong><span>Economía</span></div><div class="retrato"><img src="../sprites/35-maria.png" alt=""></div><div class="frase">«Si estás cansado, hay té. Si estás triste, hay galletas.»</div><div class="marca">FIN DE LA GESTIÓN</div></div></div>
+    <div class="carta"><div class="cara"><div class="nombre"><strong>Reyna</strong><span>Economía</span></div><div class="retrato"><img src="../sprites/36-reyna.png" alt=""></div><div class="frase">«Hablo rápido porque pienso más rápido. Intenta seguirme.»</div><div class="marca">FIN DE LA GESTIÓN</div></div></div>
+    <div class="carta"><div class="cara"><div class="nombre"><strong>Edel</strong><span>Economía</span></div><div class="retrato"><img src="../sprites/37-edel.png" alt=""></div><div class="frase">«Prefiero demostrarlo con hechos.»</div><div class="marca">FIN DE LA GESTIÓN</div></div></div>
+    <div class="carta"><div class="cara"><div class="nombre"><strong>Omar</strong><span>Economía</span></div><div class="retrato"><img src="../sprites/38-omar.png" alt=""></div><div class="frase">«Siempre hay tiempo para platicar un ratito.»</div><div class="marca">FIN DE LA GESTIÓN</div></div></div>
+    <div class="carta"><div class="cara"><div class="nombre"><strong>Oscar</strong><span>Líder estudiantil</span></div><div class="retrato"><img src="../sprites/Oscar.png" alt=""></div><div class="frase">«¿De dónde saldría el dinero?»</div><div class="marca">FIN DE LA GESTIÓN</div></div></div>
+  </div>
+</div>
+<!-- reverso -->
+<div class="pagina reverso">
+  <div class="fondo-reverso"></div>
+  <div class="rejilla">
+    <div class="dorso"><div class="marco"><div class="logo"><div class="l1">FIN DE LA</div><div class="l2">GESTI&Oacute;N</div></div></div></div>
+    <div class="dorso"><div class="marco"><div class="logo"><div class="l1">FIN DE LA</div><div class="l2">GESTI&Oacute;N</div></div></div></div>
+    <div class="dorso"><div class="marco"><div class="logo"><div class="l1">FIN DE LA</div><div class="l2">GESTI&Oacute;N</div></div></div></div>
+    <div class="dorso"><div class="marco"><div class="logo"><div class="l1">FIN DE LA</div><div class="l2">GESTI&Oacute;N</div></div></div></div>
+    <div class="dorso"><div class="marco"><div class="logo"><div class="l1">FIN DE LA</div><div class="l2">GESTI&Oacute;N</div></div></div></div>
+    <div class="dorso"><div class="marco"><div class="logo"><div class="l1">FIN DE LA</div><div class="l2">GESTI&Oacute;N</div></div></div></div>
+    <div class="dorso"><div class="marco"><div class="logo"><div class="l1">FIN DE LA</div><div class="l2">GESTI&Oacute;N</div></div></div></div>
+    <div class="dorso"><div class="marco"><div class="logo"><div class="l1">FIN DE LA</div><div class="l2">GESTI&Oacute;N</div></div></div></div>
+    <div class="dorso"><div class="marco"><div class="logo"><div class="l1">FIN DE LA</div><div class="l2">GESTI&Oacute;N</div></div></div></div>
+  </div>
+</div>
+
+</body>
+</html>
