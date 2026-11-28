@@ -16,6 +16,7 @@
   body { font-family: "Nunito", sans-serif; font-weight: 600; color: var(--tinta); font-size: 9.5pt; line-height: 1.38; }
   .pagina { position: relative; width: 8.5in; height: 11in; overflow: hidden; background: var(--fondo); page-break-after: always; }
   .pagina:last-child { page-break-after: auto; }
+  .pagina:first-of-type { overflow: visible; }
   .abs { position: absolute; }
   h1 { font-family: "Fredoka"; font-weight: 600; font-size: 19pt; line-height: 1.05; color: var(--marino); }
   h1 small { font-family: "Nunito"; font-size: 9.5pt; color: var(--gris); margin-left: 0.08in; }
@@ -41,7 +42,7 @@
   .cab .num { font-family: "Fredoka"; font-size: 10pt; color: var(--marino); background: var(--ama); border-radius: 0.2in; padding: 0.02in 0.14in; }
 
   /* ---- página 1 ---- */
-  .hero { position: absolute; left: 0; top: 0; width: 8.5in; height: 3.5in; color: #fff;
+  .hero { position: absolute; left: -0.2in; top: -0.2in; width: 8.5in; height: 3.5in; color: #fff; box-sizing: content-box; border: 0.2in solid #060f26; border-bottom: 0; background-clip: padding-box; /* el borde sangra fuera de la hoja para que no quede un filo blanco */
           background:
             radial-gradient(ellipse 3.2in 2.6in at 6.9in 2.0in, rgba(244,196,48,.32), rgba(244,196,48,0) 70%),
             repeating-linear-gradient(135deg, rgba(255,255,255,.04) 0 0.03in, rgba(255,255,255,0) 0.03in 0.5in),
@@ -53,7 +54,7 @@
   .t2 { position: absolute; left: 0.575in; top: 1.32in; font-family: "Fredoka"; font-size: 63pt; line-height: 1; letter-spacing: 0.02in; color: var(--ama);
         text-shadow: 0 0.035in 0 #c68a00, 0 0.075in 0 #6a4600, 0 0.14in 0.22in rgba(0,0,0,.5); }
   .antes { position: absolute; left: 0.62in; top: 2.4in; font-size: 9pt; color: #b8cbee; }
-  .pitch { position: absolute; left: 0.6in; top: 2.66in; width: 4.7in; font-size: 11.5pt; line-height: 1.3; color: #fff; }
+  .pitch { position: absolute; left: 0.6in; top: 2.5in; width: 4.7in; font-size: 11.5pt; line-height: 1.3; color: #fff; }
   .dorso { position: absolute; width: 1.55in; height: 2.35in; border-radius: 0.2in; background: var(--azul); border: 0.06in solid #2f6fd0; box-shadow: 0 0.07in 0 #0a1c46; }
   .dorso::after { content: ""; position: absolute; inset: 0.08in; border-radius: 0.12in; border: 0.02in solid var(--ama);
            background: repeating-linear-gradient(45deg, rgba(47,111,208,.55) 0 0.04in, rgba(47,111,208,0) 0.04in 0.18in), repeating-linear-gradient(-45deg, rgba(47,111,208,.55) 0 0.04in, rgba(47,111,208,0) 0.04in 0.18in), #0e2550; }
@@ -112,7 +113,6 @@
     <div class="chip">BRIEF</div>
     <div class="t1">FIN DE LA</div>
     <div class="t2">GESTIÓN</div>
-    <div class="antes">Antes «Director UAN: Economía»</div>
     <p class="pitch">Un juego de cartas de decisiones: diriges una unidad académica y cada elección tiene un costo para profesores, alumnos, finanzas o rectoría.</p>
   </div>
   <div class="dorso" style="left:6.72in; top:0.78in; transform:rotate(14deg)"></div>
@@ -258,7 +258,7 @@
       <div class="eth" style="right:-0.16in; bottom:0.1in; text-align:right"><b>30 nov</b><br>entrega</div>
     </div>
   </div>
-  <div class="abs q" style="left:0.6in; top:9.22in; font-size:11pt">Riesgos y cuidados</div>
+  <div class="abs q" style="left:0.6in; top:9.22in; font-size:11pt">¿Qué riesgos hay que cuidar?</div>
   <div class="riesgo" style="left:0.6in"><small>Personas reales</small>Hay nombres y dibujos de maestros reales: hay que pedirles permiso. El villano es inventado.</div>
   <div class="riesgo" style="left:3.08in"><small>Textos largos</small>Si hay mucho que leer, la gente deja el juego: cada carta es corta y un programa avisa si algo no cabe.</div>
   <div class="riesgo" style="left:5.56in"><small>Dificultad</small>Un juego demasiado fácil no enseña: lo ajustamos con 15 000 partidas automáticas.</div>

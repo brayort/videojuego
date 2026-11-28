@@ -1,12 +1,62 @@
-# Fin de la Gestión (GDevelop 5)
+# Fin de la Gestión
 
-Juego de cartas tipo Reigns. Lógica en eventos JavaScript de GDevelop; contenido en `src/historia/` (módulos por tema y por tipo de carta).
+Un juego de cartas de decisiones, tipo Reigns. Diriges una unidad académica y cada elección tiene un costo para profesores, alumnos, finanzas o rectoría.
+
+## ▶ Jugar en un clic
+
+### **[`JUGAR.html`](JUGAR.html)**: está en la carpeta principal del proyecto. Haz doble clic y juega.
+
+Se abre en tu navegador. No hay que instalar nada, ni levantar un servidor, ni tener internet: todo el juego va dentro de ese único archivo, así que puedes copiarlo a una USB o mandarlo por correo o nube (pesa unos 8 MB). Probado en Chrome y Edge.
+
+> **Si lo ves en GitHub:** al hacer clic ahí no se juega. Abre `JUGAR.html`, pulsa **Download raw file** (el icono de descarga) y haz doble clic en el archivo descargado.
+
+## Cómo se juega
+
+1. Pulsa **Jugar**, escribe tu nombre y elige **Fácil** (las cartas muestran qué va a subir y bajar) o **Difícil** (decides a ciegas).
+2. Cada carta es un problema con dos respuestas. Arrástrala a un lado u otro para decidir.
+3. Cuida los cuatro indicadores: **Profesores, Alumnos, Finanzas y Rectoría**. Si uno llega a 0 o a 100, termina tu gestión.
+4. La historia no acaba ahí: sigue con tu sucesor, que hereda la universidad como la dejaste.
+
+| control | acción |
+|---|---|
+| Arrastrar la carta, o flechas ← → | decidir |
+| ↑ | usar un expediente |
+| Espacio, Enter o clic | avanzar |
+| Ratón o teclas 1-3 | minijuegos |
+| Escape | pausa (Continuar / Opciones / Guardar y salir al menú) |
+
+La partida se guarda sola en cada carta, dentro del navegador donde juegas. Si cambias de navegador o borras sus datos, empiezas de cero.
+
+## Cómo se convirtió a HTML
+
+El juego está hecho en GDevelop 5, con toda la lógica escrita en eventos JavaScript dentro de `game.json`. La versión HTML ejecuta **ese mismo motor** en el navegador:
+
+* `tools/play/player.js` imita las partes de GDevelop que el motor usa (objetos, teclado y ratón, sonido) y dibuja cada cuadro en un `<canvas>`.
+* `tools/play/html.js` prepara la versión de producción y mete en un solo archivo la página, el reproductor, `game.json`, las imágenes, las fuentes, el audio y los fondos.
+
+**Después de cambiar cartas, arte o código hay que regenerar `JUGAR.html`** (no se actualiza solo y no se edita a mano):
+
+```
+npm run html
+```
+
+Requiere [Node.js](https://nodejs.org). Con `ffmpeg` instalado el audio va en `.mp3` (suena en todos los navegadores); sin él va en `.ogg`. Los fondos de la versión de computadora necesitan Python con Pillow; sin ellos queda un degradado azul.
+
+Límites: el ranking en línea de GDevelop no existe en la versión HTML, y el dibujo es una aproximación fiel, no el renderizador de GDevelop. Para jugar en teléfono conviene publicar en un hosting la carpeta que genera `npm run prod` (ver abajo).
+
+---
+
+# Desarrollo
+
+Lógica en eventos JavaScript de GDevelop; contenido en `src/historia/` (módulos por tema y por tipo de carta).
 
 ## Estructura
 
 ```
 game.json            proyecto GDevelop (generado/fusionado; ábrelo en el editor). Escenas Menu, Juego y Logros
-package.json         atajos: npm run build | check | sim | balance | audio | placeholders | preview
+package.json         atajos: npm run build | check | sim | balance | audio | placeholders | preview | play | prod | prod:ver | html
+JUGAR.html           EL JUEGO JUGABLE en un solo archivo (salida de `npm run html`; no se edita a mano)
+public/              salida de `npm run prod` (se regenera; no se edita a mano)
 src/                 EL JUEGO (lo que se edita)
   js/*.js            motor, un archivo por sección: 00_comun, 05_audio, 10_datos, 20_estado, 30_cartas,
                      40_minijuegos, 50_entrada, 55_efectos, 60_render, menu, logros (cada uno = un grupo [AUTO])
@@ -31,6 +81,9 @@ assets/              audio, fuentes y sprites provisionales
 |---|---|
 | `npm run editor` | **Editor web** en http://localhost:5178 (solo local). **Personajes**: lista de todos los personajes (aliados, antagonistas, candidatos, el director del jugador) con su retrato, ficha (rol, unidad, personalidad), frases del menú, candidato a sucesor y cartas de participación; avisa de nombres repetidos y los arregla; importa sprites de `sprites/`. **Cartas**: buscar y filtrar (personaje, con problemas, solo_luego, campaña, era, con cine, nunca vistas), formulario por carta y opción, vista previa con el LAYOUT real (marca en rojo el texto que no cabe), referencias cruzadas (quién pone o lee cada bandera, quién encola la carta). **Cinemáticas**: editar guiones línea a línea, disparos y un reproductor igual al del juego. **Balance**: corre la simulación y la muestra en gráficas (duración, causas de caída, destinos, sucesores, cartas más vistas, nunca vistas y con opción dominante). **Revisión**: el lint en vivo. Filtra cartas por tipo (genéricas, especiales, consecuencias, cadenas) y asigna cada carta a una cadena. Guarda `src/historia/` y `src/cinematicas.json` con respaldo en `tools/editor/respaldos/`; el botón *Build* genera `game.json` (cierra GDevelop antes). |
 | `npm run play` | **Reproductor con recarga en caliente** en http://localhost:5180 (solo local). Ejecuta el motor real del juego en el navegador y vigila `src/`: al guardar una carta, un guion o un `.js` reconstruye en un archivo temporal (no toca `game.json`, no hace falta cerrar GDevelop), vuelve a pasar el lint y reinicia la escena (con *continuar al recargar* vuelve a tu partida). Barra con Menú, Nueva partida, Borrar guardado, panel de depuración (F2) y el lint en vivo. El dibujo es una aproximación fiel al de `npm run preview`, no el renderizador de GDevelop: para la última palabra usa *Preview* en GDevelop. |
+| `npm run prod` | **Versión de producción** del reproductor web, en `public/` (carpeta estática lista para subir a cualquier hosting). Mismo motor y dibujo que `npm run play`, pero sin barra de herramientas, lint, depuración ni recarga en caliente. Pensada para teléfono (pantalla completa, táctil, sin zoom ni desplazamiento, aviso de girar, texto nítido en pantallas de alta densidad); en computadora el juego va centrado sobre un fondo con una ilustración de la UAN y un panel con los controles. Copia solo los recursos que el juego usa, apaga `debug`, genera `.mp3` para iPhone si hay `ffmpeg` y prepara los fondos con Pillow. Construye en un archivo temporal (no toca `game.json`). El ranking en línea de GDevelop no existe en esta versión. Los fondos de escritorio se eligen en `FONDOS_PC` de `tools/play/prod.js`; la página es `tools/play/prod.html`. |
+| `npm run prod:ver` | Sirve `public/` en http://localhost:5190 para probarla. Con `npm run prod:ver -- --lan` escucha en la red local e imprime la dirección para abrirla desde el teléfono (misma wifi); ciérralo al terminar. |
+| `npm run html` | **El juego en un solo archivo**: genera `JUGAR.html`, que se abre con doble clic (sin servidor ni internet). Parte de la misma versión de producción, en una carpeta temporal (no toca `public/` ni `game.json`). Otro nombre: `npm run html -- --destino=otro.html`. |
 | `npm run lint` | Revisa el contenido: ids duplicados, personajes, expedientes, `luego` hacia cartas que no existen, cartas `solo_luego` que nunca se encolan, banderas que se leen pero nada pone, umbrales y eras mal escritos, cinemáticas y assets que faltan, textos demasiado largos. `--todo` muestra también la info. |
 | `npm run check` | lint + build a un archivo temporal + simulador de escenas. Úsalo antes de cada commit. |
 | `npm run balance` | 5000 partidas por bot → `tools/balance/reporte.txt` y `reporte.json` (este último lo lee el editor). |
@@ -64,10 +117,6 @@ Los objetos se crean por código; en la escena Juego puedes añadir animaciones 
 * **Finales = destinos.** Tras 8 directores (`uan.n_directores`) o si algún medidor llega a un extremo, la historia termina con uno de 9 destinos de la UAN y de Nayarit (2040: Renacimiento, Motor del desarrollo, Último refugio, Quiebra y rescate, Huelga indefinida, Intervención estatal, Captura total, Torre de marfil, Sobrevivió) y una crónica de los directores que jugaste. Después la historia se archiva en la **Crónica** del Menú y se reinicia todo (los logros se conservan).
 * **Menú:** Nueva partida (siguiente director), Continuar, Logros, **Ranking**, **Opciones**, **Nueva historia** (reinicia dinastía y medidores; pide confirmar), **Crónica** (historias pasadas) y Créditos; muestra el estado actual de la UAN.
 * Las variables de escena `UAN_Solvencia`, `UAN_Paz`, `UAN_Autonomia`, `UAN_Prestigio`, `Nay_Desarrollo`, `Nay_Seguridad`, `Historia` y `Destino` están disponibles para tus eventos. Detalle completo en `src/ESQUEMA.md`.
-
-## Controles
-Arrastrar la carta o flechas ←/→ (↑ usa expediente); Espacio/Enter/clic avanzan; minijuegos con ratón o teclas 1-3; **Escape** pausa (Continuar / Opciones / Guardar y salir al menú). Se autoguarda en cada carta.
-
 
 ## Paleta y fuentes (LAYOUT.col y LAYOUT.fuente, en `src/js/00_comun.js`)
 

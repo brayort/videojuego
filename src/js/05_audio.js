@@ -265,6 +265,8 @@ if (!S.u.audioListo) {
     });
     setTxt(U.mkTxt(A, "TxtTexto", 40, Y0 + 4 * (KH + G + 8) + 6, 22, W - 80, { al: "center", col: "crema_osc", z: z0 + 10 }), "También puedes escribir con el teclado.");
     const bOk = U.mkBtn(A, 80, 1118, 560, 96, "Empezar", z0 + 10);
+    const tAv = U.mkTxt(A, "TxtTexto", 40, 1062, 28, W - 80, { al: "center", col: "dorado_claro", z: z0 + 10 });   // aviso: no se empieza sin nombre
+    let avisar = false;
     const mete = ch => {
       if (ch === "<") { nombre = nombre.slice(0, -1); return; }
       if (nombre.length >= MAXN) return;
@@ -284,7 +286,10 @@ if (!S.u.audioListo) {
       if (tNom.__s !== v) setTxt(tNom, v || " ");
       const d = dif === "dificil" ? "Sin pistas: decides a ciegas y descubres las consecuencias al vivirlas." : "Las cartas te muestran qué va a subir y qué va a bajar.";
       if (tDes.__s !== d) setTxt(tDes, d);
+      const av = avisar && !nombre.trim() ? "Escribe tu nombre para empezar." : " ";
+      if (tAv.__s !== av) setTxt(tAv, av);
       if (U.btnTick(bOk, I) || I.kp[13]) {
+        if (!nombre.trim()) { avisar = true; return false; }   // sin nombre no se juega
         aj.nombre = nombre.trim(); aj.nombrePedido = true; aj.dificultad = dif; U.guardarAj();
         return true;
       }

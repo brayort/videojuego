@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="fondo" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#14306a"/><stop offset="1" stop-color="#0b1a33"/>
+    </linearGradient>
+    <linearGradient id="carta" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f4f8ff"/><stop offset="1" stop-color="#bcd0f2"/>
+    </linearGradient>
+    <clipPath id="recorte"><rect x="156" y="110" width="200" height="270" rx="28"/></clipPath>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#fondo)"/>
+  <rect x="14" y="14" width="484" height="484" rx="100" fill="none" stroke="#f2c230" stroke-width="8"/>
+  <g transform="translate(256 256) scale(1.2) translate(-256 -245)">
+    <rect x="156" y="110" width="200" height="270" rx="28" fill="#1e4fa3" stroke="#f2c230" stroke-width="5" transform="rotate(-16 256 245)"/>
+    <rect x="156" y="110" width="200" height="270" rx="28" fill="#1e4fa3" stroke="#f2c230" stroke-width="5" transform="rotate(16 256 245)"/>
+    <rect x="156" y="110" width="200" height="270" rx="28" fill="url(#carta)" stroke="#2f6fd0" stroke-width="10"/>
+    <g clip-path="url(#recorte)">
+      <rect x="214" y="150" width="84" height="140" rx="42" fill="#2f6fd0"/>
+      <path d="M232 190 Q256 168 280 190" fill="none" stroke="#9cc0ff" stroke-width="9" stroke-linecap="round"/>
+      <rect x="194" y="244" width="34" height="70" rx="12" fill="#0e2550"/>
+      <rect x="284" y="244" width="34" height="70" rx="12" fill="#0e2550"/>
+      <rect x="150" y="304" width="212" height="90" fill="#0e2550"/>
+      <rect x="150" y="298" width="212" height="12" fill="#2f6fd0"/>
+      <rect x="192" y="322" width="128" height="40" rx="8" fill="#f2c230"/>
+      <rect x="206" y="338" width="100" height="8" rx="4" fill="#b88a00" opacity=".55"/>
+    </g>
+  </g>
+</svg>

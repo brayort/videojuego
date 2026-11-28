@@ -3,11 +3,15 @@
 // tools/dump_screens.js, y dibuja el resultado en un canvas con los sprites y fuentes de assets/. La logica de
 // dibujo replica tools/preview_layout.py (mismas reglas de orden, escala, rotacion, opacidad y ajuste de texto).
 // Recarga en caliente: el servidor avisa por SSE (/events) cuando cambia src/ y se reinicia la escena actual.
+// Este mismo archivo se usa en PRODUCCION (npm run prod lo copia a public/): alli la pagina define window.__PROD y el
+// reproductor arranca sin barra de herramientas, sin lint, sin depuracion y sin recarga en caliente.
 (function () {
   "use strict";
   const W = 720, H = 1280;
   const $ = id => document.getElementById(id);
   const cv = $("lienzo"), ctx = cv.getContext("2d");
+  // Produccion: public/index.html define window.__PROD = { version, mp3 }. Las rutas son relativas para que funcione en una subcarpeta.
+  const PROD = window.__PROD || null, BASE = PROD ? "" : "/";
 
   // ---------------- estado del reproductor ----------------
   let juego = null, versionCargada = -1, escena = null, actual = "Menu", cambio = null, cargando = false, conError = false;
@@ -16,10 +20,26 @@
   let orden = 0, ultimo = 0;
   const opciones = { depuracion: true, continuar: true };
   try { Object.assign(opciones, JSON.parse(localStorage.getItem("uan_play_opc") || "{}")); } catch (e) { }
+  if (PROD) { opciones.depuracion = false; opciones.continuar = false; }
 
   // ---------------- API de GDevelop simulada (sonido, ranking) ----------------
   let musica = null;
-  const sonar = (n, vol, pitch, loop) => { try { const a = new Audio("/" + n); a.volume = Math.max(0, Math.min(1, vol / 100)); a.playbackRate = pitch || 1; a.loop = !!loop; a.play().catch(() => { }); return a; } catch (e) { return null; } };
+  // Safari en iPhone no reproduce .ogg: en produccion se usan los .mp3 que genera npm run prod (si hay ffmpeg).
+  const sinOgg = !!(PROD && PROD.mp3) && !document.createElement("audio").canPlayType('audio/ogg; codecs="vorbis"');
+  // Archivo unico (npm run html): los recursos vienen dentro de la pagina como data: URI, indexados por su ruta.
+  const incrustado = f => PROD && PROD.archivos && PROD.archivos[f];
+  const rutaAudio = n => incrustado(n) || BASE + encodeURI(sinOgg ? n.replace(/\.ogg$/i, ".mp3") : n);
+  // Si el navegador rechazo la musica (aun no habia un toque), se reintenta en el siguiente toque o tecla. Al ocultar la
+  // pestana o bloquear el telefono se pausa, y vuelve al regresar.
+  let pausadaPorOculta = false;
+  const despertarAudio = () => { if (musica && musica.paused && !document.hidden) musica.play().catch(() => { }); };
+  window.addEventListener("pointerdown", despertarAudio, true); window.addEventListener("keydown", despertarAudio, true);
+  document.addEventListener("visibilitychange", () => {
+    if (!musica) return;
+    if (document.hidden) { pausadaPorOculta = !musica.paused; musica.pause(); }
+    else if (pausadaPorOculta) { pausadaPorOculta = false; musica.play().catch(() => { }); }
+  });
+  const sonar = (n, vol, pitch, loop) => { try { const a = new Audio(rutaAudio(n)); a.volume = Math.max(0, Math.min(1, vol / 100)); a.playbackRate = pitch || 1; a.loop = !!loop; a.play().catch(() => { }); return a; } catch (e) { return null; } };
   window.gdjs = { evtTools: {
     runtimeScene: { replaceScene(sc, nombre) { cambio = nombre; } },
     sound: {
@@ -81,7 +101,8 @@
   // ---------------- carga de game.json, imagenes y fuentes ----------------
   const recoger = (evs, out) => { evs.forEach(e => { if (e.type.endsWith("JsCode")) out.push(e.inlineCode); if (e.events) recoger(e.events, out); }); return out; };
   const familia = ruta => ruta.split("/").pop().replace(/\.[^.]+$/, "");
-  const cargarImg = f => new Promise(ok => { const i = new Image(); i.onload = () => ok(i); i.onerror = () => ok(null); i.src = "/" + f; });
+  const cargarImg = f => new Promise(ok => { const i = new Image(); i.onload = () => ok(i); i.onerror = () => ok(null); i.src = incrustado(f) || BASE + encodeURI(f); });
+  const progreso = (n, total) => { const b = $("cargaBarra"); if (b) b.style.width = Math.round(100 * n / Math.max(1, total)) + "%"; };   // barra de carga (solo existe en produccion)
   async function prepararAssets(g) {
     const rutas = new Set(), tipos = new Set();
     g.layouts.forEach(l => l.objects.forEach(o => {
@@ -89,9 +110,11 @@
       if (o.type === "TextObject::Text" && o.font) tipos.add(o.font);
     }));
     imgs.clear(); medidas.clear();
-    await Promise.all([...rutas].map(async f => { const i = await cargarImg(f); if (i) imgs.set(f, i); }));
+    (g.prodOmitir || []).forEach(f => rutas.delete(f));   // produccion: sprites que game.json nombra pero aun no existen (ver tools/play/prod.js)
+    let hechas = 0;
+    await Promise.all([...rutas].map(async f => { const i = await cargarImg(f); if (i) imgs.set(f, i); progreso(++hechas, rutas.size); }));
     await Promise.all([...tipos].filter(f => !fuentes.has(f)).map(async f => {
-      try { const ff = new FontFace(familia(f), "url(/" + f + ")"); await ff.load(); document.fonts.add(ff); fuentes.add(f); } catch (e) { console.warn("fuente no cargada", f, e); }
+      try { const ff = new FontFace(familia(f), "url(" + (incrustado(f) || BASE + encodeURI(f)) + ")"); await ff.load(); document.fonts.add(ff); fuentes.add(f); } catch (e) { console.warn("fuente no cargada", f, e); }
     }));
     return { imagenes: imgs.size, fuentes: fuentes.size };
   }
@@ -109,7 +132,8 @@
 
   // ---------------- recarga en caliente ----------------
   async function pedirJuego() {
-    for (let i = 0; i < 6; i++) { try { const r = await fetch("/game.json", { cache: "no-store" }); return await r.json(); } catch (e) { await new Promise(ok => setTimeout(ok, 300)); } }
+    if (PROD && PROD.juego) return PROD.juego;   // archivo unico: sin servidor no hay fetch (file://)
+    for (let i = 0; i < 6; i++) { try { const r = await fetch(PROD ? "game.json?v=" + PROD.version : "/game.json", { cache: PROD ? "default" : "no-store" }); if (!r.ok) throw new Error("HTTP " + r.status); return await r.json(); } catch (e) { await new Promise(ok => setTimeout(ok, 300)); } }
     throw new Error("no se pudo leer game.json del servidor");
   }
   async function recargar(version, primera) {
@@ -119,12 +143,14 @@
       const g = await pedirJuego(); await prepararAssets(g); montar(g); juego = g; versionCargada = version;
       if (primera) { actual = "Menu"; } else if (seguir && localStorage.getItem("directorUAN_partida")) gvars.Modo = "continuar";
       escena = mkScene(actual); cambio = null; conError = false; $("error").hidden = true;
-      $("info").textContent = primera ? "Listo." : "Recargado: " + new Date().toLocaleTimeString("es-MX") + " (escena " + actual + ")";
+      if ($("info")) $("info").textContent = primera ? "Listo." : "Recargado: " + new Date().toLocaleTimeString("es-MX") + " (escena " + actual + ")";
+      if ($("carga")) $("carga").hidden = true;
     } catch (e) { mostrarError(e); }
     cargando = false;
   }
   function mostrarError(e) {
     conError = true; console.error(e);
+    if (PROD) { if ($("carga")) $("carga").hidden = true; $("error").hidden = false; $("error").textContent = "Algo falló en el juego.\nRecarga la página para continuar: tu partida se guarda sola en cada carta."; return; }
     $("error").hidden = false; $("error").textContent = "Error en el juego (se reintenta al guardar el siguiente cambio):\n\n" + (e && e.stack ? e.stack.split("\n").slice(0, 6).join("\n") : String(e));
   }
   function pintarEstado(m) {
@@ -161,8 +187,16 @@
     });
     return out;
   }
+  // En produccion el lienzo se dibuja a la resolucion real de la pantalla (hasta 2x) para que el texto se vea nitido en
+  // telefonos y monitores grandes; las coordenadas del juego siguen siendo 720 x 1280.
+  let esc = 1;
+  function ajustar() {
+    const r = cv.getBoundingClientRect(); if (!r.height) return;
+    const e = Math.round(Math.max(1, Math.min(2, r.height * (window.devicePixelRatio || 1) / H)) * 4) / 4;
+    if (e !== esc) { esc = e; cv.width = W * esc; cv.height = H * esc; }
+  }
   function dibujar() {
-    ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.fillStyle = "#000"; ctx.fillRect(0, 0, W, H);
+    ctx.setTransform(esc, 0, 0, esc, 0, 0); ctx.globalAlpha = 1; ctx.fillStyle = "#000"; ctx.fillRect(0, 0, W, H);
     if (!escena) return;
     const objs = [...escena.objs].filter(o => !o.deleted && !o.hidden && o.op > 0).sort((a, b) => a.z - b.z || a.orden - b.orden);
     for (const o of objs) {
@@ -214,6 +248,16 @@
   });
   window.addEventListener("keyup", e => { liberar.keys.push(e.keyCode); });
   window.addEventListener("blur", () => { entrada.keys = {}; entrada.mouse = false; });
+
+  if (PROD) cv.addEventListener("contextmenu", e => e.preventDefault());   // sin menu al mantener pulsado en el telefono
+
+  // ---------------- arranque en produccion (sin barra, sin servidor de desarrollo) ----------------
+  if (PROD) {
+    ajustar(); window.addEventListener("resize", ajustar);
+    requestAnimationFrame(cuadro);
+    recargar(1, true);
+    return;
+  }
 
   // ---------------- barra de herramientas ----------------
   const guardarOpc = () => { try { localStorage.setItem("uan_play_opc", JSON.stringify(opciones)); } catch (e) { } };

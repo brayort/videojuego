@@ -17,6 +17,7 @@
   body { font-family: "Nunito", sans-serif; font-weight: 600; color: var(--tinta); font-size: 10pt; line-height: 1.4; }
   .pagina { position: relative; width: 8.5in; height: 11in; overflow: hidden; background: var(--fondo); page-break-after: always; }
   .pagina:last-child { page-break-after: auto; }
+  .pagina:first-of-type { overflow: visible; }
   .cuerpo { position: absolute; left: 0.6in; right: 0.6in; top: 0.98in; bottom: 0.62in; }
   h1 { font-family: "Fredoka"; font-weight: 600; font-size: 19pt; line-height: 1.05; color: var(--marino); margin: 0.24in 0 0.14in; }
   h1:first-child { margin-top: 0; }
@@ -57,7 +58,7 @@
   .tabla td:first-child { font-family: "Fredoka"; color: var(--azul); }
 
   /* ---- página 1 ---- */
-  .hero { position: absolute; left: 0; top: 0; width: 8.5in; height: 3.5in; color: #fff;
+  .hero { position: absolute; left: -0.2in; top: -0.2in; width: 8.5in; height: 3.5in; color: #fff; box-sizing: content-box; border: 0.2in solid #060f26; border-bottom: 0; background-clip: padding-box; /* el borde sangra fuera de la hoja para que no quede un filo blanco */
           background:
             radial-gradient(ellipse 3.2in 2.6in at 6.9in 2.0in, rgba(244,196,48,.32), rgba(244,196,48,0) 70%),
             repeating-linear-gradient(135deg, rgba(255,255,255,.04) 0 0.03in, rgba(255,255,255,0) 0.03in 0.5in),
@@ -69,7 +70,7 @@
   .t2 { position: absolute; left: 0.575in; top: 1.32in; font-family: "Fredoka"; font-size: 63pt; line-height: 1; letter-spacing: 0.02in; color: var(--ama);
         text-shadow: 0 0.035in 0 #c68a00, 0 0.075in 0 #6a4600, 0 0.14in 0.22in rgba(0,0,0,.5); }
   .antes { position: absolute; left: 0.62in; top: 2.4in; font-size: 9pt; color: #b8cbee; }
-  .pitch { position: absolute; left: 0.6in; top: 2.66in; width: 4.7in; font-size: 11.5pt; line-height: 1.3; color: #fff; }
+  .pitch { position: absolute; left: 0.6in; top: 2.5in; width: 4.7in; font-size: 11.5pt; line-height: 1.3; color: #fff; }
   .dorso { position: absolute; width: 1.55in; height: 2.35in; border-radius: 0.2in; background: var(--azul); border: 0.06in solid #2f6fd0; box-shadow: 0 0.07in 0 #0a1c46; }
   .dorso::after { content: ""; position: absolute; inset: 0.08in; border-radius: 0.12in; border: 0.02in solid var(--ama);
            background: repeating-linear-gradient(45deg, rgba(47,111,208,.55) 0 0.04in, rgba(47,111,208,0) 0.04in 0.18in), repeating-linear-gradient(-45deg, rgba(47,111,208,.55) 0 0.04in, rgba(47,111,208,0) 0.04in 0.18in), #0e2550; }
@@ -157,7 +158,6 @@
     <div class="chip">BRIEF</div>
     <div class="t1">FIN DE LA</div>
     <div class="t2">GESTIÓN</div>
-    <div class="antes">Antes «Director UAN: Economía»</div>
     <p class="pitch">Un juego de cartas de decisiones: diriges una unidad académica y cada elección tiene un costo para profesores, alumnos, finanzas o rectoría.</p>
   </div>
   <div class="dorso" style="left:6.72in; top:0.78in; transform:rotate(14deg)"></div>
@@ -471,7 +471,7 @@
   <div class="cuerpo">
     <h1>Notas finales <small>calendario, riesgos y lo que sigue</small></h1>
 
-    <div class="bloque"><div class="q">Calendario</div>
+    <div class="bloque"><div class="q">¿Cuál es el calendario?</div>
       <div class="gantt">
         <div class="fila" style="top:0.27in">Planear</div>
         <div class="fila" style="top:0.425in">Diseño</div>
@@ -496,7 +496,7 @@
         </div>
       </div></div>
 
-    <div class="bloque"><div class="q">Etapas</div>
+    <div class="bloque"><div class="q">¿Cuáles fueron las etapas?</div>
       <div class="fases">
         <div class="fase"><strong>Preparación</strong><small>septiembre – octubre</small>Plan del juego, bocetos de pantallas y primer modelo.</div>
         <div class="fase"><strong>Primera versión</strong><small>29 de octubre</small>Lo básico ya se podía jugar: cartas, barras, votación, reemplazo y sonido.</div>
@@ -504,7 +504,7 @@
         <div class="fase curso"><strong>Detalles finales</strong><small>en curso</small>Más pruebas y dibujos finales.</div>
       </div></div>
 
-    <div class="bloque"><div class="q">Riesgos y cuidados</div>
+    <div class="bloque"><div class="q">¿Qué riesgos hay que cuidar?</div>
       <div class="tres">
         <div class="riesgo"><small>Personas reales</small>Aparecen nombres y dibujos de maestros reales: hay que pedirles permiso. El villano, El Quinto, es inventado.</div>
         <div class="riesgo"><small>Textos largos</small>Si hay mucho que leer, la gente deja de jugar: cada carta es corta y un programa avisa si un texto no cabe.</div>
@@ -512,7 +512,7 @@
       </div></div>
 
     <div class="cols">
-      <div class="bloque"><div class="q">Lo que sigue</div>
+      <div class="bloque"><div class="q">¿Qué sigue?</div>
         <ul class="lista">
           <li><b>Probar con más gente,</b> también con maestros, y anotar qué calificación le dan y cuántos terminan la partida.</li>
           <li><b>Comprobar las flechas:</b> ver si ahora sí se entiende qué barra sube y cuál baja.</li>
@@ -520,7 +520,7 @@
           <li><b>Que jugar sin pensar dure más:</b> de 26 semanas a entre 30 y 45.</li>
           <li><b>Terminar los dibujos</b> y repartir mejor las cartas entre los personajes.</li>
         </ul></div>
-      <div class="bloque"><div class="q">Lo que aprendimos</div>
+      <div class="bloque"><div class="q">¿Qué aprendimos?</div>
         <div class="ambar" style="margin-bottom:0.12in"><small>Lo que creíamos y no era cierto</small>«Con un punto basta para saber qué va a pasar.» Hubo que mostrar si sube o baja, y cuánto.</div>
         <p>Probar con personas cambió el juego: dejamos de suponer qué se entendía y empezamos a verlo.</p></div>
     </div>
