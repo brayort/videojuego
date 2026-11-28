@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#060f26">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="description" content="Fin de la Gestión: un juego de cartas de decisiones. Diriges una unidad académica y cada elección tiene un costo.">
+<title>Fin de la Gestión</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230e2550'/%3E%3Crect x='17' y='9' width='30' height='46' rx='5' fill='%231e4fa3' stroke='%23f2c230' stroke-width='4'/%3E%3C/svg%3E">
+<style>
+  @font-face { font-family: "Fredoka"; src: url("assets/fonts/Fredoka-SemiBold.ttf"); font-weight: 600; font-display: swap; }
+  @font-face { font-family: "Nunito";  src: url("assets/fonts/Nunito-SemiBold.ttf");  font-weight: 600; font-display: swap; }
+  :root { --marino: #0e2550; --azul: #1e4fa3; --vivo: #2f6fd0; --ama: #f2c230; --ama-cl: #ffe58a; --noche: #060f26;
+          --alto: 100vh; }
+  @supports (height: 100dvh) { :root { --alto: 100dvh; } }
+  * { box-sizing: border-box; }
+  /* Sin desplazamiento, sin zoom ni seleccion: en el telefono la pagina se comporta como una app. */
+  html, body { height: 100%; margin: 0; background: var(--noche); color: #fff; overflow: hidden; overscroll-behavior: none;
+               -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent; -webkit-touch-callout: none; touch-action: none; }
+  body { position: fixed; inset: 0; font: 600 15px/1.45 "Nunito", system-ui, "Segoe UI", sans-serif; }
+
+  /* ---- fondo para quien juega en computadora (en el telefono no se muestra ni se descarga la imagen) ---- */
+  #fondo, #velo { position: fixed; display: none; }
+  #fondo { inset: -24px; background: linear-gradient(180deg, #060f26 0%, #0c2152 42%, #143c86 78%, #1c52a8 100%) center / cover no-repeat; filter: blur(3px); }
+  #velo { inset: 0; background:
+            radial-gradient(ellipse 46vw 60vh at 50% 46%, rgba(242,194,48,.20), rgba(242,194,48,0) 70%),
+            repeating-linear-gradient(135deg, rgba(255,255,255,.035) 0 3px, rgba(255,255,255,0) 3px 46px),
+            linear-gradient(180deg, rgba(6,15,38,.82) 0%, rgba(14,37,80,.62) 48%, rgba(6,15,38,.88) 100%); }
+
+  /* ---- mesa: el juego al centro; en pantallas anchas, un panel a cada lado ---- */
+  #mesa { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; gap: 44px;
+          padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); }
+  #marco { position: relative; flex: none; aspect-ratio: 9 / 16;
+           width: min(100vw, calc((var(--alto) - env(safe-area-inset-top) - env(safe-area-inset-bottom)) * 0.5625)); }
+  #lienzo { display: block; width: 100%; height: 100%; background: var(--noche); touch-action: none; outline: none; }
+  .lado { display: none; flex: none; width: 270px; }
+
+  @media (min-width: 760px) and (min-height: 520px) {
+    #fondo, #velo { display: block; }
+    #marco { width: min(calc(100vw - 48px), calc((var(--alto) - 40px) * 0.5625)); border-radius: 16px; overflow: hidden;
+             box-shadow: 0 0 0 3px var(--ama), 0 0 0 9px rgba(14,37,80,.85), 0 26px 80px rgba(0,0,0,.65); }
+  }
+  @media (min-width: 1180px) and (min-height: 600px) { .lado { display: block; } }
+
+  .lado h1 { margin: 0 0 16px; font-family: "Fredoka", sans-serif; font-weight: 600; line-height: 1; letter-spacing: .02em; }
+  .lado h1 span { display: block; font-size: 26px; color: #fff; text-shadow: 0 2px 0 #1e4fa0, 0 5px 0 #0a1c46; }
+  .lado h1 strong { display: block; font-size: 52px; font-weight: 600; color: var(--ama); margin-top: 4px; text-shadow: 0 3px 0 #c68a00, 0 7px 0 #6a4600, 0 14px 22px rgba(0,0,0,.5); }
+  .lado p { margin: 0 0 12px; color: #d6e2f5; }
+  .lado h2 { margin: 0 0 14px; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 19px; color: var(--ama-cl); }
+  .lado ul { list-style: none; margin: 0 0 16px; padding: 0; }
+  .lado li { display: flex; align-items: center; gap: 12px; margin-bottom: 11px; color: #d6e2f5; line-height: 1.25; }
+  .lado kbd { flex: none; min-width: 74px; text-align: center; font: 600 13px "Fredoka", sans-serif; color: var(--marino); background: var(--ama);
+              border-radius: 8px; padding: 5px 8px 6px; box-shadow: 0 3px 0 #c68a00; }
+  .lado small { display: block; font-size: 13px; color: #9fb4d6; border-top: 1px solid rgba(255,255,255,.14); padding-top: 12px; }
+
+  /* ---- carga, error y aviso de girar el telefono ---- */
+  #carga { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; text-align: center;
+           background: linear-gradient(180deg, #060f26 0%, #0c2152 55%, #143c86 100%); }
+  #carga[hidden], #error[hidden] { display: none; }
+  #carga .t1 { font: 600 clamp(20px, 6vw, 30px)/1 "Fredoka", sans-serif; letter-spacing: .02em; }
+  #carga .t2 { font: 600 clamp(40px, 13vw, 62px)/1 "Fredoka", sans-serif; letter-spacing: .02em; color: var(--ama); margin-top: 6px; text-shadow: 0 3px 0 #c68a00, 0 7px 0 #6a4600; }
+  #carga .pista { width: 62%; height: 10px; border-radius: 6px; background: rgba(255,255,255,.14); overflow: hidden; }
+  #cargaBarra { width: 0; height: 100%; border-radius: 6px; background: var(--ama); transition: width .15s linear; }
+  #carga .nota { color: #9fb4d6; font-size: 14px; }
+  #error { position: absolute; left: 6%; right: 6%; bottom: 8%; margin: 0; white-space: pre-wrap; text-align: center; font: inherit; color: #fff;
+           background: rgba(14,37,80,.96); border: 2px solid var(--ama); border-radius: 14px; padding: 16px 18px; }
+  #gira { position: fixed; inset: 0; z-index: 10; display: none; align-items: center; justify-content: center; text-align: center; padding: 24px;
+          background: var(--noche); font: 600 20px/1.3 "Fredoka", sans-serif; color: var(--ama-cl); }
+  @media (orientation: landscape) and (max-height: 520px) and (pointer: coarse) { #gira { display: flex; } }
+  noscript { position: fixed; inset: 0; z-index: 20; display: flex; align-items: center; justify-content: center; padding: 24px; text-align: center; background: var(--noche); }
+</style>
+</head>
+<body>
+<div id="fondo"></div>
+<div id="velo"></div>
+
+<div id="mesa">
+  <aside class="lado">
+    <h1><span>FIN DE LA</span><strong>GESTIÓN</strong></h1>
+    <p>Un juego de cartas de decisiones. Diriges una unidad académica y cada elección tiene un costo para profesores, alumnos, finanzas o rectoría.</p>
+    <p>Si un indicador llega a 0 o a 100, termina tu gestión… y la historia sigue con tu sucesor.</p>
+  </aside>
+
+  <main id="marco">
+    <canvas id="lienzo" width="720" height="1280" tabindex="0" aria-label="Fin de la Gestión, juego de cartas"></canvas>
+    <div id="carga">
+      <div><div class="t1">FIN DE LA</div><div class="t2">GESTIÓN</div></div>
+      <div class="pista"><div id="cargaBarra"></div></div>
+      <div class="nota">Cargando…</div>
+    </div>
+    <pre id="error" hidden></pre>
+  </main>
+
+  <aside class="lado">
+    <h2>Cómo se juega</h2>
+    <ul>
+      <li><kbd>← →</kbd><span>Arrastra la carta o usa las flechas para decidir</span></li>
+      <li><kbd>↑</kbd><span>Usa un expediente</span></li>
+      <li><kbd>Espacio</kbd><span>Avanzar (también Enter o clic)</span></li>
+      <li><kbd>Esc</kbd><span>Pausa y opciones</span></li>
+    </ul>
+    <small>Tu partida se guarda sola en este navegador, en cada carta.</small>
+  </aside>
+</div>
+
+<div id="gira">Gira tu teléfono<br>para jugar en vertical</div>
+<noscript>Este juego necesita JavaScript para funcionar.</noscript>
+
+<script>
+  window.__PROD = { version: "c509d2e0c6", mp3: true };
+  // Fondo de escritorio: una ilustracion al azar. Solo se pide en pantallas anchas; en el telefono no se descarga.
+  (function () {
+    var fondos = ["fondo/fondo-1.webp","fondo/fondo-2.webp","fondo/fondo-3.webp"], f = document.getElementById("fondo"), ancho = "(min-width: 760px) and (min-height: 520px)";
+    function poner() {
+      if (!fondos.length || f.dataset.listo || !window.matchMedia(ancho).matches) return;
+      f.dataset.listo = "1";
+      f.style.backgroundImage = "url('" + fondos[Math.floor(Math.random() * fondos.length)] + "')";
+    }
+    poner(); window.addEventListener("resize", poner);
+  })();
+</script>
+<script src="player.js?v=c509d2e0c6"></script>
+</body>
+</html>

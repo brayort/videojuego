@@ -1,0 +1,93 @@
+<!doctype html>
+<!-- Pagina /nosotros: mismo diseno que la pantalla principal (tools/play/prod.html), con el trailer en lugar del juego.
+     Vive en public/nosotros/ y `npm run prod` no la borra. -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#060f26">
+<meta name="description" content="Fin de la Gestión: un juego de cartas de decisiones. Mira el tráiler.">
+<title>Fin de la Gestión — Nosotros</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230e2550'/%3E%3Crect x='17' y='9' width='30' height='46' rx='5' fill='%231e4fa3' stroke='%23f2c230' stroke-width='4'/%3E%3C/svg%3E">
+<style>
+  @font-face { font-family: "Fredoka"; src: url("../assets/fonts/Fredoka-SemiBold.ttf"); font-weight: 600; font-display: swap; }
+  @font-face { font-family: "Nunito";  src: url("../assets/fonts/Nunito-SemiBold.ttf");  font-weight: 600; font-display: swap; }
+  :root { --marino: #0e2550; --azul: #1e4fa3; --vivo: #2f6fd0; --ama: #f2c230; --ama-cl: #ffe58a; --noche: #060f26; --alto: 100vh; }
+  @supports (height: 100dvh) { :root { --alto: 100dvh; } }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; background: var(--noche); color: #fff; -webkit-tap-highlight-color: transparent; }
+  body { font: 600 15px/1.45 "Nunito", system-ui, "Segoe UI", sans-serif; }
+
+  /* ---- fondo para computadora (en el telefono no se muestra ni se descarga la imagen) ---- */
+  #fondo, #velo { position: fixed; display: none; }
+  #fondo { inset: -24px; background: linear-gradient(180deg, #060f26 0%, #0c2152 42%, #143c86 78%, #1c52a8 100%) center / cover no-repeat; filter: blur(3px); }
+  #velo { inset: 0; background:
+            radial-gradient(ellipse 46vw 60vh at 50% 46%, rgba(242,194,48,.20), rgba(242,194,48,0) 70%),
+            repeating-linear-gradient(135deg, rgba(255,255,255,.035) 0 3px, rgba(255,255,255,0) 3px 46px),
+            linear-gradient(180deg, rgba(6,15,38,.82) 0%, rgba(14,37,80,.62) 48%, rgba(6,15,38,.88) 100%); }
+
+  /* ---- mesa: el trailer al centro; en pantallas anchas, un panel a cada lado ---- */
+  #mesa { position: relative; min-height: var(--alto); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;
+          padding: max(20px, env(safe-area-inset-top)) 16px max(24px, env(safe-area-inset-bottom)); background: linear-gradient(180deg, #060f26 0%, #0c2152 55%, #143c86 100%); }
+  #marco { position: relative; flex: none; aspect-ratio: 9 / 16; width: min(100%, calc((var(--alto) - 190px) * 0.5625)); background: var(--noche); border-radius: 16px; overflow: hidden;
+           box-shadow: 0 0 0 3px var(--ama), 0 0 0 9px rgba(14,37,80,.85), 0 26px 80px rgba(0,0,0,.65); margin: 9px 0; }
+  #marco video { display: block; width: 100%; height: 100%; background: #000; object-fit: contain; }
+  .lado { flex: none; width: min(100%, 420px); text-align: center; }
+  .lado.dcha { order: 3; }
+
+  @media (min-width: 760px) and (min-height: 520px) {
+    #fondo, #velo { display: block; }
+    #mesa { flex-direction: row; gap: 44px; padding: 20px 24px; background: none; }
+    #marco { width: min(calc(100vw - 48px), calc((var(--alto) - 40px) * 0.5625)); margin: 0; }
+    .lado { width: 270px; text-align: left; }
+  }
+  /* en pantallas medianas solo se muestra el panel izquierdo; el derecho aparece desde 1180 px */
+  @media (min-width: 760px) and (max-width: 1179px) { .lado.dcha { display: none; } .lado.izda { width: 220px; } .lado h1 strong { font-size: 40px; } }
+
+  .lado h1 { margin: 0 0 16px; font-family: "Fredoka", sans-serif; font-weight: 600; line-height: 1; letter-spacing: .02em; }
+  .lado h1 span { display: block; font-size: 26px; color: #fff; text-shadow: 0 2px 0 #1e4fa0, 0 5px 0 #0a1c46; }
+  .lado h1 strong { display: block; font-size: 52px; font-weight: 600; color: var(--ama); margin-top: 4px; text-shadow: 0 3px 0 #c68a00, 0 7px 0 #6a4600, 0 14px 22px rgba(0,0,0,.5); }
+  .lado p { margin: 0 0 12px; color: #d6e2f5; }
+  .lado h2 { margin: 0 0 14px; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 19px; color: var(--ama-cl); }
+  .lado small { display: block; font-size: 13px; color: #9fb4d6; border-top: 1px solid rgba(255,255,255,.14); padding-top: 12px; margin-top: 16px; }
+  a.jugar { display: inline-block; font: 600 22px "Fredoka", sans-serif; color: var(--marino); background: var(--ama); text-decoration: none;
+            border-radius: 12px; padding: 12px 32px 15px; box-shadow: 0 5px 0 #c68a00, 0 12px 24px rgba(0,0,0,.4); margin-bottom: 14px; }
+  a.jugar:active { transform: translateY(3px); box-shadow: 0 2px 0 #c68a00; }
+  .movil-jugar { display: block; text-align: center; }
+  @media (min-width: 760px) and (min-height: 520px) { .movil-jugar { display: none; } }
+</style>
+</head>
+<body>
+<div id="fondo"></div>
+<div id="velo"></div>
+
+<div id="mesa">
+  <aside class="lado izda">
+    <h1><span>FIN DE LA</span><strong>GESTIÓN</strong></h1>
+    <p>Un juego de cartas de decisiones. Diriges una unidad académica y cada elección tiene un costo para profesores, alumnos, finanzas o rectoría.</p>
+    <p>Si un indicador llega a 0 o a 100, termina tu gestión… y la historia sigue con tu sucesor.</p>
+  </aside>
+
+  <main id="marco">
+    <video src="trailer.mp4" controls playsinline preload="metadata" aria-label="Tráiler de Fin de la Gestión"></video>
+  </main>
+
+  <aside class="lado dcha">
+    <h2>Nosotros</h2>
+    <p>Mira el tráiler y, cuando quieras, siéntate en la silla del director.</p>
+    <a class="jugar" href="https://jugar.findelagesiton.online/">Jugar ahora</a>
+    <small>Tu partida se guarda sola en el navegador, en cada carta.</small>
+  </aside>
+  <div class="movil-jugar"><a class="jugar" href="https://jugar.findelagesiton.online/">Jugar ahora</a></div>
+</div>
+
+<script>
+  // Fondo de escritorio: una ilustracion al azar, solo en pantallas anchas.
+  (function () {
+    var f = document.getElementById("fondo");
+    if (window.matchMedia("(min-width: 760px) and (min-height: 520px)").matches)
+      f.style.backgroundImage = "url('../fondo/fondo-" + (1 + Math.floor(Math.random() * 3)) + ".webp')";
+  })();
+</script>
+</body>
+</html>
